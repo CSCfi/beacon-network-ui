@@ -36,7 +36,23 @@ export default {
       vm.query = value
       vm.results = true
       console.log(vm.query)
+    },
+    devToast: function() {
+      this.$snackbar.open({
+        duration: 10000,
+        message: 'This web page is under development and may exhibit funky behaviour.',
+        actionText: 'Cool',
+        onAction: () => {
+          this.$toast.open({
+            message: 'Thanks for understanding!',
+            position: 'is-bottom-right'
+          })
+        }
+      })
     }
+  },
+  beforeMount() {
+    this.devToast()
   }
 };
 </script>
