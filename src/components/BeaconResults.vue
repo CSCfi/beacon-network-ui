@@ -6,7 +6,7 @@
                 <b-switch v-model="hits">Hits Only</b-switch>
             </div>
             <div class="control">
-                <b-switch class="switch-public" v-model="pub" disabled>Public</b-switch>
+                <b-switch v-model="pub" disabled>Public</b-switch>
             </div>
             <div class="control">
                 <b-switch v-model="registered" disabled>Registered</b-switch>
@@ -100,9 +100,5 @@ section {
     margin: 0 auto;
     margin-top: 50px;
     width: 80%;
-}
-
-.switch-public {
-    color: green;
 }
 </style>

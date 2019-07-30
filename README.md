@@ -1,29 +1,30 @@
-# beacon
+# Beacon Network UI
 
-## Project setup
+Beacon Network UI serves as a Graphical User Interface for Beacon Network APIs.
+
+Beacon Network consumes the following APIs:
+* [Beacon Network Registry](https://github.com/CSCfi/beacon-network) (holds a catalogue of all services)
+* [Beacon Aggregator](https://github.com/CSCfi/beacon-network) (serves as a query gateway to beacons)
+* [OIDC Client](https://github.com/CSCfi/oidc-client) (user login at ELIXIR AAI)
+
+## Quick Start
+
+##### Install Node Modules
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+##### Run Development Server
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+##### Compile Production Build
 ```
 npm run build
 ```
 
-### Run your tests
+##### Run Production Server
 ```
-npm run test
+npm start
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
