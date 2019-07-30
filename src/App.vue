@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/"><img class="logo" alt="ELIXIR Beacon Network logo" src="./assets/beacon-network-logo.png" /></router-link>
+      <a href="/"><img class="logo" alt="ELIXIR Beacon Network logo" src="./assets/beacon-network-logo.png" /></a>
       <a href="https://auth-beacon.rahtiapp.fi/login"><img class="login" src="./assets/elixir-login.png"></a>
     </div>
     <router-view />

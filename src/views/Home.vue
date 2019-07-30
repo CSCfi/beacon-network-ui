@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <BasicSearch />
-    <BeaconResults class="visible" />
-    <HomeTabs class="visible" />
+    <BasicSearch v-on:basicSearch="searchView" />
+    <BeaconResults v-bind:class="{ 'hidden' : !results }" />
+    <HomeTabs v-bind:class="{ 'hidden' : results }" />
     <Footer />
   </div>
 </template>
@@ -22,9 +22,20 @@ export default {
     HomeTabs,
     Footer
   },
+  data() {
+    return {
+      query: "",
+      results: false
+    }
+  },
   methods: {
-    logoButton: function () {
-      
+    searchView: function(value) {
+      // Show component BeaconResults
+      // Hide component HomeTabs
+      var vm = this
+      vm.query = value
+      vm.results = true
+      console.log(vm.query)
     }
   }
 };

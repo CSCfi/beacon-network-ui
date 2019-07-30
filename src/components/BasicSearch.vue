@@ -28,7 +28,7 @@
             </b-input>
           </b-tooltip>
           <b-tooltip animated label="Query Beacons">
-            <b-button type="is-primary">Search</b-button>
+            <b-button v-on:click="basicSearch" type="is-primary">Search</b-button>
           </b-tooltip>
         </b-field>
       </form>
@@ -42,8 +42,27 @@
 <script>
 export default {
   name: "BasicSearch",
+  data() {
+    return {
+      query: ""
+    }
+  },
   props: {
-    query: String
+
+  },
+  methods: {
+    onSubmit : function () {
+      // onSubmit is called when user inputs ENTER on search bar
+      // proxy the event to the basicSearch function
+      var vm = this;
+      vm.basicSearch()
+    },
+    basicSearch : function () {
+      // basicSearch is called when user clicks search button
+      var vm = this;
+      // Send query string to Home component
+      this.$emit('basicSearch', vm.query)
+    }
   }
 };
 </script>
