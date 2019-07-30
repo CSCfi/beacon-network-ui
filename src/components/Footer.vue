@@ -19,7 +19,7 @@
             <p><router-link to="/docs">For Developers</router-link></p>
           </div>
           <div class="column">
-            <b>Network Host</b>
+            <h5>Contact</h5>
             <p>
               CSC - IT Center for Science Ltd.<br>
               Keilaranta 14, Espoo, Finland<br>
