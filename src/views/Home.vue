@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+    <div class="loggedStatus">
+      <b-taglist>
+        <b-tag v-if="getCookie('logged_in')" type="is-info">Logged In</b-tag>
+        <b-tag v-if="getCookie('bona_fide')" type="is-info">Bona Fide</b-tag>
+      </b-taglist>
+    </div>
     <BasicSearch v-on:basicSearch="searchView" />
     <BeaconResults ref="resultView" :queryParams="queryParams" v-bind:class="{ 'hidden' : !results }" />
     <HomeTabs v-bind:class="{ 'hidden' : results }" />
@@ -49,6 +55,21 @@ export default {
           })
         }
       })
+    },
+    getCookie: function(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
     }
   },
   beforeMount() {
@@ -67,4 +88,9 @@ export default {
   display: none;
 }
 
+.loggedStatus {
+ position: absolute;
+ top: 20px;
+ right: 150px;
+}
 </style>
