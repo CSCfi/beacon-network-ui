@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <BasicSearch v-on:basicSearch="searchView" />
-    <BeaconResults v-bind:class="{ 'hidden' : !results }" />
+    <BeaconResults :queryParams="queryParams" v-bind:class="{ 'hidden' : !results }" />
     <HomeTabs v-bind:class="{ 'hidden' : results }" />
     <Footer />
   </div>
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      query: "",
+      queryParams: {},
       results: false
     }
   },
@@ -33,9 +33,8 @@ export default {
       // Show component BeaconResults
       // Hide component HomeTabs
       var vm = this
-      vm.query = value
+      vm.queryParams = value
       vm.results = true
-      console.log(vm.query)
     },
     devToast: function() {
       this.$snackbar.open({

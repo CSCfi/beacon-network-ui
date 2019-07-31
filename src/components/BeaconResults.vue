@@ -52,6 +52,9 @@
 
 <script>
 export default {
+    props: {
+        queryParams: {}
+    },
     data() {
         return {
             hits: true,
@@ -63,11 +66,16 @@ export default {
         }
     },
     methods: {
-        queryAPI : function () {
+        queryAPI: function() {
             var vm = this;
+            // Retrieve search term from BasicSearch component again
+            // 
+            // ? here ? 
+            //
+            var queryString = vm.constructQueryString()
+            console.log(queryString)
             vm.response = [] // Clear table
-            var queryParams = `assemblyId=GRCh38&referenceName=MT&start=9&referenceBases=T&alternateBases=C&includeDatasetResponses=HIT`;
-            var websocket = new WebSocket(`wss://dev-aggregator-beacon.rahtiapp.fi/query?${queryParams}`);
+            var websocket = new WebSocket(`wss://dev-aggregator-beacon.rahtiapp.fi/query?${queryString}`);
         
             websocket.onopen = function(event) {
                 // The connection was opened
@@ -90,6 +98,20 @@ export default {
                 vm.isLoading = false;
                 console.log('websocket errored');
             };
+        },
+        constructQueryString: function() {
+            var vm = this
+            var baseString = `assemblyId=${vm.queryParams["assemblyId"]}&referenceName=${vm.queryParams["referenceName"]}\
+&referenceBases=${vm.queryParams["referenceBases"]}&startMin=${vm.queryParams["startMin"]}\
+&startMax=${vm.queryParams["startMax"]}&includeDatasetResponses=HIT`
+            if ("alternateBases" in vm.queryParams) {
+                baseString = baseString + `&alternateBases=${vm.queryParams["alternateBases"]}`
+            } else if ("variantType" in vm.queryParams) {
+                baseString = baseString + `&variantType=${vm.queryParams["variantType"]}`
+            } else {
+                console.log('Malformed query string.')
+            }
+            return baseString
         }
     }
 }
