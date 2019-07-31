@@ -35,13 +35,7 @@ export default {
       var vm = this
       vm.queryParams = value
       vm.results = true
-      vm.$refs.resultView.queryAPI()
-      // !
-      // 2 clicks on "search" are required for a search to occur
-      // because the results component doesn't receive
-      // the queryParams on the first event
-      // fix this
-      // !
+      vm.$refs.resultView.queryAPI(vm.queryParams)
     },
     devToast: function() {
       this.$snackbar.open({
