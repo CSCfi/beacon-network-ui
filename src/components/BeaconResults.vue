@@ -1,6 +1,6 @@
 <template>
     <section>
-        <button v-on:click="queryAPI">Search</button>
+
         <b-field grouped group-multiline>
             <div class="control">
                 <b-switch v-model="hits">Hits Only</b-switch>
@@ -68,35 +68,31 @@ export default {
     methods: {
         queryAPI: function() {
             var vm = this;
-            // Retrieve search term from BasicSearch component again
-            // 
-            // ? here ? 
-            //
             var queryString = vm.constructQueryString()
-            console.log(queryString)
+            // console.log(queryString)
             vm.response = [] // Clear table
             var websocket = new WebSocket(`wss://dev-aggregator-beacon.rahtiapp.fi/query?${queryString}`);
         
             websocket.onopen = function(event) {
                 // The connection was opened
                 vm.isLoading = true;
-                console.log('websocket opened');
+                // console.log('websocket opened');
             }; 
             websocket.onclose = function(event) { 
                 // The connection was closed
                 vm.isLoading = false;
-                console.log('websocket closed');
+                // console.log('websocket closed');
             }; 
             websocket.onmessage = function(event) {
                 // New message arrived
-                console.log('websocket received data');
+                // console.log('websocket received data');
                 // console.log(event.data);
                 vm.response.push(JSON.parse(event.data));
             }; 
             websocket.onerror = function(event) { 
                 // There was an error with your WebSocket
                 vm.isLoading = false;
-                console.log('websocket errored');
+                // console.log('websocket errored');
             };
         },
         constructQueryString: function() {

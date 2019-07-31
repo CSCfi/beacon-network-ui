@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <BasicSearch v-on:basicSearch="searchView" />
-    <BeaconResults :queryParams="queryParams" v-bind:class="{ 'hidden' : !results }" />
+    <BeaconResults ref="resultView" :queryParams="queryParams" v-bind:class="{ 'hidden' : !results }" />
     <HomeTabs v-bind:class="{ 'hidden' : results }" />
     <Footer />
   </div>
@@ -35,6 +35,13 @@ export default {
       var vm = this
       vm.queryParams = value
       vm.results = true
+      vm.$refs.resultView.queryAPI()
+      // !
+      // 2 clicks on "search" are required for a search to occur
+      // because the results component doesn't receive
+      // the queryParams on the first event
+      // fix this
+      // !
     },
     devToast: function() {
       this.$snackbar.open({
