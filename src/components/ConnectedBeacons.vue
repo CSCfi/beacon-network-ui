@@ -1,17 +1,20 @@
 <template>
     <section v-on:load="queryAPI">
-
-      <div v-if="beacons">
-        <div v-for="beacon in beacons">
-          <ConnectedBeaconTile v-bind:key="beacon.url" v-bind:beacon="beacon"
-          ></ConnectedBeaconTile>
-        </div>
+      <div 
+        class="tile is-ancestor is-10"
+        style="margin:auto;"
+        v-for="beacon_pair in beacons"
+        v-bind:key="beacons.indexOf(beacon_pair)"
+      >
+        <ConnectedBeaconTile
+          v-for="beacon in beacon_pair"
+          v-bind:key="beacon.url"
+          v-bind:beacon="beacon"
+        ></ConnectedBeaconTile>
       </div>
-
       <div v-if="error">
         {{ error }}
       </div>
-
     </section>
 </template>
 
@@ -32,14 +35,21 @@ export default {
   methods: {
       queryAPI : function () {
         var vm = this;
-        vm.beacons = [] // Clear view
+        vm.beacons = []; // Clear view
 
         var url = "https://dev-registry-beacon.rahtiapp.fi/services?type=urn:ga4gh:beacon";
 
         axios
           .get(url)
           .then(response => {
-            this.beacons = response.data
+            let beacon_list = [];
+            // Re-order as pairs, to make two column tiling with Vue possible
+            for (let i = 0; i < response.data.length; i += 2) {
+              beacon_list.push(
+                response.data.slice(i, i+2)
+              );
+            }
+            this.beacons = beacon_list;
           })
           .catch(error => {
             this.error = "Could not find any Beacons to display."

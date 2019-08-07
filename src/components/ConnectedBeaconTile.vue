@@ -1,34 +1,40 @@
 <template>
-  <div class="columns">
-      <div class="column">
-        <div class="card">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Organization image">
-                </figure>
-              </div>
-              <div class="media-content">
-                <p class="title is-4">{{ beacon.name }}</p>
-                <p class="subtitle is-6">{{ beacon.id }}</p>
-              </div>
-            </div>
-
-            <div class="content">
-              {{ beacon.description }}
-              <br>Status: {{ status }}
-            </div>
+  <div class="tile is-parent is-6">
+    <div class="tile is-child box">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image is-96x96">
+            <img :src="beacon.extension.organization.logoUrl" alt="Organization image">
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content">
+            <p class="title is-4">{{ beacon.name }}</p>
+            <p class="subtitle is-6">{{ beacon.id }}</p>
+            <p class="subtitle is-6">{{ beacon.description }}</p>    
           </div>
         </div>
-      </div>
+        <div class="media-right">
+          <span v-if="status == 200">
+            <CheckboxBlankCircleIcon class="has-text-success"></CheckboxBlankCircleIcon>
+          </span>
+          <span v-else>
+            <CheckboxBlankCircleIcon class="has-text-danger"></CheckboxBlankCircleIcon>
+          </span>
+        </div>
+      </article>
     </div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
+import CheckboxBlankCircleIcon from 'vue-material-design-icons/CheckboxBlankCircle.vue'
 
 export default {
+  components: {
+    CheckboxBlankCircleIcon,
+  },
   props: ['beacon'],
   data: function () {
     return {
