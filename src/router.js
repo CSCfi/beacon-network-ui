@@ -10,8 +10,20 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: "",
+          name: "home",
+          component: () => import("./components/HomeTabs.vue")
+        },
+        {
+          path: "results",
+          name: "searchresults",
+          props: true,
+          component: () => import("./components/BeaconResults.vue")
+        }
+      ]
     },
     {
       path: "/about",

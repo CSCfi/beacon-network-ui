@@ -52,12 +52,9 @@
 
 <script>
 export default {
-    props: {
-        // queryParams: {}
-    },
+    props: ["queryParams"],
     data() {
         return {
-            queryParams: {},
             hits: true,
             pub: true,
             registered: true,
@@ -67,9 +64,8 @@ export default {
         }
     },
     methods: {
-        queryAPI: function(queryParams) {
+        queryAPI: function() {
             var vm = this;
-            vm.queryParams = queryParams
             var queryString = vm.constructQueryString()
             // console.log(queryString)
             vm.response = [] // Clear table
@@ -111,6 +107,9 @@ export default {
             }
             return baseString
         }
+    },
+    beforeMount () {
+        this.queryAPI();
     }
 }
 </script>
