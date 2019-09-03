@@ -7,8 +7,7 @@
       </b-taglist>
     </div>
     <BasicSearch v-on:basicSearch="searchView" />
-    <BeaconResults ref="resultView" :queryParams="queryParams" v-bind:class="{ 'hidden' : !results }" />
-    <HomeTabs v-bind:class="{ 'hidden' : results }" />
+    <router-view />
     <Footer />
   </div>
 </template>
@@ -16,16 +15,12 @@
 <script>
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
-import BeaconResults from "@/components/BeaconResults.vue";
-import HomeTabs from "@/components/HomeTabs.vue";
 import Footer from "@/components/Footer.vue";
 
 export default {
   name: "home",
   components: {
     BasicSearch,
-    BeaconResults,
-    HomeTabs,
     Footer
   },
   data() {
@@ -36,12 +31,10 @@ export default {
   },
   methods: {
     searchView: function(value) {
-      // Show component BeaconResults
-      // Hide component HomeTabs
+      // Push route to the search view child route.
       var vm = this
       vm.queryParams = value
-      vm.results = true
-      vm.$refs.resultView.queryAPI(vm.queryParams)
+      vm.$router.push({name: "searchresults", params: { queryParams: vm.queryParams }})
     },
     devToast: function() {
       this.$snackbar.open({
@@ -89,8 +82,8 @@ export default {
 }
 
 .loggedStatus {
- position: absolute;
- top: 20px;
- right: 150px;
+  position: absolute;
+  top: 20px;
+  right: 150px;
 }
 </style>

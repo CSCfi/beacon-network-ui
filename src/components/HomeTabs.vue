@@ -69,12 +69,13 @@ section {
 
 .word-wrap {
     margin: 0 auto;
-    max-width: 50%;
+    max-width: 80ch;
     padding-bottom: 25px;
+    text-align: left;
 }
 
 .word-wrap.smaller {
-    max-width: 40%;
+    max-width: 75ch;
 }
 
 .bold {
