@@ -49,14 +49,8 @@
 // Set your colors
 $primary: #F47C20;
 $primary-invert: findColorInvert($primary);
-$light-green: #70DB70;
-$light-green-invert: findColorInvert($light-green);
-$light-red: #FF3333;
-$light-red-invert: findColorInvert($light-red);
 $colors: (
-    "primary": ($primary, $primary-invert),
-    "light-green": ($light-green, $light-green-invert),
-    "light-red": ($light-red, $light-red-invert)
+    "primary": ($primary, $primary-invert)
 );
 
 // Links
