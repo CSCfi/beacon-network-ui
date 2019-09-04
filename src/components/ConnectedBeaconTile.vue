@@ -4,15 +4,16 @@
       <article class="media">
         <div class="media-left">
           <figure class="image is-96x96">
-            <img :src="beacon.extension.organization.logoUrl" alt="Organization image">
+            <img :src="beacon.organization.logoUrl" alt="Organization image">
           </figure>
         </div>
         <div class="media-content">
           <div class="content">
-            <p class="title is-4">{{ beacon.name }}</p>
-            <p class="subtitle is-6">{{ beacon.id }}</p>
+            <p class="title is-4">{{ beacon.organization.name }}</p>
+            <p class="subtitle is-6">{{ beacon.name }}</p>
             <p class="subtitle is-6">{{ beacon.description }}</p>    
           </div>
+          <small><a v-bind:href="beacon.organization.url">Visit Us</a> · <a v-bind:href="beacon.url">Beacon API</a> · <a v-bind:href="beacon.contactUrl">Contact Us</a></small>
         </div>
         <div class="media-right">
           <span v-if="status == 200">

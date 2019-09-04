@@ -37,7 +37,7 @@ export default {
         var vm = this;
         vm.beacons = []; // Clear view
 
-        var url = "https://dev-registry-beacon.rahtiapp.fi/services?type=urn:ga4gh:beacon";
+        var url = "https://dev-registry-beacon.rahtiapp.fi/services?type=org.ga4gh:beacon";
 
         axios
           .get(url)
