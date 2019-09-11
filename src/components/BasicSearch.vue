@@ -73,8 +73,8 @@ export default {
     onSubmit: function() {
       // onSubmit is called when user inputs ENTER on search bar
       // proxy the event to the basicSearch function
-      var vm = this
-      vm.basicSearch()
+      var vm = this;
+      vm.basicSearch();
     },
     basicSearch: function() {
       // basicSearch is called when user clicks search button
@@ -83,48 +83,30 @@ export default {
       // Validate user input with regex
       vm.validateInput()
       if (vm.validated) {
-        var parsedQuery = vm.parseQuery()
-        // Send parsed query to Home component
-        this.$emit('basicSearch', parsedQuery)
-        // this.$emit('basicSearch', vm.query) // unparsed query string
+        this.$router.push({
+          path: "results",
+          query: {
+            query: vm.query,
+            assembly: vm.assembly
+          }
+        });
       } else {
-        vm.errorMessage = "Variant search term is malformed, please try again."
-        vm.errorTooltip = true
+        vm.errorMessage = "Variant search term is malformed, please try again.";
+        vm.errorTooltip = true;
       }
     },
     exampleSearch: function() {
-      var vm = this
-      vm.query = "MT : 10 T > C"
+      var vm = this;
+      vm.query = "MT : 10 T > C";
     },
     validateInput: function() {
-      var vm = this
+      var vm = this;
       if (vm.regex.exec(vm.query)) {
-        vm.validated = true
+        vm.validated = true;
       } else {
-        vm.validated = false
+        vm.validated = false;
       }
     },
-    parseQuery: function() {
-        var vm = this
-        var q = vm.query.split(" ")
-        var queryParams = {
-          "assemblyId": vm.assembly,
-          "referenceName": q[0],
-          "startMin": q[2] > 0 ? q[2]-1 : 0,
-          "startMax": q[2],
-          "referenceBases": q[3],
-        }
-
-        if (vm.variantTypes.includes(q[5])) {
-          // q[5] is a variantType
-          queryParams["variantType"] = q[5]
-        } else {
-          // q[5] is an alternateBases
-          queryParams["alternateBases"] = q[5]
-        }
-
-        return queryParams
-    }
   }
 };
 </script>

@@ -6,7 +6,7 @@
         <b-tag v-if="getCookie('bona_fide')" type="is-info">Bona Fide</b-tag>
       </b-taglist>
     </div>
-    <BasicSearch v-on:basicSearch="searchView" />
+    <BasicSearch />
     <router-view />
     <Footer />
   </div>
@@ -30,12 +30,6 @@ export default {
     }
   },
   methods: {
-    searchView: function(value) {
-      // Push route to the search view child route.
-      var vm = this
-      vm.queryParams = value
-      vm.$router.push({name: "searchresults", params: { queryParams: vm.queryParams }})
-    },
     devToast: function() {
       this.$snackbar.open({
         duration: 10000,
