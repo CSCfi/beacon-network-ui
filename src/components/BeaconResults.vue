@@ -52,15 +52,24 @@
 
 <script>
 export default {
-    props: ["queryParams"],
     data() {
         return {
+            queryParams: undefined,
             hits: true,
             pub: true,
             registered: true,
             controlled: true,
             isLoading: false,
-            response: []
+            response: [],
+            variantTypes: ["DEL:ME", "INS:ME", "DUP:TANDEM", "DUP", "DEL", "INS", "INV", "CNV", "SNP", "MNP"]
+        }
+    },
+    watch: {
+        "$route.query.query": function() {
+            // Watch query string for changes in case the user makes a new
+            // search while displaying results.
+            this.parseQuery();
+            this.queryAPI();
         }
     },
     methods: {
@@ -106,9 +115,31 @@ export default {
                 console.log('Malformed query string.')
             }
             return baseString
+        },
+        parseQuery: function() {
+            var vm = this
+            var q = vm.$route.query.query.split(" ")
+            var queryParams = {
+              "assemblyId": vm.$route.query.assembly,
+              "referenceName": q[0],
+              "startMin": q[2] > 0 ? q[2]-1 : 0,
+              "startMax": q[2],
+              "referenceBases": q[3],
+            }
+
+            if (vm.variantTypes.includes(q[5])) {
+              // q[5] is a variantType
+              queryParams["variantType"] = q[5]
+            } else {
+              // q[5] is an alternateBases
+              queryParams["alternateBases"] = q[5]
+            }
+
+            vm.queryParams = queryParams
         }
     },
     beforeMount () {
+        this.parseQuery();
         this.queryAPI();
     }
 }
