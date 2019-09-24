@@ -49,6 +49,7 @@
         Should any questions or suggestions emerge, we urge you to contact us at
         <br><a href="mailto:bn-contact@elixir-europe.org">bn-contact@elixir-europe.org</a><br>
     </p>
+    <a href="/tos">Terms of Service</a><br>
     <a href="/">Return</a>
   </div>
 </template>
