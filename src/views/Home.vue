@@ -16,6 +16,7 @@
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
 import Footer from "@/components/Footer.vue";
+import VueCookies from 'vue-cookies'
 
 export default {
   name: "home",
@@ -32,16 +33,38 @@ export default {
   methods: {
     devToast: function() {
       this.$snackbar.open({
-        duration: 10000,
+        duration: 20000,
+        queue: false,
         message: 'This web page is under development and may exhibit funky behaviour.',
         actionText: 'Cool',
         onAction: () => {
           this.$toast.open({
+            queue: false,
             message: 'Thanks for understanding!',
             position: 'is-bottom-right'
           })
         }
       })
+    },
+    cookieToast: function() {
+      // Check if cookies have been accepted, if not, show toast regarding cookies
+      if (!VueCookies.get('elixir-cookies')) {
+        this.$snackbar.open({
+          duration: 20000,
+          queue: false,
+          message: 'Beacon Network utilises cookies. By using Beacon Network you agree to the usage of these cookies.',
+          actionText: 'OK',
+          onAction: () => {
+            // Set a cookie to prevent toast on subsequent visits
+            VueCookies.set('elixir-cookies', 'accepted', Infinity)
+            this.$toast.open({
+              queue: false,
+              message: 'Cookies are in use!',
+              position: 'is-bottom-right'
+            })
+          }
+        })
+      }
     },
     getCookie: function(cname) {
       var name = cname + "=";
@@ -60,6 +83,7 @@ export default {
     }
   },
   beforeMount() {
+    this.cookieToast()
     this.devToast()
   }
 };
