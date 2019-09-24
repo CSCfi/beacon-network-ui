@@ -17,6 +17,12 @@
         The service is provided "as is", and the provider or operator expresses no warranties of any kind related to the service or any of its components.
         In no event shall the provider or operator be held liable for anything arising from your personal use of the service.
     </p>
+    <h3>Misuse</h3>
+    <p>
+        As a user you agree not to misuse the service in any way. Any case of misuse may be reported to law enforcement or the scientific community.
+        Cases of misuse include, but are not limited to, for example, attempting to identify individuals from strategically selected variant queries, or
+        attempting to send a forged access token to the connected Beacons in an attempt to gain access to restricted datasets.
+    </p>
     <h3>Agreement</h3>
     <p>
         Use of the service indicates your acceptance of the Terms of Service and Privacy Policy.
