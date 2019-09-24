@@ -52,7 +52,8 @@ export default {
         this.$snackbar.open({
           duration: 20000,
           queue: false,
-          message: 'Beacon Network utilises cookies. By using Beacon Network you agree to the usage of these cookies.',
+          message: 'Beacon Network utilises cookies. By using Beacon Network you agree to the usage of these cookies.'
+                   + ' Read more from our <a href="/privacy">Privacy Policy</a>.',
           actionText: 'OK',
           onAction: () => {
             // Set a cookie to prevent toast on subsequent visits

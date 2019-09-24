@@ -39,6 +39,16 @@ export default new Router({
       path: "/docs",
       name: "docs",
       component: () => import("./views/Docs.vue")
+    },
+    {
+      path: "/tos",
+      name: "tos",
+      component: () => import("./views/Tos.vue")
+    },
+    {
+      path: "/privacy",
+      name: "privacy",
+      component: () => import("./views/Privacy.vue")
     }
   ]
 });
