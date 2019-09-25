@@ -37,7 +37,7 @@
         Should any questions or suggestions emerge, we urge you to contact us at
         <br><a href="mailto:bn-contact@elixir-europe.org">bn-contact@elixir-europe.org</a><br>
     </p>
-    <router-link to="/privacy">Privacy Policy</router-link>
+    <router-link to="/privacy">Privacy Policy</router-link><br>
     <router-link to="/">Return</router-link>
   </div>
 </template>

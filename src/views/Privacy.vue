@@ -49,7 +49,7 @@
         Should any questions or suggestions emerge, we urge you to contact us at
         <br><a href="mailto:bn-contact@elixir-europe.org">bn-contact@elixir-europe.org</a><br>
     </p>
-    <router-link to="/tos">Terms of Service</router-link>
+    <router-link to="/tos">Terms of Service</router-link><br>
     <router-link to="/">Return</router-link>
   </div>
 </template>
