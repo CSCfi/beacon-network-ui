@@ -1,6 +1,6 @@
 <template>
   <div class="content word-wrap">
-    <a href="/">Return</a>
+    <router-link to="/">Return</router-link>
     <h1>For Developers</h1>
     <h2>Overview</h2>
     <p>
@@ -37,7 +37,7 @@
         The OIDC Client serves as the ELIXIR AAI client, which is used to authenticate users and to retrieve access tokens for 
         authorised requests. The access token travels only in encrypted HTTPS traffic from component to component.
     </p>
-    <a href="/">Return</a>
+    <router-link to="/">Return</router-link>
   </div>
 </template>
 

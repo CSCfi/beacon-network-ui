@@ -1,6 +1,6 @@
 <template>
   <div class="content word-wrap">
-    <a href="/">Return</a>
+    <router-link to="/">Return</router-link>
     <h1>ELIXIR Beacon Network</h1>
     <h2>Privacy Policy</h2>
     <p>
@@ -49,8 +49,8 @@
         Should any questions or suggestions emerge, we urge you to contact us at
         <br><a href="mailto:bn-contact@elixir-europe.org">bn-contact@elixir-europe.org</a><br>
     </p>
-    <a href="/tos">Terms of Service</a><br>
-    <a href="/">Return</a>
+    <router-link to="/tos">Terms of Service</router-link>
+    <router-link to="/">Return</router-link>
   </div>
 </template>
 
