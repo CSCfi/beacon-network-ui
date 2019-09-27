@@ -78,6 +78,7 @@
 				<p>
 					<ol>
 						<li>Beacon Network can read Beacon info from <a href="https://github.com/ga4gh-beacon/specification/">GA4GH Beacon "/" endpoint</a> and <a href="https://github.com/ga4gh-discovery/ga4gh-service-info">GA4GH Discovery "/service-info" endpoint</a>.</li>
+						<li>Beacon Network updates the service information of registered Beacons every midnight (0:00 UTC).</li>
 						<li>Beacon Network uses ELIXIR AAI access tokens, issued by <code>https://login.elixir-czech.org/oidc/</code> with JWK available at <code>https://login.elixir-czech.org/oidc/jwk</code>.</li>
 						<li>ELIXIR AAI is using <a href="https://github.com/ga4gh-duri/ga4gh-duri.github.io/blob/master/researcher_ids/RI_Claims_V1.md">GA4GH DURI specification</a> for permission handling.</li> 
 						<li>Beacon Network's ELIXIR AAI JWT audience is <code>771678e5-bf28-4938-910a-4a28c614e64f</code>. GA4GH Passports have no audience.</li>
@@ -87,12 +88,37 @@
 			<div class="column">
 				<h2>Advanced API User Guide</h2>
 				<p>
-					How to use the Registry API to manage your registration.
+					Your registration can be managed via the Registry API. A form similar to the registration form may be released in the future if need be.
+					Your Beacon has been registered at the ELIXIR Beacon Network Registry residing at <a href="https://dev-registry-beacon.rahtiapp.fi/">https://dev-registry-beacon.rahtiapp.fi/</a>.
+				</p>
+				<h3>Deleting your Registration</h3>
+				<p>
+					Your registration can be deleted manually using the <code>serviceId</code> and <code>serviceKey</code> you received upon registration. If you have lost your Beacon service key and you wish to delete
+					your registration, pleace contact <a href="mailto:bn-contact@elixir-europe.org">bn-contact@elixir-europe.org</a> from the email address you used at registration.
 				</p>
 				<p>
-					To do:
-					<br>How to delete Beacon
-					<br>How to update Beacon
+					<code>curl -X DELETE \</code><br>
+					<code>https://dev-registry-beacon.rahtiapp.fi/services/YOUR-BEACON-ID-HERE \</code><br>
+					<code>-H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</code><br>
+				</p>
+				<h3>Updating your Registration</h3>
+				<p>
+					If your Beacon info has changed, but the Registry is still displaying old information, you can trigger an update manually. Remember, that the Registry will still automatically refresh all information every midnight (0:00 UTC).
+					Your registration can be updated manually using the <code>serviceId</code> and <code>serviceKey</code> you received upon registration. If you have lost your Beacon service key and you wish to delete
+					your registration, pleace contact <a href="mailto:bn-contact@elixir-europe.org">bn-contact@elixir-europe.org</a> from the email address you used at registration. Your Beacon service will then be manually
+					removed from the Network, and then you can re-register your Beacon using the registration form, which will return you with a new service key.
+				</p>
+				<p>
+					<code>curl -X PUT \</code><br>
+					<code>https://dev-registry-beacon.rahtiapp.fi/services/YOUR-BEACON-ID-HERE \</code><br>
+					<code>-H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</code><br>
+					<code>-H 'Content-Type: application/json' \</code><br>
+					<code>-d '{</code><br>
+					<code>"email": "YOUR-CONTACT-EMAIL-HERE",</code><br>
+					<code>"type": "org.ga4gh:beacon",</code><br>
+					<code>"url": "YOUR-BEACON-INFO-ENDPOINT-HERE"</code><br>
+					<code>}'</code><br>
+
 				</p>
 			</div>
 		</div>
