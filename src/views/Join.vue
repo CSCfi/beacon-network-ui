@@ -59,8 +59,29 @@
 					By registering your Beacon service to ELIXIR Beacon Network, you agree that your service is upholding to the following requirements, and
 					will continue to do so as long as the service is a member of this network.
 				</p>
+				<h3>Operating Requirements</h3>
 				<p>
-					...
+					<ol>
+						<li>The service and all of its components must be served over an HTTPS connection.</li>
+						<li>All links in the info endpoints (e.g. contactUrl, logoUrl...) must be served over an HTTPS connection.</li>
+						<li>User access tokens must be processed securely and ethically.</li>
+						<li>User access tokens must not be cached or stored permanently, at most up to 1 hour or until the time stated in the access token's <i>exp</i> claim.</li>
+						<li>User access tokens must be validated.<b>*</b></li>
+						<li>Dataset permissions (GA4GH passports from ELIXIR AAI /userinfo) in user access tokens must be validated from their third party origins.<b>*</b></li>
+						<li>Service must have CORS enabled, and allow requests from the Beacon Network UI at <code>https://dev-ui-beacon.rahtiapp.fi/</code></li>
+						<li>Service must have CORS enabled, and allow requests from the Beacon Network Registry at <code>https://dev-registry-beacon.rahtiapp.fi/</code></li>
+						<li>Service must have CORS enabled, and allow requests from the Beacon Network Aggregator at <code>https://dev-aggregator-beacon.rahtiapp.fi/</code></li>
+					</ol>
+					<i><b>*</b>if service is using access tokens for dataset permissions.</i>
+				</p>
+				<h3>Good to Know</h3>
+				<p>
+					<ol>
+						<li>Beacon Network can read Beacon info from <a href="https://github.com/ga4gh-beacon/specification/">GA4GH Beacon "/" endpoint</a> and <a href="https://github.com/ga4gh-discovery/ga4gh-service-info">GA4GH Discovery "/service-info" endpoint</a>.</li>
+						<li>Beacon Network uses ELIXIR AAI access tokens, issued by <code>https://login.elixir-czech.org/oidc/</code> with JWK available at <code>https://login.elixir-czech.org/oidc/jwk</code>.</li>
+						<li>ELIXIR AAI is using <a href="https://github.com/ga4gh-duri/ga4gh-duri.github.io/blob/master/researcher_ids/RI_Claims_V1.md">GA4GH DURI specification</a> for permission handling.</li> 
+						<li>Beacon Network's ELIXIR AAI JWT audience is <code>771678e5-bf28-4938-910a-4a28c614e64f</code>. GA4GH Passports have no audience.</li>
+					</ol>
 				</p>
 			</div>
 			<div class="column">
@@ -69,7 +90,9 @@
 					How to use the Registry API to manage your registration.
 				</p>
 				<p>
-					...
+					To do:
+					<br>How to delete Beacon
+					<br>How to update Beacon
 				</p>
 			</div>
 		</div>
