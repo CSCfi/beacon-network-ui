@@ -30,7 +30,7 @@
     <h3>Changes to Terms of Service</h3>
     <p>
         This document may be updated at any time without given notice.
-        <br><i>Last updated at 24th of September, 2019.</i>
+        <br><i>Last updated on the 24th of September, 2019.</i>
     </p>
     <h3>Contact Us</h3>
     <p>

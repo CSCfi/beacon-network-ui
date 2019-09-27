@@ -14,9 +14,9 @@
     </p>
     <h3>Personal Information</h3>
     <p>
-        The service does not intentionally collect or store any personal or other identifiable data of its users.
         Users that authenticate with the ELIXIR AAI Login button will have their ELIXIR ID logged by the OIDC Client service.
-        These logs reside inside the EU, and they are not permanently saved.
+        These logs reside inside the EU, and they are not permanently saved. See <i>Cookies</i> below for more stored information.
+        The service does not collect or store any other identifiable data of its users.
     </p>
     <h3>Cookies</h3>
     <p>
@@ -26,6 +26,17 @@
         This cookie is only available from the domain of the service, and can only travel in encrypted HTTPS traffic. Other cookies are also utilised,
         but they hold no personal data. Users are advised to delete their browser session cookies if they are using the service on a
         public computer.
+    </p>
+    <p>
+        Cookies used by this service:
+        <br><b>Cookies for all users:</b>
+        <br><i>elixir-cookies</i>: disables the Privacy Policy and Terms of Service notification, if user closes the notification.
+        <br><b>Cookies for authenticated users:</b>
+        <br><i>oidc_state</i>: A session key used in the authentication process at ELIXIR AAI. Contains no personal or identifiable data.
+        <br><i>logged_in</i>: Indicates that the user has authenticated. Contains no personal or identifiable data.
+        <br><i>bona_fide</i>: Indicates the user's Bona Fide status. Contains no personal or identifiable data.
+        <br><i>access_token</i>: ELIXIR AAI JWT access token, is used to gain access to permitted datasets at Beacons. Contains user's ELIXIR ID.
+
     </p>
     <h3>Security</h3>
     <p>
@@ -42,7 +53,7 @@
     <h3>Changes to Privacy Policy</h3>
     <p>
         This document may be updated at any time without given notice.
-        <br><i>Last updated at 24th of September, 2019.</i>
+        <br><i>Last updated on the 27th of September, 2019.</i>
     </p>
     <h3>Contact Us</h3>
     <p>
