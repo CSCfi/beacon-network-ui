@@ -28,9 +28,14 @@
 
 			<div class="column">
 				<h2>Preview</h2>
-				<br>DEV
-				<br>{{response}}
-				<br>{{error}}
+				<div v-if="response && beacon">
+					<!-- Make a ConnectedBeaconTile appear here with data pulled from registry using response.data.serviceId -->
+					<ConnectedBeaconTile
+						style="width: 100%"
+						v-bind:key="beacon.url"
+						v-bind:beacon="beacon">
+					</ConnectedBeaconTile>
+				</div>
 				<div v-if="response">
 					<b-message v-bind:title="response.statusText" type="is-success" aria-close-label="Close message">
 						{{ response.data.message }}<br>
@@ -39,7 +44,7 @@
 						<b>Help:</b> {{ response.data.help }} (technical documentation)<br>
 					</b-message>
 				</div>
-				<div v-if="error">
+				<div v-if="!response && error">
 					<b-message v-bind:title="error.statusText" type="is-warning" aria-close-label="Close message">
 						{{ error.data }}
 					</b-message>
@@ -74,71 +79,92 @@
 
 <script>
 import axios from "axios";
+import ConnectedBeaconTile from "@/components/ConnectedBeaconTile.vue";
 
 export default {
-  name: "RegistrationForm",
-  data() {
-	return {
-		email: "",
-		url: "",
-		apikey: "",
-		response: "",
-		error: ""
-	}
-  },
-  props: {
-
-  },
-  methods: {
-    onSubmit: function() {
-		// onSubmit is called when user inputs ENTER on search bar
-		// proxy the event to the basicSearch function
-		var vm = this;
-		vm.registerButton();
-    },
-    registerButton: function() {
-		// registerButton is called when user clicks register button
-		var vm = this;
-		vm.registerService();
+	name: "RegistrationForm",
+	components: {
+		ConnectedBeaconTile,
 	},
-	registerService: function() {
-		// axios makes 2 requests to registry
-		// first axios sends an OPTIONS
-		// then axios sends the wanted POST
-		// it appears, that the service registration passes on the first request
-		// the second request will land after the service has been registered
-		// for some reason the OPTIONS is also processed like a POST
-		// and this causes the ui to receive both "success 201" and "conflict 409"
-		// messages to be shown. investigate how to fix this.
-		// 1. use text/plain and JSON.stringify() the data ;; tested, didn't have any effect
-		// 2. somehow put a delay on the request, so that the OPTIONS will be able to do
-		//    a round trip before POST is initiated
-		// 3. somehow turn the OPTIONS request off
-		// the Registry has CORS enabled
-		var vm = this;
-		var registry = "https://dev-registry-beacon.rahtiapp.fi/services";
-		var headers = {
-			"Authorization": vm.apikey,
-			"Content-Type": "application/json"
+	data() {
+		return {
+			email: "",
+			url: "",
+			apikey: "",
+			response: "",
+			error: "",
+			beacon: {"organization": {}}
 		}
-		var data = {
-			"email": vm.email,
-			"type": "org.ga4gh:beacon",
-			"url": vm.url
+	},
+	props: {
+
+	},
+	methods: {
+		onSubmit: function() {
+			// onSubmit is called when user inputs ENTER on search bar
+			// proxy the event to the basicSearch function
+			var vm = this;
+			vm.registerButton();
+		},
+		registerButton: function() {
+			// registerButton is called when user clicks register button
+			var vm = this;
+			vm.registerService();
+		},
+		registerService: function() {
+			// axios makes 2 requests to registry
+			// first axios sends an OPTIONS
+			// then axios sends the wanted POST
+			// it appears, that the service registration passes on the first request
+			// the second request will land after the service has been registered
+			// for some reason the OPTIONS is also processed like a POST
+			// and this causes the ui to receive both "success 201" and "conflict 409"
+			// messages to be shown. investigate how to fix this.
+			// 1. use text/plain and JSON.stringify() the data ;; tested, didn't have any effect
+			// 2. somehow put a delay on the request, so that the OPTIONS will be able to do
+			//    a round trip before POST is initiated
+			// 3. somehow turn the OPTIONS request off
+			// the Registry has CORS enabled
+			var vm = this;
+			var registry = "https://dev-registry-beacon.rahtiapp.fi/services";
+			var headers = {
+				"Authorization": vm.apikey,
+				"Content-Type": "application/json"
+			}
+			var data = {
+				"email": vm.email,
+				"type": "org.ga4gh:beacon",
+				"url": vm.url
+			}
+			// console.log(vm.email, vm.url, vm.apikey);
+			axios
+				.post(registry, data, {headers: headers})
+				.then(response => {
+					vm.response = response
+					// console.log(response)
+					vm.getNewBeaconInfo();
+				})
+				.catch(error => {
+					vm.error = error.response
+					// console.log(error.response)
+				})
+		},
+		getNewBeaconInfo : function () {
+			var vm = this;
+
+			var url = `https://dev-registry-beacon.rahtiapp.fi/services/${vm.response.data.serviceId}`;
+
+			axios
+				.get(url)
+				.then(resp => {
+					console.log(resp);
+					vm.beacon = resp.data;
+				})
+				.catch(err => {
+					console.log(err)
+				})
 		}
-		console.log(vm.email, vm.url, vm.apikey);
-		axios
-			.post(registry, data, {headers: headers})
-			.then(response => {
-				vm.response = response
-				console.log(response)
-			})
-			.catch(error => {
-				vm.error = error.response
-				console.log(error.response)
-			})
 	}
-  }
 };
 </script>
 
