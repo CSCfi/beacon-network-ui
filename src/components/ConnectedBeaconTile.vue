@@ -47,7 +47,7 @@ export default {
       axios
             .head(this.$props.beacon.url)
             .then(response => {
-              console.log(this.$props.beacon.url, response.status)
+              // console.log(this.$props.beacon.url, response.status)
               this.status = response.status;
             })
             .catch(error => {

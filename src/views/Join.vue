@@ -68,9 +68,9 @@
 						<li>User access tokens must not be cached or stored permanently, at most up to 1 hour or until the time stated in the access token's <i>exp</i> claim.</li>
 						<li>User access tokens must be validated.<b>*</b></li>
 						<li>Dataset permissions (GA4GH passports from ELIXIR AAI /userinfo) in user access tokens must be validated from their third party origins.<b>*</b></li>
-						<li>Service must have CORS enabled, and allow requests from the Beacon Network UI at <code>https://dev-ui-beacon.rahtiapp.fi/</code></li>
-						<li>Service must have CORS enabled, and allow requests from the Beacon Network Registry at <code>https://dev-registry-beacon.rahtiapp.fi/</code></li>
-						<li>Service must have CORS enabled, and allow requests from the Beacon Network Aggregator at <code>https://dev-aggregator-beacon.rahtiapp.fi/</code></li>
+						<li>Service must have CORS enabled, and allow requests from the Beacon Network UI at <code>{{ ui }}</code></li>
+						<li>Service must have CORS enabled, and allow requests from the Beacon Network Registry at <code>{{ registry }}</code></li>
+						<li>Service must have CORS enabled, and allow requests from the Beacon Network Aggregator at <code>{{ aggregator }}</code></li>
 					</ol>
 					<i><b>*</b>if service is using access tokens for dataset permissions.</i>
 				</p>
@@ -81,7 +81,7 @@
 						<li>Beacon Network updates the service information of registered Beacons every midnight (0:00 UTC).</li>
 						<li>Beacon Network uses ELIXIR AAI access tokens, issued by <code>https://login.elixir-czech.org/oidc/</code> with JWK available at <code>https://login.elixir-czech.org/oidc/jwk</code>.</li>
 						<li>ELIXIR AAI is using <a href="https://github.com/ga4gh-duri/ga4gh-duri.github.io/blob/master/researcher_ids/RI_Claims_V1.md">GA4GH DURI specification</a> for permission handling.</li> 
-						<li>Beacon Network's ELIXIR AAI JWT audience is <code>771678e5-bf28-4938-910a-4a28c614e64f</code>. GA4GH Passports have no audience.</li>
+						<li>Beacon Network's ELIXIR AAI JWT audience is <code>{{ audience }}</code>. GA4GH Passports have no audience.</li>
 					</ol>
 				</p>
 			</div>
@@ -89,7 +89,7 @@
 				<h2>Advanced API User Guide</h2>
 				<p>
 					Your registration can be managed via the Registry API. A form similar to the registration form may be released in the future if need be.
-					Your Beacon has been registered at the ELIXIR Beacon Network Registry residing at <a href="https://dev-registry-beacon.rahtiapp.fi/">https://dev-registry-beacon.rahtiapp.fi/</a>.
+					Your Beacon has been registered at the ELIXIR Beacon Network Registry residing at <a v-bind:href="registry">{{ registry }}</a>.
 				</p>
 				<h3>Deleting your Registration</h3>
 				<p>
@@ -98,7 +98,7 @@
 				</p>
 				<p>
 					<code>curl -X DELETE \</code><br>
-					<code>https://dev-registry-beacon.rahtiapp.fi/services/YOUR-BEACON-ID-HERE \</code><br>
+					<code>{{ registry }}services/YOUR-BEACON-ID-HERE \</code><br>
 					<code>-H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</code><br>
 				</p>
 				<h3>Updating your Registration</h3>
@@ -110,7 +110,7 @@
 				</p>
 				<p>
 					<code>curl -X PUT \</code><br>
-					<code>https://dev-registry-beacon.rahtiapp.fi/services/YOUR-BEACON-ID-HERE \</code><br>
+					<code>{{ registry }}/services/YOUR-BEACON-ID-HERE \</code><br>
 					<code>-H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</code><br>
 					<code>-H 'Content-Type: application/json' \</code><br>
 					<code>-d '{</code><br>
@@ -142,7 +142,11 @@ export default {
 			apikey: "",
 			response: "",
 			error: "",
-			beacon: {"organization": {}}
+			beacon: {"organization": {}},
+			registry: process.env.VUE_APP_REGISTRY_URL,
+			aggregator: process.env.VUE_APP_AGGREGATOR_URL,
+			ui: process.env.VUE_APP_UI_URL,
+			audience: process.env.VUE_APP_JWT_AUDIENCE
 		}
 	},
 	props: {
@@ -175,7 +179,7 @@ export default {
 			// 3. somehow turn the OPTIONS request off
 			// the Registry has CORS enabled
 			var vm = this;
-			var registry = "https://dev-registry-beacon.rahtiapp.fi/services";
+			var registry = `${vm.registry}services`;
 			var headers = {
 				"Authorization": vm.apikey,
 				"Content-Type": "application/json"
@@ -201,7 +205,7 @@ export default {
 		getNewBeaconInfo : function () {
 			var vm = this;
 
-			var url = `https://dev-registry-beacon.rahtiapp.fi/services/${vm.response.data.serviceId}`;
+			var url = `${vm.registry}services/${vm.response.data.serviceId}`;
 
 			axios
 				.get(url)

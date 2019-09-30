@@ -2,11 +2,22 @@
   <div id="app">
     <div id="nav">
       <router-link to="/"><img class="logo" alt="ELIXIR Beacon Network logo" src="./assets/beacon-network-logo.png" /></router-link>
-      <a href="https://auth-beacon.rahtiapp.fi/login"><img class="login" src="./assets/elixir-login.png"></a>
+      <a v-bind:href="login"><img class="login" src="./assets/elixir-login.png"></a>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      login: process.env.VUE_APP_LOGIN
+    }
+  }
+}
+</script>
 
 <style>
 #app {

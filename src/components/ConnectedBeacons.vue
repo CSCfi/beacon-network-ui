@@ -29,7 +29,8 @@ export default {
   data() {
       return {
           beacons: [],
-          error: ""
+          error: "",
+          registry: process.env.VUE_APP_REGISTRY_URL
       }
   },
   methods: {
@@ -37,7 +38,7 @@ export default {
         var vm = this;
         vm.beacons = []; // Clear view
 
-        var url = "https://dev-registry-beacon.rahtiapp.fi/services?type=org.ga4gh:beacon";
+        var url = `${vm.registry}services?type=org.ga4gh:beacon`;
 
         axios
           .get(url)

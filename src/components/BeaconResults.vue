@@ -61,7 +61,8 @@ export default {
             controlled: true,
             isLoading: false,
             response: [],
-            variantTypes: ["DEL:ME", "INS:ME", "DUP:TANDEM", "DUP", "DEL", "INS", "INV", "CNV", "SNP", "MNP"]
+            variantTypes: ["DEL:ME", "INS:ME", "DUP:TANDEM", "DUP", "DEL", "INS", "INV", "CNV", "SNP", "MNP"],
+            aggregator: process.env.VUE_APP_AGGREGATOR_URL
         }
     },
     watch: {
@@ -78,7 +79,8 @@ export default {
             var queryString = vm.constructQueryString()
             // console.log(queryString)
             vm.response = [] // Clear table
-            var websocket = new WebSocket(`wss://dev-aggregator-beacon.rahtiapp.fi/query?${queryString}`);
+            var wss = vm.aggregator.replace("https", "wss") // change aggregator https url to wss
+            var websocket = new WebSocket(`${wss}query?${queryString}`);
         
             websocket.onopen = function(event) {
                 // The connection was opened
