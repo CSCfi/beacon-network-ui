@@ -18,34 +18,47 @@
           <b-tooltip
             class="stretch"
             animated
-            label="Chromosome : Position ReferenceBase > AlternateBase|VariantType">
+            label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
+          >
             <b-input
               id="searchBar"
               class="stretch searchbar"
               type="search"
               placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
-              v-model="query">
+              v-model="query"
+            >
             </b-input>
           </b-tooltip>
           <b-tooltip animated label="Query Beacons">
-            <b-button v-on:click="basicSearch" type="is-primary">Search</b-button>
+            <b-button v-on:click="basicSearch" type="is-primary"
+              >Search</b-button
+            >
           </b-tooltip>
         </b-field>
         <b-notification
-            v-if="errorTooltip"
-            type="is-warning"
-            aria-close-label="Close notification"
-            role="alert">
-            {{ errorMessage }}
+          v-if="errorTooltip"
+          type="is-warning"
+          aria-close-label="Close notification"
+          role="alert"
+        >
+          {{ errorMessage }}
         </b-notification>
       </form>
     </section>
     <div class="searchbar-footer">
-      <b-tooltip animated position="is-bottom" label="Show an example search term">
+      <b-tooltip
+        animated
+        position="is-bottom"
+        label="Show an example search term"
+      >
         <a v-on:click="exampleSearch">Show Example</a>
       </b-tooltip>
-        |
-      <b-tooltip animated position="is-bottom" label="Access more search options">
+      |
+      <b-tooltip
+        animated
+        position="is-bottom"
+        label="Access more search options"
+      >
         <a>Advanced Search</a>
       </b-tooltip>
     </div>
@@ -62,13 +75,22 @@ export default {
       validated: false,
       errorMessage: "",
       errorTooltip: false,
-      regex: /^(X|Y|MT|[1-9]|1[0-9]|2[0-2]) \: (\d+) ([ATCGN]+) \> (DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
-      variantTypes: ["DEL:ME", "INS:ME", "DUP:TANDEM", "DUP", "DEL", "INS", "INV", "CNV", "SNP", "MNP"]
-    }
+      regex: /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s:\s(\d+) ([ATCGN]+)\s>\s(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
+      variantTypes: [
+        "DEL:ME",
+        "INS:ME",
+        "DUP:TANDEM",
+        "DUP",
+        "DEL",
+        "INS",
+        "INV",
+        "CNV",
+        "SNP",
+        "MNP"
+      ]
+    };
   },
-  props: {
-
-  },
+  props: {},
   methods: {
     onSubmit: function() {
       // onSubmit is called when user inputs ENTER on search bar
@@ -78,10 +100,10 @@ export default {
     },
     basicSearch: function() {
       // basicSearch is called when user clicks search button
-      var vm = this
-      vm.errorTooltip = false
+      var vm = this;
+      vm.errorTooltip = false;
       // Validate user input with regex
-      vm.validateInput()
+      vm.validateInput();
       if (vm.validated) {
         this.$router.push({
           path: "results",
@@ -106,7 +128,7 @@ export default {
       } else {
         vm.validated = false;
       }
-    },
+    }
   }
 };
 </script>

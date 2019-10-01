@@ -8,7 +8,7 @@ export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
   scrollBehavior() {
-    document.getElementById('app').scrollIntoView();
+    document.getElementById("app").scrollIntoView();
   },
   routes: [
     {

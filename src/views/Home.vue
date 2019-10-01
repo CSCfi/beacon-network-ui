@@ -16,7 +16,7 @@
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
 import Footer from "@/components/Footer.vue";
-import VueCookies from 'vue-cookies'
+import VueCookies from "vue-cookies";
 
 export default {
   name: "home",
@@ -28,53 +28,55 @@ export default {
     return {
       queryParams: {},
       results: false
-    }
+    };
   },
   methods: {
     devToast: function() {
       this.$snackbar.open({
         duration: 20000,
         queue: false,
-        message: 'This web page is under development and may exhibit funky behaviour.',
-        actionText: 'Cool',
+        message:
+          "This web page is under development and may exhibit funky behaviour.",
+        actionText: "Cool",
         onAction: () => {
           this.$toast.open({
             queue: false,
-            message: 'Thanks for understanding!',
-            position: 'is-bottom-right'
-          })
+            message: "Thanks for understanding!",
+            position: "is-bottom-right"
+          });
         }
-      })
+      });
     },
     cookieToast: function() {
       // Check if cookies have been accepted, if not, show toast regarding cookies
-      if (!VueCookies.get('elixir-cookies')) {
+      if (!VueCookies.get("elixir-cookies")) {
         this.$snackbar.open({
           duration: 20000,
           queue: false,
-          message: 'Beacon Network utilises cookies. By using Beacon Network you accept the use of these cookies,'
-                   + ' more information regarding this can be read from the <a href="/privacy">Privacy Policy</a>.'
-                   + ' Users are also subject to the <a href="/tos">Terms of Service</a>.',
-          actionText: 'OK',
+          message:
+            "Beacon Network utilises cookies. By using Beacon Network you accept the use of these cookies," +
+            ' more information regarding this can be read from the <a href="/privacy">Privacy Policy</a>.' +
+            ' Users are also subject to the <a href="/tos">Terms of Service</a>.',
+          actionText: "OK",
           onAction: () => {
             // Set a cookie to prevent toast on subsequent visits
-            VueCookies.set('elixir-cookies', 'accepted', Infinity)
+            VueCookies.set("elixir-cookies", "accepted", Infinity);
             this.$toast.open({
               queue: false,
-              message: 'Cookies are in use!',
-              position: 'is-bottom-right'
-            })
+              message: "Cookies are in use!",
+              position: "is-bottom-right"
+            });
           }
-        })
+        });
       }
     },
     getCookie: function(cname) {
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);
-      var ca = decodedCookie.split(';');
-      for(var i = 0; i <ca.length; i++) {
+      var ca = decodedCookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) == " ") {
           c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
@@ -85,14 +87,13 @@ export default {
     }
   },
   beforeMount() {
-    this.cookieToast()
-    this.devToast()
+    this.cookieToast();
+    this.devToast();
   }
 };
 </script>
 
 <style scoped>
-
 .visible {
   display: block;
 }

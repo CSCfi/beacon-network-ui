@@ -1,8 +1,15 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/"><img class="logo" alt="ELIXIR Beacon Network logo" src="./assets/beacon-network-logo.png" /></router-link>
-      <a href="https://auth-beacon.rahtiapp.fi/login"><img class="login" src="./assets/elixir-login.png"></a>
+      <router-link to="/"
+        ><img
+          class="logo"
+          alt="ELIXIR Beacon Network logo"
+          src="./assets/beacon-network-logo.png"
+      /></router-link>
+      <a href="https://auth-beacon.rahtiapp.fi/login"
+        ><img class="login" src="./assets/elixir-login.png"
+      /></a>
     </div>
     <router-view />
   </div>
@@ -44,13 +51,16 @@
 
 <style lang="scss">
 // Import Bulma's core
-  @import "~bulma/sass/utilities/_all";
+@import "~bulma/sass/utilities/_all";
 
 // Set your colors
-$primary: #F47C20;
+$primary: #f47c20;
 $primary-invert: findColorInvert($primary);
 $colors: (
-    "primary": ($primary, $primary-invert)
+  "primary": (
+    $primary,
+    $primary-invert
+  )
 );
 
 // Links

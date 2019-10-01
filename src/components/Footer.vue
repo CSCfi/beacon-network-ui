@@ -21,8 +21,11 @@
           </div>
           <div class="column">
             <h5>Network Host</h5>
-            ELIXIR Beacon Network is provided by<br>
-            <a href="http://www.elixir-finland.org/en/frontpage/">ELIXIR Finland</a> · <a href="https://www.csc.fi/">CSC</a><br>
+            ELIXIR Beacon Network is provided by<br />
+            <a href="http://www.elixir-finland.org/en/frontpage/"
+              >ELIXIR Finland</a
+            >
+            · <a href="https://www.csc.fi/">CSC</a><br />
           </div>
         </div>
       </div>
@@ -34,7 +37,12 @@
           <div class="column">
             <h5>Beacon Project</h5>
             <p><a href="https://beacon-project.io/">Beacon Project</a></p>
-            <p><a href="https://ga4gh-discovery.github.io/networks/2018-12-13-network/">Beacon Network Project</a></p>
+            <p>
+              <a
+                href="https://ga4gh-discovery.github.io/networks/2018-12-13-network/"
+                >Beacon Network Project</a
+              >
+            </p>
           </div>
           <div class="column">
             <!-- 2nd Column -->
@@ -44,8 +52,10 @@
           </div>
           <div class="column">
             <h5>Network Contact</h5>
-            ELIXIR Europe<br>
-            <a href="mailto:bn-contact@elixir-europe.org">bn-contact@elixir-europe.org</a><br>
+            ELIXIR Europe<br />
+            <a href="mailto:bn-contact@elixir-europe.org"
+              >bn-contact@elixir-europe.org</a
+            ><br />
           </div>
         </div>
       </div>
@@ -55,9 +65,8 @@
 
 <script>
 export default {
-  name: 'footer-bar'
-}
+  name: "footer-bar"
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
