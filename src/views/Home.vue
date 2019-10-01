@@ -6,6 +6,14 @@
         <b-tag v-if="getCookie('bona_fide')" type="is-info">Bona Fide</b-tag>
       </b-taglist>
     </div>
+    <p id="logo" v-if="$route.meta.hideSmallLogo">
+      <router-link to="/"
+        ><img
+          class="bigLogo"
+          alt="ELIXIR Beacon Network logo"
+          src="@/assets/beacon-network-logo.png"
+      /></router-link>
+    </p>
     <BasicSearch />
     <router-view />
     <Footer />
@@ -106,5 +114,9 @@ export default {
   position: absolute;
   top: 20px;
   right: 150px;
+}
+
+.bigLogo {
+  height: 200px;
 }
 </style>

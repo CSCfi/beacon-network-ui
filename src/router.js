@@ -18,13 +18,15 @@ export default new Router({
         {
           path: "",
           name: "home",
-          component: () => import("./components/HomeTabs.vue")
+          component: () => import("./components/HomeTabs.vue"),
+          meta: { hideSmallLogo: true }
         },
         {
           path: "results",
           name: "searchresults",
           props: true,
-          component: () => import("./components/BeaconResults.vue")
+          component: () => import("./components/BeaconResults.vue"),
+          meta: { hideSmallLogo: false }
         }
       ]
     },

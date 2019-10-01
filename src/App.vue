@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/"
-        ><img
-          class="logo"
-          alt="ELIXIR Beacon Network logo"
-          src="./assets/beacon-network-logo.png"
-      /></router-link>
-      <a href="https://auth-beacon.rahtiapp.fi/login"
-        ><img class="login" src="./assets/elixir-login.png"
+      <div id="logo" v-if="!$route.meta.hideSmallLogo">
+        <router-link to="/"
+          ><img
+            class="logo"
+            alt="ELIXIR Beacon Network logo"
+            src="./assets/beacon-network-logo.png"
+        /></router-link>
+      </div>
+      <a class="login" href="https://auth-beacon.rahtiapp.fi/login"
+        ><img src="./assets/elixir-login.png"
       /></a>
     </div>
     <router-view />
@@ -24,6 +26,8 @@
   color: #2c3e50;
 }
 #nav {
+  display: flex;
+  flex-wrap: wrap;
   padding: 0 30px 0 30px;
 }
 
@@ -37,10 +41,17 @@
   color: #42b983;
 }
 
+#nav ~ .home {
+  margin-top: 20px;
+}
+
 .login {
+  margin-left: auto;
+  margin-top: 15px;
+}
+
+.login img {
   width: 100px;
-  float: right;
-  padding-top: 15px;
 }
 
 .logo {
