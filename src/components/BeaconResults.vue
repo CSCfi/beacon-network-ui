@@ -15,17 +15,30 @@
       </div>
     </b-field>
 
-    <b-table :data="response" :hits="hits" :loading="isLoading">
+    <b-table
+      focusable
+      hoverable
+      :data="response"
+      :hits="hits"
+      :loading="isLoading"
+      default-sort="organisation"
+      :default-sort-direction="defaultSortDirection"
+    >
       <template slot-scope="props" v-if="props.row.exists || !hits">
-        <b-table-column field="beacon" label="Beacon" sortable>
+        <b-table-column
+          field="organisation"
+          label="Beacon Organisation"
+          sortable
+        >
           {{ props.row.beaconId }}
         </b-table-column>
 
-        <b-table-column field="exists" label="Found" sortable>
-          {{ props.row.exists }}
-        </b-table-column>
-
-        <b-table-column field="Hits" label="Hits" sortable numeric>
+        <b-table-column
+          field="variants"
+          label="Variants Found"
+          sortable
+          numeric
+        >
           {{ props.row.datasetAlleleResponses.length }}
         </b-table-column>
       </template>
@@ -67,7 +80,8 @@ export default {
         "SNP",
         "MNP"
       ],
-      aggregator: process.env.VUE_APP_AGGREGATOR_URL
+      aggregator: process.env.VUE_APP_AGGREGATOR_URL,
+      defaultSortDirection: 'asc',
     };
   },
   watch: {
