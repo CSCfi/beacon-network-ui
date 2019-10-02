@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="tabsSection">
     <b-tabs type="is-boxed" v-model="activeTab" expanded>
       <b-tab-item label="Connected Beacons">
         <ConnectedBeacons />
@@ -101,8 +101,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-section {
-  margin: 100px 0 100px 0;
+#tabsSection {
+  margin: 100px 0;
 }
 
 .word-wrap {

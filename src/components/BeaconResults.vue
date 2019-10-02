@@ -81,7 +81,7 @@ export default {
         "MNP"
       ],
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
-      defaultSortDirection: 'asc',
+      defaultSortDirection: "asc"
     };
   },
   watch: {
