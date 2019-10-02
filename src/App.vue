@@ -55,8 +55,7 @@
 }
 
 .logo {
-  height: 100px;
-  float: left;
+  height: 80px;
 }
 </style>
 
