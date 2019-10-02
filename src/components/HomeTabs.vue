@@ -6,32 +6,37 @@
       </b-tab-item>
 
       <b-tab-item label="About Beacons">
-        <span class="bold">Beacon</span>
-        <div class="word-wrap smaller">
-          A Beacon is an online web service that allows users to query an
-          institution’s databases, to determine whether they contain a genetic
-          variant of interest. The query is structured as a yes/no question of
-          the form: “Do you have any genomes with an ‘X’ at position Y on
-          chromosome Z?”<br />
-          <a href="https://beacon-project.io/"
-            >More information regarding Beacons</a
-          >
-        </div>
-        <span class="bold">Beacon Network</span>
-        <div class="word-wrap smaller">
-          Beacon networks consist of registries of multiple Beacons, in
-          different locations, which can be queried through a common intercace
-          or gateway protocol. The ELIXIR Beacon Network is a collection of
-          Beacons from ELIXIR nodes.<br />
-          <a
-            href="https://ga4gh-discovery.github.io/categories/discovery_networks.html"
-            >More information regarding Beacon Networks</a
-          >
+        <div class="columns">
+          <div class="column word-wrap smaller">
+            <h4 class="bold">Beacon</h4>
+            A Beacon is an online web service that allows users to query an
+            institution’s databases, to determine whether they contain a genetic
+            variant of interest. The query is structured as a yes/no question of
+            the form: “Do you have any genomes with an ‘X’ at position Y on
+            chromosome Z?”<br />
+            <a href="https://beacon-project.io/"
+              >More information regarding Beacons</a
+            >
+          </div>
+
+          <div class="column word-wrap smaller">
+            <h4 class="bold">Beacon Network</h4>
+            Beacon networks consist of registries of multiple Beacons, in
+            different locations, which can be queried through a common intercace
+            or gateway protocol. The ELIXIR Beacon Network is a collection of
+            Beacons from ELIXIR nodes.<br />
+            <a
+              href="https://ga4gh-discovery.github.io/categories/discovery_networks.html"
+              >More information regarding Beacon Networks</a
+            >
+          </div>
         </div>
       </b-tab-item>
 
       <b-tab-item label="How to use Beacon Network">
-        <span class="bold">Basic Search</span>
+        <div class="columns">
+          <div class="column">
+        <h4 class="bold">Basic Search</h4>
         <div class="word-wrap">
           The Beacon Network searchbar is a simple form with two options:
           selection of assembly and definition of variant. The assembly can be
@@ -48,6 +53,13 @@
           (0-1-based), while Beacon APIs use a 0-based (interbase) coordinate
           system.
         </div>
+        <span class="bold">Advanced Search</span>
+        <div class="word-wrap">
+          To access more search options, see the advanced search button below
+          the basic searchbar.
+        </div>
+        </div>
+        <div class="column">
         <span class="bold">Example Queries</span>
         <div class="word-wrap">
           <span class="bold">Example query:</span> I want to find a genomic
@@ -74,10 +86,7 @@
           would transform into the following statement in the searchbar: MT :
           195 TTACTAAAGT > NNNNNNNNGT.
         </div>
-        <span class="bold">Advanced Search</span>
-        <div class="word-wrap">
-          To access more search options, see the advanced search button below
-          the basic searchbar.
+        </div>
         </div>
       </b-tab-item>
     </b-tabs>
