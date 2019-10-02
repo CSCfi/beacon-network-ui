@@ -113,6 +113,7 @@ export default {
 
 #logo {
   margin-bottom: 25px;
+  text-align: center;
 }
 
 .loggedStatus {

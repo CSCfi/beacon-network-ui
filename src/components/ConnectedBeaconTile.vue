@@ -9,7 +9,7 @@
         </div>
         <div class="media-content">
           <div class="content">
-            <p class="title is-4">{{ beacon.organization.name }}</p>
+            <p class="title is-size-5">{{ beacon.organization.name }}</p>
             <p class="subtitle is-6">{{ beacon.name }}</p>
             <p class="subtitle is-6">{{ beacon.description }}</p>
           </div>

@@ -22,7 +22,7 @@
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
 }
 #nav {
@@ -64,7 +64,7 @@
 @import "~bulma/sass/utilities/_all";
 
 // Set your colors
-$primary: #f47c20;
+$primary: #023452;
 $primary-invert: findColorInvert($primary);
 $colors: (
   "primary": (
