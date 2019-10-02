@@ -7,12 +7,13 @@
       </b-taglist>
     </div>
     <p id="logo" v-if="$route.meta.hideSmallLogo">
-      <router-link to="/"
-        ><img
+      <router-link to="/">
+        <img
           class="bigLogo"
           alt="ELIXIR Beacon Network logo"
           src="@/assets/beacon-network-logo.png"
-      /></router-link>
+        />
+      </router-link>
     </p>
     <BasicSearch />
     <router-view />
@@ -110,6 +111,10 @@ export default {
   display: none;
 }
 
+#logo {
+  margin-bottom: 25px;
+}
+
 .loggedStatus {
   position: absolute;
   top: 20px;
@@ -117,6 +122,6 @@ export default {
 }
 
 .bigLogo {
-  height: 200px;
+  height: 150px;
 }
 </style>

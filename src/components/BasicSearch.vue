@@ -5,11 +5,7 @@
         <b-field>
           <p class="control">
             <b-field>
-              <b-select
-                placeholder="Assembly"
-                v-model="assembly"
-                size="is-medium"
-              >
+              <b-select placeholder="Assembly" v-model="assembly" size="is-medium">
                 <option value="GRCh38">GRCh38</option>
                 <option value="GRCh37">GRCh37</option>
                 <option value="hg19">hg19</option>
@@ -28,26 +24,21 @@
               type="search"
               placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
               v-model="query"
-            >
-            </b-input>
+            ></b-input>
           </b-tooltip>
           <b-button
             v-on:click="basicSearch"
             type="is-primary"
             size="is-medium"
             id="searchButton"
-          >
-            Search</b-button
-          >
+          >Search</b-button>
         </b-field>
         <b-notification
           v-if="errorTooltip"
           type="is-warning"
           aria-close-label="Close notification"
           role="alert"
-        >
-          {{ errorMessage }}
-        </b-notification>
+        >{{ errorMessage }}</b-notification>
       </form>
     </section>
     <div class="searchbar-footer">
@@ -140,7 +131,7 @@ h2 {
 }
 .searchbar-footer {
   margin-top: 12px;
-  margin-right: 15px;
+  margin-right: 5px;
   text-align: right;
   font-size: 0.9em;
 }
