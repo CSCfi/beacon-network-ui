@@ -1,19 +1,20 @@
 <template>
   <div class="container">
     <section>
-      <h2>Variant Search</h2>
       <form @submit.prevent="onSubmit">
         <b-field>
           <p class="control">
-            <b-tooltip animated label="Select a genomic assembly">
-              <b-field>
-                <b-select placeholder="Assembly" v-model="assembly">
-                  <option value="GRCh38">GRCh38</option>
-                  <option value="GRCh37">GRCh37</option>
-                  <option value="hg19">hg19</option>
-                </b-select>
-              </b-field>
-            </b-tooltip>
+            <b-field>
+              <b-select
+                placeholder="Assembly"
+                v-model="assembly"
+                size="is-medium"
+              >
+                <option value="GRCh38">GRCh38</option>
+                <option value="GRCh37">GRCh37</option>
+                <option value="hg19">hg19</option>
+              </b-select>
+            </b-field>
           </p>
           <b-tooltip
             class="stretch"
@@ -23,17 +24,21 @@
             <b-input
               id="searchBar"
               class="stretch searchbar"
+              size="is-medium"
               type="search"
               placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
               v-model="query"
             >
             </b-input>
           </b-tooltip>
-          <b-tooltip animated label="Query Beacons">
-            <b-button v-on:click="basicSearch" type="is-primary"
-              >Search</b-button
-            >
-          </b-tooltip>
+          <b-button
+            v-on:click="basicSearch"
+            type="is-primary"
+            size="is-medium"
+            id="searchButton"
+          >
+            Search</b-button
+          >
         </b-field>
         <b-notification
           v-if="errorTooltip"
@@ -46,21 +51,9 @@
       </form>
     </section>
     <div class="searchbar-footer">
-      <b-tooltip
-        animated
-        position="is-bottom"
-        label="Show an example search term"
-      >
-        <a v-on:click="exampleSearch">Show Example</a>
-      </b-tooltip>
+      <a v-on:click="exampleSearch">Show Example</a>
       |
-      <b-tooltip
-        animated
-        position="is-bottom"
-        label="Access more search options"
-      >
-        <a>Advanced Search</a>
-      </b-tooltip>
+      <a>Advanced Search</a>
     </div>
   </div>
 </template>
@@ -138,13 +131,26 @@ export default {
 h2 {
   font-size: 2em;
 }
-section {
+/* section {
   margin-top: 100px;
-}
+} */
+
 .stretch {
   width: 100%;
 }
 .searchbar-footer {
-  float: right;
+  margin-top: 12px;
+  margin-right: 15px;
+  text-align: right;
+  font-size: 0.9em;
+}
+#searchButton {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+</style>
+<style>
+#searchBar {
+  border-radius: 0;
 }
 </style>
