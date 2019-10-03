@@ -1,5 +1,5 @@
 <template>
-  <section class="container columns">
+  <section class="container columns results-table">
     <div class="column is-one-fifth">
       <b-field grouped group-multiline class="filtered">
         <div class="field">
@@ -29,11 +29,37 @@
     >
       <template slot-scope="props" v-if="props.row.exists || !hits">
         <b-table-column
+          class="beacon-name"
           field="organisation"
           label="Beacon Organisation"
           sortable
         >
-          {{ props.row.beaconId }}
+          <BeaconResultsRow v-bind:beaconId="props.row.beaconId">
+          </BeaconResultsRow>
+
+          <!-- {{ props.row.beaconId }} -->
+        </b-table-column>
+
+        <b-table-column field="access" label="Dataset Access" sortable>
+          <CheckboxBlankCircleIcon
+            v-if="props.row.datasetAlleleResponses.some(checkForPublicDatasets)"
+            title="Public"
+            class="has-text-success"
+          ></CheckboxBlankCircleIcon>
+          <CheckboxBlankCircleIcon
+            v-if="
+              props.row.datasetAlleleResponses.some(checkForRegisteredDatasets)
+            "
+            title="Registered"
+            class="has-text-warning"
+          ></CheckboxBlankCircleIcon>
+          <CheckboxBlankCircleIcon
+            v-if="
+              props.row.datasetAlleleResponses.some(checkForControlledDatasets)
+            "
+            title="Controlled"
+            class="has-text-danger"
+          ></CheckboxBlankCircleIcon>
         </b-table-column>
 
         <b-table-column
@@ -61,7 +87,14 @@
 </template>
 
 <script>
+import BeaconResultsRow from "@/components/BeaconResultsRow.vue";
+import CheckboxBlankCircleIcon from "vue-material-design-icons/CheckboxBlankCircle.vue";
+
 export default {
+  components: {
+    BeaconResultsRow,
+    CheckboxBlankCircleIcon
+  },
   data() {
     return {
       queryParams: undefined,
@@ -166,6 +199,15 @@ export default {
       }
 
       vm.queryParams = queryParams;
+    },
+    checkForPublicDatasets: function(result) {
+      if (result.info.accessType == "PUBLIC") return true;
+    },
+    checkForRegisteredDatasets: function(result) {
+      if (result.info.accessType == "REGISTERED") return true;
+    },
+    checkForControlledDatasets: function(result) {
+      if (result.info.accessType == "CONTROLLED") return true;
     }
   },
   beforeMount() {
@@ -176,7 +218,7 @@ export default {
 </script>
 
 <style scoped>
-section {
+.results-table {
   margin: 0 auto;
   margin-top: 50px;
 }
@@ -189,5 +231,8 @@ section {
 }
 .field {
   width: 100%;
+}
+.beacon-name {
+  width: 70%;
 }
 </style>
