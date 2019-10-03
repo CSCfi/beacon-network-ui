@@ -1,8 +1,7 @@
 <template>
   <section class="container columns">
     <div class="column is-one-fifth">
-      <div id="filters">
-        <p class="subtitle">Filters</p>
+      <b-field grouped group-multiline class="filtered">
         <div class="field">
           <b-switch v-model="hits">Hits Only</b-switch>
         </div>
@@ -15,7 +14,7 @@
         <div class="field">
           <b-switch v-model="controlled" disabled>Controlled</b-switch>
         </div>
-      </div>
+      </b-field>
     </div>
 
     <b-table
@@ -181,9 +180,14 @@ section {
   margin: 0 auto;
   margin-top: 50px;
 }
-#filters {
+.column.is-one-fifth {
+  padding-top: 40px;
+}
+.filtered {
   position: sticky;
   top: 20px;
-  margin-top: 10px;
+}
+.field {
+  width: 100%;
 }
 </style>
