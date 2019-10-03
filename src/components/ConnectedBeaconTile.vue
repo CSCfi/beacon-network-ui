@@ -22,13 +22,13 @@
         <div class="media-right">
           <span v-if="status == 200">
             <CheckboxBlankCircleIcon
-              title="Beacon Online"
+              :title="beacon.name + ' Beacon Online'"
               class="has-text-success"
             ></CheckboxBlankCircleIcon>
           </span>
           <span v-else>
             <CheckboxBlankCircleIcon
-              title="Beacon Offline"
+              :title="beacon.name + ' Beacon Offline'"
               class="has-text-danger"
             ></CheckboxBlankCircleIcon>
           </span>
