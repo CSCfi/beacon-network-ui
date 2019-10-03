@@ -24,7 +24,6 @@
       :hits="hits"
       :loading="isLoading"
       default-sort="organisation"
-      :default-sort-direction="defaultSortDirection"
       class="column"
     >
       <template slot-scope="props" v-if="props.row.exists || !hits">
@@ -34,10 +33,10 @@
           label="Beacon Organisation"
           sortable
         >
-          <BeaconResultsRow v-bind:beaconId="props.row.beaconId">
-          </BeaconResultsRow>
+          <!-- <BeaconResultsRow v-bind:beaconId="props.row.beaconId">
+          </BeaconResultsRow> -->
 
-          <!-- {{ props.row.beaconId }} -->
+          {{ props.row.beaconId }}
         </b-table-column>
 
         <b-table-column field="access" label="Dataset Access" sortable>
@@ -87,12 +86,12 @@
 </template>
 
 <script>
-import BeaconResultsRow from "@/components/BeaconResultsRow.vue";
+// import BeaconResultsRow from "@/components/BeaconResultsRow.vue";
 import CheckboxBlankCircleIcon from "vue-material-design-icons/CheckboxBlankCircle.vue";
 
 export default {
   components: {
-    BeaconResultsRow,
+    // BeaconResultsRow,
     CheckboxBlankCircleIcon
   },
   data() {
@@ -116,8 +115,7 @@ export default {
         "SNP",
         "MNP"
       ],
-      aggregator: process.env.VUE_APP_AGGREGATOR_URL,
-      defaultSortDirection: "asc"
+      aggregator: process.env.VUE_APP_AGGREGATOR_URL
     };
   },
   watch: {

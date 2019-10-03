@@ -6,7 +6,6 @@
       alt="Organization image"
     />
     <span class="name">{{ data.name }} at {{ data.organization.name }}</span>
-    <!-- <span>{{ data.name }}</span> -->
   </section>
 </template>
 
