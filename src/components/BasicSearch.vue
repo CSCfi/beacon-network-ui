@@ -51,7 +51,7 @@
       <span id="example" v-if="$route.path === '/'"
         ><strong>Quickstart: </strong>
         <a v-on:click="exampleSearch"
-          >Search for a Mitochondrial variant</a
+          >Example of a mitochondrial variant query</a
         ></span
       >
       <span id="advanceSearch"><a>Advanced Search</a></span>

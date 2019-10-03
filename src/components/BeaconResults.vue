@@ -36,13 +36,16 @@
           label="Beacon Organisation"
           sortable
         >
-          <!-- <BeaconResultsRow v-bind:beaconId="props.row.beaconId">
-          </BeaconResultsRow> -->
+          <BeaconResultsRow
+            :key="props.row.beaconId"
+            v-bind:beaconId="props.row.beaconId"
+          >
+          </BeaconResultsRow>
 
           {{ props.row.beaconId }}
         </b-table-column>
 
-        <b-table-column field="access" label="Dataset Access" sortable>
+        <b-table-column field="access" label="Dataset Access">
           <CheckboxBlankCircleIcon
             v-if="props.row.datasetAlleleResponses.some(checkForPublicDatasets)"
             title="Public"
@@ -84,12 +87,12 @@
 </template>
 
 <script>
-// import BeaconResultsRow from "@/components/BeaconResultsRow.vue";
+import BeaconResultsRow from "@/components/BeaconResultsRow.vue";
 import CheckboxBlankCircleIcon from "vue-material-design-icons/CheckboxBlankCircle.vue";
 
 export default {
   components: {
-    // BeaconResultsRow,
+    BeaconResultsRow,
     CheckboxBlankCircleIcon
   },
   data() {

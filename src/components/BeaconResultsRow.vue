@@ -1,12 +1,8 @@
 <template>
-  <section class="org-row">
-    <img
-      class="logo"
-      :src="data.organization.logoUrl"
-      alt="Organization image"
-    />
+  <p class="org-row">
+    <img class="logo" :src="data.organization.logoUrl" :alt="data.name" />
     <span class="name">{{ data.name }} at {{ data.organization.name }}</span>
-  </section>
+  </p>
 </template>
 
 <script>
@@ -14,11 +10,18 @@ import axios from "axios";
 
 export default {
   props: ["beaconId"],
-  data: function() {
+  data() {
     return {
       registry: process.env.VUE_APP_REGISTRY_URL,
-      data: { organization: {} }
+      data: { name: "", organization: { name: "", logoUrl: "" } }
     };
+  },
+  watch: {
+    "$route.query.query": function() {
+      // Watch query string for changes in case the user makes a new
+      // search while displaying results.
+      this.getInfo();
+    }
   },
   methods: {
     getInfo: function() {
