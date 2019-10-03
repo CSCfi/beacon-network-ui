@@ -1,6 +1,7 @@
 <template>
   <section class="container columns results-table">
     <div class="column is-one-fifth">
+      <h6 class="subtitle">Filter results</h6>
       <b-field grouped group-multiline class="filtered">
         <div class="field">
           <b-switch v-model="hits">Hits Only</b-switch>
@@ -20,16 +21,18 @@
     <b-table
       focusable
       hoverable
+      :selected.sync="selected"
       :data="response"
       :hits="hits"
       :loading="isLoading"
-      default-sort="organisation"
+      default-sort="beaconId"
+      :default-sort-direction="defaultSortDirection"
       class="column"
     >
       <template slot-scope="props" v-if="props.row.exists || !hits">
         <b-table-column
           class="beacon-name"
-          field="organisation"
+          field="beaconId"
           label="Beacon Organisation"
           sortable
         >
@@ -61,12 +64,7 @@
           ></CheckboxBlankCircleIcon>
         </b-table-column>
 
-        <b-table-column
-          field="variants"
-          label="Variants Found"
-          sortable
-          numeric
-        >
+        <b-table-column field="length" label="Variants Found" sortable numeric>
           {{ props.row.datasetAlleleResponses.length }}
         </b-table-column>
       </template>
@@ -115,7 +113,9 @@ export default {
         "SNP",
         "MNP"
       ],
-      aggregator: process.env.VUE_APP_AGGREGATOR_URL
+      aggregator: process.env.VUE_APP_AGGREGATOR_URL,
+      defaultSortDirection: "asc",
+      selected: undefined
     };
   },
   watch: {
