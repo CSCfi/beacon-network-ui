@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <!-- Upper Footer -->
-    <div class="container">
+    <div class="footerContainer">
       <div class="content">
         <div class="columns">
           <div class="column">
@@ -20,6 +20,9 @@
             <p><router-link to="/docs">For Developers</router-link></p>
           </div>
           <div class="column">
+            <a class="login" href="https://auth-beacon.rahtiapp.fi/login"
+              ><img src="@/assets/elixir-white-orange-logo.png"
+            /></a>
             <h5>Network Host</h5>
             ELIXIR Beacon Network is provided by<br />
             <a href="http://www.elixir-finland.org/en/frontpage/"
@@ -31,7 +34,7 @@
       </div>
     </div>
     <!-- Lower Footer -->
-    <div class="container">
+    <div class="footerContainer">
       <div class="content">
         <div class="columns">
           <div class="column">
@@ -69,4 +72,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.footer {
+  background: #3e3e3e;
+  color: white;
+  padding: 0;
+  flex-shrink: 0;
+}
+.footer .footerContainer {
+  padding: 2rem 3rem;
+}
+.footer .footerContainer + .footerContainer {
+  background: #023452;
+  padding: 1.5rem 3rem;
+}
+</style>

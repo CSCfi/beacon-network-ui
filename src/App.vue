@@ -14,9 +14,18 @@
       /></a>
     </div>
     <router-view />
+    <Footer />
   </div>
 </template>
 
+<script>
+import Footer from "@/components/Footer.vue";
+export default {
+  components: {
+    Footer
+  }
+};
+</script>
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -24,6 +33,9 @@
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 #nav {
   display: flex;
@@ -62,7 +74,10 @@
 <style lang="scss">
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
-
+html,
+body {
+  height: 100%;
+}
 // Set your colors
 $primary: #023452;
 $primary-invert: findColorInvert($primary);

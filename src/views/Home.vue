@@ -17,21 +17,18 @@
     </p>
     <BasicSearch />
     <router-view />
-    <Footer />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
-import Footer from "@/components/Footer.vue";
 import VueCookies from "vue-cookies";
 
 export default {
   name: "home",
   components: {
-    BasicSearch,
-    Footer
+    BasicSearch
   },
   data() {
     return {
@@ -103,6 +100,9 @@ export default {
 </script>
 
 <style scoped>
+.home {
+  flex: 1 0 auto;
+}
 .visible {
   display: block;
 }
