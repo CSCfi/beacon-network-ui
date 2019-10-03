@@ -9,13 +9,6 @@
             <ul>
               <li><a href="https://elixir-europe.org/">ELIXIR Europe</a></li>
               <li><a href="https://www.ga4gh.org/">GA4GH</a></li>
-            </ul>
-          </div>
-          <div class="column">
-            <h5>ELIXIR Beacon Network</h5>
-            <ul>
-              <li><router-link to="/join">Join the Network</router-link></li>
-              <li><router-link to="/docs">For Developers</router-link></li>
               <li><a href="https://beacon-project.io/">Beacon Project</a></li>
               <li>
                 <a
@@ -25,8 +18,15 @@
               </li>
             </ul>
           </div>
+          <div class="column">
+            <h5>ELIXIR Beacon Network</h5>
+            <ul>
+              <li><router-link to="/join">Join the Network</router-link></li>
+              <li><router-link to="/docs">For Developers</router-link></li>
+            </ul>
+          </div>
           <div class="column is-one-fifth">
-            <a class="login" href="https://auth-beacon.rahtiapp.fi/login"
+            <a class="login" href="https://elixir-europe.org/"
               ><img src="@/assets/elixir-white-orange-logo.png"
             /></a>
           </div>
