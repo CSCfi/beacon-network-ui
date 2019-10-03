@@ -99,7 +99,7 @@ export default {
   color: #f47d21;
 }
 .footer a {
-  color: #047eaa;
+  color: #0bf;
 }
 .footer a:hover {
   color: #f47d21;

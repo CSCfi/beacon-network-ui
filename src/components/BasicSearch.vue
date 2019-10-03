@@ -48,9 +48,13 @@
       </form>
     </section>
     <div class="searchbar-footer">
-      <a v-on:click="exampleSearch">Show Example</a>
-      |
-      <a>Advanced Search</a>
+      <span id="example" v-if="$route.path === '/'"
+        ><strong>Quickstart: </strong>
+        <a v-on:click="exampleSearch"
+          >Search for a Mitochondrial variant</a
+        ></span
+      >
+      <span id="advanceSearch"><a>Advanced Search</a></span>
     </div>
   </div>
 </template>
@@ -138,9 +142,18 @@ h2 {
 .searchbar-footer {
   margin-top: 12px;
   margin-right: 5px;
-  text-align: right;
   font-size: 0.9em;
+  display: flex;
 }
+
+.searchbar-footer span#example {
+  margin-left: 5px;
+}
+
+.searchbar-footer span#advanceSearch {
+  margin-left: auto;
+}
+
 #searchButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

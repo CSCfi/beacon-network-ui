@@ -16,6 +16,7 @@
       </router-link>
     </p>
     <BasicSearch />
+    <hr id="divider" v-if="$route.path === '/results'" />
     <router-view />
   </div>
 </template>
@@ -109,6 +110,11 @@ export default {
 
 .hidden {
   display: none;
+}
+
+#divider {
+  background-color: #e7e7e7;
+  height: 1px;
 }
 
 #logo {

@@ -1,19 +1,22 @@
 <template>
-  <section>
-    <b-field grouped group-multiline>
-      <div class="control">
-        <b-switch v-model="hits">Hits Only</b-switch>
+  <section class="container columns">
+    <div class="column is-one-fifth">
+      <div id="filters">
+        <p class="subtitle">Filters</p>
+        <div class="field">
+          <b-switch v-model="hits">Hits Only</b-switch>
+        </div>
+        <div class="field">
+          <b-switch v-model="pub" disabled>Public</b-switch>
+        </div>
+        <div class="field">
+          <b-switch v-model="registered" disabled>Registered</b-switch>
+        </div>
+        <div class="field">
+          <b-switch v-model="controlled" disabled>Controlled</b-switch>
+        </div>
       </div>
-      <div class="control">
-        <b-switch v-model="pub" disabled>Public</b-switch>
-      </div>
-      <div class="control">
-        <b-switch v-model="registered" disabled>Registered</b-switch>
-      </div>
-      <div class="control">
-        <b-switch v-model="controlled" disabled>Controlled</b-switch>
-      </div>
-    </b-field>
+    </div>
 
     <b-table
       focusable
@@ -23,6 +26,7 @@
       :loading="isLoading"
       default-sort="organisation"
       :default-sort-direction="defaultSortDirection"
+      class="column"
     >
       <template slot-scope="props" v-if="props.row.exists || !hits">
         <b-table-column
@@ -176,6 +180,10 @@ export default {
 section {
   margin: 0 auto;
   margin-top: 50px;
-  width: 80%;
+}
+#filters {
+  position: sticky;
+  top: 20px;
+  margin-top: 10px;
 }
 </style>
