@@ -76,7 +76,7 @@ body {
   height: 100%;
 }
 // Set your colors
-$primary: #023452;
+$primary: #047eaa;
 $primary-invert: findColorInvert($primary);
 $colors: (
   "primary": (
