@@ -24,11 +24,11 @@
       >
       from the email address you used at registration.
     </p>
-    <p>
-      <code>curl -X DELETE \</code><br />
-      <code>{{ registry }}services/YOUR-BEACON-ID-HERE \</code><br />
-      <code>-H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</code><br />
-    </p>
+    <pre>
+curl -X DELETE \
+    {{ registry }}services/YOUR-BEACON-ID-HERE \
+    -H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</pre
+    >
     <h3>Updating your Registration</h3>
     <p>
       If your Beacon info has changed, but the Registry is still displaying old
@@ -46,17 +46,18 @@
       your Beacon using the registration form, which will return you with a new
       service key.
     </p>
-    <p>
-      <code>curl -X PUT \</code><br />
-      <code>{{ registry }}/services/YOUR-BEACON-ID-HERE \</code><br />
-      <code>-H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</code><br />
-      <code>-H 'Content-Type: application/json' \</code><br />
-      <code>-d '{</code><br />
-      <code>"email": "YOUR-CONTACT-EMAIL-HERE",</code><br />
-      <code>"type": "org.ga4gh:beacon",</code><br />
-      <code>"url": "YOUR-BEACON-INFO-ENDPOINT-HERE"</code><br />
-      <code>}'</code><br />
-    </p>
+    <pre>
+curl -X PUT \
+    {{ registry }}/services/YOUR-BEACON-ID-HERE \
+    -H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'
+    -H 'Content-Type: application/json' \
+    -d '{
+        "email": "YOUR-CONTACT-EMAIL-HERE",
+        "type": "org.ga4gh:beacon",
+        "url": "YOUR-BEACON-INFO-ENDPOINT-HERE"
+    }'
+</pre
+    >
     <router-link to="/">Return</router-link>
   </div>
 </template>
