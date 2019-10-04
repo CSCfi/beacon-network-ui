@@ -40,18 +40,27 @@
     <div class="footerContainer">
       <div class="content">
         <div class="columns">
-          <div class="column"></div>
+          <div class="column">
+            <p>
+              <img class="flag" alt="EU Flag" src="../assets/eu-flag-bw.jpg" />
+              ELIXIR is partly funded by the European Commission within the
+              Research Infrastructures programme of Horizon 2020.
+            </p>
+          </div>
           <div class="column contact">
             <p class="address">
+              ELIXIR Beacon Network is operated by
+              <a href="http://www.elixir-europe.org/">ELIXIR Hub</a>
+              |
+              <a href="mailto:bn-contact@elixir-europe.org"
+                >bn-contact@elixir-europe.org</a
+              >
+              <br />
               ELIXIR Beacon Network is provided by
               <a href="http://www.elixir-finland.org/en/frontpage/"
                 >ELIXIR Finland</a
               >
               | <a href="https://www.csc.fi/">CSC</a>
-              <br />
-              <a href="mailto:bn-contact@elixir-europe.org"
-                >bn-contact@elixir-europe.org</a
-              >
             </p>
             <p class="legal">
               Copyright © ELIXIR 2019 |
@@ -129,5 +138,10 @@ export default {
 }
 .footerContainer .contact p {
   margin: 0;
+}
+.flag {
+  height: 30px;
+  float: left;
+  margin: 5px 10px 0 0;
 }
 </style>
