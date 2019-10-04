@@ -178,60 +178,7 @@
           </li>
         </ol>
       </div>
-      <div class="column">
-        <h2>Advanced API User Guide</h2>
-        <p>
-          Your registration can be managed via the Registry API. A form similar
-          to the registration form may be released in the future if need be.
-          Your Beacon has been registered at the ELIXIR Beacon Network Registry
-          residing at <a v-bind:href="registry">{{ registry }}</a
-          >.
-        </p>
-        <h3>Deleting your Registration</h3>
-        <p>
-          Your registration can be deleted manually using the
-          <code>serviceId</code> and <code>serviceKey</code> you received upon
-          registration. If you have lost your Beacon service key and you wish to
-          delete your registration, pleace contact
-          <a href="mailto:bn-contact@elixir-europe.org"
-            >bn-contact@elixir-europe.org</a
-          >
-          from the email address you used at registration.
-        </p>
-        <p>
-          <code>curl -X DELETE \</code><br />
-          <code>{{ registry }}services/YOUR-BEACON-ID-HERE \</code><br />
-          <code>-H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</code><br />
-        </p>
-        <h3>Updating your Registration</h3>
-        <p>
-          If your Beacon info has changed, but the Registry is still displaying
-          old information, you can trigger an update manually. Remember, that
-          the Registry will still automatically refresh all information every
-          midnight (0:00 UTC). Your registration can be updated manually using
-          the <code>serviceId</code> and <code>serviceKey</code> you received
-          upon registration. If you have lost your Beacon service key and you
-          wish to delete your registration, pleace contact
-          <a href="mailto:bn-contact@elixir-europe.org"
-            >bn-contact@elixir-europe.org</a
-          >
-          from the email address you used at registration. Your Beacon service
-          will then be manually removed from the Network, and then you can
-          re-register your Beacon using the registration form, which will return
-          you with a new service key.
-        </p>
-        <p>
-          <code>curl -X PUT \</code><br />
-          <code>{{ registry }}/services/YOUR-BEACON-ID-HERE \</code><br />
-          <code>-H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'</code><br />
-          <code>-H 'Content-Type: application/json' \</code><br />
-          <code>-d '{</code><br />
-          <code>"email": "YOUR-CONTACT-EMAIL-HERE",</code><br />
-          <code>"type": "org.ga4gh:beacon",</code><br />
-          <code>"url": "YOUR-BEACON-INFO-ENDPOINT-HERE"</code><br />
-          <code>}'</code><br />
-        </p>
-      </div>
+      <div class="column"></div>
     </div>
   </section>
 </template>

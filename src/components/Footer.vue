@@ -23,6 +23,9 @@
             <ul>
               <li><router-link to="/join">Join the Network</router-link></li>
               <li><router-link to="/docs">For Developers</router-link></li>
+              <li>
+                <router-link to="/docsapi">API Documentation</router-link>
+              </li>
             </ul>
           </div>
           <div class="column is-one-fifth">

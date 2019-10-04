@@ -41,6 +41,11 @@ export default new Router({
       component: () => import("./views/Docs.vue")
     },
     {
+      path: "/docsapi",
+      name: "docsapi",
+      component: () => import("./views/DocsApi.vue")
+    },
+    {
       path: "/tos",
       name: "tos",
       component: () => import("./views/Tos.vue")
