@@ -41,8 +41,6 @@
             v-bind:beaconId="props.row.beaconId"
           >
           </BeaconResultsRow>
-
-          {{ props.row.beaconId }}
         </b-table-column>
 
         <b-table-column field="access" label="Dataset Access">
