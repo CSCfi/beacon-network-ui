@@ -92,7 +92,7 @@
 }
 .word-wrap {
   margin: 0 auto;
-  max-width: 80ch;
+  max-width: 100ch;
   padding-bottom: 25px;
   text-align: left;
 }
