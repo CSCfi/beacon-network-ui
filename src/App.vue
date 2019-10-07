@@ -9,9 +9,20 @@
             src="./assets/beacon-network-logo.png"
         /></router-link>
       </div>
-      <a class="login" href="https://auth-beacon.rahtiapp.fi/login"
+      <a
+        v-if="!getCookie('logged_in')"
+        class="login"
+        href="https://auth-beacon.rahtiapp.fi/login"
         ><img src="./assets/elixir-login.png"
       /></a>
+      <b-button
+        v-if="getCookie('logged_in')"
+        class="login"
+        v-on:click="logOut"
+        type="is-primary"
+        size="is-medium"
+        >Log Out</b-button
+      >
     </div>
     <router-view />
     <Footer />
@@ -23,6 +34,30 @@ import Footer from "@/components/Footer.vue";
 export default {
   components: {
     Footer
+  },
+  methods: {
+    logOut: function() {
+      // Function from https://www.w3schools.com/js/js_cookies.asp
+      // This function replaces the existing cookie with an instantly expiring one
+      document.cookie =
+        "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    },
+    getCookie: function(cname) {
+      // Function from https://www.w3schools.com/js/js_cookies.asp
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
   }
 };
 </script>
