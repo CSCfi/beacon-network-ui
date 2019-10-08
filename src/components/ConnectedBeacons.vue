@@ -1,7 +1,7 @@
 <template>
   <section v-on:load="queryAPI">
     <div
-      class="tile is-ancestor is-10"
+      class="tile is-ancestor"
       style="margin:auto;"
       v-for="beacon_pair in beacons"
       v-bind:key="beacons.indexOf(beacon_pair)"

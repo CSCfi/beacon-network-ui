@@ -9,7 +9,7 @@
         </div>
         <div class="media-content">
           <div class="content">
-            <p class="title is-4">{{ beacon.organization.name }}</p>
+            <p class="title is-size-5">{{ beacon.organization.name }}</p>
             <p class="subtitle is-6">{{ beacon.name }}</p>
             <p class="subtitle is-6">{{ beacon.description }}</p>
           </div>
@@ -22,11 +22,13 @@
         <div class="media-right">
           <span v-if="status == 200">
             <CheckboxBlankCircleIcon
+              :title="beacon.name + ' Online'"
               class="has-text-success"
             ></CheckboxBlankCircleIcon>
           </span>
           <span v-else>
             <CheckboxBlankCircleIcon
+              :title="beacon.name + ' Offline'"
               class="has-text-danger"
             ></CheckboxBlankCircleIcon>
           </span>
