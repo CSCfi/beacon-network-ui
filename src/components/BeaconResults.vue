@@ -224,10 +224,10 @@ export default {
   margin-top: 50px;
 }
 .column.is-one-fifth {
-  padding-top: 28px;
+  padding-top: 25px;
 }
 .column.is-one-fifth > .subtitle {
-  padding: 0 0 5px 5px;
+  padding: 0 0 8px 5px;
   color: black;
   border-bottom: solid 2px #7a7a7a;
   font-weight: 700;
