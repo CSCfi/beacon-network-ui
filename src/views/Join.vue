@@ -8,6 +8,7 @@
       <div class="column">
         <form @submit.prevent="onSubmit">
           <h2>Beacon Registration Form</h2>
+          <p>Mandatory fields are marked with *</p>
           <b-field
             label="Email"
             message="Contact address for the maintainer of this Beacon"
@@ -22,10 +23,11 @@
             </b-input>
           </b-field>
           <b-field
-            label="Beacon Info Endpoint"
+            label="Beacon Info Endpoint*"
             message="https:// address to the info endpoint of this Beacon"
           >
             <b-input
+              required
               v-model="url"
               id="url"
               type="url"
@@ -36,10 +38,11 @@
             </b-input>
           </b-field>
           <b-field
-            label="API Key"
+            label="API Key*"
             message="API key to authorise this registration"
           >
             <b-input
+              required
               v-model="apikey"
               id="apikey"
               type="password"
