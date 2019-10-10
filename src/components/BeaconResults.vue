@@ -25,6 +25,7 @@
       :data="response"
       :hits="hits"
       :loading="isLoading"
+      :striped="isStriped"
       default-sort="beaconId"
       :default-sort-direction="defaultSortDirection"
       class="column"
@@ -101,6 +102,7 @@ export default {
       registered: true,
       controlled: true,
       isLoading: false,
+      isStriped: true,
       response: [],
       variantTypes: [
         "DEL:ME",
@@ -222,7 +224,14 @@ export default {
   margin-top: 50px;
 }
 .column.is-one-fifth {
-  padding-top: 40px;
+  padding-top: 25px;
+}
+.column.is-one-fifth > .subtitle {
+  padding: 0 0 8px 5px;
+  color: black;
+  border-bottom: solid 2px #7a7a7a;
+  font-weight: 700;
+  font-size: 16px;
 }
 .filtered {
   position: sticky;
