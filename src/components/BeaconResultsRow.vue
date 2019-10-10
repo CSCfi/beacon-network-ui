@@ -1,15 +1,36 @@
 <template>
   <p class="org-row">
-    <img class="logo" :src="data.organization.logoUrl" :alt="data.name" />
-    <span class="name">{{ data.name }} at {{ data.organization.name }}</span>
+    <!-- Got data from Registry -->
+    <img
+      v-if="data.organization.logoUrl"
+      class="logo alt-color"
+      :src="data.organization.logoUrl"
+      :alt="data.name + ' Logo'"
+    />
+    <span v-if="data.organization.name" class="name"
+      >{{ data.name }} at {{ data.organization.name }}</span
+    >
+    <!-- Couldn't retrieve data from Registry -->
+    <Alert
+      v-if="!data.organization.logoUrl"
+      title="Could not retrieve Beacon data from Registry"
+      class="has-text-warning"
+    ></Alert>
+    <span v-if="!data.organization.name" class="name">{{
+      $props.beaconId
+    }}</span>
   </p>
 </template>
 
 <script>
 import axios from "axios";
+import Alert from "vue-material-design-icons/Alert.vue";
 
 export default {
   props: ["beaconId"],
+  components: {
+    Alert
+  },
   data() {
     return {
       registry: process.env.VUE_APP_REGISTRY_URL,
@@ -52,6 +73,8 @@ export default {
   padding: 0 0 0 10px;
   margin: 0;
   position: absolute;
-  /* top: 20%; */
+}
+.alt-color {
+  color: gray;
 }
 </style>
