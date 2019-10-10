@@ -46,20 +46,29 @@
 
         <b-table-column field="access" label="Dataset Access">
           <CheckboxBlankCircleIcon
-            v-if="props.row.datasetAlleleResponses.some(checkForPublicDatasets)"
+            v-if="
+              props.row.datasetAlleleResponses &&
+                props.row.datasetAlleleResponses.some(checkForPublicDatasets)
+            "
             title="Public"
             class="has-text-success"
           ></CheckboxBlankCircleIcon>
           <CheckboxBlankCircleIcon
             v-if="
-              props.row.datasetAlleleResponses.some(checkForRegisteredDatasets)
+              props.row.datasetAlleleResponses &&
+                props.row.datasetAlleleResponses.some(
+                  checkForRegisteredDatasets
+                )
             "
             title="Registered"
             class="has-text-warning"
           ></CheckboxBlankCircleIcon>
           <CheckboxBlankCircleIcon
             v-if="
-              props.row.datasetAlleleResponses.some(checkForControlledDatasets)
+              props.row.datasetAlleleResponses &&
+                props.row.datasetAlleleResponses.some(
+                  checkForControlledDatasets
+                )
             "
             title="Controlled"
             class="has-text-danger"
@@ -67,7 +76,11 @@
         </b-table-column>
 
         <b-table-column field="length" label="Variants Found" sortable numeric>
-          {{ props.row.datasetAlleleResponses.length }}
+          {{
+            props.row.datasetAlleleResponses
+              ? props.row.datasetAlleleResponses.length
+              : 0
+          }}
         </b-table-column>
       </template>
 
