@@ -214,13 +214,28 @@ export default {
       vm.queryParams = queryParams;
     },
     checkForPublicDatasets: function(result) {
-      if (result.info.accessType == "PUBLIC") return true;
+      if (
+        result.info &&
+        result.info.accessType &&
+        result.info.accessType == "PUBLIC"
+      )
+        return true;
     },
     checkForRegisteredDatasets: function(result) {
-      if (result.info.accessType == "REGISTERED") return true;
+      if (
+        result.info &&
+        result.info.accessType &&
+        result.info.accessType == "REGISTERED"
+      )
+        return true;
     },
     checkForControlledDatasets: function(result) {
-      if (result.info.accessType == "CONTROLLED") return true;
+      if (
+        result.info &&
+        result.info.accessType &&
+        result.info.accessType == "CONTROLLED"
+      )
+        return true;
     }
   },
   beforeMount() {
