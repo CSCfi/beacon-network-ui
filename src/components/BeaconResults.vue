@@ -75,7 +75,7 @@
           ></CheckboxBlankCircleIcon>
         </b-table-column>
 
-        <b-table-column field="length" label="Variants Found" sortable numeric>
+        <b-table-column field="length" label="Variants Found">
           {{
             props.row.datasetAlleleResponses
               ? props.row.datasetAlleleResponses.length
