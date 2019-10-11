@@ -178,10 +178,10 @@ export default {
       var baseString = `assemblyId=${
         vm.queryParams["assemblyId"]
       }&referenceName=${vm.queryParams["referenceName"]}\
-&referenceBases=${vm.queryParams["referenceBases"]}&startMin=${
-        vm.queryParams["startMin"]
+&referenceBases=${vm.queryParams["referenceBases"]}&start=${
+        vm.queryParams["start"]
       }\
-&startMax=${vm.queryParams["startMax"]}&includeDatasetResponses=HIT`;
+&includeDatasetResponses=HIT`;
       if ("alternateBases" in vm.queryParams) {
         baseString =
           baseString + `&alternateBases=${vm.queryParams["alternateBases"]}`;
@@ -199,8 +199,7 @@ export default {
       var queryParams = {
         assemblyId: vm.$route.query.assembly,
         referenceName: q[0],
-        startMin: q[2] > 0 ? q[2] - 1 : 0,
-        startMax: q[2],
+        start: q[2],
         referenceBases: q[3]
       };
 

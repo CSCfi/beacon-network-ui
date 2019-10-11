@@ -113,7 +113,7 @@ export default {
     },
     exampleSearch: function() {
       var vm = this;
-      vm.query = "MT : 10 T > C";
+      vm.query = "MT : 9 T > C";
     },
     validateInput: function() {
       var vm = this;
