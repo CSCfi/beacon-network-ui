@@ -75,7 +75,13 @@
           ></CheckboxBlankCircleIcon>
         </b-table-column>
 
-        <b-table-column field="length" label="Variants Found">
+        <b-table-column
+          field="length"
+          label="Variants Found"
+          :custom-sort="sortNumbers"
+          sortable
+          numeric
+        >
           {{
             props.row.datasetAlleleResponses
               ? props.row.datasetAlleleResponses.length
@@ -143,6 +149,17 @@ export default {
     }
   },
   methods: {
+    sortNumbers(a, b, isAsc) {
+      if (isAsc) {
+        return (
+          a.datasetAlleleResponses.length > b.datasetAlleleResponses.length
+        );
+      } else {
+        return (
+          a.datasetAlleleResponses.length < b.datasetAlleleResponses.length
+        );
+      }
+    },
     queryAPI: function() {
       var vm = this;
       var queryString = vm.constructQueryString();
