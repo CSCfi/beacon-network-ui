@@ -67,7 +67,9 @@
               </p>
               <pre>Chromosome : Position ReferenceBase > VarianType</pre>
               <p>
-                Beacon Network uses an adaptive coordinate system (0-1-based).
+                Note that Beacon APIs use 0-based coordinate system, while
+                datasets may use either 0- or 1-based coordinate systems. More
+                options are available in the Advanced Search Form.
               </p>
             </div>
             <div class="word-wrap">
