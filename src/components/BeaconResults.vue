@@ -6,15 +6,6 @@
         <div class="field">
           <b-switch v-model="hits">Hits Only</b-switch>
         </div>
-        <div class="field">
-          <b-switch v-model="pub" disabled>Public</b-switch>
-        </div>
-        <div class="field">
-          <b-switch v-model="registered" disabled>Registered</b-switch>
-        </div>
-        <div class="field">
-          <b-switch v-model="controlled" disabled>Controlled</b-switch>
-        </div>
       </b-field>
     </div>
 
@@ -117,9 +108,6 @@ export default {
     return {
       queryParams: undefined,
       hits: true,
-      pub: true,
-      registered: true,
-      controlled: true,
       isLoading: false,
       isStriped: true,
       response: [],
