@@ -12,6 +12,7 @@
     <b-table
       focusable
       hoverable
+      detailed
       :selected.sync="selected"
       :data="response"
       :hits="hits"
@@ -79,6 +80,45 @@
               : 0
           }}
         </b-table-column>
+      </template>
+
+      <template slot="detail" slot-scope="props">
+        <div
+          v-for="resp in props.row.datasetAlleleResponses"
+          :key="resp.datasetId"
+          class="detail-row"
+        >
+          <b-tag
+            class="access-tag"
+            type="is-success"
+            v-if="checkForPublicDatasets(resp)"
+            >Public</b-tag
+          >
+          <b-tag
+            class="access-tag"
+            type="is-warning"
+            v-else-if="checkForRegisteredDatasets(resp)"
+            >Registered</b-tag
+          >
+          <b-tag
+            class="access-tag"
+            type="is-danger"
+            v-else-if="checkForControlledDatasets(resp)"
+            >Controlled</b-tag
+          >
+          <b-tag class="access-tag" type="is-black" v-else>Unknown</b-tag>
+          <b>{{ resp.datasetId }}</b>
+          <span v-if="resp.externalUrl">
+            | <a v-bind:href="resp.externalUrl">link</a></span
+          >
+          | AC/SC(Freq.):
+          {{
+            resp.variantCount && resp.sampleCount
+              ? resp.variantCount + "/" + resp.sampleCount
+              : "n/a"
+          }}
+          ({{ resp.frequency ? resp.frequency : "n/a" }})
+        </div>
       </template>
 
       <template slot="empty">
@@ -241,6 +281,9 @@ export default {
         result.info.accessType == "CONTROLLED"
       )
         return true;
+    },
+    toggle(row) {
+      this.$refs.table.toggleDetails(row);
     }
   },
   beforeMount() {
@@ -274,5 +317,14 @@ export default {
 }
 .beacon-name {
   width: 70%;
+}
+.access-tag {
+  margin-right: 10px;
+}
+.dataset-link {
+  margin-left: 10px;
+}
+.detail-row {
+  padding-bottom: 5px;
 }
 </style>
