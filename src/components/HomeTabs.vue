@@ -88,7 +88,17 @@
                 reference base is C. This would transform into the following
                 statement in the searchbar:
               </p>
-              <pre>1 : 104431390 C > INS</pre>
+              <figure class="highlight is-expanded">
+                <div class="button-container">
+                  <button
+                    class="button is-text is-small copy-code"
+                    v-on:click="changeSearch('1 : 104431390 C > INS')"
+                  >
+                    Use Quer
+                  </button>
+                </div>
+                <pre>1 : 104431390 C > INS</pre>
+              </figure>
             </div>
             <div class="word-wrap">
               <h5>Example query:</h5>
@@ -99,7 +109,17 @@
                 the alternate base is A. This would transform into the following
                 statement in the searchbar:
               </p>
-              <pre>MT : 7600 G > A</pre>
+              <figure class="highlight is-expanded">
+                <div class="button-container">
+                  <button
+                    class="button is-text is-small copy-code"
+                    v-on:click="changeSearch('MT : 7600 G > A')"
+                  >
+                    Use Quer
+                  </button>
+                </div>
+                <pre>MT : 7600 G > A</pre>
+              </figure>
             </div>
             <div class="word-wrap">
               <h5>Example query:</h5>
@@ -114,7 +134,19 @@
                 This would transform into the following statement in the
                 searchbar:
               </p>
-              <pre>MT : 195 TTACTAAAGT > NNNNNNNNGT</pre>
+              <figure class="highlight is-expanded">
+                <div class="button-container">
+                  <button
+                    class="button is-text is-small copy-code"
+                    v-on:click="
+                      changeSearch('MT : 195 TTACTAAAGT > NNNNNNNNGT')
+                    "
+                  >
+                    Use Quer
+                  </button>
+                </div>
+                <pre>MT : 195 TTACTAAAGT > NNNNNNNNGT</pre>
+              </figure>
             </div>
           </div>
         </div>
@@ -132,14 +164,42 @@ export default {
   },
   data() {
     return {
-      activeTab: 0
+      activeTab: 0,
+      query: ""
     };
+  },
+  methods: {
+    changeSearch: function(queryString) {
+      this.$root.$emit("changeSearch", queryString);
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.highlight {
+  position: relative;
+  text-align: left !important;
+  height: 3.25rem;
+  margin: 0;
+}
+
+.highlight .button-container {
+  position: absolute;
+  display: inline-flex;
+  background: transparent;
+  border-radius: 4px 4px 0 0;
+  top: 0.25rem;
+  right: 1.35rem;
+  padding: 0 0 0 8px;
+  vertical-align: top;
+}
+.highlight .button-container .button:hover {
+  color: #3273dc;
+  background: transparent;
+}
+
 #tabsSection {
   margin: 100px 0 20px;
 }
