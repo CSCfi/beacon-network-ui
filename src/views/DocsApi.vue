@@ -1,6 +1,8 @@
 <template>
   <div class="content word-wrap">
-    <router-link to="/">Return</router-link>
+    <b-button tag="router-link" to="/" type="is-info">
+      Return to main page
+    </b-button>
     <h2>Advanced API User Guide</h2>
     <p>
       Your registration can be managed via the Registry API. A form similar to

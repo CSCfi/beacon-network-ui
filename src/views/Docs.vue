@@ -1,6 +1,8 @@
 <template>
   <div class="content word-wrap">
-    <router-link to="/">Return</router-link>
+    <b-button tag="router-link" to="/" type="is-info">
+      Return to main page
+    </b-button>
     <h1>For Developers</h1>
     <h2>Overview</h2>
     <p>
