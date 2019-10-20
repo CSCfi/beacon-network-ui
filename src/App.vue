@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div
+      id="nav"
+      :class="[
+        $route.path !== '/' && $route.path !== '/results' ? 'borderNav' : null
+      ]"
+    >
       <div id="logo" v-if="!$route.meta.hideSmallLogo">
         <router-link to="/"
           ><img
@@ -73,6 +78,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
   padding: 0 30px 0 30px;
+}
+
+.borderNav {
+  border-bottom: solid 1px #ccc;
+  margin-bottom: 10px;
 }
 
 #nav a {
