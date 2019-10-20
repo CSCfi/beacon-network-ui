@@ -88,9 +88,6 @@
 </template>
 
 <style lang="scss" scoped>
-.content {
-  // margin-top: 100px;
-}
 .word-wrap {
   margin: 0 auto;
   max-width: 130ch;
