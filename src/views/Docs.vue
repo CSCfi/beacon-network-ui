@@ -54,7 +54,6 @@
       The access token travels only in encrypted HTTPS traffic from component to
       component.
     </p>
-    <router-link to="/">Return</router-link>
   </div>
 </template>
 

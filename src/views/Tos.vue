@@ -50,7 +50,6 @@
       ><br />
     </p>
     <router-link to="/privacy">Privacy Policy</router-link><br />
-    <router-link to="/">Return</router-link>
   </div>
 </template>
 

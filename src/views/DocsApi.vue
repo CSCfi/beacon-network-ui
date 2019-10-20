@@ -58,7 +58,6 @@ curl -X PUT \
     }'
 </pre
     >
-    <router-link to="/">Return</router-link>
   </div>
 </template>
 

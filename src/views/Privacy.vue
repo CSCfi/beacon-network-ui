@@ -82,7 +82,6 @@
       ><br />
     </p>
     <router-link to="/tos">Terms of Service</router-link><br />
-    <router-link to="/">Return</router-link>
   </div>
 </template>
 
