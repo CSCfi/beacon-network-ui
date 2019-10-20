@@ -64,7 +64,7 @@
 }
 .word-wrap {
   margin: 0 auto;
-  max-width: 100ch;
+  max-width: 130ch;
   padding-bottom: 25px;
   text-align: left;
 }
