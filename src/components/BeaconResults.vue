@@ -202,7 +202,7 @@ export default {
   },
   methods: {
     sortNumbers(a, b, isAsc) {
-      console.log(a, b);
+      // console.log(a, b);
       if (isAsc) {
         return (
           a.datasetAlleleResponses.length > b.datasetAlleleResponses.length
