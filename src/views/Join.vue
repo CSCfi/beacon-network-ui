@@ -179,6 +179,18 @@
             <code>{{ audience }}</code
             >. GA4GH Passports have no audience.
           </li>
+          <li>
+            Beacon API specification doesn't declare how to indicate a dataset's
+            access level. To convey this information in the UI, the Beacon can
+            add <code>{"accessType": level}</code> to
+            <code>datasetAlleleResponses</code>'s <code>info</code> key. The
+            possible values are <code>PUBLIC</code>, <code>REGISTERED</code> and
+            <code>CONTROLLED</code>.
+            <a
+              href="https://beaconpy-elixirbeacon.rahtiapp.fi/query?assemblyId=GRCh38&referenceName=MT&start=9&referenceBases=T&alternateBases=C&includeDatasetResponses=HIT"
+              >Example response</a
+            >.
+          </li>
         </ol>
       </div>
       <div class="column"></div>

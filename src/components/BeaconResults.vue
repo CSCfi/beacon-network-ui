@@ -6,21 +6,15 @@
         <div class="field">
           <b-switch v-model="hits">Hits Only</b-switch>
         </div>
-        <div class="field">
-          <b-switch v-model="pub" disabled>Public</b-switch>
-        </div>
-        <div class="field">
-          <b-switch v-model="registered" disabled>Registered</b-switch>
-        </div>
-        <div class="field">
-          <b-switch v-model="controlled" disabled>Controlled</b-switch>
-        </div>
       </b-field>
     </div>
 
     <b-table
       focusable
       hoverable
+      detailed
+      :has-detailed-visible="hasDetailedVisible"
+      :row-class="rowClassVisibleOrHidden"
       :selected.sync="selected"
       :data="response"
       :hits="hits"
@@ -32,7 +26,7 @@
     >
       <template slot-scope="props" v-if="props.row.exists || !hits">
         <b-table-column
-          class="beacon-name"
+          class="beacon-name hide-long-name"
           field="beaconId"
           label="Beacon Organisation"
           sortable
@@ -44,7 +38,11 @@
           </BeaconResultsRow>
         </b-table-column>
 
-        <b-table-column field="access" label="Dataset Access">
+        <b-table-column
+          field="access"
+          label="Dataset Access"
+          class="narrow-column"
+        >
           <CheckboxBlankCircleIcon
             v-if="
               props.row.datasetAlleleResponses &&
@@ -78,6 +76,7 @@
         <b-table-column
           field="length"
           label="Variants Found"
+          class="narrow-column"
           :custom-sort="sortNumbers"
           sortable
           numeric
@@ -88,6 +87,64 @@
               : 0
           }}
         </b-table-column>
+      </template>
+
+      <template slot="detail" slot-scope="props" v-if="props.row.exists">
+        <div class="columns" id="detail-row-head">
+          <div class="column narrow-column">
+            <b>Access</b>
+          </div>
+          <div class="column is-three-fifths">
+            <b>Dataset ID</b>
+          </div>
+          <div class="column">
+            <b>Allele Count</b>
+          </div>
+          <div class="column">
+            <b>Frequency</b>
+          </div>
+        </div>
+        <div
+          v-for="resp in props.row.datasetAlleleResponses"
+          :key="resp.datasetId"
+          class="detail-row columns"
+        >
+          <div class="column detail-row-vertical">
+            <b-tag
+              class="access-tag"
+              type="is-success"
+              v-if="checkForPublicDatasets(resp)"
+              >Public</b-tag
+            >
+            <b-tag
+              class="access-tag"
+              type="is-warning"
+              v-else-if="checkForRegisteredDatasets(resp)"
+              >Registered</b-tag
+            >
+            <b-tag
+              class="access-tag"
+              type="is-danger"
+              v-else-if="checkForControlledDatasets(resp)"
+              >Controlled</b-tag
+            >
+            <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
+          </div>
+          <div
+            class="column is-three-fifths detail-row-vertical hide-long-name"
+          >
+            {{ resp.datasetId }}
+            <span v-if="resp.externalUrl"
+              ><a v-bind:href="resp.externalUrl"> url</a></span
+            >
+          </div>
+          <div class="column detail-row-vertical">
+            {{ resp.variantCount ? resp.variantCount : "n/a" }}
+          </div>
+          <div class="column detail-row-vertical">
+            {{ resp.frequency ? resp.frequency : "n/a" }}
+          </div>
+        </div>
       </template>
 
       <template slot="empty">
@@ -117,9 +174,6 @@ export default {
     return {
       queryParams: undefined,
       hits: true,
-      pub: true,
-      registered: true,
-      controlled: true,
       isLoading: false,
       isStriped: true,
       response: [],
@@ -150,6 +204,7 @@ export default {
   },
   methods: {
     sortNumbers(a, b, isAsc) {
+      // console.log(a, b);
       if (isAsc) {
         return (
           a.datasetAlleleResponses.length > b.datasetAlleleResponses.length
@@ -253,6 +308,15 @@ export default {
         result.info.accessType == "CONTROLLED"
       )
         return true;
+    },
+    hasDetailedVisible: function(data) {
+      if (data.exists) return true;
+      else return false;
+    },
+    rowClassVisibleOrHidden: function(row) {
+      if (row.exists && this.hits) return "is-visible";
+      else if (!this.hits) return "is-visible";
+      else return "is-hidden";
     }
   },
   beforeMount() {
@@ -284,7 +348,16 @@ export default {
 .field {
   width: 100%;
 }
-.beacon-name {
-  width: 70%;
+.narrow-column {
+  width: 15%;
+}
+.detail-row-vertical {
+  padding-top: 5px;
+  padding-bottom: 0;
+}
+.hide-long-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>
