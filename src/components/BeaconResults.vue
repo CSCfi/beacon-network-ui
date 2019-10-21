@@ -24,7 +24,7 @@
     >
       <template slot-scope="props" v-if="props.row.exists || !hits">
         <b-table-column
-          class="beacon-name"
+          class="beacon-name hide-long-name"
           field="beaconId"
           label="Beacon Organisation"
           sortable
@@ -128,7 +128,7 @@
             >
             <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
           </div>
-          <div class="column is-half detail-row-vertical">
+          <div class="column is-half detail-row-vertical hide-long-name">
             {{ resp.datasetId }}
             <span v-if="resp.externalUrl"
               ><a v-bind:href="resp.externalUrl"> url</a></span
@@ -344,5 +344,11 @@ export default {
 .detail-row-vertical {
   padding-top: 5px;
   padding-bottom: 0;
+}
+ 
+.hide-long-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>
