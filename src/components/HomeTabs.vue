@@ -65,7 +65,7 @@
               <p>
                 and
               </p>
-              <pre>Chromosome : Position ReferenceBase > VarianType</pre>
+              <pre>Chromosome : Position ReferenceBase > VariantType</pre>
               <p>
                 Note that Beacon APIs use 0-based coordinate system, while
                 datasets may use either 0- or 1-based coordinate systems. More
