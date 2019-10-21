@@ -312,7 +312,8 @@ export default {
       else return false;
     },
     rowClassVisibleOrHidden: function(row) {
-      if (row.exists) return "is-visible";
+      if (row.exists && this.hits) return "is-visible";
+      else if (!this.hits) return "is-visible";
       else return "is-hidden";
     }
   },
