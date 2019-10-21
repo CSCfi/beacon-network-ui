@@ -36,7 +36,11 @@
           </BeaconResultsRow>
         </b-table-column>
 
-        <b-table-column field="access" label="Dataset Access">
+        <b-table-column
+          field="access"
+          label="Dataset Access"
+          class="narrow-column"
+        >
           <CheckboxBlankCircleIcon
             v-if="
               props.row.datasetAlleleResponses &&
@@ -70,6 +74,7 @@
         <b-table-column
           field="length"
           label="Variants Found"
+          class="narrow-column"
           :custom-sort="sortNumbers"
           sortable
           numeric
@@ -82,42 +87,59 @@
         </b-table-column>
       </template>
 
-      <template slot="detail" slot-scope="props">
+      <template slot="detail" slot-scope="props" v-if="props.row.exists">
+        <div class="columns" id="detail-row-head">
+          <div class="column narrow-column">
+            <b>Access</b>
+          </div>
+          <div class="column is-half">
+            <b>Dataset ID</b>
+          </div>
+          <div class="column is-one-quarter">
+            <b>Allele Count</b>
+          </div>
+          <div class="column is-one-quarter">
+            <b>Frequency</b>
+          </div>
+        </div>
         <div
           v-for="resp in props.row.datasetAlleleResponses"
           :key="resp.datasetId"
-          class="detail-row"
+          class="detail-row columns"
         >
-          <b-tag
-            class="access-tag"
-            type="is-success"
-            v-if="checkForPublicDatasets(resp)"
-            >Public</b-tag
-          >
-          <b-tag
-            class="access-tag"
-            type="is-warning"
-            v-else-if="checkForRegisteredDatasets(resp)"
-            >Registered</b-tag
-          >
-          <b-tag
-            class="access-tag"
-            type="is-danger"
-            v-else-if="checkForControlledDatasets(resp)"
-            >Controlled</b-tag
-          >
-          <b-tag class="access-tag" type="is-black" v-else>Unknown</b-tag>
-          <b>{{ resp.datasetId }}</b>
-          <span v-if="resp.externalUrl">
-            | <a v-bind:href="resp.externalUrl">link</a></span
-          >
-          | AC/SC(Freq.):
-          {{
-            resp.variantCount && resp.sampleCount
-              ? resp.variantCount + "/" + resp.sampleCount
-              : "n/a"
-          }}
-          ({{ resp.frequency ? resp.frequency : "n/a" }})
+          <div class="column detail-row-vertical">
+            <b-tag
+              class="access-tag"
+              type="is-success"
+              v-if="checkForPublicDatasets(resp)"
+              >Public</b-tag
+            >
+            <b-tag
+              class="access-tag"
+              type="is-warning"
+              v-else-if="checkForRegisteredDatasets(resp)"
+              >Registered</b-tag
+            >
+            <b-tag
+              class="access-tag"
+              type="is-danger"
+              v-else-if="checkForControlledDatasets(resp)"
+              >Controlled</b-tag
+            >
+            <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
+          </div>
+          <div class="column is-half detail-row-vertical">
+            {{ resp.datasetId }}
+            <span v-if="resp.externalUrl"
+              ><a v-bind:href="resp.externalUrl"> url</a></span
+            >
+          </div>
+          <div class="column is-one-quarter detail-row-vertical">
+            {{ resp.variantCount ? resp.variantCount : "n/a" }}
+          </div>
+          <div class="column is-one-quarter detail-row-vertical">
+            {{ resp.frequency ? resp.frequency : "n/a" }}
+          </div>
         </div>
       </template>
 
@@ -178,7 +200,7 @@ export default {
   },
   methods: {
     sortNumbers(a, b, isAsc) {
-      console.log(a, b)
+      console.log(a, b);
       if (isAsc) {
         return (
           a.datasetAlleleResponses.length > b.datasetAlleleResponses.length
@@ -316,16 +338,11 @@ export default {
 .field {
   width: 100%;
 }
-.beacon-name {
-  width: 70%;
+.narrow-column {
+  width: 15%;
 }
-.access-tag {
-  margin-right: 10px;
-}
-.dataset-link {
-  margin-left: 10px;
-}
-.detail-row {
-  padding-bottom: 5px;
+.detail-row-vertical {
+  padding-top: 5px;
+  padding-bottom: 0;
 }
 </style>
