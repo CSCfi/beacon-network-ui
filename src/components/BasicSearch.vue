@@ -123,6 +123,12 @@ export default {
         vm.validated = false;
       }
     }
+  },
+  mounted() {
+    this.$root.$on("changeSearch", data => {
+      var vm = this;
+      vm.query = data;
+    });
   }
 };
 </script>
