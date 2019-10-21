@@ -14,6 +14,7 @@
       hoverable
       detailed
       :has-detailed-visible="hasDetailedVisible"
+      :row-class="rowClassVisibleOrHidden"
       :selected.sync="selected"
       :data="response"
       :hits="hits"
@@ -309,6 +310,10 @@ export default {
     hasDetailedVisible: function(data) {
       if (data.exists) return true;
       else return false;
+    },
+    rowClassVisibleOrHidden: function(row) {
+      if (row.exists) return "is-visible";
+      else return "is-hidden";
     }
   },
   beforeMount() {
