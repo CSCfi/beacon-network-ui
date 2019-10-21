@@ -94,7 +94,7 @@
                     class="button is-text is-small copy-code"
                     v-on:click="changeSearch('1 : 104431390 C > INS')"
                   >
-                    Use Quer
+                    Try
                   </button>
                 </div>
                 <pre>1 : 104431390 C > INS</pre>
@@ -115,7 +115,7 @@
                     class="button is-text is-small copy-code"
                     v-on:click="changeSearch('MT : 7600 G > A')"
                   >
-                    Use Quer
+                    Try
                   </button>
                 </div>
                 <pre>MT : 7600 G > A</pre>
@@ -142,7 +142,7 @@
                       changeSearch('MT : 195 TTACTAAAGT > NNNNNNNNGT')
                     "
                   >
-                    Use Quer
+                    Try
                   </button>
                 </div>
                 <pre>MT : 195 TTACTAAAGT > NNNNNNNNGT</pre>
