@@ -84,7 +84,7 @@
               <h5>Example query:</h5>
               <p>
                 I want to find a genomic dataset which has samples of insertion
-                type variants in chromosome 1 at position 104431390 where the
+                type variants in chromosome 1 at position 104431389 where the
                 reference base is C. This would transform into the following
                 statement in the searchbar:
               </p>
@@ -92,12 +92,12 @@
                 <div class="button-container">
                   <button
                     class="button is-text is-small copy-code"
-                    v-on:click="changeSearch('1 : 104431390 C > INS')"
+                    v-on:click="changeSearch('1 : 104431389 C > INS')"
                   >
                     Try
                   </button>
                 </div>
-                <pre>1 : 104431390 C > INS</pre>
+                <pre>1 : 104431389 C > INS</pre>
               </figure>
             </div>
             <div class="word-wrap">
@@ -105,7 +105,7 @@
               <p>
                 I want to find a genomic dataset which has samples of single
                 nucleotide polymorphism type of variant in the mitochondrial
-                chromosome at position 7600 where the reference base is G and
+                chromosome at position 7599 where the reference base is G and
                 the alternate base is A. This would transform into the following
                 statement in the searchbar:
               </p>
@@ -113,12 +113,12 @@
                 <div class="button-container">
                   <button
                     class="button is-text is-small copy-code"
-                    v-on:click="changeSearch('MT : 7600 G > A')"
+                    v-on:click="changeSearch('MT : 7599 G > A')"
                   >
                     Try
                   </button>
                 </div>
-                <pre>MT : 7600 G > A</pre>
+                <pre>MT : 7599 G > A</pre>
               </figure>
             </div>
             <div class="word-wrap">
@@ -126,7 +126,7 @@
               <p>
                 I want to find a genomic dataset which has samples of multiple
                 nucleotide polymorphism type of variant in the mitochondrial
-                chromosome at position 195 where the reference base is
+                chromosome at position 194 where the reference base is
                 TTACTAAAGT and the alternate base is of same length, ending in
                 GT, but having any variations of bases in the preceding bases.
                 In such cases, where the bases are unknown, we can use a
@@ -139,13 +139,13 @@
                   <button
                     class="button is-text is-small copy-code"
                     v-on:click="
-                      changeSearch('MT : 195 TTACTAAAGT > NNNNNNNNGT')
+                      changeSearch('MT : 194 TTACTAAAGT > NNNNNNNNGT')
                     "
                   >
                     Try
                   </button>
                 </div>
-                <pre>MT : 195 TTACTAAAGT > NNNNNNNNGT</pre>
+                <pre>MT : 194 TTACTAAAGT > NNNNNNNNGT</pre>
               </figure>
             </div>
           </div>
