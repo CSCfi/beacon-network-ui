@@ -94,13 +94,13 @@
           <div class="column narrow-column">
             <b>Access</b>
           </div>
-          <div class="column is-half">
+          <div class="column is-three-fifths">
             <b>Dataset ID</b>
           </div>
-          <div class="column is-one-quarter">
+          <div class="column">
             <b>Allele Count</b>
           </div>
-          <div class="column is-one-quarter">
+          <div class="column">
             <b>Frequency</b>
           </div>
         </div>
@@ -130,16 +130,18 @@
             >
             <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
           </div>
-          <div class="column is-half detail-row-vertical hide-long-name">
+          <div
+            class="column is-three-fifths detail-row-vertical hide-long-name"
+          >
             {{ resp.datasetId }}
             <span v-if="resp.externalUrl"
               ><a v-bind:href="resp.externalUrl"> url</a></span
             >
           </div>
-          <div class="column is-one-quarter detail-row-vertical">
+          <div class="column detail-row-vertical">
             {{ resp.variantCount ? resp.variantCount : "n/a" }}
           </div>
-          <div class="column is-one-quarter detail-row-vertical">
+          <div class="column detail-row-vertical">
             {{ resp.frequency ? resp.frequency : "n/a" }}
           </div>
         </div>
@@ -353,7 +355,6 @@ export default {
   padding-top: 5px;
   padding-bottom: 0;
 }
-
 .hide-long-name {
   text-overflow: ellipsis;
   white-space: nowrap;
