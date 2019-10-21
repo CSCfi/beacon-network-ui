@@ -13,6 +13,7 @@
       focusable
       hoverable
       detailed
+      :has-detailed-visible="hasDetailedVisible"
       :selected.sync="selected"
       :data="response"
       :hits="hits"
@@ -305,8 +306,9 @@ export default {
       )
         return true;
     },
-    toggle(row) {
-      this.$refs.table.toggleDetails(row);
+    hasDetailedVisible: function(data) {
+      if (data.exists) return true;
+      else return false;
     }
   },
   beforeMount() {
@@ -345,7 +347,7 @@ export default {
   padding-top: 5px;
   padding-bottom: 0;
 }
- 
+
 .hide-long-name {
   text-overflow: ellipsis;
   white-space: nowrap;
