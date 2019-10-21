@@ -1,6 +1,8 @@
 <template>
   <div class="content word-wrap">
-    <router-link to="/">Return</router-link>
+    <b-button tag="router-link" to="/" type="is-info">
+      Return to main page
+    </b-button>
     <h1>For Developers</h1>
     <h2>Overview</h2>
     <p>
@@ -54,17 +56,13 @@
       The access token travels only in encrypted HTTPS traffic from component to
       component.
     </p>
-    <router-link to="/">Return</router-link>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.content {
-  // margin-top: 100px;
-}
 .word-wrap {
   margin: 0 auto;
-  max-width: 100ch;
+  max-width: 130ch;
   padding-bottom: 25px;
   text-align: left;
 }

@@ -1,6 +1,8 @@
 <template>
   <div class="content word-wrap">
-    <router-link to="/">Return</router-link>
+    <b-button tag="router-link" to="/" type="is-info">
+      Return to main page
+    </b-button>
     <h2>Advanced API User Guide</h2>
     <p>
       Your registration can be managed via the Registry API. A form similar to
@@ -58,7 +60,6 @@ curl -X PUT \
     }'
 </pre
     >
-    <router-link to="/">Return</router-link>
   </div>
 </template>
 
@@ -73,12 +74,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-  // margin-top: 100px;
-}
 .word-wrap {
   margin: 0 auto;
-  max-width: 100ch;
+  max-width: 130ch;
   padding-bottom: 25px;
   text-align: left;
 }
