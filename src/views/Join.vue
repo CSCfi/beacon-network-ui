@@ -8,22 +8,8 @@
       <div class="column">
         <form @submit.prevent="onSubmit">
           <h2>Beacon Registration Form</h2>
-          <p>Mandatory fields are marked with *</p>
           <b-field
-            label="Email"
-            message="Contact address for the maintainer of this Beacon"
-          >
-            <b-input
-              v-model="email"
-              id="email"
-              type="email"
-              maxlength="256"
-              placeholder="admin@beacon.org"
-            >
-            </b-input>
-          </b-field>
-          <b-field
-            label="Beacon Info Endpoint*"
+            label="Beacon Info Endpoint"
             message="https:// address to the info endpoint of this Beacon"
           >
             <b-input
@@ -38,7 +24,7 @@
             </b-input>
           </b-field>
           <b-field
-            label="API Key*"
+            label="API Key"
             message="API key to authorise this registration"
           >
             <b-input
@@ -209,7 +195,6 @@ export default {
   },
   data() {
     return {
-      email: "",
       url: "",
       apikey: "",
       response: "",
@@ -235,19 +220,6 @@ export default {
       vm.registerService();
     },
     registerService: function() {
-      // axios makes 2 requests to registry
-      // first axios sends an OPTIONS
-      // then axios sends the wanted POST
-      // it appears, that the service registration passes on the first request
-      // the second request will land after the service has been registered
-      // for some reason the OPTIONS is also processed like a POST
-      // and this causes the ui to receive both "success 201" and "conflict 409"
-      // messages to be shown. investigate how to fix this.
-      // 1. use text/plain and JSON.stringify() the data ;; tested, didn't have any effect
-      // 2. somehow put a delay on the request, so that the OPTIONS will be able to do
-      //    a round trip before POST is initiated
-      // 3. somehow turn the OPTIONS request off
-      // the Registry has CORS enabled
       var vm = this;
       var registry = `${vm.registry}services`;
       var headers = {
@@ -255,7 +227,6 @@ export default {
         "Content-Type": "application/json"
       };
       var data = {
-        email: vm.email,
         type: "org.ga4gh:beacon",
         url: vm.url
       };
