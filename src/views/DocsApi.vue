@@ -50,7 +50,7 @@ curl -X DELETE \
     </p>
     <pre>
 curl -X PUT \
-    {{ registry }}/services/YOUR-BEACON-ID-HERE \
+    {{ registry }}services/YOUR-BEACON-ID-HERE \
     -H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'
     -H 'Content-Type: application/json' \
     -d '{
