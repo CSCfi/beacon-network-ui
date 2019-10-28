@@ -45,19 +45,15 @@ export default {
   data() {
     return {
       login_url: process.env.VUE_APP_LOGIN_URL,
-      logout_url: process.env.VUE_APP_LOGOUT_URL
-    };
-  },
-  components: {
-    Footer
-  },
-  data() {
-    return {
+      logout_url: process.env.VUE_APP_LOGOUT_URL,
       langs: [
         { ph: "In English", value: "en" },
         { ph: "Suomeksi", value: "fi" }
       ]
     };
+  },
+  components: {
+    Footer
   },
   methods: {
     getCookie: function(cname) {
