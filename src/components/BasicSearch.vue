@@ -35,7 +35,7 @@
             type="is-primary"
             size="is-medium"
             id="searchButton"
-            >Search</b-button
+            >{{ $t("message.search") }}</b-button
           >
         </b-field>
         <b-notification

@@ -20,6 +20,19 @@
       <a v-if="getCookie('logged_in')" class="login" :href="logout_url">
         <b-button class="login" type="is-primary">Log Out</b-button>
       </a>
+      <b-field class="locale-changer">
+        <b-select
+          v-model="$i18n.locale"
+          placeholder="Language"
+          icon="earth"
+          expanded
+          @input="setCookieLang()"
+        >
+          <option v-for="lang in langs" :key="lang.value" :value="lang.value">
+            {{ lang.ph }}
+          </option>
+        </b-select>
+      </b-field>
     </div>
     <router-view />
     <Footer />
@@ -38,6 +51,14 @@ export default {
   components: {
     Footer
   },
+  data() {
+    return {
+      langs: [
+        { ph: "In English", value: "en" },
+        { ph: "Suomeksi", value: "fi" }
+      ]
+    };
+  },
   methods: {
     getCookie: function(cname) {
       // Function from https://www.w3schools.com/js/js_cookies.asp
@@ -54,6 +75,15 @@ export default {
         }
       }
       return "";
+    },
+    setCookieLang: function() {
+      const expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + 1);
+      document.cookie =
+        "OBJ_UI_LANG=" +
+        this.$i18n.locale +
+        "; path=/; expires=" +
+        expiryDate.toUTCString();
     }
   }
 };
@@ -102,6 +132,10 @@ export default {
 
 .logo {
   height: 80px;
+}
+
+.locale-changer {
+  margin-top: 21px;
 }
 </style>
 
