@@ -18,9 +18,7 @@
         ><img src="./assets/elixir-login.png"
       /></a>
       <a v-if="getCookie('logged_in')" class="login" :href="logout_url">
-        <b-button class="login" type="is-primary" size="is-medium"
-          >Log Out</b-button
-        >
+        <b-button class="login" type="is-primary">Log Out</b-button>
       </a>
     </div>
     <router-view />

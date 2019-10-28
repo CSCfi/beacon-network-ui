@@ -1,11 +1,5 @@
 <template>
   <div class="home">
-    <div class="loggedStatus">
-      <b-taglist>
-        <b-tag v-if="getCookie('logged_in')" type="is-info">Logged In</b-tag>
-        <b-tag v-if="getCookie('bona_fide')" type="is-info">Bona Fide</b-tag>
-      </b-taglist>
-    </div>
     <p id="logo" v-if="$route.meta.hideSmallLogo">
       <router-link to="/">
         <img
