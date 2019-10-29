@@ -9,7 +9,7 @@
         />
       </router-link>
     </p>
-    <BasicSearch />
+    <component v-bind:is="componentName"></component>
     <hr id="divider" v-if="$route.path === '/results'" />
     <router-view />
   </div>
@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       queryParams: {},
-      results: false
+      results: false,
+      componentName: BasicSearch
     };
   },
   methods: {
