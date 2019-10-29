@@ -9,7 +9,10 @@
         />
       </router-link>
     </p>
-    <component v-bind:is="componentName"></component>
+    <component
+      v-bind:is="componentName"
+      @changeSearchForm="toggleForm"
+    ></component>
     <hr id="divider" v-if="$route.path === '/results'" />
     <router-view />
   </div>
@@ -35,6 +38,13 @@ export default {
     };
   },
   methods: {
+    toggleForm: function() {
+      if (this.componentName === BasicSearch) {
+        this.componentName = AdvancedSearch;
+      } else {
+        this.componentName = BasicSearch;
+      }
+    },
     devToast: function() {
       this.$snackbar.open({
         duration: 20000,

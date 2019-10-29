@@ -54,7 +54,9 @@
           >Example of a mitochondrial variant query</a
         ></span
       >
-      <span id="advanceSearch"><a>Advanced Search</a></span>
+      <span id="advancedSearch"
+        ><a @click="changeSearchForm">Advanced Search</a></span
+      >
     </div>
   </div>
 </template>
@@ -84,8 +86,10 @@ export default {
       ]
     };
   },
-  props: {},
   methods: {
+    changeSearchForm: function() {
+      this.$emit("changeSearchForm");
+    },
     onSubmit: function() {
       // onSubmit is called when user inputs ENTER on search bar
       // proxy the event to the basicSearch function
@@ -156,7 +160,7 @@ h2 {
   margin-left: 5px;
 }
 
-.searchbar-footer span#advanceSearch {
+.searchbar-footer span#advancedSearch {
   margin-left: auto;
 }
 
