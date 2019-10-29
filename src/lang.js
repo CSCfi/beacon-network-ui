@@ -1,29 +1,26 @@
 // Ready translated locale messages
 
-const translations = {
+const textDescriptions = {
   en: {
     message: {
-      index: {
-        logout: "Log Out"
-      },
-      search: "Search"
-    }
-  },
-  fi: {
-    message: {
-      index: {
-        logout: "Log Out"
-      },
-      search: "Hae"
+      logOut: "Log Out",
+      search: "Search",
+      returnMain: "Return to main page",
+      filter: {
+        title: "Filter results",
+        public: "Public",
+        registered: "Registered",
+        controlled: "Controlled",
+        hits: "Hits Only",
+        table: {
+          org: "Beacon Organisation",
+          datasetAccess: "Dataset Access",
+          access: "Access",
+          variants: "Variants Found"
+        }
+      }
     }
   }
 };
 
-export function getLangCookie() {
-  let matches = document.cookie.match(
-    new RegExp("(?:^|; )" + "OBJ_UI_LANG" + "=([^;]*)")
-  );
-  return matches ? decodeURIComponent(matches[1]) : "en";
-}
-
-export default translations;
+export default textDescriptions;
