@@ -18,12 +18,14 @@
 <script>
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
+import AdvancedSearch from "@/components/AdvancedSearch.vue";
 import VueCookies from "vue-cookies";
 
 export default {
   name: "home",
   components: {
-    BasicSearch
+    BasicSearch,
+    AdvancedSearch
   },
   data() {
     return {
