@@ -4,7 +4,7 @@
       <router-link to="/">
         <img
           class="bigLogo"
-          alt="ELIXIR Beacon Network logo"
+          :alt="$t('message.bnLogo')"
           src="@/assets/beacon-network-logo.png"
         />
       </router-link>
@@ -36,13 +36,12 @@ export default {
       this.$snackbar.open({
         duration: 20000,
         queue: false,
-        message:
-          "This web page is under development and may exhibit funky behaviour.",
+        message: this.$t("message.toast.devMessage"),
         actionText: "Cool",
         onAction: () => {
           this.$toast.open({
             queue: false,
-            message: "Thanks for understanding!",
+            message: this.$t("message.toast.devMessageOk"),
             position: "is-bottom-right"
           });
         }
@@ -54,17 +53,14 @@ export default {
         this.$snackbar.open({
           duration: 20000,
           queue: false,
-          message:
-            "Beacon Network utilises cookies. By using Beacon Network you accept the use of these cookies," +
-            ' more information regarding this can be read from the <a href="/privacy">Privacy Policy</a>.' +
-            ' Users are also subject to the <a href="/tos">Terms of Service</a>.',
+          message: this.$t("message.toast.cookies"),
           actionText: "OK",
           onAction: () => {
             // Set a cookie to prevent toast on subsequent visits
             VueCookies.set("elixir-cookies", "accepted", Infinity);
             this.$toast.open({
               queue: false,
-              message: "Cookies are in use!",
+              message: this.$t("message.toast.cookiesOk"),
               position: "is-bottom-right"
             });
           }

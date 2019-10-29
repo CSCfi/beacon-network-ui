@@ -51,7 +51,7 @@ export default {
           this.beacons = beacon_list;
         })
         .catch(error => {
-          this.error = "Could not find any Beacons to display.";
+          this.error = this.$t("message.error.noBeacons");
           console.log(error);
         });
     }

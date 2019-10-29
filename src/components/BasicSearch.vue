@@ -19,14 +19,14 @@
           <b-tooltip
             class="stretch"
             animated
-            label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
+            :label="$t('message.search.regexText')"
           >
             <b-input
               id="searchBar"
               class="stretch searchbar"
               size="is-medium"
               type="search"
-              placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
+              :placeholder="$t('message.search.regexText')"
               v-model="query"
             ></b-input>
           </b-tooltip>
@@ -35,7 +35,7 @@
             type="is-primary"
             size="is-medium"
             id="searchButton"
-            >{{ $t("message.search") }}</b-button
+            >{{ $t("message.search.action") }}</b-button
           >
         </b-field>
         <b-notification
@@ -49,12 +49,14 @@
     </section>
     <div class="searchbar-footer">
       <span id="example" v-if="$route.path === '/'"
-        ><strong>Quickstart: </strong>
-        <a v-on:click="exampleSearch"
-          >Example of a mitochondrial variant query</a
-        ></span
+        ><strong>{{ $t("message.search.quickstart") }} </strong>
+        <a v-on:click="exampleSearch">{{
+          $t("message.search.exampleText")
+        }}</a></span
       >
-      <span id="advanceSearch"><a>Advanced Search</a></span>
+      <span id="advanceSearch"
+        ><a>{{ $t("message.search.advancedSearch") }}</a></span
+      >
     </div>
   </div>
 </template>
@@ -107,7 +109,7 @@ export default {
           }
         });
       } else {
-        vm.errorMessage = "Variant search term is malformed, please try again.";
+        vm.errorMessage = this.$t("message.error.regexMatch");
         vm.errorTooltip = true;
       }
     },

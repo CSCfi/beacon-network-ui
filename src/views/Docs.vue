@@ -1,15 +1,15 @@
 <template>
   <div class="content word-wrap">
     <b-button tag="router-link" to="/" type="is-info">
-      Return to main page
+      {{ $t("message.returnMain") }}
     </b-button>
     <h1>For Developers</h1>
     <h2>Overview</h2>
     <p>
-      This document provides some technical documentation of ELIXIR Beacon
-      Network for developers. Beacon Network and its components are developed by
-      ELIXIR Finland (CSC - IT Center for Science Ltd.). All components have
-      been developed with public ELIXIR funding, and are therefore open sourced.
+      This page provides some technical documentation of ELIXIR Beacon Network
+      for developers. Beacon Network and its components are developed by ELIXIR
+      Finland (CSC - IT Center for Science Ltd.). All components have been
+      developed with public ELIXIR funding, and are therefore open sourced.
     </p>
     <p>
       The software stack at Beacon Network consists of Vue in the frontend and
@@ -44,7 +44,7 @@
       Aggregator will request a list of Beacons from the Registry. The
       Aggregator then propagates the user query to the Beacons, and aggregates
       the results, returning them to the UI in a websocket asynchronously. The
-      Aggregator can also be used synchronously (http).
+      Aggregator can also be used synchronously (HTTP).
     </p>
     <h3>OIDC Client</h3>
     <p>

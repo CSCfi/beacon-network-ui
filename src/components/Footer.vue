@@ -12,7 +12,7 @@
               <li><a href="https://beacon-project.io/">Beacon Project</a></li>
               <li>
                 <a
-                  href="https://ga4gh-discovery.github.io/networks/2018-12-13-network/"
+                  href="https://ga4gh-discovery.github.io/categories/discovery_networks.html"
                   >Beacon Network Project</a
                 >
               </li>

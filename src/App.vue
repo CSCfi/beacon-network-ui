@@ -10,15 +10,19 @@
         <router-link to="/"
           ><img
             class="logo"
-            alt="ELIXIR Beacon Network logo"
+            :alt="$t('message.bnLogo')"
             src="./assets/beacon-network-logo.png"
         /></router-link>
       </div>
       <a v-if="!getCookie('logged_in')" class="login" :href="login_url"
-        ><img src="./assets/elixir-login.png"
+        ><img
+          :alt="$t('message.elixirLoginButton')"
+          src="./assets/elixir-login.png"
       /></a>
       <a v-if="getCookie('logged_in')" class="login" :href="logout_url">
-        <b-button class="login" type="is-primary">Log Out</b-button>
+        <b-button class="login" type="is-primary">{{
+          $t("message.logOut")
+        }}</b-button>
       </a>
     </div>
     <router-view />

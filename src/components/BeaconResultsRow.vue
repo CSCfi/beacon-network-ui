@@ -13,7 +13,7 @@
     <!-- Couldn't retrieve data from Registry -->
     <Alert
       v-if="!data.organization.logoUrl"
-      title="Could not retrieve Beacon data from Registry"
+      :title="$t('message.error.dataRegistry')"
       class="has-text-warning"
     ></Alert>
     <span v-if="!data.organization.name" class="name">{{

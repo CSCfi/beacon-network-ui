@@ -1,10 +1,10 @@
 <template>
   <section class="container columns results-table">
     <div class="column is-one-fifth">
-      <h6 class="subtitle">Filter results</h6>
+      <h6 class="subtitle">{{ $t("message.filter.title") }}</h6>
       <b-field grouped group-multiline class="filtered">
         <div class="field">
-          <b-switch v-model="hits">Hits Only</b-switch>
+          <b-switch v-model="hits">{{ $t("message.filter.hits") }}</b-switch>
         </div>
       </b-field>
     </div>
@@ -28,7 +28,7 @@
         <b-table-column
           class="beacon-name hide-long-name"
           field="beaconId"
-          label="Beacon Organisation"
+          :label="$t('message.filter.table.org')"
           sortable
         >
           <BeaconResultsRow
@@ -40,7 +40,7 @@
 
         <b-table-column
           field="access"
-          label="Dataset Access"
+          :label="$t('message.filter.table.datasetAccess')"
           class="narrow-column"
         >
           <CheckboxBlankCircleIcon
@@ -48,7 +48,7 @@
               props.row.datasetAlleleResponses &&
                 props.row.datasetAlleleResponses.some(checkForPublicDatasets)
             "
-            title="Public"
+            :title="$t('message.filter.public')"
             class="has-text-success"
           ></CheckboxBlankCircleIcon>
           <CheckboxBlankCircleIcon
@@ -58,7 +58,7 @@
                   checkForRegisteredDatasets
                 )
             "
-            title="Registered"
+            :title="$t('message.filter.registered')"
             class="has-text-warning"
           ></CheckboxBlankCircleIcon>
           <CheckboxBlankCircleIcon
@@ -68,14 +68,14 @@
                   checkForControlledDatasets
                 )
             "
-            title="Controlled"
+            :title="$t('message.filter.controlled')"
             class="has-text-danger"
           ></CheckboxBlankCircleIcon>
         </b-table-column>
 
         <b-table-column
           field="length"
-          label="Variants Found"
+          :label="$t('message.filter.table.variants')"
           class="narrow-column"
           :custom-sort="sortNumbers"
           sortable
@@ -92,16 +92,16 @@
       <template slot="detail" slot-scope="props" v-if="props.row.exists">
         <div class="columns" id="detail-row-head">
           <div class="column narrow-column">
-            <b>Access</b>
+            <b>{{ $t("message.filter.table.access") }}</b>
           </div>
           <div class="column is-three-fifths">
-            <b>Dataset ID</b>
+            <b>{{ $t("message.filter.table.datasetId") }}</b>
           </div>
           <div class="column">
-            <b>Allele Count</b>
+            <b>{{ $t("message.filter.table.alleleCount") }}</b>
           </div>
           <div class="column">
-            <b>Frequency</b>
+            <b>{{ $t("message.filter.table.frequency") }}</b>
           </div>
         </div>
         <div
@@ -114,19 +114,19 @@
               class="access-tag"
               type="is-success"
               v-if="checkForPublicDatasets(resp)"
-              >Public</b-tag
+              >{{ $t("message.filter.public") }}</b-tag
             >
             <b-tag
               class="access-tag"
               type="is-warning"
               v-else-if="checkForRegisteredDatasets(resp)"
-              >Registered</b-tag
+              >{{ $t("message.filter.registered") }}</b-tag
             >
             <b-tag
               class="access-tag"
               type="is-danger"
               v-else-if="checkForControlledDatasets(resp)"
-              >Controlled</b-tag
+              >{{ $t("message.filter.controlled") }}</b-tag
             >
             <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
           </div>
@@ -153,7 +153,7 @@
             <p>
               <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
             </p>
-            <p>No results found.</p>
+            <p>{{ $t("message.error.noResults") }}</p>
           </div>
         </section>
       </template>

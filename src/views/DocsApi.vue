@@ -1,7 +1,7 @@
 <template>
   <div class="content word-wrap">
     <b-button tag="router-link" to="/" type="is-info">
-      Return to main page
+      {{ $t("message.returnMain") }}
     </b-button>
     <h2>Advanced API User Guide</h2>
     <p>

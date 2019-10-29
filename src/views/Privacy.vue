@@ -1,7 +1,7 @@
 <template>
   <div class="content word-wrap">
     <b-button tag="router-link" to="/" type="is-info">
-      Return to main page
+      {{ $t("message.returnMain") }}
     </b-button>
     <h1>ELIXIR Beacon Network</h1>
     <h2>Privacy Policy</h2>
