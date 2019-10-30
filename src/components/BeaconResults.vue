@@ -195,7 +195,7 @@ export default {
     };
   },
   watch: {
-    "$route.query.query": function() {
+    "$route.query": function() {
       // Watch query string for changes in case the user makes a new
       // search while displaying results.
       this.queryAPI();
