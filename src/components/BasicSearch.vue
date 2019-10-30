@@ -118,10 +118,14 @@ export default {
           queryObj["alternateBases"] = vm.query.split(" ")[5];
         }
         // Change view to results and send GET query string
-        this.$router.push({
-          path: "results",
-          query: queryObj
-        });
+        this.$router.push(
+          {
+            path: "results",
+            query: queryObj
+          },
+          undefined,
+          () => {}
+        );
       } else {
         vm.errorMessage = "Variant search term is malformed, please try again.";
         vm.errorTooltip = true;

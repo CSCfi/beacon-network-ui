@@ -242,10 +242,14 @@ export default {
         this.altBases = "";
       }
       // Change view to results and send GET query string
-      this.$router.push({
-        path: "results",
-        query: queryObj
-      });
+      this.$router.push(
+        {
+          path: "results",
+          query: queryObj
+        },
+        undefined,
+        () => {}
+      );
     },
     exampleSearch: function() {
       this.assemblyId = "GRCh38";
