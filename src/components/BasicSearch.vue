@@ -101,12 +101,26 @@ export default {
       // Validate user input with regex
       vm.validateInput();
       if (vm.validated) {
+        // Query string
+        var queryObj = {
+          includeDatasetResponses: "HIT",
+          assemblyId: vm.assembly,
+          referenceName: vm.query.split(" ")[0],
+          start: vm.query.split(" ")[2],
+          referenceBases: vm.query.split(" ")[3]
+        };
+        // Determine if last element is a base of a variant type
+        if (vm.variantTypes.includes(vm.query.split(" ")[5])) {
+          // vm.query.split(" ")[5]) is a variantType
+          queryObj["variantType"] = vm.query.split(" ")[5];
+        } else {
+          // vm.query.split(" ")[5]) is an alternateBases
+          queryObj["alternateBases"] = vm.query.split(" ")[5];
+        }
+        // Change view to results and send GET query string
         this.$router.push({
           path: "results",
-          query: {
-            query: vm.query,
-            assembly: vm.assembly
-          }
+          query: queryObj
         });
       } else {
         vm.errorMessage = "Variant search term is malformed, please try again.";

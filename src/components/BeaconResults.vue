@@ -198,7 +198,6 @@ export default {
     "$route.query.query": function() {
       // Watch query string for changes in case the user makes a new
       // search while displaying results.
-      this.parseQuery();
       this.queryAPI();
     }
   },
@@ -217,11 +216,22 @@ export default {
     },
     queryAPI: function() {
       var vm = this;
-      var queryString = vm.constructQueryString();
-      // console.log(queryString)
       vm.response = []; // Clear table
       var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
-      var websocket = new WebSocket(`${wss}query?${queryString}`);
+
+      // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
+      var queryParamsObj = this.$route.query;
+      var queryParamsString = "";
+      for (var key in queryParamsObj) {
+        if (queryParamsString != "") {
+          queryParamsString += "&";
+        }
+        queryParamsString +=
+          key + "=" + encodeURIComponent(queryParamsObj[key]);
+      }
+
+      // Create websocket
+      var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
 
       websocket.onopen = function() {
         // The connection was opened
@@ -244,46 +254,6 @@ export default {
         vm.isLoading = false;
         // console.log('websocket errored');
       };
-    },
-    constructQueryString: function() {
-      var vm = this;
-      var baseString = `assemblyId=${
-        vm.queryParams["assemblyId"]
-      }&referenceName=${vm.queryParams["referenceName"]}\
-&referenceBases=${vm.queryParams["referenceBases"]}&start=${
-        vm.queryParams["start"]
-      }\
-&includeDatasetResponses=HIT`;
-      if ("alternateBases" in vm.queryParams) {
-        baseString =
-          baseString + `&alternateBases=${vm.queryParams["alternateBases"]}`;
-      } else if ("variantType" in vm.queryParams) {
-        baseString =
-          baseString + `&variantType=${vm.queryParams["variantType"]}`;
-      } else {
-        console.log("Malformed query string.");
-      }
-      return baseString;
-    },
-    parseQuery: function() {
-      var vm = this;
-      var q = vm.$route.query.query.split(" ");
-      var queryParams = {
-        assemblyId: vm.$route.query.assembly,
-        referenceName: q[0],
-        start: q[2],
-        referenceBases: q[3]
-      };
-
-      if (vm.variantTypes.includes(q[5])) {
-        // q[5] is a variantType
-        queryParams["variantType"] = q[5];
-      } else {
-        // q[5] is an alternateBases
-        queryParams["alternateBases"] = q[5];
-      }
-
-      vm.queryParams = queryParams;
     },
     checkForPublicDatasets: function(result) {
       if (
@@ -320,7 +290,6 @@ export default {
     }
   },
   beforeMount() {
-    this.parseQuery();
     this.queryAPI();
   }
 };
