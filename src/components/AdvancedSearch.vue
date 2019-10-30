@@ -119,13 +119,19 @@
         </b-field>
       </div>
 
-        <b-notification
-          v-if="errorTooltip"
-          type="is-warning"
-          aria-close-label="Close notification"
-          role="alert"
-          >{{ errorMessage }}</b-notification
-        >
+      <b-message
+        v-if="errorTooltip"
+        type="is-danger"
+        aria-close-label="Close notification"
+        role="alert"
+      >
+        Form errors:
+        <ol>
+          <li v-for="e in errorMessages" :value="e" :key="e">
+            {{ e }}
+          </li>
+        </ol>
+      </b-message>
 
       <div class="search-footer">
         <b-button @click="resetForm" type="is-secondary" class="reset-button"
@@ -156,8 +162,8 @@ export default {
   name: "AdvancedSearch",
   data() {
     return {
-      validated: false,
       errorMessage: "",
+      errorMessages: [],
       errorTooltip: false,
       coordType: "exact",
       start: 0,
@@ -220,43 +226,93 @@ export default {
       this.$emit("changeSearchForm");
     },
     validateInput: function() {
-        
+      this.errorMessage = "";
+      this.errorMessages = [];
+      this.errorTooltip = false;
+      // Validate referenceBases field
+      if (!this.refBases) {
+        this.validated = false;
+        this.errorMessage =
+          "Reference Base(s) must be given, possible values are: A, T, C, G, N.";
+        this.errorMessages.push(
+          "Reference Base(s) must be given, possible values are: A, T, C, G, N."
+        );
+        this.errorTooltip = true;
+      }
+      // Validate alternateBases field if variantType is unspecified
+      if (this.altBases === "" && this.variantType == "Unspecified") {
+        this.errorMessage =
+          "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N.";
+        this.errorMessages.push(
+          "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N."
+        );
+        this.errorTooltip = true;
+      }
+      // Validate exact coords
+      if (this.coordType === "exact") {
+        if (this.start > this.end && this.end != 0) {
+          this.errorMessage =
+            "End coordinate must be greater than Start coordinate.";
+          this.errorMessages.push(
+            "If End coordinate is set, it must be greater than Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+      }
+      // Validate range coords
+      if (this.coordType === "range") {
+        if (this.startMin >= this.endMin) {
+          this.errorMessages.push(
+            "Minimum End coordinate must be greater than Minimum Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+        if (this.startMax >= this.endMax) {
+          this.errorMessages.push(
+            "Maximum End coordinate must be greater than Maximum Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+      }
     },
     advancedSearch: function() {
-      // Base query string
-      var queryObj = {
-        includeDatasetResponses: "HIT",
-        assemblyId: this.assembly,
-        referenceName: this.referenceName,
-        referenceBases: this.refBases
-      };
-      // Handle the other params
-      if (this.coordType === "exact") {
-        queryObj.start = this.start;
-        if (this.end != 0 && this.end > this.start) queryObj.end = this.end;
+      this.validateInput();
+      if (this.errorMessages.length === 0) {
+        // Base query string
+        var queryObj = {
+          includeDatasetResponses: "HIT",
+          assemblyId: this.assembly,
+          referenceName: this.referenceName,
+          referenceBases: this.refBases
+        };
+        // Handle the other params
+        if (this.coordType === "exact") {
+          queryObj.start = this.start;
+          if (this.end != 0 && this.end > this.start) queryObj.end = this.end;
+        }
+        if (this.coordType === "range") {
+          queryObj.startMin = this.startMin;
+          queryObj.startMax = this.startMax;
+          queryObj.endMin = this.endMin;
+          queryObj.endMax = this.endMax;
+        }
+        if (this.altBases) {
+          queryObj.alternateBases = this.altBases;
+          this.variantType = "Unspecified";
+        } else {
+          queryObj.variantType = this.variantType;
+          this.altBases = "";
+        }
+        // Change view to results and send GET query string
+        this.$router.push(
+          {
+            path: "results",
+            query: queryObj
+          },
+          undefined,
+          () => {}
+        );
       }
-      if (this.coordType === "range") {
-        queryObj.startMin = this.startMin;
-        queryObj.startMax = this.startMax;
-        queryObj.endMin = this.endMin;
-        queryObj.endMax = this.endMax;
-      }
-      if (this.altBases) {
-        queryObj.alternateBases = this.altBases;
-        this.variantType = "Unspecified";
-      } else {
-        queryObj.variantType = this.variantType;
-        this.altBases = "";
-      }
-      // Change view to results and send GET query string
-      this.$router.push(
-        {
-          path: "results",
-          query: queryObj
-        },
-        undefined,
-        () => {}
-      );
     },
     exampleSearch: function() {
       this.assemblyId = "GRCh38";

@@ -38,12 +38,12 @@
             >Search</b-button
           >
         </b-field>
-        <b-notification
+        <b-message
           v-if="errorTooltip"
-          type="is-warning"
+          type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-          >{{ errorMessage }}</b-notification
+          >{{ errorMessage }}</b-message
         >
       </form>
     </section>
