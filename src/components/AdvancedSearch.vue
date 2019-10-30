@@ -1,87 +1,92 @@
 <template>
   <div class="container content advanced-form">
     <form @submit.prevent="advancedSearch">
-      <h4>Target</h4>
+      <h4>Variant Location</h4>
       <hr />
       <div class="columns">
-        <b-field label="Assembly">
-          <b-select v-model="assembly" class="input-spacer">
-            <option v-for="a in assemblies" :value="a" :key="a">
-              {{ a }}
-            </option>
-          </b-select>
-        </b-field>
-        <b-field label="Chromosome">
-          <b-select v-model="referenceName" class="input-spacer">
-            <option v-for="r in referenceNames" :value="r" :key="r">
-              {{ r }}
-            </option>
-          </b-select>
-        </b-field>
-      </div>
+        <div class="column">
+          <b-field label="Assembly">
+            <b-select v-model="assembly" class="input-spacer">
+              <option v-for="asm in assemblies" :value="asm" :key="asm">
+                {{ asm }}
+              </option>
+            </b-select>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Chromosome">
+            <b-select v-model="referenceName" class="input-spacer">
+              <option v-for="ref in referenceNames" :value="ref" :key="ref">
+                {{ ref }}
+              </option>
+            </b-select>
+          </b-field>
+        </div>
 
-      <h4>Coordinates</h4>
-      <hr />
-      <div class="columns">
-        <b-radio v-model="coordType" name="coordType" native-value="exact"
-          >Exact</b-radio
-        >
-        <b-radio v-model="coordType" name="coordType" native-value="range"
-          >Range</b-radio
-        >
-      </div>
-      <div class="columns" style="margin-top: 10px;">
-        <b-field label="Start" v-if="coordType === 'exact'">
-          <b-numberinput
-            v-model="start"
-            controls-position="compact"
-            min="0"
-            class="input-spacer"
-          ></b-numberinput>
-        </b-field>
-        <b-field label="End" v-if="coordType === 'exact'">
-          <b-numberinput
-            v-model="end"
-            controls-position="compact"
-            min="0"
-            class="input-spacer"
-          ></b-numberinput>
-        </b-field>
-        <b-field label="Minimum Start" v-if="coordType === 'range'">
-          <b-numberinput
-            v-model="startMin"
-            controls-position="compact"
-            min="0"
-            class="input-spacer"
-          ></b-numberinput>
-        </b-field>
-        <b-field label="Maximum Start" v-if="coordType === 'range'">
-          <b-numberinput
-            v-model="startMax"
-            controls-position="compact"
-            min="0"
-            class="input-spacer"
-          ></b-numberinput>
-        </b-field>
-      </div>
+        <div class="column is-half">
+          <div class="columns">
+            <b-radio v-model="coordType" name="coordType" native-value="exact"
+              >Exact</b-radio
+            >
+            <b-radio v-model="coordType" name="coordType" native-value="range"
+              >Range</b-radio
+            >
+          </div>
 
-      <div class="columns">
-        <b-field label="Minimum End" v-if="coordType === 'range'">
-          <b-numberinput
-            v-model="endMin"
-            controls-position="compact"
-            min="0"
-            class="input-spacer"
-          ></b-numberinput>
-        </b-field>
-        <b-field label="Maximum End" v-if="coordType === 'range'">
-          <b-numberinput
-            v-model="endMax"
-            controls-position="compact"
-            min="0"
-            class="input-spacer"
-          ></b-numberinput>
-        </b-field>
+          <div class="columns" style="margin-top: 10px;">
+            <b-field label="Start" v-if="coordType === 'exact'">
+              <b-numberinput
+                v-model="start"
+                controls-position="compact"
+                min="0"
+                class="input-spacer"
+              ></b-numberinput>
+            </b-field>
+            <b-field label="End" v-if="coordType === 'exact'">
+              <b-numberinput
+                v-model="end"
+                controls-position="compact"
+                min="0"
+                class="input-spacer"
+              ></b-numberinput>
+            </b-field>
+            <b-field label="Minimum Start" v-if="coordType === 'range'">
+              <b-numberinput
+                v-model="startMin"
+                controls-position="compact"
+                min="0"
+                class="input-spacer"
+              ></b-numberinput>
+            </b-field>
+            <b-field label="Maximum Start" v-if="coordType === 'range'">
+              <b-numberinput
+                v-model="startMax"
+                controls-position="compact"
+                min="0"
+                class="input-spacer"
+              ></b-numberinput>
+            </b-field>
+          </div>
+
+          <div class="columns">
+            <b-field label="Minimum End" v-if="coordType === 'range'">
+              <b-numberinput
+                v-model="endMin"
+                controls-position="compact"
+                min="0"
+                class="input-spacer"
+              ></b-numberinput>
+            </b-field>
+            <b-field label="Maximum End" v-if="coordType === 'range'">
+              <b-numberinput
+                v-model="endMax"
+                controls-position="compact"
+                min="0"
+                class="input-spacer"
+              ></b-numberinput>
+            </b-field>
+          </div>
+        </div>
       </div>
 
       <h4>Variant Transformation</h4>
@@ -127,8 +132,8 @@
       >
         Form errors:
         <ol>
-          <li v-for="e in errorMessages" :value="e" :key="e">
-            {{ e }}
+          <li v-for="err in errorMessages" :value="err" :key="err">
+            {{ err }}
           </li>
         </ol>
       </b-message>
