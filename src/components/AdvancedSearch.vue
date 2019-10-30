@@ -12,9 +12,9 @@
           </b-select>
         </b-field>
         <b-field label="Chromosome">
-          <b-select v-model="chromosome" class="input-spacer">
-            <option v-for="c in chromosomes" :value="c" :key="c">
-              {{ c }}
+          <b-select v-model="referenceName" class="input-spacer">
+            <option v-for="r in referenceNames" :value="r" :key="r">
+              {{ r }}
             </option>
           </b-select>
         </b-field>
@@ -23,15 +23,15 @@
       <h4>Coordinates</h4>
       <hr />
       <div class="columns">
-        <b-radio v-model="coordBase" name="coordBase" native-value="0"
-          >0-based</b-radio
+        <b-radio v-model="coordType" name="coordType" native-value="exact"
+          >Exact</b-radio
         >
-        <b-radio v-model="coordBase" name="coordBase" native-value="1"
-          >1-based</b-radio
+        <b-radio v-model="coordType" name="coordType" native-value="range"
+          >Range</b-radio
         >
       </div>
       <div class="columns" style="margin-top: 10px;">
-        <b-field label="Start">
+        <b-field label="Start" v-if="coordType === 'exact'">
           <b-numberinput
             v-model="start"
             controls-position="compact"
@@ -39,7 +39,15 @@
             class="input-spacer"
           ></b-numberinput>
         </b-field>
-        <b-field label="Minimum Start">
+        <b-field label="End" v-if="coordType === 'exact'">
+          <b-numberinput
+            v-model="end"
+            controls-position="compact"
+            min="0"
+            class="input-spacer"
+          ></b-numberinput>
+        </b-field>
+        <b-field label="Minimum Start" v-if="coordType === 'range'">
           <b-numberinput
             v-model="startMin"
             controls-position="compact"
@@ -47,7 +55,7 @@
             class="input-spacer"
           ></b-numberinput>
         </b-field>
-        <b-field label="Maximum Start">
+        <b-field label="Maximum Start" v-if="coordType === 'range'">
           <b-numberinput
             v-model="startMax"
             controls-position="compact"
@@ -58,15 +66,7 @@
       </div>
 
       <div class="columns">
-        <b-field label="End">
-          <b-numberinput
-            v-model="end"
-            controls-position="compact"
-            min="0"
-            class="input-spacer"
-          ></b-numberinput>
-        </b-field>
-        <b-field label="Minimum End">
+        <b-field label="Minimum End" v-if="coordType === 'range'">
           <b-numberinput
             v-model="endMin"
             controls-position="compact"
@@ -74,7 +74,7 @@
             class="input-spacer"
           ></b-numberinput>
         </b-field>
-        <b-field label="Maximum End">
+        <b-field label="Maximum End" v-if="coordType === 'range'">
           <b-numberinput
             v-model="endMax"
             controls-position="compact"
@@ -89,16 +89,29 @@
       <div class="columns">
         <b-field label="Reference Base(s)">
           <b-tooltip animated position="is-bottom" label="A, T, C, G, N">
-            <b-input pattern="[ATCGN]+" class="input-spacer"></b-input>
+            <b-input
+              v-model="refBases"
+              pattern="[ATCGN]+"
+              class="input-spacer"
+            ></b-input>
           </b-tooltip>
         </b-field>
         <b-field label="Alternate Base(s)">
           <b-tooltip animated position="is-bottom" label="A, T, C, G, N">
-            <b-input pattern="[ATCGN]+" class="input-spacer"></b-input>
+            <b-input
+              v-model="altBases"
+              v-on:input="resetVariantType"
+              pattern="[ATCGN]+"
+              class="input-spacer"
+            ></b-input>
           </b-tooltip>
         </b-field>
         <b-field label="Variant Type">
-          <b-select v-model="variantType" class="input-spacer">
+          <b-select
+            v-model="variantType"
+            v-on:input="resetAltBases"
+            class="input-spacer"
+          >
             <option v-for="vt in variantTypes" :value="vt" :key="vt">
               {{ vt }}
             </option>
@@ -107,10 +120,13 @@
       </div>
 
       <div class="search-footer">
+        <b-button @click="resetForm" type="is-secondary" class="reset-button"
+          >Reset</b-button
+        >
         <b-button
-          v-on:click="basicSearch"
+          @click="advancedSearch"
           type="is-primary"
-          class="searchButton"
+          class="search-button"
           >Search</b-button
         >
       </div>
@@ -118,7 +134,7 @@
     <div class="search-footer">
       <span id="example" v-if="$route.path === '/'"
         ><strong>Quickstart: </strong>
-        <a v-on:click="exampleSearch">Example variant query</a></span
+        <a @click="exampleSearch">Example variant query</a></span
       >
       <span id="basicSearch"
         ><a @click="changeSearchForm">Basic Search</a></span
@@ -132,14 +148,20 @@ export default {
   name: "AdvancedSearch",
   data() {
     return {
-      query: "",
       validated: false,
       errorMessage: "",
       errorTooltip: false,
-      coordBase: 0,
-      coords: { start: 0 },
+      coordType: "exact",
+      start: 0,
+      startMin: 0,
+      startMax: 0,
+      end: 0,
+      endMin: 0,
+      endMax: 0,
       assembly: "GRCh38",
       assemblies: ["GRCh38", "GRCh37", "hg19"],
+      refBases: "",
+      altBases: "",
       variantType: "Unspecified",
       variantTypes: [
         "Unspecified",
@@ -154,8 +176,8 @@ export default {
         "SNP",
         "MNP"
       ],
-      chromosome: "1",
-      chromosomes: [
+      referenceName: "1",
+      referenceNames: [
         "1",
         "2",
         "3",
@@ -188,6 +210,73 @@ export default {
   methods: {
     changeSearchForm: function() {
       this.$emit("changeSearchForm");
+    },
+    onSubmit: function() {
+      // onSubmit is called when user inputs ENTER on search bar
+      // proxy the event to the advancedSearch function
+    },
+    advancedSearch: function() {
+      // Base query string
+      var queryObj = {
+        includeDatasetResponses: "HIT",
+        assemblyId: this.assembly,
+        referenceName: this.referenceName,
+        referenceBases: this.refBases
+      };
+      // Handle the other params
+      if (this.coordType === "exact") {
+        queryObj.start = this.start;
+        if (this.end != 0 && this.end > this.start) queryObj.end = this.end;
+      }
+      if (this.coordType === "range") {
+        queryObj.startMin = this.startMin;
+        queryObj.startMax = this.startMax;
+        queryObj.endMin = this.endMin;
+        queryObj.endMax = this.endMax;
+      }
+      if (this.altBases) {
+        queryObj.alternateBases = this.altBases;
+        this.variantType = "Unspecified";
+      } else {
+        queryObj.variantType = this.variantType;
+        this.altBases = "";
+      }
+      // Change view to results and send GET query string
+      this.$router.push({
+        path: "results",
+        query: queryObj
+      });
+    },
+    exampleSearch: function() {
+      this.assemblyId = "GRCh38";
+      this.referenceName = "MT";
+      this.coordType = "range";
+      this.startMin = 190;
+      this.startMax = 200;
+      this.endMin = 200;
+      this.endMax = 210;
+      this.refBases = "TTACTAAAGT";
+      this.variantType = "MNP";
+    },
+    resetAltBases: function() {
+      this.altBases = "";
+    },
+    resetVariantType: function() {
+      this.variantType = "Unspecified";
+    },
+    resetForm: function() {
+      this.assembly = "GRCh38";
+      this.referenceName = "1";
+      this.coordType = "exact";
+      this.start = 0;
+      this.end = 0;
+      this.startMin = 0;
+      this.startMax = 0;
+      this.endMin = 0;
+      this.endMax = 0;
+      this.refBases = "";
+      this.altBases = "";
+      this.variantType = "Unspecified";
     }
   }
 };
@@ -212,7 +301,10 @@ span#basicSearch {
 .search-footer span#advancedSearch {
   margin-left: auto;
 }
-.searchButton {
+.search-button {
+  margin-left: 10px;
+}
+.reset-button {
   margin-left: auto;
 }
 .input-spacer {
