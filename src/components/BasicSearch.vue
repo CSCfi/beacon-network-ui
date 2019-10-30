@@ -50,9 +50,7 @@
     <div class="searchbar-footer">
       <span id="example" v-if="$route.path === '/'"
         ><strong>Quickstart: </strong>
-        <a v-on:click="exampleSearch"
-          >Example of a mitochondrial variant query</a
-        ></span
+        <a v-on:click="exampleSearch">Example variant query</a></span
       >
       <span id="advancedSearch"
         ><a @click="changeSearchForm">Advanced Search</a></span
