@@ -1,6 +1,6 @@
 <template>
   <div class="container content advanced-form">
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="advancedSearch">
       <h4>Target</h4>
       <hr />
       <div class="columns">
@@ -119,6 +119,14 @@
         </b-field>
       </div>
 
+        <b-notification
+          v-if="errorTooltip"
+          type="is-warning"
+          aria-close-label="Close notification"
+          role="alert"
+          >{{ errorMessage }}</b-notification
+        >
+
       <div class="search-footer">
         <b-button @click="resetForm" type="is-secondary" class="reset-button"
           >Reset</b-button
@@ -211,9 +219,8 @@ export default {
     changeSearchForm: function() {
       this.$emit("changeSearchForm");
     },
-    onSubmit: function() {
-      // onSubmit is called when user inputs ENTER on search bar
-      // proxy the event to the advancedSearch function
+    validateInput: function() {
+        
     },
     advancedSearch: function() {
       // Base query string
