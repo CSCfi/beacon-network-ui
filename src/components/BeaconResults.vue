@@ -4,7 +4,9 @@
       <h6 class="subtitle">Filter results</h6>
       <b-field grouped group-multiline class="filtered">
         <div class="field">
-          <b-switch v-model="hits">Hits Only</b-switch>
+          <b-switch v-model="hits" :disabled="response.length < 1"
+            >Hits Only</b-switch
+          >
         </div>
       </b-field>
     </div>
@@ -242,6 +244,7 @@ export default {
         // The connection was closed
         vm.isLoading = false;
         // console.log('websocket closed');
+        vm.checkResponse();
       };
       websocket.onmessage = function(event) {
         // New message arrived
@@ -253,7 +256,16 @@ export default {
         // There was an error with your WebSocket
         vm.isLoading = false;
         // console.log('websocket errored');
+        vm.checkResponse();
       };
+    },
+    checkResponse: function() {
+      // Checks if the response from aggregator contains any exists=true
+      // If it doesn't, it clears the entire response array
+      // This solution stems from buefy's requirements for displaying
+      // an empty table template (display only if there is no data)
+      if (this.response.find(resp => resp.exists === true)) return true;
+      else this.response = [];
     },
     checkForPublicDatasets: function(result) {
       if (
