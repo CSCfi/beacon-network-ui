@@ -1,12 +1,12 @@
 <template>
   <div class="container content advanced-form">
     <form @submit.prevent="advancedSearch">
+
       <h4>Variant Location</h4>
-      <hr />
       <div class="columns">
         <div class="column">
           <b-field label="Assembly">
-            <b-select v-model="assembly" class="input-spacer">
+            <b-select v-model="assembly" expanded>
               <option v-for="asm in assemblies" :value="asm" :key="asm">
                 {{ asm }}
               </option>
@@ -15,113 +15,109 @@
         </div>
         <div class="column">
           <b-field label="Chromosome">
-            <b-select v-model="referenceName" class="input-spacer">
+            <b-select v-model="referenceName" class="input-spacer" expanded>
               <option v-for="ref in referenceNames" :value="ref" :key="ref">
                 {{ ref }}
               </option>
             </b-select>
           </b-field>
         </div>
-
-        <div class="column is-half">
-          <div class="columns">
+        <div class="column">
+            <h6 style="margin-top:5px">Coordinates</h6>
             <b-radio v-model="coordType" name="coordType" native-value="exact"
               >Exact</b-radio
             >
             <b-radio v-model="coordType" name="coordType" native-value="range"
               >Range</b-radio
             >
-          </div>
-
-          <div class="columns" style="margin-top: 10px;">
-            <b-field label="Start" v-if="coordType === 'exact'">
-              <b-numberinput
-                v-model="start"
-                controls-position="compact"
-                min="0"
-                class="input-spacer"
-              ></b-numberinput>
-            </b-field>
-            <b-field label="End" v-if="coordType === 'exact'">
-              <b-numberinput
-                v-model="end"
-                controls-position="compact"
-                min="0"
-                class="input-spacer"
-              ></b-numberinput>
-            </b-field>
-            <b-field label="Minimum Start" v-if="coordType === 'range'">
-              <b-numberinput
-                v-model="startMin"
-                controls-position="compact"
-                min="0"
-                class="input-spacer"
-              ></b-numberinput>
-            </b-field>
-            <b-field label="Maximum Start" v-if="coordType === 'range'">
-              <b-numberinput
-                v-model="startMax"
-                controls-position="compact"
-                min="0"
-                class="input-spacer"
-              ></b-numberinput>
-            </b-field>
-          </div>
-
-          <div class="columns">
-            <b-field label="Minimum End" v-if="coordType === 'range'">
-              <b-numberinput
-                v-model="endMin"
-                controls-position="compact"
-                min="0"
-                class="input-spacer"
-              ></b-numberinput>
-            </b-field>
-            <b-field label="Maximum End" v-if="coordType === 'range'">
-              <b-numberinput
-                v-model="endMax"
-                controls-position="compact"
-                min="0"
-                class="input-spacer"
-              ></b-numberinput>
-            </b-field>
-          </div>
+        </div>
+        <div class="column">
+          <b-field label="Start" v-if="coordType === 'exact'">
+            <b-numberinput
+              v-model="start"
+              controls-position="compact"
+              min="0"
+              class="input-spacer"
+            ></b-numberinput>
+          </b-field>
+          <b-field label="Minimum Start" v-if="coordType === 'range'">
+            <b-numberinput
+              v-model="startMin"
+              controls-position="compact"
+              min="0"
+              class="input-spacer"
+            ></b-numberinput>
+          </b-field>
+          <b-field label="Maximum Start" v-if="coordType === 'range'">
+            <b-numberinput
+              v-model="startMax"
+              controls-position="compact"
+              min="0"
+              class="input-spacer"
+            ></b-numberinput>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="End" v-if="coordType === 'exact'">
+            <b-numberinput
+              v-model="end"
+              controls-position="compact"
+              min="0"
+              class="input-spacer"
+            ></b-numberinput>
+          </b-field>
+          <b-field label="Minimum End" v-if="coordType === 'range'">
+            <b-numberinput
+              v-model="endMin"
+              controls-position="compact"
+              min="0"
+              class="input-spacer"
+            ></b-numberinput>
+          </b-field>
+          <b-field label="Maximum End" v-if="coordType === 'range'">
+            <b-numberinput
+              v-model="endMax"
+              controls-position="compact"
+              min="0"
+              class="input-spacer"
+            ></b-numberinput>
+          </b-field>
         </div>
       </div>
 
       <h4>Variant Transformation</h4>
       <hr />
       <div class="columns">
-        <b-field label="Reference Base(s)">
-          <b-tooltip animated position="is-bottom" label="A, T, C, G, N">
+        <div class="column">
+          <b-field label="Reference Base(s)">
             <b-input
               v-model="refBases"
               pattern="[ATCGN]+"
-              class="input-spacer"
+              placeholder="ATCGN"
+              expanded
             ></b-input>
-          </b-tooltip>
-        </b-field>
-        <b-field label="Alternate Base(s)">
-          <b-tooltip animated position="is-bottom" label="A, T, C, G, N">
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Alternate Base(s)">
             <b-input
               v-model="altBases"
               v-on:input="resetVariantType"
               pattern="[ATCGN]+"
-              class="input-spacer"
+              placeholder="ATCGN"
+              expanded
             ></b-input>
-          </b-tooltip>
-        </b-field>
-        <b-field label="Variant Type">
-          <b-select
-            v-model="variantType"
-            v-on:input="resetAltBases"
-            class="input-spacer"
-          >
-            <option v-for="vt in variantTypes" :value="vt" :key="vt">
-              {{ vt }}
-            </option>
-          </b-select>
-        </b-field>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Variant Type">
+            <b-select v-model="variantType" v-on:input="resetAltBases" expanded>
+              <option v-for="vt in variantTypes" :value="vt" :key="vt">
+                {{ vt }}
+              </option>
+            </b-select>
+          </b-field>
+        </div>
       </div>
 
       <b-message
@@ -384,5 +380,8 @@ span#basicSearch {
 }
 .advanced-form {
   width: 65%;
+}
+.column-top-margin {
+  margin-top: 20px;
 }
 </style>
