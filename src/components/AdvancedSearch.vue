@@ -1,7 +1,6 @@
 <template>
   <div class="container content advanced-form">
     <form @submit.prevent="advancedSearch">
-
       <h4>Variant Location</h4>
       <div class="columns">
         <div class="column">
@@ -23,13 +22,13 @@
           </b-field>
         </div>
         <div class="column">
-            <h6 style="margin-top:5px">Coordinates</h6>
-            <b-radio v-model="coordType" name="coordType" native-value="exact"
-              >Exact</b-radio
-            >
-            <b-radio v-model="coordType" name="coordType" native-value="range"
-              >Range</b-radio
-            >
+          <h6 style="margin-top:5px">Coordinates</h6>
+          <b-radio v-model="coordType" name="coordType" native-value="exact"
+            >Exact</b-radio
+          >
+          <b-radio v-model="coordType" name="coordType" native-value="range"
+            >Range</b-radio
+          >
         </div>
         <div class="column">
           <b-field label="Start" v-if="coordType === 'exact'">
@@ -251,7 +250,7 @@ export default {
       }
       // Validate exact coords
       if (this.coordType === "exact") {
-        if (this.start > this.end && this.end != 0) {
+        if (this.start >= this.end && this.end != 0) {
           this.errorMessage =
             "End coordinate must be greater than Start coordinate.";
           this.errorMessages.push(
