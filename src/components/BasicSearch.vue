@@ -38,23 +38,23 @@
             >Search</b-button
           >
         </b-field>
-        <b-notification
+        <b-message
           v-if="errorTooltip"
-          type="is-warning"
+          type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-          >{{ errorMessage }}</b-notification
+          >{{ errorMessage }}</b-message
         >
       </form>
     </section>
     <div class="searchbar-footer">
       <span id="example" v-if="$route.path === '/'"
         ><strong>Quickstart: </strong>
-        <a v-on:click="exampleSearch"
-          >Example of a mitochondrial variant query</a
-        ></span
+        <a v-on:click="exampleSearch">Example variant query</a></span
       >
-      <span id="advanceSearch"><a>Advanced Search</a></span>
+      <span id="advancedSearch"
+        ><a @click="changeSearchForm">Advanced Search</a></span
+      >
     </div>
   </div>
 </template>
@@ -84,8 +84,10 @@ export default {
       ]
     };
   },
-  props: {},
   methods: {
+    changeSearchForm: function() {
+      this.$emit("changeSearchForm");
+    },
     onSubmit: function() {
       // onSubmit is called when user inputs ENTER on search bar
       // proxy the event to the basicSearch function
@@ -99,13 +101,31 @@ export default {
       // Validate user input with regex
       vm.validateInput();
       if (vm.validated) {
-        this.$router.push({
-          path: "results",
-          query: {
-            query: vm.query,
-            assembly: vm.assembly
-          }
-        });
+        // Query string
+        var queryObj = {
+          includeDatasetResponses: "HIT",
+          assemblyId: vm.assembly,
+          referenceName: vm.query.split(" ")[0],
+          start: vm.query.split(" ")[2],
+          referenceBases: vm.query.split(" ")[3]
+        };
+        // Determine if last element is a base of a variant type
+        if (vm.variantTypes.includes(vm.query.split(" ")[5])) {
+          // vm.query.split(" ")[5]) is a variantType
+          queryObj["variantType"] = vm.query.split(" ")[5];
+        } else {
+          // vm.query.split(" ")[5]) is an alternateBases
+          queryObj["alternateBases"] = vm.query.split(" ")[5];
+        }
+        // Change view to results and send GET query string
+        this.$router.push(
+          {
+            path: "results",
+            query: queryObj
+          },
+          undefined,
+          () => {}
+        );
       } else {
         vm.errorMessage = "Variant search term is malformed, please try again.";
         vm.errorTooltip = true;
@@ -156,7 +176,7 @@ h2 {
   margin-left: 5px;
 }
 
-.searchbar-footer span#advanceSearch {
+.searchbar-footer span#advancedSearch {
   margin-left: auto;
 }
 

@@ -9,7 +9,10 @@
         />
       </router-link>
     </p>
-    <BasicSearch />
+    <component
+      v-bind:is="componentName"
+      @changeSearchForm="toggleForm"
+    ></component>
     <hr id="divider" v-if="$route.path === '/results'" />
     <router-view />
   </div>
@@ -18,20 +21,30 @@
 <script>
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
+import AdvancedSearch from "@/components/AdvancedSearch.vue";
 import VueCookies from "vue-cookies";
 
 export default {
   name: "home",
   components: {
-    BasicSearch
+    BasicSearch,
+    AdvancedSearch
   },
   data() {
     return {
       queryParams: {},
-      results: false
+      results: false,
+      componentName: BasicSearch
     };
   },
   methods: {
+    toggleForm: function() {
+      if (this.componentName === BasicSearch) {
+        this.componentName = AdvancedSearch;
+      } else {
+        this.componentName = BasicSearch;
+      }
+    },
     devToast: function() {
       this.$snackbar.open({
         duration: 20000,
