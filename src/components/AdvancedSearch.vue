@@ -148,7 +148,7 @@
     <div class="search-footer">
       <span id="example" v-if="$route.path === '/'"
         ><strong>Quickstart: </strong>
-        <a @click="exampleSearch">Example variant query</a></span
+        <a @click="exampleSearch">Example range query</a></span
       >
       <span id="basicSearch"
         ><a @click="changeSearchForm">Basic Search</a></span
