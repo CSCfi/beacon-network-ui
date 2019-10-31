@@ -4,7 +4,9 @@
       <h6 class="subtitle">Filter results</h6>
       <b-field grouped group-multiline class="filtered">
         <div class="field">
-          <b-switch v-model="hits">Hits Only</b-switch>
+          <b-switch v-model="hits" :disabled="response.length < 1"
+            >Hits Only</b-switch
+          >
         </div>
       </b-field>
     </div>
