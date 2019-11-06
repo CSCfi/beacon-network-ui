@@ -189,4 +189,8 @@ h2 {
 #searchBar {
   border-radius: 0;
 }
+/* fix safari bug https://github.com/jgthms/bulma/issues/2626 */
+.select select {
+  text-rendering: auto !important;
+}
 </style>

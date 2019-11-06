@@ -383,4 +383,8 @@ span#basicSearch {
 .column-top-margin {
   margin-top: 20px;
 }
+/* fix safari bug https://github.com/jgthms/bulma/issues/2626 */
+.select select {
+  text-rendering: auto !important;
+}
 </style>
