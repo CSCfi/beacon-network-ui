@@ -60,11 +60,7 @@
           </ConnectedBeaconTile>
         </div>
         <div v-if="response">
-          <b-message
-            v-bind:title="response.statusText"
-            type="is-success"
-            aria-close-label="Close message"
-          >
+          <b-message type="is-success">
             {{ response.data.message }}<br />
             <b>Service ID:</b> {{ response.data.serviceId }}<br />
             <b>Service Key:</b> {{ response.data.serviceKey }}<br />
@@ -72,11 +68,7 @@
           </b-message>
         </div>
         <div v-if="!response && error">
-          <b-message
-            v-bind:title="error.statusText"
-            type="is-warning"
-            aria-close-label="Close message"
-          >
+          <b-message type="is-warning">
             {{ error.data }}
           </b-message>
         </div>
