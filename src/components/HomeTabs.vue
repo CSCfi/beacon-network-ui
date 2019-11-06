@@ -171,6 +171,7 @@ export default {
   methods: {
     changeSearch: function(queryString) {
       this.$root.$emit("changeSearch", queryString);
+      document.getElementById("app").scrollIntoView();
     }
   }
 };
