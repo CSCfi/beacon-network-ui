@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div class="columns content return-container">
-      <router-link to="/">Return</router-link>
-    </div>
+    <b-button tag="router-link" to="/" type="is-info">
+      Return to main page
+    </b-button>
 
     <div class="columns content form-container">
       <div class="column">
