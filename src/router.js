@@ -7,6 +7,9 @@ Vue.use(Router);
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
+  scrollBehavior() {
+    document.getElementById("app").scrollIntoView();
+  },
   routes: [
     {
       path: "/",
@@ -15,20 +18,17 @@ export default new Router({
         {
           path: "",
           name: "home",
-          component: () => import("./components/HomeTabs.vue")
+          component: () => import("./components/HomeTabs.vue"),
+          meta: { hideSmallLogo: true }
         },
         {
           path: "results",
           name: "searchresults",
           props: true,
-          component: () => import("./components/BeaconResults.vue")
+          component: () => import("./components/BeaconResults.vue"),
+          meta: { hideSmallLogo: false }
         }
       ]
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: () => import("./views/About.vue")
     },
     {
       path: "/join",
@@ -39,6 +39,21 @@ export default new Router({
       path: "/docs",
       name: "docs",
       component: () => import("./views/Docs.vue")
+    },
+    {
+      path: "/docsapi",
+      name: "docsapi",
+      component: () => import("./views/DocsApi.vue")
+    },
+    {
+      path: "/tos",
+      name: "tos",
+      component: () => import("./views/Tos.vue")
+    },
+    {
+      path: "/privacy",
+      name: "privacy",
+      component: () => import("./views/Privacy.vue")
     }
   ]
 });

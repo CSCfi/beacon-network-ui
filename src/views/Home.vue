@@ -1,55 +1,97 @@
 <template>
   <div class="home">
-    <div class="loggedStatus">
-      <b-taglist>
-        <b-tag v-if="getCookie('logged_in')" type="is-info">Logged In</b-tag>
-        <b-tag v-if="getCookie('bona_fide')" type="is-info">Bona Fide</b-tag>
-      </b-taglist>
-    </div>
-    <BasicSearch />
+    <p id="logo" v-if="$route.meta.hideSmallLogo">
+      <router-link to="/">
+        <img
+          class="bigLogo"
+          alt="ELIXIR Beacon Network logo"
+          src="@/assets/beacon-network-logo.png"
+        />
+      </router-link>
+    </p>
+    <component
+      v-bind:is="componentName"
+      @changeSearchForm="toggleForm"
+    ></component>
+    <hr id="divider" v-if="$route.path === '/results'" />
     <router-view />
-    <Footer />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
-import Footer from "@/components/Footer.vue";
+import AdvancedSearch from "@/components/AdvancedSearch.vue";
+import VueCookies from "vue-cookies";
 
 export default {
   name: "home",
   components: {
     BasicSearch,
-    Footer
+    AdvancedSearch
   },
   data() {
     return {
       queryParams: {},
-      results: false
-    }
+      results: false,
+      componentName: BasicSearch
+    };
   },
   methods: {
+    toggleForm: function() {
+      if (this.componentName === BasicSearch) {
+        this.componentName = AdvancedSearch;
+      } else {
+        this.componentName = BasicSearch;
+      }
+    },
     devToast: function() {
       this.$snackbar.open({
-        duration: 10000,
-        message: 'This web page is under development and may exhibit funky behaviour.',
-        actionText: 'Cool',
+        duration: 20000,
+        queue: false,
+        message:
+          "This web page is under development and may exhibit funky behaviour.",
+        actionText: "Cool",
         onAction: () => {
           this.$toast.open({
-            message: 'Thanks for understanding!',
-            position: 'is-bottom-right'
-          })
+            queue: false,
+            message: "Thanks for understanding!",
+            position: "is-bottom-right"
+          });
         }
-      })
+      });
+    },
+    cookieToast: function() {
+      // Check if cookies have been accepted, if not, show toast regarding cookies
+      if (!VueCookies.get("elixir-cookies")) {
+        this.$snackbar.open({
+          duration: 20000,
+          queue: false,
+          message:
+            "Beacon Network utilises cookies. By using Beacon Network you accept the use of these cookies," +
+            ' more information regarding this can be read from the <a href="/privacy">Privacy Policy</a>.' +
+            ' Users are also subject to the <a href="/tos">Terms of Service</a>.',
+          actionText: "OK",
+          onAction: () => {
+            // Set a cookie to prevent toast on subsequent visits
+            VueCookies.set("elixir-cookies", "accepted", Infinity);
+            this.$toast.open({
+              queue: false,
+              message: "Cookies are in use!",
+              position: "is-bottom-right"
+            });
+          }
+        });
+      }
     },
     getCookie: function(cname) {
+      // Function from https://www.w3schools.com/js/js_cookies.asp
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);
-      var ca = decodedCookie.split(';');
-      for(var i = 0; i <ca.length; i++) {
+      var ca = decodedCookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) == " ") {
           c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
@@ -60,13 +102,16 @@ export default {
     }
   },
   beforeMount() {
-    this.devToast()
+    this.cookieToast();
+    this.devToast();
   }
 };
 </script>
 
 <style scoped>
-
+.home {
+  flex: 1 0 auto;
+}
 .visible {
   display: block;
 }
@@ -75,9 +120,23 @@ export default {
   display: none;
 }
 
+#divider {
+  background-color: #e7e7e7;
+  height: 1px;
+}
+
+#logo {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
 .loggedStatus {
   position: absolute;
   top: 20px;
   right: 150px;
+}
+
+.bigLogo {
+  height: 150px;
 }
 </style>

@@ -1,4 +1,4 @@
-# Beacon Network UI
+## Beacon Network UI
 
 Beacon Network UI serves as a Graphical User Interface for Beacon Network APIs.
 
@@ -7,7 +7,7 @@ Beacon Network consumes the following APIs:
 * [Beacon Aggregator](https://github.com/CSCfi/beacon-network) (serves as a query gateway to beacons)
 * [OIDC Client](https://github.com/CSCfi/oidc-client) (user login at ELIXIR AAI)
 
-## Quick Start
+### Quick Start
 
 ##### Install Node Modules
 ```
@@ -28,3 +28,7 @@ npm run build
 ```
 npm start
 ```
+
+### License
+
+`beacon-network-ui` and all it sources are released under *Apache 2.0 License*.

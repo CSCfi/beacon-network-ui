@@ -1,23 +1,80 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <a href="/"><img class="logo" alt="ELIXIR Beacon Network logo" src="./assets/beacon-network-logo.png" /></a>
-      <a href="https://auth-beacon.rahtiapp.fi/login"><img class="login" src="./assets/elixir-login.png"></a>
+    <div
+      id="nav"
+      :class="[
+        $route.path !== '/' && $route.path !== '/results' ? 'borderNav' : null
+      ]"
+    >
+      <div id="logo" v-if="!$route.meta.hideSmallLogo">
+        <router-link to="/"
+          ><img
+            class="logo"
+            alt="ELIXIR Beacon Network logo"
+            src="./assets/beacon-network-logo.png"
+        /></router-link>
+      </div>
+      <a v-if="!getCookie('logged_in')" class="login" :href="login_url"
+        ><img src="./assets/elixir-login.png"
+      /></a>
+      <a v-if="getCookie('logged_in')" class="login" :href="logout_url">
+        <b-button class="login" type="is-primary">Log Out</b-button>
+      </a>
     </div>
     <router-view />
+    <Footer />
   </div>
 </template>
 
+<script>
+import Footer from "@/components/Footer.vue";
+export default {
+  data() {
+    return {
+      login_url: process.env.VUE_APP_LOGIN_URL,
+      logout_url: process.env.VUE_APP_LOGOUT_URL
+    };
+  },
+  components: {
+    Footer
+  },
+  methods: {
+    getCookie: function(cname) {
+      // Function from https://www.w3schools.com/js/js_cookies.asp
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+  }
+};
+</script>
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 #nav {
+  display: flex;
+  flex-wrap: wrap;
   padding: 0 30px 0 30px;
+}
+
+.borderNav {
+  border-bottom: solid 1px #ccc;
+  margin-bottom: 10px;
 }
 
 #nav a {
@@ -30,27 +87,39 @@
   color: #42b983;
 }
 
+#nav ~ .home {
+  margin-top: 20px;
+}
+
 .login {
+  margin-left: auto;
+  margin-top: 15px;
+}
+
+.login img {
   width: 100px;
-  float: right;
-  padding-top: 15px;
 }
 
 .logo {
-  height: 100px;
-  float: left;
+  height: 80px;
 }
 </style>
 
 <style lang="scss">
 // Import Bulma's core
-  @import "~bulma/sass/utilities/_all";
-
+@import "~bulma/sass/utilities/_all";
+html,
+body {
+  height: 100%;
+}
 // Set your colors
-$primary: #F47C20;
+$primary: #047eaa;
 $primary-invert: findColorInvert($primary);
 $colors: (
-    "primary": ($primary, $primary-invert)
+  "primary": (
+    $primary,
+    $primary-invert
+  )
 );
 
 // Links

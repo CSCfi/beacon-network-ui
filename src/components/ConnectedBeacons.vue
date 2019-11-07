@@ -1,21 +1,21 @@
 <template>
-    <section v-on:load="queryAPI">
-      <div 
-        class="tile is-ancestor is-10"
-        style="margin:auto;"
-        v-for="beacon_pair in beacons"
-        v-bind:key="beacons.indexOf(beacon_pair)"
-      >
-        <ConnectedBeaconTile
-          v-for="beacon in beacon_pair"
-          v-bind:key="beacon.url"
-          v-bind:beacon="beacon"
-        ></ConnectedBeaconTile>
-      </div>
-      <div v-if="error">
-        {{ error }}
-      </div>
-    </section>
+  <section v-on:load="queryAPI">
+    <div
+      class="tile is-ancestor"
+      style="margin:auto;"
+      v-for="beacon_pair in beacons"
+      v-bind:key="beacons.indexOf(beacon_pair)"
+    >
+      <ConnectedBeaconTile
+        v-for="beacon in beacon_pair"
+        v-bind:key="beacon.url"
+        v-bind:beacon="beacon"
+      ></ConnectedBeaconTile>
+    </div>
+    <div v-if="error">
+      {{ error }}
+    </div>
+  </section>
 </template>
 
 <script>
@@ -24,45 +24,42 @@ import ConnectedBeaconTile from "@/components/ConnectedBeaconTile.vue";
 
 export default {
   components: {
-    ConnectedBeaconTile,
+    ConnectedBeaconTile
   },
   data() {
-      return {
-          beacons: [],
-          error: ""
-      }
+    return {
+      beacons: [],
+      error: "",
+      registry: process.env.VUE_APP_REGISTRY_URL
+    };
   },
   methods: {
-      queryAPI : function () {
-        var vm = this;
-        vm.beacons = []; // Clear view
+    queryAPI: function() {
+      var vm = this;
+      vm.beacons = []; // Clear view
 
-        var url = "https://dev-registry-beacon.rahtiapp.fi/services?type=org.ga4gh:beacon";
+      var url = `${vm.registry}services?type=org.ga4gh:beacon`;
 
-        axios
-          .get(url)
-          .then(response => {
-            let beacon_list = [];
-            // Re-order as pairs, to make two column tiling with Vue possible
-            for (let i = 0; i < response.data.length; i += 2) {
-              beacon_list.push(
-                response.data.slice(i, i+2)
-              );
-            }
-            this.beacons = beacon_list;
-          })
-          .catch(error => {
-            this.error = "Could not find any Beacons to display."
-            console.log(error)
-          })
-      },
+      axios
+        .get(url)
+        .then(response => {
+          let beacon_list = [];
+          // Re-order as pairs, to make two column tiling with Vue possible
+          for (let i = 0; i < response.data.length; i += 2) {
+            beacon_list.push(response.data.slice(i, i + 2));
+          }
+          this.beacons = beacon_list;
+        })
+        .catch(error => {
+          this.error = "Could not find any Beacons to display.";
+          console.log(error);
+        });
+    }
   },
   beforeMount() {
-    this.queryAPI()
+    this.queryAPI();
   }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
