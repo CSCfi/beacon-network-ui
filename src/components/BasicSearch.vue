@@ -48,12 +48,11 @@
       </form>
     </section>
     <div class="searchbar-footer">
-      <span id="example" v-if="$route.path === '/'"
-        ><strong>Quickstart: </strong>
-        <a v-on:click="exampleSearch">Example variant query</a></span
+      <span id="example" v-if="$route.path === '/'">
+        <b-button @click="exampleSearch">Example variant query</b-button></span
       >
       <span id="advancedSearch"
-        ><a @click="changeSearchForm">Advanced Search</a></span
+        ><b-button @click="changeSearchForm">Advanced Search</b-button></span
       >
     </div>
   </div>
@@ -161,25 +160,17 @@ h2 {
 /* section {
   margin-top: 100px;
 } */
-
 .stretch {
   width: 100%;
 }
 .searchbar-footer {
   margin-top: 12px;
-  margin-right: 5px;
   font-size: 0.9em;
   display: flex;
 }
-
-.searchbar-footer span#example {
-  margin-left: 5px;
-}
-
 .searchbar-footer span#advancedSearch {
   margin-left: auto;
 }
-
 #searchButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

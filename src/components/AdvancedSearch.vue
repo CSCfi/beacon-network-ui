@@ -146,12 +146,11 @@
       </div>
     </form>
     <div class="search-footer">
-      <span id="example" v-if="$route.path === '/'"
-        ><strong>Quickstart: </strong>
-        <a @click="exampleSearch">Example range query</a></span
+      <span id="example" v-if="$route.path === '/'">
+        <b-button @click="exampleSearch">Example range query</b-button></span
       >
       <span id="basicSearch"
-        ><a @click="changeSearchForm">Basic Search</a></span
+        ><b-button @click="changeSearchForm">Basic Search</b-button></span
       >
     </div>
   </div>
@@ -358,12 +357,8 @@ span#basicSearch {
 }
 .search-footer {
   margin-top: 12px;
-  margin-right: 5px;
   font-size: 0.9em;
   display: flex;
-}
-.search-footer span#example {
-  margin-left: 5px;
 }
 .search-footer span#advancedSearch {
   margin-left: auto;
