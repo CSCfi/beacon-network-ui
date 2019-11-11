@@ -74,7 +74,7 @@
     <h3>Changes to Privacy Policy</h3>
     <p>
       This document may be updated at any time without given notice.
-      <br /><i>Last updated on the 27th of September, 2019.</i>
+      <br /><i>Last updated: 27 September 2019.</i>
     </p>
     <h3>Contact Us</h3>
     <p>
