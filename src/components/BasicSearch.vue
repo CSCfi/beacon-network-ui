@@ -133,6 +133,7 @@ export default {
     exampleSearch: function() {
       var vm = this;
       vm.query = "MT : 9 T > C";
+      document.getElementById("searchBar").focus();
     },
     validateInput: function() {
       var vm = this;

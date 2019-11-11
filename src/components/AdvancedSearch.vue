@@ -141,6 +141,7 @@
           @click="advancedSearch"
           type="is-primary"
           class="search-button"
+          id="searchButton"
           >Search</b-button
         >
       </div>
@@ -323,6 +324,7 @@ export default {
       this.endMax = 210;
       this.refBases = "TTACTAAAGT";
       this.variantType = "MNP";
+      document.getElementById("searchButton").focus();
     },
     resetAltBases: function() {
       this.altBases = "";
