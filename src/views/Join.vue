@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-button tag="router-link" to="/" type="is-info">
+    <b-button tag="router-link" to="/" type="is-info" class="return-button">
       Return to main page
     </b-button>
 
@@ -263,8 +263,7 @@ export default {
   text-align: left;
   margin: 50px auto 0 auto;
 }
-.return-container {
-  text-align: left;
-  margin: 100px auto auto 15px;
+.return-button {
+  margin: auto auto auto 15px;
 }
 </style>
