@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="margin-bottom:24px">
     <section>
       <form @submit.prevent="onSubmit">
         <b-field>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container content advanced-form">
+  <div class="container content">
     <form @submit.prevent="advancedSearch">
       <h4>Variant Location</h4>
       <div class="columns">
@@ -14,7 +14,7 @@
         </div>
         <div class="column">
           <b-field label="Chromosome">
-            <b-select v-model="referenceName" class="input-spacer" expanded>
+            <b-select v-model="referenceName" expanded>
               <option v-for="ref in referenceNames" :value="ref" :key="ref">
                 {{ ref }}
               </option>
@@ -36,7 +36,6 @@
               v-model="start"
               controls-position="compact"
               min="0"
-              class="input-spacer"
             ></b-numberinput>
           </b-field>
           <b-field label="Minimum Start" v-if="coordType === 'range'">
@@ -44,7 +43,6 @@
               v-model="startMin"
               controls-position="compact"
               min="0"
-              class="input-spacer"
             ></b-numberinput>
           </b-field>
           <b-field label="Maximum Start" v-if="coordType === 'range'">
@@ -52,7 +50,6 @@
               v-model="startMax"
               controls-position="compact"
               min="0"
-              class="input-spacer"
             ></b-numberinput>
           </b-field>
         </div>
@@ -62,7 +59,6 @@
               v-model="end"
               controls-position="compact"
               min="0"
-              class="input-spacer"
             ></b-numberinput>
           </b-field>
           <b-field label="Minimum End" v-if="coordType === 'range'">
@@ -70,7 +66,6 @@
               v-model="endMin"
               controls-position="compact"
               min="0"
-              class="input-spacer"
             ></b-numberinput>
           </b-field>
           <b-field label="Maximum End" v-if="coordType === 'range'">
@@ -78,7 +73,6 @@
               v-model="endMax"
               controls-position="compact"
               min="0"
-              class="input-spacer"
             ></b-numberinput>
           </b-field>
         </div>
@@ -370,12 +364,6 @@ span#basicSearch {
 }
 .reset-button {
   margin-left: auto;
-}
-.input-spacer {
-  padding: 0 20px 0 0;
-}
-.advanced-form {
-  width: 65%;
 }
 .column-top-margin {
   margin-top: 20px;
