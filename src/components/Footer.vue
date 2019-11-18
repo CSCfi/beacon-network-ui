@@ -21,6 +21,9 @@
           <div class="column">
             <h5>ELIXIR Beacon Network</h5>
             <ul>
+              <li>
+                <router-link to="/guide">How to use Beacon Network</router-link>
+              </li>
               <li><router-link to="/join">Join the Network</router-link></li>
               <li><router-link to="/docs">For Developers</router-link></li>
               <li>
