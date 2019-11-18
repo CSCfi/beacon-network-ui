@@ -12,8 +12,10 @@
         v-bind:beacon="beacon"
       ></ConnectedBeaconTile>
     </div>
-    <div v-if="error">
-      {{ error }}
+    <div class="tile is-ancestor" style="text-align:center" v-if="error">
+      <p style="margin:auto">
+        {{ error }}
+      </p>
     </div>
   </section>
 </template>
