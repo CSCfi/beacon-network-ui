@@ -105,16 +105,7 @@
             origins.<b>*</b>
           </li>
           <li>
-            Service must have CORS enabled, and allow requests from the Beacon
-            Network UI at <code>{{ ui }}</code>
-          </li>
-          <li>
-            Service must have CORS enabled, and allow requests from the Beacon
-            Network Registry at <code>{{ registry }}</code>
-          </li>
-          <li>
-            Service must have CORS enabled, and allow requests from the Beacon
-            Network Aggregator at <code>{{ aggregator }}</code>
+            Service must have CORS enabled
           </li>
         </ol>
         <p>
