@@ -5,57 +5,50 @@
         Display {{ results.length }} result(s)
       </b-button>
       <div v-if="display" class="details-rows">
-        <div class="columns">
-          <div class="column narrow-column">
-            <b>Access</b>
-          </div>
-          <div class="column is-three-fifths">
-            <b>Dataset ID</b>
-          </div>
-          <div class="column">
-            <b>Allele Count</b>
-          </div>
-          <div class="column">
-            <b>Frequency</b>
-          </div>
-        </div>
-        <div v-for="result in results" :key="result.datasetId" class="columns">
-          <div class="column detail-row-vertical">
-            <b-tag
-              class="access-tag"
-              type="is-success"
-              v-if="checkForPublicDatasets(result)"
-              >Public</b-tag
-            >
-            <b-tag
-              class="access-tag"
-              type="is-warning"
-              v-else-if="checkForRegisteredDatasets(result)"
-              >Registered</b-tag
-            >
-            <b-tag
-              class="access-tag"
-              type="is-danger"
-              v-else-if="checkForControlledDatasets(result)"
-              >Controlled</b-tag
-            >
-            <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
-          </div>
-          <div
-            class="column is-three-fifths detail-row-vertical hide-long-name"
-          >
-            {{ result.datasetId }}
-            <span v-if="result.externalUrl"
-              ><a v-bind:href="result.externalUrl"> url</a></span
-            >
-          </div>
-          <div class="column detail-row-vertical">
-            {{ result.variantCount ? result.variantCount : "n/a" }}
-          </div>
-          <div class="column detail-row-vertical">
-            {{ result.frequency ? result.frequency : "n/a" }}
-          </div>
-        </div>
+        <b-table :data="results" :striped="true" class="column">
+          <template slot-scope="results">
+            <b-table-column label="Access">
+              <b-tag
+                class="access-tag"
+                type="is-success"
+                v-if="checkForPublicDatasets(results.row)"
+                >Public</b-tag
+              >
+              <b-tag
+                class="access-tag"
+                type="is-warning"
+                v-else-if="checkForRegisteredDatasets(results.row)"
+                >Registered</b-tag
+              >
+              <b-tag
+                class="access-tag"
+                type="is-danger"
+                v-else-if="checkForControlledDatasets(results.row)"
+                >Controlled</b-tag
+              >
+              <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
+            </b-table-column>
+            <b-table-column label="Dataset">
+              {{ results.row.datasetId }}
+            </b-table-column>
+            <b-table-column label="Variant">
+              {{ results.row.referenceBases }} >
+              {{ results.row.alternateBases }}
+            </b-table-column>
+            <b-table-column label="VT" title="Variant Type">
+              {{ results.row.variantType }}
+            </b-table-column>
+            <b-table-column label="Region">
+              {{ results.row.start }}-{{ results.row.end }}
+            </b-table-column>
+            <b-table-column label="AC" title="Allele Count">
+              {{ results.row.variantCount }}
+            </b-table-column>
+            <b-table-column label="AF" title="Allele Frequency">
+              {{ results.row.frequency }}
+            </b-table-column>
+          </template>
+        </b-table>
       </div>
     </div>
   </section>
