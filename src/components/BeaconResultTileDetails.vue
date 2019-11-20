@@ -5,7 +5,7 @@
         Display {{ results.length }} result(s)
       </b-button>
       <div v-if="display" class="details-rows">
-        <b-table :data="results" :striped="true" class="column">
+        <b-table :data="results" :striped="true" class="column details-table">
           <template slot-scope="results">
             <b-table-column label="Access">
               <b-tag
@@ -30,6 +30,9 @@
             </b-table-column>
             <b-table-column label="Dataset">
               {{ results.row.datasetId }}
+              <span v-if="results.row.externalUrl"
+                ><a v-bind:href="results.row.externalUrl"> link</a></span
+              >
             </b-table-column>
             <b-table-column label="Variant">
               {{ results.row.referenceBases }} >
@@ -132,5 +135,14 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.details-table {
+  background: rgb(247, 247, 247);
+  background: linear-gradient(
+    180deg,
+    rgba(247, 247, 247, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  margin-top: -10px;
 }
 </style>
