@@ -43,7 +43,10 @@
           type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-          >{{ errorMessage }}</b-message
+          >{{ errorMessage }}
+          <router-link to="/guide" style="color:blue"
+            >How to make a query?</router-link
+          ></b-message
         >
       </form>
     </section>
