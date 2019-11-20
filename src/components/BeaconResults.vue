@@ -11,7 +11,39 @@
       </b-field>
     </div>
 
-    <b-table
+    <template>
+      <div class="column">
+        <div v-for="resp in response" :key="resp.beaconId">
+          <section v-if="resp.exists">
+            <BeaconResultTile
+              :key="resp.beaconId"
+              :exists="resp.exists"
+              v-bind:beaconId="resp.beaconId"
+            ></BeaconResultTile>
+            <div
+              v-if="
+                resp.datasetAlleleResponses &&
+                  resp.datasetAlleleResponses.length > 0
+              "
+            >
+              <BeaconResultTileDetails
+                :key="resp.beaconId"
+                v-bind:results="resp.datasetAlleleResponses"
+              ></BeaconResultTileDetails>
+            </div>
+          </section>
+          <section v-if="!resp.exists && !hits">
+            <BeaconResultTile
+              :key="resp.beaconId"
+              :exists="resp.exists"
+              v-bind:beaconId="resp.beaconId"
+            ></BeaconResultTile>
+          </section>
+        </div>
+      </div>
+    </template>
+
+    <!-- <b-table
       focusable
       hoverable
       detailed
@@ -147,30 +179,32 @@
             {{ resp.frequency ? resp.frequency : "n/a" }}
           </div>
         </div>
-      </template>
+      </template> -->
 
-      <template slot="empty">
-        <section class="section">
-          <div class="content has-text-grey has-text-centered">
-            <p>
-              <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
-            </p>
-            <p>No results found.</p>
-          </div>
-        </section>
-      </template>
-    </b-table>
+    <template slot="empty">
+      <section class="section">
+        <div class="content has-text-grey has-text-centered">
+          <p>
+            <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
+          </p>
+          <p>No results found.</p>
+        </div>
+      </section>
+    </template>
+    <!-- </b-table> -->
   </section>
 </template>
 
 <script>
-import BeaconResultsRow from "@/components/BeaconResultsRow.vue";
-import CheckboxBlankCircleIcon from "vue-material-design-icons/CheckboxBlankCircle.vue";
+import BeaconResultTile from "@/components/BeaconResultTile.vue";
+import BeaconResultTileDetails from "@/components/BeaconResultTileDetails.vue";
+// import CheckboxBlankCircleIcon from "vue-material-design-icons/CheckboxBlankCircle.vue";
 
 export default {
   components: {
-    BeaconResultsRow,
-    CheckboxBlankCircleIcon
+    BeaconResultTile,
+    BeaconResultTileDetails
+    // CheckboxBlankCircleIcon
   },
   data() {
     return {
@@ -266,40 +300,40 @@ export default {
       // an empty table template (display only if there is no data)
       if (this.response.find(resp => resp.exists === true)) return true;
       else this.response = [];
-    },
-    checkForPublicDatasets: function(result) {
-      if (
-        result.info &&
-        result.info.accessType &&
-        result.info.accessType == "PUBLIC"
-      )
-        return true;
-    },
-    checkForRegisteredDatasets: function(result) {
-      if (
-        result.info &&
-        result.info.accessType &&
-        result.info.accessType == "REGISTERED"
-      )
-        return true;
-    },
-    checkForControlledDatasets: function(result) {
-      if (
-        result.info &&
-        result.info.accessType &&
-        result.info.accessType == "CONTROLLED"
-      )
-        return true;
-    },
-    hasDetailedVisible: function(data) {
-      if (data.exists) return true;
-      else return false;
-    },
-    rowClassVisibleOrHidden: function(row) {
-      if (row.exists && this.hits) return "is-visible";
-      else if (!this.hits) return "is-visible";
-      else return "is-hidden";
     }
+    // checkForPublicDatasets: function(result) {
+    //   if (
+    //     result.info &&
+    //     result.info.accessType &&
+    //     result.info.accessType == "PUBLIC"
+    //   )
+    //     return true;
+    // },
+    // checkForRegisteredDatasets: function(result) {
+    //   if (
+    //     result.info &&
+    //     result.info.accessType &&
+    //     result.info.accessType == "REGISTERED"
+    //   )
+    //     return true;
+    // },
+    // checkForControlledDatasets: function(result) {
+    //   if (
+    //     result.info &&
+    //     result.info.accessType &&
+    //     result.info.accessType == "CONTROLLED"
+    //   )
+    //     return true;
+    // },
+    // hasDetailedVisible: function(data) {
+    //   if (data.exists) return true;
+    //   else return false;
+    // },
+    // rowClassVisibleOrHidden: function(row) {
+    //   if (row.exists && this.hits) return "is-visible";
+    //   else if (!this.hits) return "is-visible";
+    //   else return "is-hidden";
+    // }
   },
   beforeMount() {
     this.queryAPI();
@@ -329,7 +363,7 @@ export default {
 .field {
   width: 100%;
 }
-.narrow-column {
+/* .narrow-column {
   width: 15%;
 }
 .detail-row-vertical {
@@ -340,5 +374,5 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
+} */
 </style>
