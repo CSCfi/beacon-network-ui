@@ -5,20 +5,6 @@
       <div class="content">
         <div class="columns">
           <div class="column">
-            <h5>Beacon Drivers</h5>
-            <ul>
-              <li><a href="https://elixir-europe.org/">ELIXIR Europe</a></li>
-              <li><a href="https://www.ga4gh.org/">GA4GH</a></li>
-              <li><a href="https://beacon-project.io/">Beacon Project</a></li>
-              <li>
-                <a
-                  href="https://ga4gh-discovery.github.io/networks/2018-12-13-network/"
-                  >Beacon Network Project</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="column">
             <h5>ELIXIR Beacon Network</h5>
             <ul>
               <li>
@@ -28,6 +14,17 @@
               <li><router-link to="/docs">For Developers</router-link></li>
               <li>
                 <router-link to="/docsapi">API Documentation</router-link>
+              </li>
+            </ul>
+          </div>
+          <div class="column">
+            <h5>More About Beacon</h5>
+            <ul>
+              <li><a href="https://beacon-project.io/">Beacon Project</a></li>
+              <li><a href="https://elixir-europe.org/">ELIXIR Europe</a></li>
+              <li><a href="https://www.ga4gh.org/">GA4GH</a></li>
+              <li>
+                <a href="https://ga4gh-discovery.github.io/">GA4GH Discovery</a>
               </li>
             </ul>
           </div>
