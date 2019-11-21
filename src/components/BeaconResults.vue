@@ -11,187 +11,45 @@
       </b-field>
     </div>
 
-    <template>
-      <div class="column">
-        <div v-for="resp in response" :key="resp.beaconId">
-          <section v-if="resp.exists">
-            <BeaconResultTile
-              :key="resp.beaconId"
-              :exists="resp.exists"
-              v-bind:beaconId="resp.beaconId"
-            ></BeaconResultTile>
-            <div
-              v-if="
-                resp.datasetAlleleResponses &&
-                  resp.datasetAlleleResponses.length > 0
-              "
-            >
-              <BeaconResultTileDetails
-                :key="resp.beaconId"
-                v-bind:results="resp.datasetAlleleResponses"
-              ></BeaconResultTileDetails>
-            </div>
-          </section>
-          <section v-if="!resp.exists && !hits">
-            <BeaconResultTile
-              :key="resp.beaconId"
-              :exists="resp.exists"
-              v-bind:beaconId="resp.beaconId"
-            ></BeaconResultTile>
-          </section>
-        </div>
-      </div>
-    </template>
-
-    <!-- <b-table
-      focusable
-      hoverable
-      detailed
-      :has-detailed-visible="hasDetailedVisible"
-      :row-class="rowClassVisibleOrHidden"
-      :selected.sync="selected"
-      :data="response"
-      :hits="hits"
-      :loading="isLoading"
-      :striped="isStriped"
-      default-sort="beaconId"
-      :default-sort-direction="defaultSortDirection"
-      class="column"
-    >
-      <template slot-scope="props" v-if="props.row.exists || !hits">
-        <b-table-column
-          class="beacon-name hide-long-name"
-          field="beaconId"
-          label="Beacon Organisation"
-          sortable
-        >
-          <BeaconResultsRow
-            :key="props.row.beaconId"
-            v-bind:beaconId="props.row.beaconId"
-          >
-          </BeaconResultsRow>
-        </b-table-column>
-
-        <b-table-column
-          field="access"
-          label="Dataset Access"
-          class="narrow-column"
-        >
-          <CheckboxBlankCircleIcon
-            v-if="
-              props.row.datasetAlleleResponses &&
-                props.row.datasetAlleleResponses.some(checkForPublicDatasets)
-            "
-            title="Public"
-            class="has-text-success"
-          ></CheckboxBlankCircleIcon>
-          <CheckboxBlankCircleIcon
-            v-if="
-              props.row.datasetAlleleResponses &&
-                props.row.datasetAlleleResponses.some(
-                  checkForRegisteredDatasets
-                )
-            "
-            title="Registered"
-            class="has-text-warning"
-          ></CheckboxBlankCircleIcon>
-          <CheckboxBlankCircleIcon
-            v-if="
-              props.row.datasetAlleleResponses &&
-                props.row.datasetAlleleResponses.some(
-                  checkForControlledDatasets
-                )
-            "
-            title="Controlled"
-            class="has-text-danger"
-          ></CheckboxBlankCircleIcon>
-        </b-table-column>
-
-        <b-table-column
-          field="length"
-          label="Variants Found"
-          class="narrow-column"
-          :custom-sort="sortNumbers"
-          sortable
-          numeric
-        >
-          {{
-            props.row.datasetAlleleResponses
-              ? props.row.datasetAlleleResponses.length
-              : 0
-          }}
-        </b-table-column>
-      </template>
-
-      <template slot="detail" slot-scope="props" v-if="props.row.exists">
-        <div class="columns" id="detail-row-head">
-          <div class="column narrow-column">
-            <b>Access</b>
-          </div>
-          <div class="column is-three-fifths">
-            <b>Dataset ID</b>
-          </div>
-          <div class="column">
-            <b>Allele Count</b>
-          </div>
-          <div class="column">
-            <b>Frequency</b>
-          </div>
-        </div>
-        <div
-          v-for="resp in props.row.datasetAlleleResponses"
-          :key="resp.datasetId"
-          class="detail-row columns"
-        >
-          <div class="column detail-row-vertical">
-            <b-tag
-              class="access-tag"
-              type="is-success"
-              v-if="checkForPublicDatasets(resp)"
-              >Public</b-tag
-            >
-            <b-tag
-              class="access-tag"
-              type="is-warning"
-              v-else-if="checkForRegisteredDatasets(resp)"
-              >Registered</b-tag
-            >
-            <b-tag
-              class="access-tag"
-              type="is-danger"
-              v-else-if="checkForControlledDatasets(resp)"
-              >Controlled</b-tag
-            >
-            <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
-          </div>
+    <div class="column">
+      <div v-if="isLoading" class="loading-indicator">loading</div>
+      <div v-for="resp in response" :key="resp.beaconId">
+        <section v-if="resp.exists">
+          <BeaconResultTile
+            :key="resp.beaconId"
+            :exists="resp.exists"
+            v-bind:beaconId="resp.beaconId"
+          ></BeaconResultTile>
           <div
-            class="column is-three-fifths detail-row-vertical hide-long-name"
+            v-if="
+              resp.datasetAlleleResponses &&
+                resp.datasetAlleleResponses.length > 0
+            "
           >
-            {{ resp.datasetId }}
-            <span v-if="resp.externalUrl"
-              ><a v-bind:href="resp.externalUrl"> url</a></span
-            >
+            <BeaconResultTileDetails
+              :key="resp.beaconId"
+              v-bind:results="resp.datasetAlleleResponses"
+            ></BeaconResultTileDetails>
           </div>
-          <div class="column detail-row-vertical">
-            {{ resp.variantCount ? resp.variantCount : "n/a" }}
-          </div>
-          <div class="column detail-row-vertical">
-            {{ resp.frequency ? resp.frequency : "n/a" }}
-          </div>
-        </div>
-      </template> -->
-
-    <template slot="empty">
-      <section class="section">
-        <div class="content has-text-grey has-text-centered">
-          <p>
-            <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
-          </p>
-          <p>No results found.</p>
-        </div>
-      </section>
-    </template>
-    <!-- </b-table> -->
+        </section>
+        <section v-if="!resp.exists && !hits">
+          <BeaconResultTile
+            :key="resp.beaconId"
+            :exists="resp.exists"
+            v-bind:beaconId="resp.beaconId"
+          ></BeaconResultTile>
+        </section>
+      </div>
+      <div
+        v-if="notFound && !isLoading"
+        class="content has-text-grey has-text-centered"
+      >
+        <p>
+          <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
+        </p>
+        <p>No results found.</p>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -208,10 +66,10 @@ export default {
   },
   data() {
     return {
+      notFound: false,
       queryParams: undefined,
       hits: true,
       isLoading: false,
-      isStriped: true,
       response: [],
       variantTypes: [
         "DEL:ME",
@@ -225,9 +83,7 @@ export default {
         "SNP",
         "MNP"
       ],
-      aggregator: process.env.VUE_APP_AGGREGATOR_URL,
-      defaultSortDirection: "asc",
-      selected: undefined
+      aggregator: process.env.VUE_APP_AGGREGATOR_URL
     };
   },
   watch: {
@@ -298,42 +154,14 @@ export default {
       // If it doesn't, it clears the entire response array
       // This solution stems from buefy's requirements for displaying
       // an empty table template (display only if there is no data)
-      if (this.response.find(resp => resp.exists === true)) return true;
-      else this.response = [];
+      if (this.response.find(resp => resp.exists === true)) {
+        this.notFound = false;
+        return true;
+      } else {
+        this.response = [];
+        this.notFound = true;
+      }
     }
-    // checkForPublicDatasets: function(result) {
-    //   if (
-    //     result.info &&
-    //     result.info.accessType &&
-    //     result.info.accessType == "PUBLIC"
-    //   )
-    //     return true;
-    // },
-    // checkForRegisteredDatasets: function(result) {
-    //   if (
-    //     result.info &&
-    //     result.info.accessType &&
-    //     result.info.accessType == "REGISTERED"
-    //   )
-    //     return true;
-    // },
-    // checkForControlledDatasets: function(result) {
-    //   if (
-    //     result.info &&
-    //     result.info.accessType &&
-    //     result.info.accessType == "CONTROLLED"
-    //   )
-    //     return true;
-    // },
-    // hasDetailedVisible: function(data) {
-    //   if (data.exists) return true;
-    //   else return false;
-    // },
-    // rowClassVisibleOrHidden: function(row) {
-    //   if (row.exists && this.hits) return "is-visible";
-    //   else if (!this.hits) return "is-visible";
-    //   else return "is-hidden";
-    // }
   },
   beforeMount() {
     this.queryAPI();
@@ -363,16 +191,7 @@ export default {
 .field {
   width: 100%;
 }
-/* .narrow-column {
-  width: 15%;
+.loading-indicator {
+  text-align: center;
 }
-.detail-row-vertical {
-  padding-top: 5px;
-  padding-bottom: 0;
-}
-.hide-long-name {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-} */
 </style>
