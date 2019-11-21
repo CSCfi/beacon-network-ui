@@ -4,7 +4,10 @@
       <article class="media">
         <div class="media-left">
           <figure class="image is-96x96">
-            <img :src="beacon.organization.logoUrl" alt="Organization image" />
+            <img
+              :src="beacon.organization.logoUrl"
+              :alt="beacon.organization.name + ' organization image'"
+            />
           </figure>
         </div>
         <div class="media-content">
