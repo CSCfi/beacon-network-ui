@@ -56,13 +56,11 @@
 <script>
 import BeaconResultTile from "@/components/BeaconResultTile.vue";
 import BeaconResultTileDetails from "@/components/BeaconResultTileDetails.vue";
-// import CheckboxBlankCircleIcon from "vue-material-design-icons/CheckboxBlankCircle.vue";
 
 export default {
   components: {
     BeaconResultTile,
     BeaconResultTileDetails
-    // CheckboxBlankCircleIcon
   },
   data() {
     return {

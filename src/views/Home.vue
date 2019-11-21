@@ -16,8 +16,8 @@
     <div v-if="$route.path === '/results'">
       <hr id="divider" />
       <p class="results-disclaimer">
-        Note that Beacon APIs use 0-based coordinate system, while datasets may
-        use either 0- or 1-based coordinate systems.
+        Note that Beacon APIs use a 0-based coordinate system, while datasets may
+        use either a 0- or a 1-based coordinate systems.
       </p>
     </div>
     <router-view />
