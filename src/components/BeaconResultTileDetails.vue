@@ -42,7 +42,9 @@
               {{ results.row.variantType }}
             </b-table-column>
             <b-table-column label="Region">
-              {{ results.row.start }}-{{ results.row.end }}
+              {{ results.row.referenceName }}:{{ results.row.start }}-{{
+                results.row.end
+              }}
             </b-table-column>
             <b-table-column label="AC" title="Allele Count">
               {{ results.row.variantCount }}

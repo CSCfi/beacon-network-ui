@@ -12,7 +12,9 @@
     </div>
 
     <div class="column">
-      <div v-if="isLoading" class="loading-indicator">loading</div>
+      <div v-if="isLoading" class="loading-indicator spinner">
+        <Loading></Loading>
+      </div>
       <div v-for="resp in response" :key="resp.beaconId">
         <section v-if="resp.exists">
           <BeaconResultTile
@@ -56,11 +58,13 @@
 <script>
 import BeaconResultTile from "@/components/BeaconResultTile.vue";
 import BeaconResultTileDetails from "@/components/BeaconResultTileDetails.vue";
+import Loading from "vue-material-design-icons/Loading.vue";
 
 export default {
   components: {
     BeaconResultTile,
-    BeaconResultTileDetails
+    BeaconResultTileDetails,
+    Loading
   },
   data() {
     return {
@@ -191,5 +195,16 @@ export default {
 }
 .loading-indicator {
   text-align: center;
+}
+.spinner {
+  animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

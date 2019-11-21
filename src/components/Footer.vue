@@ -90,6 +90,7 @@ export default {
   padding: 0;
   flex-shrink: 0;
   font-size: 0.875em;
+  margin-top: 20px;
 }
 .footer .footerContainer.centered h5 {
   color: white;
