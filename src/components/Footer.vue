@@ -38,6 +38,11 @@
                   >API Documentation</router-link
                 >
               </li>
+              <li>
+                <router-link to="/accessibility" title="Accessibility statement"
+                  >Accessibility Statement</router-link
+                >
+              </li>
             </ul>
           </div>
           <div class="column" title="Affiliated external links">

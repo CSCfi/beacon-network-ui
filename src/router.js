@@ -59,6 +59,11 @@ export default new Router({
       path: "/guide",
       name: "guide",
       component: () => import("./views/Guide.vue")
+    },
+    {
+      path: "/accessibility",
+      name: "accessibility",
+      component: () => import("./views/Accessibility.vue")
     }
   ]
 });
