@@ -6,7 +6,7 @@
           <figure class="image is-64x64">
             <img
               :src="data.organization.logoUrl"
-              :alt="data.organization.name + ' organization image'"
+              :alt="data.organization.name + ' organization logo'"
             />
           </figure>
         </div>
@@ -22,8 +22,12 @@
           </small>
         </div>
         <div class="media-right">
-          <b-tag v-if="exists" type="is-success">Found</b-tag>
-          <b-tag v-if="!exists" type="is-danger">Not Found</b-tag>
+          <b-tag v-if="exists" type="is-success" class="accessibility-green-tag"
+            ><b>Found</b></b-tag
+          >
+          <b-tag v-if="!exists" type="is-danger" class="accessibility-red-tag"
+            ><b>Not Found</b></b-tag
+          >
         </div>
       </article>
     </div>
@@ -65,3 +69,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.accessibility-green-tag {
+  background-color: #147636;
+}
+.accessibility-red-tag {
+  background-color: #eb002f;
+}
+</style>

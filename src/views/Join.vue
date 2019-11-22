@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-button tag="router-link" to="/" type="is-info" class="return-button">
+    <b-button tag="router-link" to="/" type="is-link" class="return-button">
       Return to main page
     </b-button>
 
@@ -20,6 +20,7 @@
               pattern="https://.*"
               maxlength="512"
               placeholder="https://beacon.org/"
+              title="Info endpoint of the Beacon API"
             >
             </b-input>
           </b-field>
@@ -35,6 +36,7 @@
               minlength="64"
               maxlength="64"
               placeholder="secret"
+              title="API key provided by ELIXIR"
             >
             </b-input>
           </b-field>
@@ -256,5 +258,8 @@ export default {
 }
 .return-button {
   margin: auto auto auto 15px;
+}
+code {
+  color: #85142b;
 }
 </style>

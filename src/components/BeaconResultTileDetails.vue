@@ -12,26 +12,28 @@
                 class="access-tag"
                 type="is-success"
                 v-if="checkForPublicDatasets(results.row)"
-                >Public</b-tag
+                ><b>Public</b></b-tag
               >
               <b-tag
                 class="access-tag"
                 type="is-warning"
                 v-else-if="checkForRegisteredDatasets(results.row)"
-                >Registered</b-tag
+                ><b>Registered</b></b-tag
               >
               <b-tag
                 class="access-tag"
                 type="is-danger"
                 v-else-if="checkForControlledDatasets(results.row)"
-                >Controlled</b-tag
+                ><b>Controlled</b></b-tag
               >
               <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
             </b-table-column>
             <b-table-column label="Dataset">
               {{ results.row.datasetId }}
               <span v-if="results.row.externalUrl"
-                ><a v-bind:href="results.row.externalUrl"> link</a></span
+                ><a v-bind:href="results.row.externalUrl">
+                  dataset location</a
+                ></span
               >
             </b-table-column>
             <b-table-column label="Variant">

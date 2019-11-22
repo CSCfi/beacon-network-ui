@@ -9,6 +9,7 @@
                 placeholder="Assembly"
                 v-model="assembly"
                 size="is-medium"
+                title="Assembly ID"
               >
                 <option value="GRCh38">GRCh38</option>
                 <option value="GRCh37">GRCh37</option>
@@ -28,6 +29,7 @@
               type="search"
               placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
               v-model="query"
+              title="Variant search term"
             ></b-input>
           </b-tooltip>
           <b-button

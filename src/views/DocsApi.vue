@@ -1,6 +1,6 @@
 <template>
   <div class="content word-wrap">
-    <b-button tag="router-link" to="/" type="is-info">
+    <b-button tag="router-link" to="/" type="is-link">
       Return to main page
     </b-button>
     <h2>Advanced API User Guide</h2>
@@ -79,5 +79,8 @@ export default {
   max-width: 130ch;
   padding-bottom: 25px;
   text-align: left;
+}
+code {
+  color: #85142b;
 }
 </style>

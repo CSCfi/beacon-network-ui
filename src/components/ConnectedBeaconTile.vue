@@ -6,7 +6,7 @@
           <figure class="image is-96x96">
             <img
               :src="beacon.organization.logoUrl"
-              :alt="beacon.organization.name + ' organization image'"
+              :alt="beacon.organization.name + ' organization logo'"
             />
           </figure>
         </div>

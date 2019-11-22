@@ -5,8 +5,13 @@
       <div class="columns">
         <div class="column">
           <b-field label="Assembly">
-            <b-select v-model="assembly" expanded>
-              <option v-for="asm in assemblies" :value="asm" :key="asm">
+            <b-select title="Assembly ID" v-model="assembly" expanded>
+              <option
+                v-for="asm in assemblies"
+                :value="asm"
+                :key="asm"
+                :title="'Assembly ID ' + asm"
+              >
                 {{ asm }}
               </option>
             </b-select>
@@ -14,66 +19,93 @@
         </div>
         <div class="column">
           <b-field label="Chromosome">
-            <b-select v-model="referenceName" expanded>
-              <option v-for="ref in referenceNames" :value="ref" :key="ref">
+            <b-select
+              title="Chromosome"
+              id="chromosome"
+              v-model="referenceName"
+              expanded
+            >
+              <option
+                v-for="ref in referenceNames"
+                :value="ref"
+                :key="ref"
+                :title="'Chromosome ' + ref"
+              >
                 {{ ref }}
               </option>
             </b-select>
           </b-field>
         </div>
         <div class="column">
-          <h6 style="margin-top:5px">Coordinates</h6>
-          <b-radio v-model="coordType" name="coordType" native-value="exact"
-            >Exact</b-radio
-          >
-          <b-radio v-model="coordType" name="coordType" native-value="range"
-            >Range</b-radio
-          >
+          <fieldset>
+            <legend><b>Coordinates</b></legend>
+            <b-radio
+              style="margin-top:15px"
+              v-model="coordType"
+              name="coordType"
+              native-value="exact"
+              >Exact</b-radio
+            >
+            <b-radio v-model="coordType" name="coordType" native-value="range"
+              >Range</b-radio
+            >
+          </fieldset>
         </div>
         <div class="column">
           <b-field label="Start" v-if="coordType === 'exact'">
-            <b-numberinput
+            <b-input
+              type="number"
               v-model="start"
               controls-position="compact"
               min="0"
-            ></b-numberinput>
+              title="Exact start coordinate"
+            ></b-input>
           </b-field>
           <b-field label="Minimum Start" v-if="coordType === 'range'">
-            <b-numberinput
+            <b-input
+              type="number"
               v-model="startMin"
               controls-position="compact"
               min="0"
-            ></b-numberinput>
+              title="Minimum start coordinate of range"
+            ></b-input>
           </b-field>
           <b-field label="Maximum Start" v-if="coordType === 'range'">
-            <b-numberinput
+            <b-input
+              type="number"
               v-model="startMax"
               controls-position="compact"
               min="0"
-            ></b-numberinput>
+              title="Maximum start coordinate of range"
+            ></b-input>
           </b-field>
         </div>
         <div class="column">
           <b-field label="End" v-if="coordType === 'exact'">
-            <b-numberinput
+            <b-input
+              type="number"
               v-model="end"
-              controls-position="compact"
               min="0"
-            ></b-numberinput>
+              title="Exact end coordinate"
+            ></b-input>
           </b-field>
           <b-field label="Minimum End" v-if="coordType === 'range'">
-            <b-numberinput
+            <b-input
+              type="number"
               v-model="endMin"
               controls-position="compact"
               min="0"
-            ></b-numberinput>
+              title="Minimum end coordinate of range"
+            ></b-input>
           </b-field>
           <b-field label="Maximum End" v-if="coordType === 'range'">
-            <b-numberinput
+            <b-input
+              type="number"
               v-model="endMax"
               controls-position="compact"
               min="0"
-            ></b-numberinput>
+              title="Maximum end coordinate of range"
+            ></b-input>
           </b-field>
         </div>
       </div>
@@ -88,6 +120,7 @@
               pattern="[ATCGN]+"
               placeholder="ATCGN"
               expanded
+              title="Sequence of reference bases"
             ></b-input>
           </b-field>
         </div>
@@ -99,13 +132,24 @@
               pattern="[ATCGN]+"
               placeholder="ATCGN"
               expanded
+              title="Sequence of alternate bases"
             ></b-input>
           </b-field>
         </div>
         <div class="column">
           <b-field label="Variant Type">
-            <b-select v-model="variantType" v-on:input="resetAltBases" expanded>
-              <option v-for="vt in variantTypes" :value="vt" :key="vt">
+            <b-select
+              v-model="variantType"
+              v-on:input="resetAltBases"
+              expanded
+              title="Variant type"
+            >
+              <option
+                v-for="vt in variantTypes"
+                :value="vt"
+                :key="vt"
+                :title="'Variant type ' + vt"
+              >
                 {{ vt }}
               </option>
             </b-select>

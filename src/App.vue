@@ -15,7 +15,7 @@
         /></router-link>
       </div>
       <a v-if="!getCookie('logged_in')" class="login" :href="login_url"
-        ><img src="./assets/elixir-login.png"
+        ><img src="./assets/elixir-login.png" alt="ELIXIR AAI Login button"
       /></a>
       <a v-if="getCookie('logged_in')" class="login" :href="logout_url">
         <b-button class="login" type="is-primary">Log Out</b-button>
@@ -115,10 +115,22 @@ body {
 // Set your colors
 $primary: #047eaa;
 $primary-invert: findColorInvert($primary);
+$success: #147636;
+$success-invert: findColorInvert($success);
+$danger: #eb002f;
+$danger-invert: findColorInvert($danger);
 $colors: (
   "primary": (
     $primary,
     $primary-invert
+  ),
+  "success": (
+    $success,
+    $success-invert
+  ),
+  "danger": (
+    $danger,
+    $danger-invert
   )
 );
 

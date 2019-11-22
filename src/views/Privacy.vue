@@ -1,6 +1,6 @@
 <template>
   <div class="content word-wrap">
-    <b-button tag="router-link" to="/" type="is-info">
+    <b-button tag="router-link" to="/" type="is-link">
       Return to main page
     </b-button>
     <h1>ELIXIR Beacon Network</h1>
