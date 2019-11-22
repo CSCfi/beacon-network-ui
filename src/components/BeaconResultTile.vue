@@ -16,16 +16,40 @@
             <p class="subtitle is-6">{{ data.name }}</p>
           </div>
           <small
-            ><a v-bind:href="data.organization.url">Visit Us</a> ·
-            <a v-bind:href="data.url">Beacon API</a> ·
-            <a v-bind:href="data.contactUrl">Contact Us</a>
+            ><a
+              v-bind:href="data.organization.url"
+              :title="
+                'Visit ' + data.organization.name + ' organisation website'
+              "
+              >Visit Us</a
+            >
+            ·
+            <a
+              v-bind:href="data.url"
+              :title="'Visit ' + data.name + ' Beacon API'"
+              >Beacon API</a
+            >
+            ·
+            <a
+              v-bind:href="data.contactUrl"
+              :title="data.organization.name + '\'s contact address'"
+              >Contact Us</a
+            >
           </small>
         </div>
         <div class="media-right">
-          <b-tag v-if="exists" type="is-success" class="accessibility-green-tag"
+          <b-tag
+            v-if="exists"
+            type="is-success"
+            class="accessibility-green-tag"
+            title="A variant was found"
             ><b>Found</b></b-tag
           >
-          <b-tag v-if="!exists" type="is-danger" class="accessibility-red-tag"
+          <b-tag
+            v-if="!exists"
+            type="is-danger"
+            class="accessibility-red-tag"
+            title="No variants were found"
             ><b>Not Found</b></b-tag
           >
         </div>

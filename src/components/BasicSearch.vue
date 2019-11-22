@@ -54,10 +54,18 @@
     </section>
     <div class="searchbar-footer">
       <span id="example" v-if="$route.path === '/'">
-        <b-button @click="exampleSearch">Example variant query</b-button></span
+        <b-button
+          @click="exampleSearch"
+          title="Insert an example search term to the search bar"
+          >Example variant query</b-button
+        ></span
       >
       <span id="advancedSearch"
-        ><b-button @click="changeSearchForm">Advanced Search</b-button></span
+        ><b-button
+          @click="changeSearchForm"
+          title="Switch to the advanced search form which has more options"
+          >Advanced Search</b-button
+        ></span
       >
     </div>
   </div>

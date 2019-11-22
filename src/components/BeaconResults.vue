@@ -4,7 +4,10 @@
       <h6 class="subtitle">Filter results</h6>
       <b-field grouped group-multiline class="filtered">
         <div class="field">
-          <b-switch v-model="hits" :disabled="response.length < 1"
+          <b-switch
+            v-model="hits"
+            :disabled="response.length < 1"
+            title="Option to show only results and hide other responses"
             >Hits Only</b-switch
           >
         </div>
@@ -18,6 +21,7 @@
       <div v-for="resp in response" :key="resp.beaconId">
         <section v-if="resp.exists">
           <BeaconResultTile
+            :title="'Response from Beacon ' + resp.beaconId"
             :key="resp.beaconId"
             :exists="resp.exists"
             v-bind:beaconId="resp.beaconId"
@@ -47,7 +51,8 @@
         class="content has-text-grey has-text-centered"
       >
         <p>
-          <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
+          <b-icon icon="emoticon-sad" size="is-large" title="No results found">
+          </b-icon>
         </p>
         <p>No results found.</p>
       </div>

@@ -4,32 +4,76 @@
     <div class="footerContainer centered">
       <div class="content">
         <div class="columns">
-          <div class="column">
+          <div
+            class="column"
+            title="ELIXIR Beacon Network website internal navigation"
+          >
             <h5>ELIXIR Beacon Network</h5>
             <ul>
               <li>
-                <router-link to="/guide">How to use Beacon Network</router-link>
+                <router-link
+                  to="/guide"
+                  title="A guide on how to user the Beacon Network user interface"
+                  >How to use Beacon Network</router-link
+                >
               </li>
-              <li><router-link to="/join">Join the Network</router-link></li>
-              <li><router-link to="/docs">For Developers</router-link></li>
               <li>
-                <router-link to="/docsapi">API Documentation</router-link>
+                <router-link
+                  to="/join"
+                  title="How to register a new Beacon to ELIXIR Beacon Network"
+                  >Join the Network</router-link
+                >
+              </li>
+              <li>
+                <router-link
+                  to="/docs"
+                  title="Technical documentation for web and API developers"
+                  >For Developers</router-link
+                >
+              </li>
+              <li>
+                <router-link
+                  to="/docsapi"
+                  title="Technical documentation of advanced API usage"
+                  >API Documentation</router-link
+                >
               </li>
             </ul>
           </div>
-          <div class="column">
+          <div class="column" title="Affiliated external links">
             <h5>More About Beacon</h5>
             <ul>
-              <li><a href="https://beacon-project.io/">Beacon Project</a></li>
-              <li><a href="https://elixir-europe.org/">ELIXIR Europe</a></li>
-              <li><a href="https://www.ga4gh.org/">GA4GH</a></li>
               <li>
-                <a href="https://ga4gh-discovery.github.io/">GA4GH Discovery</a>
+                <a
+                  href="https://beacon-project.io/"
+                  title="Information regarding the GA4GH/ELIXIR Beacon project"
+                  >Beacon Project</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://elixir-europe.org/"
+                  title="ELIXIR Europe website"
+                  >ELIXIR Europe</a
+                >
+              </li>
+              <li>
+                <a href="https://www.ga4gh.org/" title="GA4GH website">GA4GH</a>
+              </li>
+              <li>
+                <a
+                  href="https://ga4gh-discovery.github.io/"
+                  title="Information regarding the GA4GH/ELIXIR Beacon Network project"
+                  >GA4GH Discovery</a
+                >
               </li>
             </ul>
           </div>
           <div class="column is-one-fifth">
-            <a class="login" href="https://elixir-europe.org/"
+            <a
+              class="login"
+              href="https://elixir-europe.org/"
+              title="Go to ELIXIR Europe"
               ><img
                 src="@/assets/elixir-white-orange-logo.png"
                 alt="ELIXIR Europe Logo"
@@ -52,22 +96,44 @@
           <div class="column contact">
             <p class="address">
               ELIXIR Beacon Network is operated by
-              <a href="http://www.elixir-europe.org/">ELIXIR Hub</a>
+              <a
+                href="http://www.elixir-europe.org/"
+                title="Go to ELIXIR Europe"
+                >ELIXIR Hub</a
+              >
               |
-              <a href="mailto:bn-contact@elixir-europe.org"
+              <a
+                href="mailto:bn-contact@elixir-europe.org"
+                title="Contact the ELIXIR Beacon Network operator"
                 >bn-contact@elixir-europe.org</a
               >
               <br />
               ELIXIR Beacon Network is provided by
-              <a href="http://www.elixir-finland.org/en/frontpage/"
+              <a
+                href="http://www.elixir-finland.org/en/frontpage/"
+                title="Go to ELIXIR Finland, the ELIXIR Beacon Network provider"
                 >ELIXIR Finland</a
               >
-              | <a href="https://www.csc.fi/">CSC</a>
+              |
+              <a
+                href="https://www.csc.fi/"
+                title="Go to CSC, the ELIXIR Beacon Network provider"
+                >CSC</a
+              >
             </p>
             <p class="legal">
               Copyright © ELIXIR 2019 |
-              <router-link to="/tos">Terms of Service</router-link> |
-              <router-link to="/privacy">Privacy Policy</router-link>
+              <router-link
+                to="/tos"
+                title="Read the Terms of Service of ELIXIR Beacon Network"
+                >Terms of Service</router-link
+              >
+              |
+              <router-link
+                to="/privacy"
+                title="Read the Privacy Policy of ELIXIR Beacon Network"
+                >Privacy Policy</router-link
+              >
             </p>
           </div>
         </div>

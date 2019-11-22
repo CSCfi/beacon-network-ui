@@ -1,6 +1,6 @@
 <template>
   <div class="container content">
-    <form @submit.prevent="advancedSearch">
+    <form @submit.prevent="advancedSearch" title="Advanced Search Options">
       <h4>Variant Location</h4>
       <div class="columns">
         <div class="column">
@@ -172,8 +172,12 @@
       </b-message>
 
       <div class="search-footer">
-        <b-button @click="resetForm" type="is-secondary" class="reset-button"
-          >Reset</b-button
+        <b-button
+          @click="resetForm"
+          type="is-secondary"
+          class="reset-button"
+          title="Empty all form fields and reset the view to its initial state"
+          >Reset Form</b-button
         >
         <b-button
           @click="advancedSearch"
@@ -186,10 +190,18 @@
     </form>
     <div class="search-footer">
       <span id="example" v-if="$route.path === '/'">
-        <b-button @click="exampleSearch">Example range query</b-button></span
+        <b-button
+          @click="exampleSearch"
+          title="Insert example search parameters to the form"
+          >Example range query</b-button
+        ></span
       >
       <span id="basicSearch"
-        ><b-button @click="changeSearchForm">Basic Search</b-button></span
+        ><b-button
+          @click="changeSearchForm"
+          title="Switch back to the basic search bar"
+          >Basic Search</b-button
+        ></span
       >
     </div>
   </div>

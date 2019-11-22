@@ -1,7 +1,12 @@
 <template>
   <section>
     <div class="results-section">
-      <b-button @click="displayResults" class="show-more" type="is-primary">
+      <b-button
+        @click="displayResults"
+        class="show-more"
+        type="is-primary"
+        title="Show detailed response"
+      >
         Display {{ results.length }} result(s)
       </b-button>
       <div v-if="display" class="details-rows">
@@ -12,38 +17,53 @@
                 class="access-tag"
                 type="is-success"
                 v-if="checkForPublicDatasets(results.row)"
+                title="Dataset is in public access"
                 ><b>Public</b></b-tag
               >
               <b-tag
                 class="access-tag"
                 type="is-warning"
                 v-else-if="checkForRegisteredDatasets(results.row)"
+                title="Dataset requires ELIXIR Bona Fide status to access"
                 ><b>Registered</b></b-tag
               >
               <b-tag
                 class="access-tag"
                 type="is-danger"
                 v-else-if="checkForControlledDatasets(results.row)"
+                title="Dataset requires permissions from data owner to access"
                 ><b>Controlled</b></b-tag
               >
               <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
             </b-table-column>
-            <b-table-column label="Dataset">
+            <b-table-column
+              label="Dataset"
+              title="Unique identifier of dataset"
+            >
               {{ results.row.datasetId }}
               <span v-if="results.row.externalUrl"
-                ><a v-bind:href="results.row.externalUrl">
+                ><a
+                  v-bind:href="results.row.externalUrl"
+                  title="Link to this dataset's location"
+                >
                   dataset location</a
                 ></span
               >
             </b-table-column>
-            <b-table-column label="Variant">
+            <b-table-column
+              label="Variant"
+              title="Reference and alternate bases of this variant"
+            >
               {{ results.row.referenceBases }} >
               {{ results.row.alternateBases }}
             </b-table-column>
             <b-table-column label="VT" title="Variant Type">
               {{ results.row.variantType }}
             </b-table-column>
-            <b-table-column label="Region">
+            <b-table-column
+              label="Region"
+              title="Start and end coordinates of this variant"
+            >
               {{ results.row.referenceName }}:{{ results.row.start }}-{{
                 results.row.end
               }}

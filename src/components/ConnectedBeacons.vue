@@ -1,5 +1,5 @@
 <template>
-  <section v-on:load="queryAPI">
+  <section v-on:load="queryAPI" title="List of connected Beacons">
     <div
       class="tile is-ancestor container"
       style="margin:auto;"
@@ -7,6 +7,7 @@
       v-bind:key="beacons.indexOf(beacon_pair)"
     >
       <ConnectedBeaconTile
+        :title="beacon.name"
         v-for="beacon in beacon_pair"
         v-bind:key="beacon.url"
         v-bind:beacon="beacon"
