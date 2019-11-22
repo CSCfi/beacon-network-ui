@@ -23,9 +23,12 @@
     </p>
     <pre>Chromosome : Position ReferenceBase > VariantType</pre>
     <p>
-      Note that Beacon APIs use a 0-based coordinate system, while datasets may
-      use either a 0- or a 1-based coordinate systems. More options are
-      available in the Advanced Search Form.
+      <b>Note that:</b> The Beacon Network UI is using a human-friendly 1-based
+      coordinate system. Beacon API services are using a 0-based coordinate
+      system, while datasets may use either a 0- or a 1-based coordinate system
+      depending on the dataset file type. 1-based queries made from the Beacon
+      Network UI are substracted by one, and received at the Beacon APIs as
+      0-based.
     </p>
     <h4>Advanced Search</h4>
     <p>

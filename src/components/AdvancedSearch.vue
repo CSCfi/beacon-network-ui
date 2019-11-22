@@ -281,14 +281,15 @@ export default {
         };
         // Handle the other params
         if (this.coordType === "exact") {
-          queryObj.start = this.start;
-          if (this.end != 0 && this.end > this.start) queryObj.end = this.end;
+          queryObj.start = this.start > 0 ? this.start - 1 : 0;
+          if (this.end != 0 && this.end > this.start)
+            queryObj.end = this.end > 0 ? this.end - 1 : 0;
         }
         if (this.coordType === "range") {
-          queryObj.startMin = this.startMin;
-          queryObj.startMax = this.startMax;
-          queryObj.endMin = this.endMin;
-          queryObj.endMax = this.endMax;
+          queryObj.startMin = this.startMin > 0 ? this.startMin - 1 : 0;
+          queryObj.startMax = this.startMax > 0 ? this.startMax - 1 : 0;
+          queryObj.endMin = this.endMin > 0 ? this.endMin - 1 : 0;
+          queryObj.endMax = this.endMax > 0 ? this.endMax - 1 : 0;
         }
         if (this.altBases) {
           queryObj.alternateBases = this.altBases;

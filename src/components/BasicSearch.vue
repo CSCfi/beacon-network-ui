@@ -108,7 +108,7 @@ export default {
           includeDatasetResponses: "HIT",
           assemblyId: vm.assembly,
           referenceName: vm.query.split(" ")[0],
-          start: vm.query.split(" ")[2],
+          start: vm.query.split(" ")[2] > 0 ? vm.query.split(" ")[2] - 1 : 0,
           referenceBases: vm.query.split(" ")[3]
         };
         // Determine if last element is a base of a variant type
