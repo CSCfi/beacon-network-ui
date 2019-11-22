@@ -39,14 +39,14 @@
     <h5>Example query:</h5>
     <p>
       I want to find a genomic dataset which has samples of insertion type
-      variants in chromosome 1 at position 104431389 where the reference base is
+      variants in chromosome 1 at position 104431390 where the reference base is
       C. This would transform into the following statement in the searchbar:
     </p>
     <figure class="highlight is-expanded">
       <div class="button-container">
         <button
           class="button is-text is-small copy-code"
-          v-on:click="changeSearch('1 : 104431389 C > INS')"
+          v-on:click="changeSearch('1 : 104431390 C > INS')"
         >
           Try
         </button>
@@ -57,14 +57,14 @@
     <p>
       I want to find a genomic dataset which has samples of single nucleotide
       polymorphism type of variant in the mitochondrial chromosome at position
-      7599 where the reference base is G and the alternate base is A. This would
+      7600 where the reference base is G and the alternate base is A. This would
       transform into the following statement in the searchbar:
     </p>
     <figure class="highlight is-expanded">
       <div class="button-container">
         <button
           class="button is-text is-small copy-code"
-          v-on:click="changeSearch('MT : 7599 G > A')"
+          v-on:click="changeSearch('MT : 7600 G > A')"
         >
           Try
         </button>
@@ -75,7 +75,7 @@
     <p>
       I want to find a genomic dataset which has samples of multiple nucleotide
       polymorphism type of variant in the mitochondrial chromosome at position
-      194 where the reference base is TTACTAAAGT and the alternate base is of
+      195 where the reference base is TTACTAAAGT and the alternate base is of
       same length, ending in GT, but having any variations of bases in the
       preceding bases. In such cases, where the bases are unknown, we can use a
       wildcard N to denote the existence of an unknown nucleotide. This would
@@ -85,7 +85,7 @@
       <div class="button-container">
         <button
           class="button is-text is-small copy-code"
-          v-on:click="changeSearch('MT : 194 TTACTAAAGT > NNNNNNNNGT')"
+          v-on:click="changeSearch('MT : 195 TTACTAAAGT > NNNNNNNNGT')"
         >
           Try
         </button>

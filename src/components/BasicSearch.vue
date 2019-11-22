@@ -135,7 +135,7 @@ export default {
     },
     exampleSearch: function() {
       var vm = this;
-      vm.query = "MT : 9 T > C";
+      vm.query = "MT : 10 T > C";
       document.getElementById("searchBar").focus();
     },
     validateInput: function() {
