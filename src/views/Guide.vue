@@ -46,12 +46,12 @@
       <div class="button-container">
         <button
           class="button is-text is-small copy-code"
-          v-on:click="changeSearch('1 : 104431390 C > INS')"
+          v-on:click="exampleSearch('1 : 104431389 C > INS')"
         >
           Try
         </button>
       </div>
-      <pre>1 : 104431389 C > INS</pre>
+      <pre>1 : 104431390 C > INS</pre>
     </figure>
     <h5>Example query:</h5>
     <p>
@@ -64,12 +64,12 @@
       <div class="button-container">
         <button
           class="button is-text is-small copy-code"
-          v-on:click="changeSearch('MT : 7600 G > A')"
+          v-on:click="exampleSearch('MT : 7599 G > A')"
         >
           Try
         </button>
       </div>
-      <pre>MT : 7599 G > A</pre>
+      <pre>MT : 7600 G > A</pre>
     </figure>
     <h5>Example query:</h5>
     <p>
@@ -85,15 +85,52 @@
       <div class="button-container">
         <button
           class="button is-text is-small copy-code"
-          v-on:click="changeSearch('MT : 195 TTACTAAAGT > NNNNNNNNGT')"
+          v-on:click="exampleSearch('MT : 194 TTACTAAAGT > NNNNNNNNGT')"
         >
           Try
         </button>
       </div>
-      <pre>MT : 194 TTACTAAAGT > NNNNNNNNGT</pre>
+      <pre>MT : 195 TTACTAAAGT > NNNNNNNNGT</pre>
     </figure>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    parseQueryString: function(queryString) {
+      // Function copypasted from BasicSearch.vue and simplified
+      var queryObj = {
+        includeDatasetResponses: "HIT",
+        assemblyId: "GRCh38",
+        referenceName: queryString.split(" ")[0],
+        start: queryString.split(" ")[2],
+        referenceBases: queryString.split(" ")[3]
+      };
+      // Determine if last element is a base of a variant type
+      if (queryString.split(" ")[5] === "INS") {
+        // queryString.split(" ")[5]) is a variantType
+        queryObj["variantType"] = queryString.split(" ")[5];
+      } else {
+        // queryString.split(" ")[5]) is an alternateBases
+        queryObj["alternateBases"] = queryString.split(" ")[5];
+      }
+      return queryObj;
+    },
+    exampleSearch: function(queryString) {
+      var queryObj = this.parseQueryString(queryString);
+      this.$router.push(
+        {
+          path: "results",
+          query: queryObj
+        },
+        undefined,
+        () => {}
+      );
+    }
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 .word-wrap {
