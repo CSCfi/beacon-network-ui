@@ -4,7 +4,10 @@
       <article class="media">
         <div class="media-left">
           <figure class="image is-96x96">
-            <img :src="beacon.organization.logoUrl" alt="Organization image" />
+            <img
+              :src="beacon.organization.logoUrl"
+              :alt="beacon.organization.name + ' organization logo'"
+            />
           </figure>
         </div>
         <div class="media-content">
@@ -14,21 +17,37 @@
             <p class="subtitle is-6">{{ beacon.description }}</p>
           </div>
           <small
-            ><a v-bind:href="beacon.organization.url">Visit Us</a> ·
-            <a v-bind:href="beacon.url">Beacon API</a> ·
-            <a v-bind:href="beacon.contactUrl">Contact Us</a></small
+            ><a
+              v-bind:href="beacon.organization.url"
+              :title="
+                'Visit ' + beacon.organization.name + ' organisation website'
+              "
+              >Visit Us</a
+            >
+            ·
+            <a
+              v-bind:href="beacon.url"
+              :title="'Visit ' + beacon.name + ' Beacon API'"
+              >Beacon API</a
+            >
+            ·
+            <a
+              v-bind:href="beacon.contactUrl"
+              :title="beacon.organization.name + '\'s contact address'"
+              >Contact Us</a
+            ></small
           >
         </div>
         <div class="media-right">
           <span v-if="status == 200">
             <CheckboxBlankCircleIcon
-              :title="beacon.name + ' Online'"
+              :title="beacon.name + ' is reachable'"
               class="has-text-success"
             ></CheckboxBlankCircleIcon>
           </span>
           <span v-else>
             <CheckboxBlankCircleIcon
-              :title="beacon.name + ' Offline'"
+              :title="beacon.name + ' is not reachable'"
               class="has-text-danger"
             ></CheckboxBlankCircleIcon>
           </span>

@@ -14,10 +14,19 @@
             src="./assets/beacon-network-logo.png"
         /></router-link>
       </div>
-      <a v-if="!getCookie('logged_in')" class="login" :href="login_url"
-        ><img src="./assets/elixir-login.png"
+      <a
+        v-if="!getCookie('logged_in')"
+        class="login"
+        :href="login_url"
+        title="Authenticate at ELIXIR AAI"
+        ><img src="./assets/elixir-login.png" alt="ELIXIR AAI Login button"
       /></a>
-      <a v-if="getCookie('logged_in')" class="login" :href="logout_url">
+      <a
+        v-if="getCookie('logged_in')"
+        class="login"
+        :href="logout_url"
+        title="Log out from ELIXIR Beacon Network"
+      >
         <b-button class="login" type="is-primary">Log Out</b-button>
       </a>
     </div>
@@ -115,10 +124,22 @@ body {
 // Set your colors
 $primary: #047eaa;
 $primary-invert: findColorInvert($primary);
+$success: #147636;
+$success-invert: findColorInvert($success);
+$danger: #eb002f;
+$danger-invert: findColorInvert($danger);
 $colors: (
   "primary": (
     $primary,
     $primary-invert
+  ),
+  "success": (
+    $success,
+    $success-invert
+  ),
+  "danger": (
+    $danger,
+    $danger-invert
   )
 );
 

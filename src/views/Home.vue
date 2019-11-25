@@ -13,7 +13,18 @@
       v-bind:is="componentName"
       @changeSearchForm="toggleForm"
     ></component>
-    <hr id="divider" v-if="$route.path === '/results'" />
+    <div v-if="$route.path === '/results'">
+      <hr id="divider" />
+      <p class="results-disclaimer">
+        Note that Beacon Network is using 1-based coordinates, while Beacons are
+        using 0-based coordinates. An automatic coordinate substraction is made
+        upon a query.<br />
+        <router-link to="/guide"
+          >More information on how to make queries is available in the Beacon
+          Network guide</router-link
+        >.
+      </p>
+    </div>
     <router-view />
   </div>
 </template>
@@ -138,5 +149,9 @@ export default {
 
 .bigLogo {
   height: 150px;
+}
+
+.results-disclaimer {
+  text-align: center;
 }
 </style>

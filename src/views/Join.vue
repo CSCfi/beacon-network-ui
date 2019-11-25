@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-button tag="router-link" to="/" type="is-info">
+    <b-button tag="router-link" to="/" type="is-link" class="return-button">
       Return to main page
     </b-button>
 
@@ -20,6 +20,7 @@
               pattern="https://.*"
               maxlength="512"
               placeholder="https://beacon.org/"
+              title="Info endpoint of the Beacon API"
             >
             </b-input>
           </b-field>
@@ -35,6 +36,7 @@
               minlength="64"
               maxlength="64"
               placeholder="secret"
+              title="API key provided by ELIXIR"
             >
             </b-input>
           </b-field>
@@ -105,16 +107,7 @@
             origins.<b>*</b>
           </li>
           <li>
-            Service must have CORS enabled, and allow requests from the Beacon
-            Network UI at <code>{{ ui }}</code>
-          </li>
-          <li>
-            Service must have CORS enabled, and allow requests from the Beacon
-            Network Registry at <code>{{ registry }}</code>
-          </li>
-          <li>
-            Service must have CORS enabled, and allow requests from the Beacon
-            Network Aggregator at <code>{{ aggregator }}</code>
+            Service must have CORS enabled
           </li>
         </ol>
         <p>
@@ -263,8 +256,10 @@ export default {
   text-align: left;
   margin: 50px auto 0 auto;
 }
-.return-container {
-  text-align: left;
-  margin: 100px auto auto 15px;
+.return-button {
+  margin: auto auto auto 15px;
+}
+code {
+  color: #85142b;
 }
 </style>
