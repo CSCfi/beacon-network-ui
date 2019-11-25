@@ -5,9 +5,13 @@
         @click="displayResults"
         class="show-more"
         type="is-primary"
-        title="Show detailed response"
+        :title="!display ? 'Show detailed response' : 'Hide detailed response'"
       >
-        Display {{ results.length }} result(s)
+        {{
+          !display
+            ? "Display " + results.length + " result(s)"
+            : "Hide result(s)"
+        }}
       </b-button>
       <div v-if="display" class="details-rows">
         <b-table :data="results" :striped="true" class="column details-table">
@@ -142,9 +146,9 @@ export default {
   background: linear-gradient(0deg, rgba(224,224,224,1) 0%, rgba(255,255,255,1) 10%);  */
   /* border-bottom: 5px solid #047eaa; */
 }
-.show-more:hover {
+/* .show-more:hover {
   background-color: #e0e0e0;
-}
+} */
 .narrow-column {
   width: 15%;
 }
