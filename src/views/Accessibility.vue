@@ -33,10 +33,7 @@
     <h4>Screen Reader Friendliness</h4>
     <p>
       Most elements and features on this website have been described for screen
-      readers. Semantic HTML elements are used in most features. Some features
-      may not be accessible due to limitations of the
-      <a href="https://buefy.org/">Buefy framework</a>, such as orphaned form
-      labels.
+      readers. Semantic HTML elements are used in most features.
     </p>
     <h4>Contrast</h4>
     <p>
@@ -44,13 +41,19 @@
       aware, that contrast is lower than desirable on default HTML select
       elements.
     </p>
+    <h3>Browser Support</h3>
+    <p>
+      This website has been tested to function correctly on the latest versions
+      of Google Chrome, Mozilla Firefox and Microsoft Edge browsers. (see date
+      of last update from bottom of this page)
+    </p>
     <h3>Upgrade</h3>
     <p>
       This accessibility statement may be reviewed and upgraded to satisfy WCAG
       2.1 level AA if needed.
     </p>
     <h3>Changes to Accessibility Statement</h3>
-    <p><br /><i>Last updated: 22 November 2019.</i></p>
+    <p><br /><i>Last updated: 26 November 2019.</i></p>
     <h3>Contact Us</h3>
     <p>
       Should any questions or suggestions emerge, we urge you to contact us at
@@ -64,7 +67,7 @@
 <style lang="scss" scoped>
 .word-wrap {
   margin: 0 auto;
-  max-width: 130ch;
+  max-width: 80ch;
   padding-bottom: 25px;
   text-align: left;
 }

@@ -8,7 +8,7 @@
             class="column"
             title="ELIXIR Beacon Network website internal navigation"
           >
-            <h5>ELIXIR Beacon Network</h5>
+            <p class="footer-heading">ELIXIR Beacon Network</p>
             <ul>
               <li>
                 <router-link
@@ -46,7 +46,7 @@
             </ul>
           </div>
           <div class="column" title="Affiliated external links">
-            <h5>More About Beacon</h5>
+            <p class="footer-heading">More About Beacon</p>
             <ul>
               <li>
                 <a
@@ -217,5 +217,11 @@ export default {
   height: 30px;
   float: left;
   margin: 5px 10px 0 0;
+}
+.footer-heading {
+  color: #fff;
+  border-bottom: solid 1px #fff;
+  font-weight: 700;
+  font-size: 16px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <section class="container columns results-table">
     <div class="column is-one-fifth">
-      <h6 class="subtitle">Filter results</h6>
+      <p class="subtitle">Filter results</p>
       <b-field grouped group-multiline class="filtered">
         <div class="field">
           <b-switch

@@ -18,22 +18,19 @@
           <template slot-scope="results">
             <b-table-column label="Access">
               <b-tag
-                class="access-tag"
-                type="is-success"
+                class="accessibility-green-tag"
                 v-if="checkForPublicDatasets(results.row)"
                 title="Dataset is in public access"
                 ><b>Public</b></b-tag
               >
               <b-tag
-                class="access-tag"
-                type="is-warning"
+                class="accessibility-yellow-tag"
                 v-else-if="checkForRegisteredDatasets(results.row)"
                 title="Dataset requires ELIXIR Bona Fide status to access"
                 ><b>Registered</b></b-tag
               >
               <b-tag
-                class="access-tag"
-                type="is-danger"
+                class="accessibility-red-tag"
                 v-else-if="checkForControlledDatasets(results.row)"
                 title="Dataset requires permissions from data owner to access"
                 ><b>Controlled</b></b-tag
@@ -172,5 +169,17 @@ export default {
     rgba(255, 255, 255, 1) 100%
   );
   margin-top: -10px;
+}
+.accessibility-green-tag {
+  background-color: #29852a;
+  color: #fff;
+}
+.accessibility-yellow-tag {
+  background-color: #ffcc00;
+  color: #000;
+}
+.accessibility-red-tag {
+  background-color: #e90000;
+  color: #fff;
 }
 </style>

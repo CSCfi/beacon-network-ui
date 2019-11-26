@@ -8,38 +8,36 @@
       <div class="column">
         <form @submit.prevent="onSubmit">
           <h2>Beacon Registration Form</h2>
-          <b-field
-            label="Beacon Info Endpoint"
-            message="https:// address to the info endpoint of this Beacon"
+          <label class="form-label" for="url">Beacon Info Endpoint</label>
+          <b-input
+            required
+            v-model="url"
+            id="url"
+            type="url"
+            pattern="https://.*"
+            maxlength="512"
+            placeholder="https://beacon.org/"
+            title="Info endpoint of the Beacon API"
           >
-            <b-input
-              required
-              v-model="url"
-              id="url"
-              type="url"
-              pattern="https://.*"
-              maxlength="512"
-              placeholder="https://beacon.org/"
-              title="Info endpoint of the Beacon API"
-            >
-            </b-input>
-          </b-field>
-          <b-field
-            label="API Key"
-            message="API key to authorise this registration"
+          </b-input>
+          <span class="input-subtitle"
+            >https:// address to the info endpoint of this Beacon</span
           >
-            <b-input
-              required
-              v-model="apikey"
-              id="apikey"
-              type="password"
-              minlength="64"
-              maxlength="64"
-              placeholder="secret"
-              title="API key provided by ELIXIR"
-            >
-            </b-input>
-          </b-field>
+          <label class="form-label" for="apiKey">API Key</label>
+          <b-input
+            required
+            v-model="apikey"
+            id="apiKey"
+            type="password"
+            minlength="64"
+            maxlength="64"
+            placeholder="secret"
+            title="API key provided by ELIXIR"
+          >
+          </b-input>
+          <span class="input-subtitle"
+            >API key to authorise this registration</span
+          >
           <b-field
             message="By registering you confirm that your Beacon service will uphold to the service requirements listed below."
           >
@@ -260,6 +258,19 @@ export default {
   margin: auto auto auto 15px;
 }
 code {
-  color: #85142b;
+  color: #000;
+}
+.form-label {
+  color: #363636;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+.input-subtitle {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
 }
 </style>

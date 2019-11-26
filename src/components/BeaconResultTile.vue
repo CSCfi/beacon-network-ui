@@ -40,14 +40,12 @@
         <div class="media-right">
           <b-tag
             v-if="exists"
-            type="is-success"
             class="accessibility-green-tag"
             title="A variant was found"
             ><b>Found</b></b-tag
           >
           <b-tag
             v-if="!exists"
-            type="is-danger"
             class="accessibility-red-tag"
             title="No variants were found"
             ><b>Not Found</b></b-tag
@@ -96,9 +94,11 @@ export default {
 
 <style scoped>
 .accessibility-green-tag {
-  background-color: #147636;
+  background-color: #29852a;
+  color: #fff;
 }
 .accessibility-red-tag {
-  background-color: #eb002f;
+  background-color: #e90000;
+  color: #fff;
 }
 </style>

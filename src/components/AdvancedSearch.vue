@@ -1,40 +1,43 @@
 <template>
   <div class="container content">
     <form @submit.prevent="advancedSearch" title="Advanced Search Options">
-      <h4>Variant Location</h4>
+      <h2>Variant Location</h2>
       <div class="columns">
         <div class="column">
-          <b-field label="Assembly">
-            <b-select title="Assembly ID" v-model="assembly" expanded>
-              <option
-                v-for="asm in assemblies"
-                :value="asm"
-                :key="asm"
-                :title="'Assembly ID ' + asm"
-              >
-                {{ asm }}
-              </option>
-            </b-select>
-          </b-field>
+          <label class="form-label" for="assembly">Assembly</label>
+          <b-select
+            id="assembly"
+            title="Assembly ID"
+            v-model="assembly"
+            expanded
+          >
+            <option
+              v-for="asm in assemblies"
+              :value="asm"
+              :key="asm"
+              :title="'Assembly ID ' + asm"
+            >
+              {{ asm }}
+            </option>
+          </b-select>
         </div>
         <div class="column">
-          <b-field label="Chromosome">
-            <b-select
-              title="Chromosome"
-              id="chromosome"
-              v-model="referenceName"
-              expanded
+          <label class="form-label" for="chromosome">Chromosome</label>
+          <b-select
+            title="Chromosome"
+            id="chromosome"
+            v-model="referenceName"
+            expanded
+          >
+            <option
+              v-for="ref in referenceNames"
+              :value="ref"
+              :key="ref"
+              :title="'Chromosome ' + ref"
             >
-              <option
-                v-for="ref in referenceNames"
-                :value="ref"
-                :key="ref"
-                :title="'Chromosome ' + ref"
-              >
-                {{ ref }}
-              </option>
-            </b-select>
-          </b-field>
+              {{ ref }}
+            </option>
+          </b-select>
         </div>
         <div class="column">
           <fieldset>
@@ -52,108 +55,130 @@
           </fieldset>
         </div>
         <div class="column">
-          <b-field label="Start" v-if="coordType === 'exact'">
-            <b-input
-              type="number"
-              v-model="start"
-              controls-position="compact"
-              min="0"
-              title="Exact start coordinate"
-            ></b-input>
-          </b-field>
-          <b-field label="Minimum Start" v-if="coordType === 'range'">
-            <b-input
-              type="number"
-              v-model="startMin"
-              controls-position="compact"
-              min="0"
-              title="Minimum start coordinate of range"
-            ></b-input>
-          </b-field>
-          <b-field label="Maximum Start" v-if="coordType === 'range'">
-            <b-input
-              type="number"
-              v-model="startMax"
-              controls-position="compact"
-              min="0"
-              title="Maximum start coordinate of range"
-            ></b-input>
-          </b-field>
+          <label class="form-label" for="start" v-if="coordType === 'exact'"
+            >Start</label
+          >
+          <b-input
+            id="start"
+            v-if="coordType === 'exact'"
+            type="number"
+            v-model="start"
+            controls-position="compact"
+            min="0"
+            title="Exact start coordinate"
+          ></b-input>
+          <label class="form-label" for="minStart" v-if="coordType === 'range'"
+            >Minimum Start</label
+          >
+          <b-input
+            id="minStart"
+            v-if="coordType === 'range'"
+            type="number"
+            v-model="startMin"
+            controls-position="compact"
+            min="0"
+            title="Minimum start coordinate of range"
+          ></b-input>
+          <label class="form-label" for="maxStart" v-if="coordType === 'range'"
+            >Maximum Start</label
+          >
+          <b-input
+            id="maxStart"
+            v-if="coordType === 'range'"
+            type="number"
+            v-model="startMax"
+            controls-position="compact"
+            min="0"
+            title="Maximum start coordinate of range"
+          ></b-input>
         </div>
         <div class="column">
-          <b-field label="End" v-if="coordType === 'exact'">
-            <b-input
-              type="number"
-              v-model="end"
-              min="0"
-              title="Exact end coordinate"
-            ></b-input>
-          </b-field>
-          <b-field label="Minimum End" v-if="coordType === 'range'">
-            <b-input
-              type="number"
-              v-model="endMin"
-              controls-position="compact"
-              min="0"
-              title="Minimum end coordinate of range"
-            ></b-input>
-          </b-field>
-          <b-field label="Maximum End" v-if="coordType === 'range'">
-            <b-input
-              type="number"
-              v-model="endMax"
-              controls-position="compact"
-              min="0"
-              title="Maximum end coordinate of range"
-            ></b-input>
-          </b-field>
+          <label class="form-label" for="end" v-if="coordType === 'exact'"
+            >End</label
+          >
+          <b-input
+            id="end"
+            v-if="coordType === 'exact'"
+            type="number"
+            v-model="end"
+            min="0"
+            title="Exact end coordinate"
+          ></b-input>
+          <label class="form-label" for="minEnd" v-if="coordType === 'range'"
+            >Minimum End</label
+          >
+          <b-input
+            id="minEnd"
+            v-if="coordType === 'range'"
+            type="number"
+            v-model="endMin"
+            controls-position="compact"
+            min="0"
+            title="Minimum end coordinate of range"
+          ></b-input>
+          <label class="form-label" for="maxEnd" v-if="coordType === 'range'"
+            >Maximum End</label
+          >
+          <b-input
+            id="maxEnd"
+            v-if="coordType === 'range'"
+            type="number"
+            v-model="endMax"
+            controls-position="compact"
+            min="0"
+            title="Maximum end coordinate of range"
+          ></b-input>
         </div>
       </div>
 
-      <h4>Variant Transformation</h4>
+      <h2>Variant Transformation</h2>
       <hr />
       <div class="columns">
         <div class="column">
-          <b-field label="Reference Base(s)">
-            <b-input
-              v-model="refBases"
-              pattern="[ATCGN]+"
-              placeholder="ATCGN"
-              expanded
-              title="Sequence of reference bases"
-            ></b-input>
-          </b-field>
+          <label class="form-label" for="referenceBases"
+            >Reference Base(s)</label
+          >
+          <b-input
+            id="referenceBases"
+            v-model="refBases"
+            pattern="[ATCGN]+"
+            placeholder="ATCGN"
+            expanded
+            title="Sequence of reference bases"
+          ></b-input>
         </div>
         <div class="column">
-          <b-field label="Alternate Base(s)">
-            <b-input
-              v-model="altBases"
-              v-on:input="resetVariantType"
-              pattern="[ATCGN]+"
-              placeholder="ATCGN"
-              expanded
-              title="Sequence of alternate bases"
-            ></b-input>
-          </b-field>
+          <label class="form-label" for="alternateBases"
+            >Alternate Base(s)</label
+          >
+          <b-input
+            id="alternateBases"
+            v-model="altBases"
+            v-on:input="resetVariantType"
+            pattern="[ATCGN]+"
+            placeholder="ATCGN"
+            expanded
+            title="Sequence of alternate bases"
+          ></b-input>
         </div>
         <div class="column">
-          <b-field label="Variant Type">
-            <b-select
-              v-model="variantType"
-              v-on:input="resetAltBases"
-              expanded
-              title="Variant type"
+          <label class="form-label" for="variantType">Variant Type</label>
+          <b-select
+            id="variantType"
+            v-model="variantType"
+            v-on:input="resetAltBases"
+            expanded
+            title="Variant type"
+          >
+            <option
+              v-for="vt in variantTypes"
+              :value="vt"
+              :key="vt"
+              :title="'Variant type ' + vt"
             >
-              <option
-                v-for="vt in variantTypes"
-                :value="vt"
-                :key="vt"
-                :title="'Variant type ' + vt"
-              >
-                {{ vt }}
-              </option>
-            </b-select>
-          </b-field>
+              {{ vt }}
+            </option>
+          </b-select>
         </div>
       </div>
 
@@ -428,5 +453,12 @@ span#basicSearch {
 /* fix safari bug https://github.com/jgthms/bulma/issues/2626 */
 .select select {
   text-rendering: auto !important;
+}
+.form-label {
+  color: #363636;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5em;
 }
 </style>

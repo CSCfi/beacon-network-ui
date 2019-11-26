@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 style="display:none">ELIXIR Beacon Network</h1>
     <div
       id="nav"
       :class="[
@@ -124,22 +125,12 @@ body {
 // Set your colors
 $primary: #047eaa;
 $primary-invert: findColorInvert($primary);
-$success: #147636;
-$success-invert: findColorInvert($success);
-$danger: #eb002f;
-$danger-invert: findColorInvert($danger);
+$snackbar-background-color: #ffcc00;
+$snackbar-color: #000;
 $colors: (
   "primary": (
     $primary,
     $primary-invert
-  ),
-  "success": (
-    $success,
-    $success-invert
-  ),
-  "danger": (
-    $danger,
-    $danger-invert
   )
 );
 
