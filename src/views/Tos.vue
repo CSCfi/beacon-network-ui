@@ -1,6 +1,6 @@
 <template>
   <div class="content word-wrap">
-    <b-button tag="router-link" to="/" type="is-info">
+    <b-button tag="router-link" to="/" type="is-primary">
       Return to main page
     </b-button>
     <h1>ELIXIR Beacon Network</h1>
@@ -42,7 +42,7 @@
     <h3>Changes to Terms of Service</h3>
     <p>
       This document may be updated at any time without given notice.
-      <br /><i>Last updated on the 24th of September, 2019.</i>
+      <br /><i>Last updated: 24 September 2019.</i>
     </p>
     <h3>Contact Us</h3>
     <p>
@@ -58,7 +58,7 @@
 <style lang="scss" scoped>
 .word-wrap {
   margin: 0 auto;
-  max-width: 130ch;
+  max-width: 80ch;
   padding-bottom: 25px;
   text-align: left;
 }

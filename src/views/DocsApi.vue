@@ -1,6 +1,6 @@
 <template>
   <div class="content word-wrap">
-    <b-button tag="router-link" to="/" type="is-info">
+    <b-button tag="router-link" to="/" type="is-primary">
       Return to main page
     </b-button>
     <h2>Advanced API User Guide</h2>
@@ -76,8 +76,11 @@ export default {
 <style lang="scss" scoped>
 .word-wrap {
   margin: 0 auto;
-  max-width: 130ch;
+  max-width: 80ch;
   padding-bottom: 25px;
   text-align: left;
+}
+code {
+  color: #85142b;
 }
 </style>

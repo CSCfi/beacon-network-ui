@@ -1,26 +1,28 @@
 <template>
-  <div class="container">
+  <div class="container" style="margin-bottom:24px">
     <section>
       <form @submit.prevent="onSubmit">
         <b-field>
           <p class="control">
-            <b-field>
-              <b-select
-                placeholder="Assembly"
-                v-model="assembly"
-                size="is-medium"
-              >
-                <option value="GRCh38">GRCh38</option>
-                <option value="GRCh37">GRCh37</option>
-                <option value="hg19">hg19</option>
-              </b-select>
-            </b-field>
+            <label for="assembly" style="display:none">Assembly</label>
+            <b-select
+              id="assembly"
+              placeholder="Assembly"
+              v-model="assembly"
+              size="is-medium"
+              title="Assembly ID"
+            >
+              <option value="GRCh38">GRCh38</option>
+              <option value="GRCh37">GRCh37</option>
+              <option value="hg19">hg19</option>
+            </b-select>
           </p>
           <b-tooltip
             class="stretch"
             animated
             label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
           >
+            <label for="searchBar" style="display:none">Search Bar</label>
             <b-input
               id="searchBar"
               class="stretch searchbar"
@@ -28,6 +30,7 @@
               type="search"
               placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
               v-model="query"
+              title="Variant search term"
             ></b-input>
           </b-tooltip>
           <b-button
@@ -43,17 +46,27 @@
           type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-          >{{ errorMessage }}</b-message
+          >{{ errorMessage }}
+          <router-link to="/guide" style="color:blue"
+            >How to make a query?</router-link
+          ></b-message
         >
       </form>
     </section>
     <div class="searchbar-footer">
-      <span id="example" v-if="$route.path === '/'"
-        ><strong>Quickstart: </strong>
-        <a v-on:click="exampleSearch">Example variant query</a></span
+      <span id="example" v-if="$route.path === '/'">
+        <b-button
+          @click="exampleSearch"
+          title="Insert an example search term to the search bar"
+          >Example variant query</b-button
+        ></span
       >
       <span id="advancedSearch"
-        ><a @click="changeSearchForm">Advanced Search</a></span
+        ><b-button
+          @click="changeSearchForm"
+          title="Switch to the advanced search form which has more options"
+          >Advanced Search</b-button
+        ></span
       >
     </div>
   </div>
@@ -106,7 +119,7 @@ export default {
           includeDatasetResponses: "HIT",
           assemblyId: vm.assembly,
           referenceName: vm.query.split(" ")[0],
-          start: vm.query.split(" ")[2],
+          start: vm.query.split(" ")[2] > 0 ? vm.query.split(" ")[2] - 1 : 0,
           referenceBases: vm.query.split(" ")[3]
         };
         // Determine if last element is a base of a variant type
@@ -133,7 +146,8 @@ export default {
     },
     exampleSearch: function() {
       var vm = this;
-      vm.query = "MT : 9 T > C";
+      vm.query = "MT : 10 T > C";
+      document.getElementById("searchBar").focus();
     },
     validateInput: function() {
       var vm = this;
@@ -143,12 +157,6 @@ export default {
         vm.validated = false;
       }
     }
-  },
-  mounted() {
-    this.$root.$on("changeSearch", data => {
-      var vm = this;
-      vm.query = data;
-    });
   }
 };
 </script>
@@ -161,25 +169,17 @@ h2 {
 /* section {
   margin-top: 100px;
 } */
-
 .stretch {
   width: 100%;
 }
 .searchbar-footer {
   margin-top: 12px;
-  margin-right: 5px;
   font-size: 0.9em;
   display: flex;
 }
-
-.searchbar-footer span#example {
-  margin-left: 5px;
-}
-
 .searchbar-footer span#advancedSearch {
   margin-left: auto;
 }
-
 #searchButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -190,7 +190,7 @@ h2 {
   border-radius: 0;
 }
 /* fix safari bug https://github.com/jgthms/bulma/issues/2626 */
-.select select {
+select {
   text-rendering: auto !important;
 }
 </style>

@@ -13,7 +13,18 @@
       v-bind:is="componentName"
       @changeSearchForm="toggleForm"
     ></component>
-    <hr id="divider" v-if="$route.path === '/results'" />
+    <div v-if="$route.path === '/results'">
+      <hr id="divider" />
+      <p class="results-disclaimer">
+        Note that Beacon Network is using 1-based coordinates, while Beacons are
+        using 0-based coordinates. An automatic coordinate substraction is made
+        upon a query.<br />
+        <router-link to="/guide"
+          >More information on how to make queries is available in the Beacon
+          Network guide</router-link
+        >.
+      </p>
+    </div>
     <router-view />
   </div>
 </template>
@@ -45,33 +56,18 @@ export default {
         this.componentName = BasicSearch;
       }
     },
-    devToast: function() {
-      this.$snackbar.open({
-        duration: 20000,
-        queue: false,
-        message:
-          "This web page is under development and may exhibit funky behaviour.",
-        actionText: "Cool",
-        onAction: () => {
-          this.$toast.open({
-            queue: false,
-            message: "Thanks for understanding!",
-            position: "is-bottom-right"
-          });
-        }
-      });
-    },
     cookieToast: function() {
       // Check if cookies have been accepted, if not, show toast regarding cookies
       if (!VueCookies.get("elixir-cookies")) {
         this.$snackbar.open({
-          duration: 20000,
+          indefinite: true,
           queue: false,
           message:
-            "Beacon Network utilises cookies. By using Beacon Network you accept the use of these cookies," +
-            ' more information regarding this can be read from the <a href="/privacy">Privacy Policy</a>.' +
-            ' Users are also subject to the <a href="/tos">Terms of Service</a>.',
+            "Beacon Network utilises cookies. By using Beacon Network you accept to the use of these cookies," +
+            ' more information regarding cookies can be read from the <a href="/privacy" style="color:#000DFF">Privacy Policy</a>.' +
+            ' Users are also subject to the <a href="/tos" style="color:#000DFF">Terms of Service</a>.',
           actionText: "OK",
+          type: "is-dark",
           onAction: () => {
             // Set a cookie to prevent toast on subsequent visits
             VueCookies.set("elixir-cookies", "accepted", Infinity);
@@ -103,7 +99,6 @@ export default {
   },
   beforeMount() {
     this.cookieToast();
-    this.devToast();
   }
 };
 </script>
@@ -138,5 +133,9 @@ export default {
 
 .bigLogo {
   height: 150px;
+}
+
+.results-disclaimer {
+  text-align: center;
 }
 </style>

@@ -18,7 +18,7 @@ export default new Router({
         {
           path: "",
           name: "home",
-          component: () => import("./components/HomeTabs.vue"),
+          component: () => import("./components/ConnectedBeacons.vue"),
           meta: { hideSmallLogo: true }
         },
         {
@@ -54,6 +54,16 @@ export default new Router({
       path: "/privacy",
       name: "privacy",
       component: () => import("./views/Privacy.vue")
+    },
+    {
+      path: "/guide",
+      name: "guide",
+      component: () => import("./views/Guide.vue")
+    },
+    {
+      path: "/accessibility",
+      name: "accessibility",
+      component: () => import("./views/Accessibility.vue")
     }
   ]
 });
