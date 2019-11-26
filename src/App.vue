@@ -125,6 +125,8 @@ body {
 // Set your colors
 $primary: #047eaa;
 $primary-invert: findColorInvert($primary);
+$snackbar-background-color: #ffcc00;
+$snackbar-color: #000;
 $colors: (
   "primary": (
     $primary,
