@@ -124,22 +124,10 @@ body {
 // Set your colors
 $primary: #047eaa;
 $primary-invert: findColorInvert($primary);
-$success: #147636;
-$success-invert: findColorInvert($success);
-$danger: #eb002f;
-$danger-invert: findColorInvert($danger);
 $colors: (
   "primary": (
     $primary,
     $primary-invert
-  ),
-  "success": (
-    $success,
-    $success-invert
-  ),
-  "danger": (
-    $danger,
-    $danger-invert
   )
 );
 
