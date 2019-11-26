@@ -135,7 +135,7 @@ export default {
 <style lang="scss" scoped>
 .word-wrap {
   margin: 0 auto;
-  max-width: 130ch;
+  max-width: 80ch;
   padding-bottom: 25px;
   text-align: left;
 }
