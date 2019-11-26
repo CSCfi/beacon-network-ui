@@ -4,24 +4,25 @@
       <form @submit.prevent="onSubmit">
         <b-field>
           <p class="control">
-            <b-field>
-              <b-select
-                placeholder="Assembly"
-                v-model="assembly"
-                size="is-medium"
-                title="Assembly ID"
-              >
-                <option value="GRCh38">GRCh38</option>
-                <option value="GRCh37">GRCh37</option>
-                <option value="hg19">hg19</option>
-              </b-select>
-            </b-field>
+            <label for="assembly" style="display:none">Assembly</label>
+            <b-select
+              id="assembly"
+              placeholder="Assembly"
+              v-model="assembly"
+              size="is-medium"
+              title="Assembly ID"
+            >
+              <option value="GRCh38">GRCh38</option>
+              <option value="GRCh37">GRCh37</option>
+              <option value="hg19">hg19</option>
+            </b-select>
           </p>
           <b-tooltip
             class="stretch"
             animated
             label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
           >
+            <label for="searchBar" style="display:none">Search Bar</label>
             <b-input
               id="searchBar"
               class="stretch searchbar"
