@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 style="display:none">ELIXIR Beacon Network</h1>
     <div
       id="nav"
       :class="[

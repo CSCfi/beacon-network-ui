@@ -5,7 +5,7 @@
     </b-button>
     <h1>How to use Beacon Network</h1>
     <h2>Making Queries</h2>
-    <h4>Basic Search</h4>
+    <h3>Basic Search</h3>
     <p>
       The Beacon Network searchbar is a simple form with two options: selection
       of assembly and definition of variant. The assembly can be selected from
@@ -13,7 +13,7 @@
       variant information as a search term which will be sent to Beacons in a
       structured manner.
     </p>
-    <h4>Basic Search Structure</h4>
+    <h3>Basic Search Structure</h3>
     <p>
       The search structure follows a strict convention of:
     </p>
@@ -30,13 +30,13 @@
       Network UI are substracted by one, and received at the Beacon APIs as
       0-based.
     </p>
-    <h4>Advanced Search</h4>
+    <h3>Advanced Search</h3>
     <p>
       To access more search options, see the advanced search button below the
       basic searchbar.
     </p>
     <h2>Example Queries</h2>
-    <h5>Example query:</h5>
+    <h3>Example query:</h3>
     <p>
       I want to find a genomic dataset which has samples of insertion type
       variants in chromosome 1 at position 104431390 where the reference base is
@@ -53,7 +53,7 @@
       </div>
       <pre>1 : 104431390 C > INS</pre>
     </figure>
-    <h5>Example query:</h5>
+    <h3>Example query:</h3>
     <p>
       I want to find a genomic dataset which has samples of single nucleotide
       polymorphism type of variant in the mitochondrial chromosome at position
@@ -71,7 +71,7 @@
       </div>
       <pre>MT : 7600 G > A</pre>
     </figure>
-    <h5>Example query:</h5>
+    <h3>Example query:</h3>
     <p>
       I want to find a genomic dataset which has samples of multiple nucleotide
       polymorphism type of variant in the mitochondrial chromosome at position
