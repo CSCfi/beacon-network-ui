@@ -1,7 +1,7 @@
 <template>
   <div class="container content">
     <form @submit.prevent="advancedSearch" title="Advanced Search Options">
-      <h4>Variant Location</h4>
+      <h2>Variant Location</h2>
       <div class="columns">
         <div class="column">
           <b-field label="Assembly">
@@ -110,7 +110,7 @@
         </div>
       </div>
 
-      <h4>Variant Transformation</h4>
+      <h2>Variant Transformation</h2>
       <hr />
       <div class="columns">
         <div class="column">
