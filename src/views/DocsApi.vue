@@ -54,7 +54,6 @@ curl -X PUT \
     -H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'
     -H 'Content-Type: application/json' \
     -d '{
-        "email": "YOUR-CONTACT-EMAIL-HERE",
         "type": "org.ga4gh:beacon",
         "url": "YOUR-BEACON-INFO-ENDPOINT-HERE"
     }'
@@ -81,6 +80,6 @@ export default {
   text-align: left;
 }
 code {
-  color: #85142b;
+  color: #000;
 }
 </style>
