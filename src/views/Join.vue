@@ -104,9 +104,6 @@
             user access tokens must be validated from their third party
             origins.<b>*</b>
           </li>
-          <li>
-            Service must have CORS enabled
-          </li>
         </ol>
         <p>
           <i
@@ -151,13 +148,26 @@
           <li>
             Beacon API specification doesn't declare how to indicate a dataset's
             access level. To convey this information in the UI, the Beacon can
-            add <code>{"accessType": level}</code> to
+            add <code>{"accessType": "LEVEL"}</code> to
             <code>datasetAlleleResponses</code>'s <code>info</code> key. The
-            possible values are <code>PUBLIC</code>, <code>REGISTERED</code> and
-            <code>CONTROLLED</code>.
+            possible values are <code>"PUBLIC"</code> for public access,
+            <code>"REGISTERED"</code> for Bona Fide access and
+            <code>"CONTROLLED"</code> for application-controlled access. See the
             <a
               href="https://beaconpy-elixirbeacon.rahtiapp.fi/query?assemblyId=GRCh38&referenceName=MT&start=9&referenceBases=T&alternateBases=C&includeDatasetResponses=HIT"
-              >Example response</a
+              >example response</a
+            >
+            for how to specify a dataset's access level.
+          </li>
+          <li>
+            Additional extra-specification values displayed in the results table
+            are <code>referenceBases</code>, <code>alternateBases</code> and
+            <code>variantType</code> which are useful for clarifying wildcards
+            results. <code>start</code> and <code>end</code> can also be added
+            to give insight on range queries. These keys are also shown in the
+            <a
+              href="https://beaconpy-elixirbeacon.rahtiapp.fi/query?assemblyId=GRCh38&referenceName=MT&start=9&referenceBases=T&alternateBases=C&includeDatasetResponses=HIT"
+              >example response</a
             >.
           </li>
         </ol>
