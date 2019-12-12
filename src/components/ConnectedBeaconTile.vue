@@ -38,54 +38,13 @@
             ></small
           >
         </div>
-        <div class="media-right">
-          <span v-if="status == 200">
-            <CheckboxBlankCircleIcon
-              :title="beacon.name + ' is reachable'"
-              class="has-text-success"
-            ></CheckboxBlankCircleIcon>
-          </span>
-          <span v-else>
-            <CheckboxBlankCircleIcon
-              :title="beacon.name + ' is not reachable'"
-              class="has-text-danger"
-            ></CheckboxBlankCircleIcon>
-          </span>
-        </div>
       </article>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import CheckboxBlankCircleIcon from "vue-material-design-icons/CheckboxBlankCircle.vue";
-
 export default {
-  components: {
-    CheckboxBlankCircleIcon
-  },
-  props: ["beacon"],
-  data: function() {
-    return {
-      status: 404
-    };
-  },
-  methods: {
-    checkStatus: function() {
-      axios
-        .head(this.$props.beacon.url)
-        .then(response => {
-          // console.log(this.$props.beacon.url, response.status)
-          this.status = response.status;
-        })
-        .catch(error => {
-          console.log(this.$props.beacon.url, error);
-        });
-    }
-  },
-  beforeMount() {
-    this.checkStatus();
-  }
+  props: ["beacon"]
 };
 </script>
