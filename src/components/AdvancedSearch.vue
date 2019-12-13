@@ -295,7 +295,6 @@ export default {
       ]
     };
   },
-  props: {},
   methods: {
     changeSearchForm: function() {
       this.$emit("changeSearchForm");
@@ -355,6 +354,8 @@ export default {
       if (this.errorMessages.length === 0) {
         // Base query string
         var queryObj = {
+          searchType: "advanced",
+          coordType: this.coordType,
           includeDatasetResponses: "HIT",
           assemblyId: this.assembly,
           referenceName: this.referenceName,
@@ -422,6 +423,31 @@ export default {
       this.altBases = "";
       this.variantType = "Unspecified";
     }
+  },
+  beforeMount() {
+    // If user reloads page, this places the current query params from the address bar into the search form
+    // Check searchType
+    if (this.$route.query.searchType == "advanced") {
+      // Continue to parse the object into form inputs
+      this.assembly = this.$route.query.assemblyId;
+      this.referenceName = this.$route.query.referenceName;
+      this.coordType = this.$route.query.coordType;
+      this.start = parseInt(this.$route.query.start) + 1;
+      this.end = parseInt(this.$route.query.end) + 1;
+      this.startMin = parseInt(this.$route.query.startMin) + 1;
+      this.startMax = parseInt(this.$route.query.startMax) + 1;
+      this.endMin = parseInt(this.$route.query.endMin) + 1;
+      this.endMax = parseInt(this.$route.query.endMax) + 1;
+      this.refBases = this.$route.query.referenceBases;
+      this.altBases = this.$route.query.alternateBases;
+      this.variantType = this.$route.query.variantType;
+    }
+    // We don't need an `else`-statement to display the BasicSearch.vue, because BasicSearch.vue
+    // is always the first component to show on page refresh, which then redirects to AdvancedSearch.vue
+    // else {
+    //   // Default to basic search
+    //   this.changeSearchForm();
+    // }
   }
 };
 </script>
