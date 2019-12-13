@@ -318,7 +318,10 @@ export default {
       }
       // Validate exact coords
       if (this.coordType === "exact") {
-        if (this.start >= this.end && this.end != 0) {
+        if (
+          parseInt(this.start) >= parseInt(this.end) &&
+          parseInt(this.end) != 0
+        ) {
           this.errorMessages.push(
             "If End coordinate is set, it must be greater than Start coordinate."
           );
@@ -327,15 +330,27 @@ export default {
       }
       // Validate range coords
       if (this.coordType === "range") {
-        if (this.startMin >= this.endMin) {
+        if (parseInt(this.startMin) >= parseInt(this.endMin)) {
           this.errorMessages.push(
             "Minimum End coordinate must be greater than Minimum Start coordinate."
           );
           this.errorTooltip = true;
         }
-        if (this.startMax >= this.endMax) {
+        if (parseInt(this.startMin) >= parseInt(this.startMax)) {
+          this.errorMessages.push(
+            "Maximum Start coordinate must be greater than Minimum Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+        if (parseInt(this.startMax) >= parseInt(this.endMax)) {
           this.errorMessages.push(
             "Maximum End coordinate must be greater than Maximum Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+        if (parseInt(this.endMin) >= parseInt(this.endMax)) {
+          this.errorMessages.push(
+            "Maximum End coordinate must be greater than Minimum End coordinate."
           );
           this.errorTooltip = true;
         }
