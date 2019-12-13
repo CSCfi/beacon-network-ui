@@ -237,7 +237,6 @@ export default {
   name: "AdvancedSearch",
   data() {
     return {
-      errorMessage: "",
       errorMessages: [],
       errorTooltip: false,
       coordType: "exact",
@@ -300,14 +299,11 @@ export default {
       this.$emit("changeSearchForm");
     },
     validateInput: function() {
-      this.errorMessage = "";
       this.errorMessages = [];
       this.errorTooltip = false;
       // Validate referenceBases field
       if (!this.refBases) {
         this.validated = false;
-        this.errorMessage =
-          "Reference Base(s) must be given, possible values are: A, T, C, G, N.";
         this.errorMessages.push(
           "Reference Base(s) must be given, possible values are: A, T, C, G, N."
         );
@@ -315,8 +311,6 @@ export default {
       }
       // Validate alternateBases field if variantType is unspecified
       if (this.altBases === "" && this.variantType == "Unspecified") {
-        this.errorMessage =
-          "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N.";
         this.errorMessages.push(
           "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N."
         );
@@ -325,8 +319,6 @@ export default {
       // Validate exact coords
       if (this.coordType === "exact") {
         if (this.start >= this.end && this.end != 0) {
-          this.errorMessage =
-            "End coordinate must be greater than Start coordinate.";
           this.errorMessages.push(
             "If End coordinate is set, it must be greater than Start coordinate."
           );
