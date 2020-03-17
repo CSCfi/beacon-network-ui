@@ -220,7 +220,7 @@ export default {
         "Content-Type": "application/json"
       };
       var data = {
-        type: "org.ga4gh:beacon",
+        type: "beacon",
         url: vm.url
       };
       // console.log(vm.email, vm.url, vm.apikey);
