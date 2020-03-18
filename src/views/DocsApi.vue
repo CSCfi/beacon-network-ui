@@ -54,7 +54,7 @@ curl -X PUT \
     -H 'Beacon-Service-Key: YOUR-SERVICE-KEY-HERE'
     -H 'Content-Type: application/json' \
     -d '{
-        "type": "org.ga4gh:beacon",
+        "type": "beacon",
         "url": "YOUR-BEACON-INFO-ENDPOINT-HERE"
     }'
 </pre

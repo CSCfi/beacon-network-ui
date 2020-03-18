@@ -41,7 +41,7 @@ export default {
       var vm = this;
       vm.beacons = []; // Clear view
 
-      var url = `${vm.registry}services?type=org.ga4gh:beacon`;
+      var url = `${vm.registry}services?type=beacon`;
 
       axios
         .get(url)
