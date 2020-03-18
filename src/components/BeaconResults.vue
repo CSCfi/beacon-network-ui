@@ -119,7 +119,12 @@ export default {
       var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
 
       // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
-      var queryParamsObj = this.$route.query;
+      // Copy the query object and remove the unwanted keys, so that we can use
+      // the pristine query object in BasicSearch and AdvancedSearch
+      var queryParamsObj = Object.assign({}, this.$route.query);
+      // Remove the `searchType` and `coordType` keys, which are not sent to Beacons
+      delete queryParamsObj.searchType;
+      delete queryParamsObj.coordType;
       var queryParamsString = "";
       for (var key in queryParamsObj) {
         if (queryParamsString != "") {

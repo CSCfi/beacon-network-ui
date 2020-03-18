@@ -65,9 +65,20 @@
               label="Region"
               title="Start and end coordinates of this variant"
             >
-              {{ results.row.referenceName }}:{{ results.row.start }}-{{
-                results.row.end
-              }}
+              <div
+                v-if="
+                  results.row.referenceName &&
+                    results.row.start &&
+                    results.row.end
+                "
+              >
+                {{ results.row.referenceName }}:{{ results.row.start + 1 }}-{{
+                  results.row.end + 1
+                }}
+              </div>
+              <div v-else title="Some information is missing">
+                ?
+              </div>
             </b-table-column>
             <b-table-column label="AC" title="Allele Count">
               {{ results.row.variantCount }}

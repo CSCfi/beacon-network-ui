@@ -116,6 +116,7 @@ export default {
       if (vm.validated) {
         // Query string
         var queryObj = {
+          searchType: "basic",
           includeDatasetResponses: "HIT",
           assemblyId: vm.assembly,
           referenceName: vm.query.split(" ")[0],
@@ -156,6 +157,25 @@ export default {
       } else {
         vm.validated = false;
       }
+    }
+  },
+  beforeMount() {
+    // If user reloads page, this places the current query params from the address bar into the search bar
+    // Check searchType
+    if (this.$route.query.searchType == "basic") {
+      // Continue to parse the object into a string
+      this.query = `${this.$route.query.referenceName} : ${parseInt(
+        this.$route.query.start,
+        10
+      ) + 1} ${this.$route.query.referenceBases} > ${
+        this.$route.query.alternateBases
+      }`;
+    } else if (this.$route.query.searchType == "advanced") {
+      // Change to advanced search form
+      this.changeSearchForm();
+    } else {
+      // Default to basic search
+      this.query = "";
     }
   }
 };
