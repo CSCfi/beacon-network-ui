@@ -63,13 +63,15 @@ export default {
           indefinite: true,
           queue: false,
           message:
-            "Beacon Network utilises cookies. By using Beacon Network you accept to the use of these cookies," +
-            ' more information regarding cookies can be read from the <a href="/privacy" style="color:#000DFF">Privacy Policy</a>.' +
+            "Beacon Network utilises cookies and anonymous page view tracking. By using Beacon Network you accept the use of these cookies," +
+            ' more information regarding cookies and optable tracking can be read from the <a href="/privacy" style="color:#000DFF">Privacy Policy</a>.' +
             ' Users are also subject to the <a href="/tos" style="color:#000DFF">Terms of Service</a>.',
           actionText: "OK",
           type: "is-dark",
           onAction: () => {
             // Set a cookie to prevent toast on subsequent visits
+            this.$matomo.rememberConsentGiven();
+            VueCookies.set("elixir-tracking-consent", true, Infinity);
             VueCookies.set("elixir-cookies", "accepted", Infinity);
             this.$toast.open({
               queue: false,
