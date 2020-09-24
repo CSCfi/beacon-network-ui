@@ -21,6 +21,7 @@
     "vue": "^2.6.12",
     "vue-cookies": "^1.7.4",
     "vue-material-design-icons": "^3.3.1",
+    "vue-matomo": "^3.14.0-0",
     "vue-router": "^3.4.3"
   },
   "devDependencies": {
