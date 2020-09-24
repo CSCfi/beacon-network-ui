@@ -18,19 +18,20 @@
     "node-sass": "^4.14.1",
     "sass-loader": "^7.3.1",
     "serve": "^11.3.2",
-    "vue": "^2.6.11",
-    "vue-cookies": "^1.7.3",
+    "vue": "^2.6.12",
+    "vue-cookies": "^1.7.4",
     "vue-material-design-icons": "^3.3.1",
-    "vue-router": "^3.3.4"
+    "vue-matomo": "^3.14.0-0",
+    "vue-router": "^3.4.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^3.12.1",
-    "@vue/cli-service": "^3.12.1",
+    "@vue/cli-service": "^4.5.6",
     "@vue/eslint-config-prettier": "^4.0.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   }
 }

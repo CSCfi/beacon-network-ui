@@ -104,6 +104,13 @@
             user access tokens must be validated from their third party
             origins.<b>*</b>
           </li>
+          <li>
+            Review the
+            <a v-bind:href="securityDocument"
+              >Beacon Network Security Best Practices</a
+            >
+            document.
+          </li>
         </ol>
         <p>
           <i
@@ -196,7 +203,8 @@ export default {
       registry: process.env.VUE_APP_REGISTRY_URL,
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
       ui: process.env.VUE_APP_UI_URL,
-      audience: process.env.VUE_APP_JWT_AUDIENCE
+      audience: process.env.VUE_APP_JWT_AUDIENCE,
+      securityDocument: process.env.VUE_APP_SECURITY_DOCUMENT
     };
   },
   props: {},
