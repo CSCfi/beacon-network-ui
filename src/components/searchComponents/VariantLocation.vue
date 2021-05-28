@@ -5,12 +5,8 @@
       <div class="columns">
         <div class="column">
           <label class="form-label" for="assembly">Assembly</label>
-          <b-select
-            id="assembly"
-            title="Assembly ID"
-            v-model="assembly"
-            expanded
-          >
+          <b-input list="assembly" v-model="assembly"></b-input>
+          <datalist id="assembly">
             <option
               v-for="asm in assemblies"
               :value="asm"
@@ -19,7 +15,7 @@
             >
               {{ asm }}
             </option>
-          </b-select>
+          </datalist>
         </div>
         <div class="column">
           <label class="form-label" for="chromosome">Chromosome</label>
@@ -145,7 +141,7 @@ export default {
       end: 0,
       endMin: 0,
       endMax: 0,
-      assembly: "GRCh38",
+      assembly: "",
       assemblies: ["GRCh38", "GRCh37", "hg19"],
       referenceName: "1",
       referenceNames: [
@@ -188,7 +184,7 @@ export default {
       this.endMax = 210;
     },
     resetForm: function() {
-      this.assembly = "GRCh38";
+      this.assembly = "";
       this.referenceName = "1";
       this.coordType = "exact";
       this.start = 0;

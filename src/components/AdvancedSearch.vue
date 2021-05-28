@@ -146,7 +146,6 @@ export default {
     },
     advancedSearch: function() {
       this.validateInput();
-
       if (this.errorMessages.length === 0) {
         // Base query string
         var queryObj = {
