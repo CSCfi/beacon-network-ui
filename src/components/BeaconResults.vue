@@ -116,7 +116,7 @@ export default {
     queryAPI: function() {
       var vm = this;
       vm.response = []; // Clear table
-      var wss = vm.aggregator.replace("http", "ws"); // change aggregator https url to wss
+      var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
 
       // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
       // Copy the query object and remove the unwanted keys, so that we can use
