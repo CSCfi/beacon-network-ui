@@ -97,5 +97,7 @@ typings/
 dist/
 npm-debug.log
 yarn-error.log
+# jsconfig is needed for a vscode vue plugin to work
+jsconfig.json
 
 # End of https://www.gitignore.io/api/node,vuejs
