@@ -12,6 +12,16 @@
           >
         </div>
       </b-field>
+      <b-field grouped group-multiline class="filtered">
+        <div class="field">
+          <b-switch
+            v-model="errors"
+            :disabled="response.length < 1"
+            title="Option to show only results and hide other responses"
+            >Not connecting</b-switch
+          >
+        </div>
+      </b-field>
     </div>
 
     <div class="column">
@@ -38,7 +48,14 @@
             ></BeaconResultTileDetails>
           </div>
         </section>
-        <section v-if="!resp.exists && !hits">
+        <section v-if="resp.exists == false && !hits">
+          <BeaconResultTile
+            :key="resp.beaconId"
+            :exists="resp.exists"
+            v-bind:beaconId="resp.beaconId"
+          ></BeaconResultTile>
+        </section>
+        <section v-if="resp.exists == null && !errors">
           <BeaconResultTile
             :key="resp.beaconId"
             :exists="resp.exists"
@@ -76,6 +93,7 @@ export default {
       notFound: false,
       queryParams: undefined,
       hits: true,
+      errors: true,
       isLoading: false,
       response: [],
       variantTypes: [
@@ -101,6 +119,19 @@ export default {
     }
   },
   methods: {
+    // This function generates beaconId for errored beacon queries since these queries don't currently return the beaconId
+    getErrorBeaconId: function(response) {
+      if (response.beaconId == undefined) {
+        // Creates the beacon id from the url
+        var splitUrl = response.service.split("/");
+        var beaconId = splitUrl[2]
+          .split(".")
+          .reverse()
+          .join(".");
+        response.beaconId = beaconId;
+      }
+      return response;
+    },
     sortNumbers(a, b, isAsc) {
       // console.log(a, b);
       if (isAsc) {
@@ -136,7 +167,6 @@ export default {
 
       // Create websocket
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
-
       websocket.onopen = function() {
         // The connection was opened
         vm.isLoading = true;
@@ -145,19 +175,19 @@ export default {
       websocket.onclose = function() {
         // The connection was closed
         vm.isLoading = false;
-        // console.log('websocket closed');
+        //console.log("websocket closed");
         vm.checkResponse();
       };
       websocket.onmessage = function(event) {
         // New message arrived
         // console.log('websocket received data');
         // console.log(event.data);
-        vm.response.push(JSON.parse(event.data));
+        vm.response.push(vm.getErrorBeaconId(JSON.parse(event.data)));
       };
       websocket.onerror = function() {
         // There was an error with your WebSocket
         vm.isLoading = false;
-        // console.log('websocket errored');
+        // console.log("websocket errored");
         vm.checkResponse();
       };
     },
