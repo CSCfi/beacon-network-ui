@@ -75,14 +75,6 @@ export default {
   },
   methods: {
     changeSearchForm: function() {
-      this.$router.push(
-        {
-          path: "/"
-        },
-        undefined,
-        () => {}
-      );
-
       this.$emit("changeSearchForm");
     },
     validateInput: function() {
