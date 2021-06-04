@@ -170,9 +170,6 @@ export default {
       ) + 1} ${this.$route.query.referenceBases} > ${
         this.$route.query.alternateBases
       }`;
-    } else if (this.$route.query.searchType == "advanced") {
-      // Change to advanced search form
-      this.changeSearchForm();
     } else {
       // Default to basic search
       this.query = "";
