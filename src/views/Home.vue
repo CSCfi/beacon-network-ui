@@ -34,6 +34,7 @@
 import BasicSearch from "@/components/BasicSearch.vue";
 import AdvancedSearch from "@/components/AdvancedSearch.vue";
 import VueCookies from "vue-cookies";
+import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
   name: "home",
@@ -73,7 +74,7 @@ export default {
             this.$matomo.rememberConsentGiven();
             VueCookies.set("elixir-tracking-consent", true, Infinity);
             VueCookies.set("elixir-cookies", "accepted", Infinity);
-            this.$toast.open({
+            this.$buefy.toast.open({
               queue: false,
               message: "Cookies are in use!",
               position: "is-bottom-right"
