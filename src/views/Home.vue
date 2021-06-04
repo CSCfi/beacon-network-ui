@@ -34,7 +34,6 @@
 import BasicSearch from "@/components/BasicSearch.vue";
 import AdvancedSearch from "@/components/AdvancedSearch.vue";
 import VueCookies from "vue-cookies";
-import { ToastProgrammatic as Toast } from 'buefy'
 
 export default {
   name: "home",
@@ -60,7 +59,7 @@ export default {
     cookieToast: function() {
       // Check if cookies have been accepted, if not, show toast regarding cookies
       if (!VueCookies.get("elixir-cookies")) {
-        this.$snackbar.open({
+        this.$buefy.snackbar.open({
           indefinite: true,
           queue: false,
           message:
