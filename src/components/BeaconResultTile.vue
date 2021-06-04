@@ -45,10 +45,16 @@
             ><b>Found</b></b-tag
           >
           <b-tag
-            v-if="!exists"
+            v-if="exists === false"
             class="accessibility-red-tag"
             title="No variants were found"
             ><b>Not Found</b></b-tag
+          >
+          <b-tag
+            v-if="exists === null"
+            class="accessibility-yellow-tag"
+            title="Error in connecting to beacon"
+            ><b>Currently not connecting</b></b-tag
           >
         </div>
       </article>
@@ -99,6 +105,10 @@ export default {
 }
 .accessibility-red-tag {
   background-color: #e90000;
+  color: #fff;
+}
+.accessibility-yellow-tag {
+  background-color: #e6e200;
   color: #fff;
 }
 </style>
