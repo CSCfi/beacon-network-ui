@@ -2,6 +2,7 @@
   <section class="container columns results-table">
     <div class="column is-one-fifth">
       <p class="subtitle">Filter results</p>
+
       <b-field grouped group-multiline class="filtered">
         <div class="field">
           <b-switch
@@ -11,14 +12,13 @@
             >Hits Only</b-switch
           >
         </div>
-      </b-field>
-      <b-field grouped group-multiline class="filtered">
+
         <div class="field">
           <b-switch
             v-model="errors"
             :disabled="response.length < 1"
             title="Option to show only results and hide other responses"
-            >Not connecting</b-switch
+            >Show Unknown</b-switch
           >
         </div>
       </b-field>
@@ -55,7 +55,7 @@
             v-bind:beaconId="resp.beaconId"
           ></BeaconResultTile>
         </section>
-        <section v-if="resp.exists == null && !errors">
+        <section v-if="resp.exists == null && errors">
           <BeaconResultTile
             :key="resp.beaconId"
             :exists="resp.exists"
@@ -93,7 +93,7 @@ export default {
       notFound: false,
       queryParams: undefined,
       hits: true,
-      errors: true,
+      errors: false,
       isLoading: false,
       response: [],
       variantTypes: [
