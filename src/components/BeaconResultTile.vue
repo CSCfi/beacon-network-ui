@@ -54,7 +54,7 @@
             v-if="exists === null"
             class="accessibility-yellow-tag"
             title="Error in connecting to beacon"
-            ><b>Currently not connecting</b></b-tag
+            ><b>Unknown</b></b-tag
           >
         </div>
       </article>
