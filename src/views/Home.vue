@@ -59,7 +59,7 @@ export default {
     cookieToast: function() {
       // Check if cookies have been accepted, if not, show toast regarding cookies
       if (!VueCookies.get("elixir-cookies")) {
-        this.$snackbar.open({
+        this.$buefy.snackbar.open({
           indefinite: true,
           queue: false,
           message:
@@ -73,7 +73,7 @@ export default {
             this.$matomo.rememberConsentGiven();
             VueCookies.set("elixir-tracking-consent", true, Infinity);
             VueCookies.set("elixir-cookies", "accepted", Infinity);
-            this.$toast.open({
+            this.$buefy.toast.open({
               queue: false,
               message: "Cookies are in use!",
               position: "is-bottom-right"
