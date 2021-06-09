@@ -150,7 +150,7 @@ export default {
     exampleSearch: function() {
       var vm = this;
       vm.query = "MT : 10 T > C";
-      //document.getElementById("searchBar").focus();
+      document.getElementById("searchBar").focus();
     },
     validateInput: function() {
       var vm = this;

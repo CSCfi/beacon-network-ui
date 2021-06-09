@@ -5,12 +5,15 @@ import BasicSearch from '@/components/BasicSearch.vue'
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 const router = new VueRouter()
-
+const elem = document.createElement('div')
+if (document.body) {
+  document.body.appendChild(elem)
+}
 const wrapper = mount(BasicSearch, {
   localVue,
-  router
+  router,
+  attachTo: elem
 })
-
 describe('BasicSearch.vue', () => {
   it('Example search works', async () => {
    const buttonExample = wrapper.find('#exampleButton');
@@ -23,5 +26,6 @@ describe('BasicSearch.vue', () => {
    buttonSearch.trigger('click');
    await wrapper.vm.$nextTick();
    expect(wrapper.vm.$route.fullPath).toBe("/results?searchType=basic&includeDatasetResponses=HIT&assemblyId=GRCh38&referenceName=MT&start=9&referenceBases=T&alternateBases=C") 
+   wrapper.destroy()
   })
 })

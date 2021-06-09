@@ -5,10 +5,14 @@ import AdvancedSearch from '@/components/AdvancedSearch.vue'
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 const router = new VueRouter()
-
+const elem = document.createElement('div')
+if (document.body) {
+  document.body.appendChild(elem)
+}
 const wrapper = mount(AdvancedSearch, {
   localVue,
-  router
+  router,
+  attachTo: elem
 })
 describe('AdvancedSearch.vue', () => {
     it('Example search works', async () => {
@@ -24,6 +28,7 @@ describe('AdvancedSearch.vue', () => {
      await wrapper.vm.$nextTick();
      
      expect(wrapper.vm.$route.fullPath).toBe("/results?searchType=advanced&coordType=range&includeDatasetResponses=HIT&assemblyId=GRCh38&referenceName=MT&referenceBases=TTACTAAAGT&startMin=189&startMax=199&endMin=199&endMax=209&variantType=MNP") 
+     wrapper.destroy()
     })
     
   })
