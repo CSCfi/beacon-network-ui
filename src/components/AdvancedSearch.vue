@@ -40,6 +40,7 @@
     <div class="search-footer">
       <span id="example" v-if="$route.path === '/'">
         <b-button
+          id="exampleButton"
           @click="exampleSearch"
           title="Insert example search parameters to the form"
           >Example range query</b-button
