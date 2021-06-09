@@ -24,5 +24,4 @@ describe('BasicSearch.vue', () => {
    await wrapper.vm.$nextTick();
    expect(wrapper.vm.$route.fullPath).toBe("/results?searchType=basic&includeDatasetResponses=HIT&assemblyId=GRCh38&referenceName=MT&start=9&referenceBases=T&alternateBases=C") 
   })
-  
 })

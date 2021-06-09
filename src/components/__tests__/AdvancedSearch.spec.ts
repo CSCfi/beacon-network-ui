@@ -23,7 +23,6 @@ describe('AdvancedSearch.vue', () => {
      buttonSearch.trigger('click');
      await wrapper.vm.$nextTick();
      
-     console.log(wrapper.vm.$route.fullPath)
      expect(wrapper.vm.$route.fullPath).toBe("/results?searchType=advanced&coordType=range&includeDatasetResponses=HIT&assemblyId=GRCh38&referenceName=MT&referenceBases=TTACTAAAGT&startMin=189&startMax=199&endMin=199&endMax=209&variantType=MNP") 
     })
     

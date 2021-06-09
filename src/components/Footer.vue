@@ -12,6 +12,7 @@
             <ul>
               <li>
                 <router-link
+                  id="quide"
                   to="/guide"
                   title="A guide on how to user the Beacon Network user interface"
                   >How to use Beacon Network</router-link
@@ -19,6 +20,7 @@
               </li>
               <li>
                 <router-link
+                  id="join"
                   to="/join"
                   title="How to register a new Beacon to ELIXIR Beacon Network"
                   >Join the Network</router-link
@@ -26,6 +28,7 @@
               </li>
               <li>
                 <router-link
+                  id="docs"
                   to="/docs"
                   title="Technical documentation for web and API developers"
                   >For Developers</router-link
@@ -33,13 +36,17 @@
               </li>
               <li>
                 <router-link
+                  id="docsapi"
                   to="/docsapi"
                   title="Technical documentation of advanced API usage"
                   >API Documentation</router-link
                 >
               </li>
               <li>
-                <router-link to="/accessibility" title="Accessibility statement"
+                <router-link 
+                  id="accessibility"
+                  to="/accessibility" 
+                  title="Accessibility statement"
                   >Accessibility Statement</router-link
                 >
               </li>
@@ -50,6 +57,7 @@
             <ul>
               <li>
                 <a
+                  id="beaconProject"
                   href="https://beacon-project.io/"
                   title="Information regarding the GA4GH/ELIXIR Beacon project"
                   >Beacon Project</a
@@ -57,16 +65,22 @@
               </li>
               <li>
                 <a
+                  id="elixirSite"
                   href="https://elixir-europe.org/"
                   title="ELIXIR Europe website"
                   >ELIXIR Europe</a
                 >
               </li>
               <li>
-                <a href="https://www.ga4gh.org/" title="GA4GH website">GA4GH</a>
+                <a 
+                  id="ga4gh"
+                  href="https://www.ga4gh.org/" 
+                  title="GA4GH website"
+                  >GA4GH</a>
               </li>
               <li>
                 <a
+                  id="ga4ghDiscovery"
                   href="https://ga4gh-discovery.github.io/"
                   title="Information regarding the GA4GH/ELIXIR Beacon Network project"
                   >GA4GH Discovery</a

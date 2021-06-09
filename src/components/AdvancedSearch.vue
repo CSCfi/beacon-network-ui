@@ -195,7 +195,7 @@ export default {
     exampleSearch: function() {
       this.$refs.VL.exampleSearch();
       this.$refs.VT.exampleSearch();
-      document.getElementById("searchButton").focus();
+      //document.getElementById("searchButton").focus();
     },
 
     resetForm: function() {
