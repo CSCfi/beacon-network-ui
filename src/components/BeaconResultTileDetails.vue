@@ -15,8 +15,9 @@
       </b-button>
       <div v-if="display" class="details-rows">
         <b-table :data="results" :striped="true" class="column details-table">
-          <template slot-scope="results">
+          
             <b-table-column label="Access">
+              <template v-slot:default="results">
               <b-tag
                 class="accessibility-green-tag"
                 v-if="checkForPublicDatasets(results.row)"
@@ -36,11 +37,13 @@
                 ><b>Controlled</b></b-tag
               >
               <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
+              </template>
             </b-table-column>
             <b-table-column
               label="Dataset"
               title="Unique identifier of dataset"
             >
+            <template v-slot:default="results">
               {{ results.row.datasetId }}
               <span v-if="results.row.externalUrl"
                 ><a
@@ -50,21 +53,27 @@
                   dataset location</a
                 ></span
               >
+            </template>
             </b-table-column>
             <b-table-column
               label="Variant"
               title="Reference and alternate bases of this variant"
             >
+            <template v-slot:default="results">
               {{ results.row.referenceBases }} >
               {{ results.row.alternateBases }}
+            </template>
             </b-table-column>
             <b-table-column label="VT" title="Variant Type">
+              <template v-slot:default="results">
               {{ results.row.variantType }}
+              </template>
             </b-table-column>
             <b-table-column
               label="Region"
               title="Start and end coordinates of this variant"
             >
+            <template v-slot:default="results">
               <div
                 v-if="
                   results.row.referenceName &&
@@ -79,14 +88,19 @@
               <div v-else title="Some information is missing">
                 ?
               </div>
+            </template>
             </b-table-column>
             <b-table-column label="AC" title="Allele Count">
+              <template v-slot:default="results">
               {{ results.row.variantCount }}
+              </template>
             </b-table-column>
             <b-table-column label="AF" title="Allele Frequency">
+              <template v-slot:default="results">
               {{ results.row.frequency }}
+              </template>
             </b-table-column>
-          </template>
+          
         </b-table>
       </div>
     </div>
