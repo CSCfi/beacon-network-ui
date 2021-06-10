@@ -5,8 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "npm run test:unit",
-    "test:unit": "jest",
+    "test": "jest",
+    "coverage": "jest --coverage  --coverageReporters='text-summary'",
     "lint": "vue-cli-service lint",
     "start": "serve -l 8080 -s dist"
   },
@@ -47,6 +47,7 @@
     "vue-template-compiler": "^2.6.13"
   },
   "jest": {
+    "verbose": true,
     "moduleFileExtensions": [
       "js",
       "ts",
@@ -59,7 +60,6 @@
     },
     "testURL": "http://localhost/",
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "collectCoverage": true,
-    "collectCoverageFrom": ["**/*.{vue}", "!**/node_modules/**"]
+    "collectCoverage": true
   }
 }

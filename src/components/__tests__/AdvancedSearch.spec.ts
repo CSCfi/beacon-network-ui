@@ -9,12 +9,13 @@ const elem = document.createElement('div')
 if (document.body) {
   document.body.appendChild(elem)
 }
-const wrapper = mount(AdvancedSearch, {
-  localVue,
-  router,
-  attachTo: elem
-})
+
 describe('AdvancedSearch.vue Example search', () => {
+  const wrapper = mount(AdvancedSearch, {
+    localVue,
+    router,
+    attachTo: elem
+  })
     it('Search works', async () => {
     
      const buttonExample = wrapper.find('#exampleButton');
@@ -102,13 +103,26 @@ describe('AdvancedSearch.vue Example search', () => {
       expect((assemblyInput.element as HTMLInputElement).value).toBe("") 
       expect(chromosomeOption.attributes().value).toBe("1") 
       expect(variantOption.attributes().value).toBe("Unspecified")
-      // why HTMLInputElement is used -> https://stackoverflow.com/questions/66622773/get-input-value-react-testing-library
+      
       expect((start.element as HTMLInputElement).value).toBe("0") 
       expect((end.element as HTMLInputElement).value).toBe("0") 
       expect((referenceBases.element as HTMLInputElement).value).toBe("") 
       expect((alternateBases.element as HTMLInputElement).value).toBe("")
     })
-    
 })
 
-  
+describe('AdvancedSearch.vue with bad input', () => {
+  const wrapper = mount(AdvancedSearch, {
+    localVue,
+    router,
+    attachTo: elem
+  })
+  it("it displays error message", async () =>{
+    const buttonSearch = wrapper.find('#searchButton');
+    expect(buttonSearch.exists()).toBe(true) 
+    buttonSearch.trigger('click');
+    await wrapper.vm.$nextTick();
+    const errorMessage = wrapper.find('#errorMessage')
+    expect(errorMessage.element.innerHTML).toContain(" Reference Base(s) must be given, possible values are: A, T, C, G,")
+  })
+})

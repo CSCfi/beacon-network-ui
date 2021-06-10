@@ -29,6 +29,16 @@ npm run build
 npm start
 ```
 
+##### Run Unit Tests
+```
+npm test
+```
+
+##### Run Unit Test Coverage
+```
+npm run coverage
+```
+
 ### License
 
 `beacon-network-ui` and all it sources are released under *Apache 2.0 License*.

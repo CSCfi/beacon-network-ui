@@ -7,6 +7,7 @@
         <component :is="compVT" ref="VT"></component>
       </div>
       <b-message
+        id="errorMessage"
         v-if="errorTooltip"
         type="is-danger"
         aria-close-label="Close notification"

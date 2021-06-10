@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-button tag="router-link" to="/" type="is-primary" class="return-button">
+    <b-button id="returnButton" tag="router-link" to="/" type="is-primary" class="return-button">
       Return to main page
     </b-button>
 
