@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test": "jest",
-    "coverage": "jest --coverage  --coverageReporters='text-summary'",
+    "coverage": "jest --coverage",
     "lint": "vue-cli-service lint",
     "start": "serve -l 8080 -s dist"
   },
