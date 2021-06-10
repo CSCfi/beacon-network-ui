@@ -14,8 +14,8 @@ const wrapper = mount(BasicSearch, {
   router,
   attachTo: elem
 })
-describe('BasicSearch.vue', () => {
-  it('Example search works', async () => {
+describe('Example search', () => {
+  it('Can fill the form and do a search', async () => {
    const buttonExample = wrapper.find('#exampleButton');
    const buttonSearch = wrapper.find('#searchButton');
 
@@ -26,6 +26,5 @@ describe('BasicSearch.vue', () => {
    buttonSearch.trigger('click');
    await wrapper.vm.$nextTick();
    expect(wrapper.vm.$route.fullPath).toBe("/results?searchType=basic&includeDatasetResponses=HIT&assemblyId=GRCh38&referenceName=MT&start=9&referenceBases=T&alternateBases=C") 
-   wrapper.destroy()
   })
 })

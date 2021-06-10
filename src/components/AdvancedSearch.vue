@@ -23,6 +23,7 @@
       <div class="search-footer">
         <b-button
           @click="resetForm"
+          id="resetButton"
           type="is-secondary"
           class="reset-button"
           title="Empty all form fields and reset the view to its initial state"
@@ -48,6 +49,7 @@
       >
       <span id="basicSearch"
         ><b-button
+          id="basic"
           @click="changeSearchForm"
           title="Switch back to the basic search bar"
           >Basic Search</b-button
@@ -201,7 +203,6 @@ export default {
     resetForm: function() {
       this.$refs.VL.resetForm();
       this.$refs.VT.resetForm();
-      this.$refs.VT.resetVariantType();
     }
   }
 };

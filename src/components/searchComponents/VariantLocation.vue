@@ -5,9 +5,10 @@
       <div class="columns">
         <div class="column">
           <label class="form-label" for="assembly">Assembly</label>
-          <b-input list="assembly" v-model="assembly"></b-input>
+          <b-input id="assemblyInput" list="assembly" v-model="assembly"></b-input>
           <datalist id="assembly">
             <option
+              id="assemblyOption"
               v-for="asm in assemblies"
               :value="asm"
               :key="asm"
@@ -26,6 +27,7 @@
             expanded
           >
             <option
+              id="chromosomeOption"
               v-for="ref in referenceNames"
               :value="ref"
               :key="ref"
@@ -39,13 +41,14 @@
           <fieldset>
             <legend><b>Coordinates</b></legend>
             <b-radio
+              id="coordTypeExact"
               style="margin-top:15px"
               v-model="coordType"
               name="coordType"
               native-value="exact"
               >Exact</b-radio
             >
-            <b-radio v-model="coordType" name="coordType" native-value="range"
+            <b-radio id="coordTypeRange" v-model="coordType" name="coordType" native-value="range"
               >Range</b-radio
             >
           </fieldset>

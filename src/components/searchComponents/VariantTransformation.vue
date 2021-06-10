@@ -40,6 +40,7 @@
             title="Variant type"
           >
             <option
+              id="variantOption"
               v-for="vt in variantTypes"
               :value="vt"
               :key="vt"

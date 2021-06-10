@@ -10,6 +10,7 @@
       </router-link>
     </p>
     <component
+      id="component"
       v-bind:is="componentName"
       @changeSearchForm="toggleForm"
     ></component>
