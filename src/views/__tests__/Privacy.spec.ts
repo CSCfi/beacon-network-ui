@@ -1,23 +1,23 @@
-import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
-import VueRouter from 'vue-router'
-import Privacy from '@/views/Privacy.vue'
+import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
+import VueRouter from "vue-router";
+import Privacy from "@/views/Privacy.vue";
 
-const localVue = createLocalVue()
-localVue.use(VueRouter)
-const router = new VueRouter()
+const localVue = createLocalVue();
+localVue.use(VueRouter);
+const router = new VueRouter();
 
 const wrapper = mount(Privacy, {
-    localVue,
-    router
-})
+  localVue,
+  router
+});
 
-describe('Privacy.vue', () => {
-    it('"Return button works', async () => {
-     const returnButton = wrapper.find('#returnButton');
-  
-     expect(returnButton.exists()).toBe(true)
-     returnButton.trigger('click');
-     await wrapper.vm.$nextTick();
-     expect(wrapper.vm.$route.fullPath).toBe("/") 
-    })
-})
+describe("Privacy.vue", () => {
+  it('"Return button works', async () => {
+    const returnButton = wrapper.find("#returnButton");
+
+    expect(returnButton.exists()).toBe(true);
+    returnButton.trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.$route.fullPath).toBe("/");
+  });
+});
