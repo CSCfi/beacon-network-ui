@@ -29,8 +29,6 @@ describe("Home.vue", () => {
     basicSearchButton.trigger("click");
     await wrapper.vm.$nextTick();
     const htmlAfterClick = wrapper.html();
-    //console.log(initialHtml)
-    //console.log(htmlAfterClick)
     expect(htmlAfterClick).not.toEqual(initialHtml);
   });
 });
