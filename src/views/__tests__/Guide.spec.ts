@@ -12,7 +12,7 @@ describe("Guide.vue", () => {
       localVue,
       router
     });
-    const returnButton = wrapper.find("#returnButton");
+    const returnButton = wrapper.find("[data-testid=returnButton]");
     expect(returnButton.exists()).toBe(true);
     returnButton.trigger("click");
     await wrapper.vm.$nextTick();
@@ -24,7 +24,7 @@ describe("Guide.vue", () => {
       localVue,
       router
     });
-    const testButton1 = wrapper.find("#testButton1");
+    const testButton1 = wrapper.find("[data-testid=testButton1]");
     expect(testButton1.exists()).toBe(true);
     testButton1.trigger("click");
     await wrapper.vm.$nextTick();
@@ -38,7 +38,7 @@ describe("Guide.vue", () => {
       localVue,
       router
     });
-    const testButton2 = wrapper.find("#testButton2");
+    const testButton2 = wrapper.find("[data-testid=testButton2]");
     expect(testButton2.exists()).toBe(true);
     testButton2.trigger("click");
     await wrapper.vm.$nextTick();
@@ -52,7 +52,7 @@ describe("Guide.vue", () => {
       localVue,
       router
     });
-    const testButton3 = wrapper.find("#testButton3");
+    const testButton3 = wrapper.find("[data-testid=testButton3]");
     expect(testButton3.exists()).toBe(true);
     testButton3.trigger("click");
     await wrapper.vm.$nextTick();

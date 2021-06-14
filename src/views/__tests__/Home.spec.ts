@@ -16,7 +16,7 @@ const wrapper = mount(Home, {
 });
 describe("Home.vue", () => {
   it("Advance search button in basic search changes form", async () => {
-    const advancedSearchButton = wrapper.find("#advanced");
+    const advancedSearchButton = wrapper.find("[data-testid=advanced]");
     const initialHtml = wrapper.html();
     advancedSearchButton.trigger("click");
     await wrapper.vm.$nextTick();
@@ -24,7 +24,7 @@ describe("Home.vue", () => {
     expect(htmlAfterClick).not.toEqual(initialHtml);
   });
   it("Basic search button in advanced search changes form", async () => {
-    const basicSearchButton = wrapper.find("#basic");
+    const basicSearchButton = wrapper.find("[data-testid=basic]");
     const initialHtml = wrapper.html();
     basicSearchButton.trigger("click");
     await wrapper.vm.$nextTick();

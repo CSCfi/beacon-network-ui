@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <p id="logo" v-if="$route.meta.hideSmallLogo">
+    <p data-testid="logo" v-if="$route.meta.hideSmallLogo">
       <router-link to="/">
         <img
           class="bigLogo"
@@ -10,7 +10,7 @@
       </router-link>
     </p>
     <component
-      id="component"
+      data-testid="component"
       v-bind:is="componentName"
       @changeSearchForm="toggleForm"
     ></component>

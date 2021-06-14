@@ -17,8 +17,8 @@ describe("AdvancedSearch.vue Example search", () => {
     attachTo: elem
   });
   it("Search works", async () => {
-    const buttonExample = wrapper.find("#exampleButton");
-    const buttonSearch = wrapper.find("#searchButton");
+    const buttonExample = wrapper.find("[data-testid=exampleButton]");
+    const buttonSearch = wrapper.find("[data-testid=searchTest]");
 
     expect(buttonExample.exists()).toBe(true);
     expect(buttonSearch.exists()).toBe(true);
@@ -34,19 +34,19 @@ describe("AdvancedSearch.vue Example search", () => {
 
   it("All inputs exist and are filled correctly", async () => {
     // Varian location inputs
-    const assemblyInput = wrapper.find("#assemblyInput");
-    const chromosomeOption = wrapper.find("#chromosomeOption:checked");
-    const coordType = wrapper.find("#coordTypeRange");
-    const minStart = wrapper.find("#minStart");
-    const maxStart = wrapper.find("#maxStart");
-    const minEnd = wrapper.find("#minEnd");
-    const maxEnd = wrapper.find("#maxEnd");
+    const assemblyInput = wrapper.find("[data-testid=assemblyInput]");
+    const chromosomeOption = wrapper.find("[data-testid=chromosomeOption]:checked");
+    const coordType = wrapper.find("[data-testid=coordTypeRange]");
+    const minStart = wrapper.find("[data-testid=minStart]");
+    const maxStart = wrapper.find("[data-testid=maxStart]");
+    const minEnd = wrapper.find("[data-testid=minEnd]");
+    const maxEnd = wrapper.find("[data-testid=maxEnd]");
 
     // Varian transformation inputs
 
-    const referenceBases = wrapper.find("#referenceBases");
-    const alternateBases = wrapper.find("#alternateBases");
-    const variantOption = wrapper.find("#variantOption:checked");
+    const referenceBases = wrapper.find("[data-testid=referenceBases]");
+    const alternateBases = wrapper.find("[data-testid=alternateBases]");
+    const variantOption = wrapper.find("[data-testid=variantOption]:checked");
 
     expect(assemblyInput.exists()).toBe(true);
     expect(chromosomeOption.exists()).toBe(true);
@@ -73,22 +73,22 @@ describe("AdvancedSearch.vue Example search", () => {
     expect((alternateBases.element as HTMLInputElement).value).toBe("");
   });
   it("Form can be reset", async () => {
-    const buttonReset = wrapper.find("#resetButton");
+    const buttonReset = wrapper.find("[data-testid=resetButton]");
     expect(buttonReset.exists()).toBe(true);
     buttonReset.trigger("click");
     await wrapper.vm.$nextTick();
     // Varian location inputs
-    const assemblyInput = wrapper.find("#assemblyInput");
-    const chromosomeOption = wrapper.find("#chromosomeOption:checked");
-    const coordType = wrapper.find("#coordTypeRange");
-    const start = wrapper.find("#start");
-    const end = wrapper.find("#end");
+    const assemblyInput = wrapper.find("[data-testid=assemblyInput]");
+    const chromosomeOption = wrapper.find("[data-testid=chromosomeOption]:checked");
+    const coordType = wrapper.find("[data-testid=coordTypeRange]");
+    const start = wrapper.find("[data-testid=start]");
+    const end = wrapper.find("[data-testid=end]");
 
     // Varian transformation inputs
 
-    const referenceBases = wrapper.find("#referenceBases");
-    const alternateBases = wrapper.find("#alternateBases");
-    const variantOption = wrapper.find("#variantOption:checked");
+    const referenceBases = wrapper.find("[data-testid=referenceBases]");
+    const alternateBases = wrapper.find("[data-testid=alternateBases]");
+    const variantOption = wrapper.find("[data-testid=variantOption]:checked");
 
     expect(assemblyInput.exists()).toBe(true);
     expect(chromosomeOption.exists()).toBe(true);
@@ -117,11 +117,11 @@ describe("AdvancedSearch.vue with bad input", () => {
     attachTo: elem
   });
   it("it displays error message", async () => {
-    const buttonSearch = wrapper.find("#searchButton");
+    const buttonSearch = wrapper.find("[data-testid=searchTest]");
     expect(buttonSearch.exists()).toBe(true);
     buttonSearch.trigger("click");
     await wrapper.vm.$nextTick();
-    const errorMessage = wrapper.find("#errorMessage");
+    const errorMessage = wrapper.find("[data-testid=errorMessage]");
     expect(errorMessage.element.innerHTML).toContain(
       " Reference Base(s) must be given, possible values are: A, T, C, G,"
     );

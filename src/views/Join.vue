@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-button id="returnButton" tag="router-link" to="/" type="is-primary" class="return-button">
+    <b-button data-testid="returnButton" tag="router-link" to="/" type="is-primary" class="return-button">
       Return to main page
     </b-button>
 
@@ -12,7 +12,7 @@
           <b-input
             required
             v-model="url"
-            id="url"
+            data-testid="url"
             type="url"
             pattern="https://.*"
             maxlength="512"
@@ -27,7 +27,7 @@
           <b-input
             required
             v-model="apikey"
-            id="apiKey"
+            data-testid="apiKey"
             type="password"
             minlength="64"
             maxlength="64"

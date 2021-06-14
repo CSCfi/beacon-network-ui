@@ -8,7 +8,7 @@
             >Reference Base(s)</label
           >
           <b-input
-            id="referenceBases"
+            data-testid="referenceBases"
             v-model="refBases"
             pattern="[ATCGN]+"
             placeholder="ATCGN"
@@ -21,7 +21,7 @@
             >Alternate Base(s)</label
           >
           <b-input
-            id="alternateBases"
+            data-testid="alternateBases"
             v-model="altBases"
             v-on:input="resetVariantType"
             pattern="[ATCGN]+"
@@ -33,14 +33,14 @@
         <div class="column">
           <label class="form-label" for="variantType">Variant Type</label>
           <b-select
-            id="variantType"
+            data-testid="variantType"
             v-model="variantType"
             v-on:input="resetAltBases"
             expanded
             title="Variant type"
           >
             <option
-              id="variantOption"
+              data-testid="variantOption"
               v-for="vt in variantTypes"
               :value="vt"
               :key="vt"

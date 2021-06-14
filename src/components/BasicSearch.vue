@@ -25,6 +25,7 @@
             <label for="searchBar" style="display:none">Search Bar</label>
             <b-input
               id="searchBar"
+              data-testid="testBar"
               class="stretch searchbar"
               size="is-medium"
               type="search"
@@ -37,7 +38,7 @@
             v-on:click="basicSearch()"
             type="is-primary"
             size="is-medium"
-            id="searchButton"
+            data-testid="searchButton"
             >Search</b-button
           >
         </b-field>
@@ -56,7 +57,7 @@
     <div class="searchbar-footer">
       <span id="example" v-if="$route.path === '/'">
         <b-button
-          id="exampleButton"
+          data-testid="exampleButton"
           @click="exampleSearch"
           title="Insert an example search term to the search bar"
           >Example variant query</b-button
@@ -64,7 +65,7 @@
       >
       <span id="advancedSearch"
         ><b-button
-          id="advanced"
+          data-testid="advanced"
           @click="changeSearchForm()"
           title="Switch to the advanced search form which has more options"
           >Advanced Search</b-button

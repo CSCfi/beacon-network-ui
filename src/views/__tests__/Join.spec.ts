@@ -13,7 +13,7 @@ const wrapper = mount(Join, {
 
 describe("Join.vue", () => {
   it("URL input works", async () => {
-    const urlInput = wrapper.find("#url");
+    const urlInput = wrapper.find("[data-testid=url]");
 
     expect(urlInput.exists()).toBe(true);
     urlInput.setValue("test");
@@ -21,7 +21,7 @@ describe("Join.vue", () => {
     expect((urlInput.element as HTMLInputElement).value).toBe("test");
   });
   it("apiKey input works", async () => {
-    const apiKey = wrapper.find("#apiKey");
+    const apiKey = wrapper.find("[data-testid=apiKey]");
 
     expect(apiKey.exists()).toBe(true);
     apiKey.setValue("test");
@@ -29,7 +29,7 @@ describe("Join.vue", () => {
     expect((apiKey.element as HTMLInputElement).value).toBe("test");
   });
   it('"Return button works', async () => {
-    const returnButton = wrapper.find("#returnButton");
+    const returnButton = wrapper.find("[data-testid=returnButton]");
 
     expect(returnButton.exists()).toBe(true);
     returnButton.trigger("click");

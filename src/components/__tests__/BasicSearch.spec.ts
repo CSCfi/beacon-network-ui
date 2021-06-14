@@ -16,9 +16,11 @@ const wrapper = mount(BasicSearch, {
 });
 describe("Example search", () => {
   it("Can fill the form and do a search", async () => {
-    const buttonExample = wrapper.find("#exampleButton");
-    const buttonSearch = wrapper.find("#searchButton");
+    const buttonExample = wrapper.find("[data-testid=exampleButton]");
+    const buttonSearch = wrapper.find("[data-testid=searchButton]");
 
+    const searchBar = wrapper.find("[data-testid=testBar]");
+    expect(searchBar.exists()).toBe(true);
     expect(buttonExample.exists()).toBe(true);
     expect(buttonSearch.exists()).toBe(true);
     buttonExample.trigger("click");

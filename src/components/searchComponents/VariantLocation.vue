@@ -5,10 +5,10 @@
       <div class="columns">
         <div class="column">
           <label class="form-label" for="assembly">Assembly</label>
-          <b-input id="assemblyInput" list="assembly" v-model="assembly"></b-input>
+          <b-input data-testid="assemblyInput" list="assembly" v-model="assembly"></b-input>
           <datalist id="assembly">
             <option
-              id="assemblyOption"
+              data-testid="assemblyOption"
               v-for="asm in assemblies"
               :value="asm"
               :key="asm"
@@ -22,12 +22,12 @@
           <label class="form-label" for="chromosome">Chromosome</label>
           <b-select
             title="Chromosome"
-            id="chromosome"
+            data-testid="chromosome"
             v-model="referenceName"
             expanded
           >
             <option
-              id="chromosomeOption"
+              data-testid="chromosomeOption"
               v-for="ref in referenceNames"
               :value="ref"
               :key="ref"
@@ -41,14 +41,14 @@
           <fieldset>
             <legend><b>Coordinates</b></legend>
             <b-radio
-              id="coordTypeExact"
+              data-testid="coordTypeExact"
               style="margin-top:15px"
               v-model="coordType"
               name="coordType"
               native-value="exact"
               >Exact</b-radio
             >
-            <b-radio id="coordTypeRange" v-model="coordType" name="coordType" native-value="range"
+            <b-radio data-testid="coordTypeRange" v-model="coordType" name="coordType" native-value="range"
               >Range</b-radio
             >
           </fieldset>
@@ -58,7 +58,7 @@
             >Start</label
           >
           <b-input
-            id="start"
+            data-testid="start"
             v-if="coordType === 'exact'"
             type="number"
             v-model="start"
@@ -70,7 +70,7 @@
             >Minimum Start</label
           >
           <b-input
-            id="minStart"
+            data-testid="minStart"
             v-if="coordType === 'range'"
             type="number"
             v-model="startMin"
@@ -82,7 +82,7 @@
             >Maximum Start</label
           >
           <b-input
-            id="maxStart"
+            data-testid="maxStart"
             v-if="coordType === 'range'"
             type="number"
             v-model="startMax"
@@ -96,7 +96,7 @@
             >End</label
           >
           <b-input
-            id="end"
+            data-testid="end"
             v-if="coordType === 'exact'"
             type="number"
             v-model="end"
@@ -107,7 +107,7 @@
             >Minimum End</label
           >
           <b-input
-            id="minEnd"
+            data-testid="minEnd"
             v-if="coordType === 'range'"
             type="number"
             v-model="endMin"
@@ -119,7 +119,7 @@
             >Maximum End</label
           >
           <b-input
-            id="maxEnd"
+            data-testid="maxEnd"
             v-if="coordType === 'range'"
             type="number"
             v-model="endMax"

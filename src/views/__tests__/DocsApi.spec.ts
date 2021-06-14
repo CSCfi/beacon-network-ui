@@ -13,7 +13,7 @@ const wrapper = mount(DocsApi, {
 
 describe("DocsApi.vue", () => {
   it('"Return button works', async () => {
-    const returnButton = wrapper.find("#returnButton");
+    const returnButton = wrapper.find("[data-testid=returnButton]");
 
     expect(returnButton.exists()).toBe(true);
     returnButton.trigger("click");
