@@ -7,6 +7,7 @@
         <component :is="compVT" ref="VT"></component>
       </div>
       <b-message
+        data-testid="errorMessage"
         v-if="errorTooltip"
         type="is-danger"
         aria-close-label="Close notification"
@@ -23,6 +24,7 @@
       <div class="search-footer">
         <b-button
           @click="resetForm"
+          data-testid="resetButton"
           type="is-secondary"
           class="reset-button"
           title="Empty all form fields and reset the view to its initial state"
@@ -33,6 +35,7 @@
           type="is-primary"
           class="search-button"
           id="searchButton"
+          data-testid="searchTest"
           >Search</b-button
         >
       </div>
@@ -40,6 +43,7 @@
     <div class="search-footer">
       <span id="example" v-if="$route.path === '/'">
         <b-button
+          data-testid="exampleButton"
           @click="exampleSearch"
           title="Insert example search parameters to the form"
           >Example range query</b-button
@@ -47,6 +51,7 @@
       >
       <span id="basicSearch"
         ><b-button
+          data-testid="basic"
           @click="changeSearchForm"
           title="Switch back to the basic search bar"
           >Basic Search</b-button
@@ -200,7 +205,6 @@ export default {
     resetForm: function() {
       this.$refs.VL.resetForm();
       this.$refs.VT.resetForm();
-      this.$refs.VT.resetVariantType();
     }
   }
 };

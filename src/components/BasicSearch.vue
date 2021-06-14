@@ -25,6 +25,7 @@
             <label for="searchBar" style="display:none">Search Bar</label>
             <b-input
               id="searchBar"
+              data-testid="testBar"
               class="stretch searchbar"
               size="is-medium"
               type="search"
@@ -34,10 +35,10 @@
             ></b-input>
           </b-tooltip>
           <b-button
-            v-on:click="basicSearch"
+            v-on:click="basicSearch()"
             type="is-primary"
             size="is-medium"
-            id="searchButton"
+            data-testid="searchButton"
             >Search</b-button
           >
         </b-field>
@@ -56,6 +57,7 @@
     <div class="searchbar-footer">
       <span id="example" v-if="$route.path === '/'">
         <b-button
+          data-testid="exampleButton"
           @click="exampleSearch"
           title="Insert an example search term to the search bar"
           >Example variant query</b-button
@@ -63,7 +65,8 @@
       >
       <span id="advancedSearch"
         ><b-button
-          @click="changeSearchForm"
+          data-testid="advanced"
+          @click="changeSearchForm()"
           title="Switch to the advanced search form which has more options"
           >Advanced Search</b-button
         ></span
@@ -169,10 +172,7 @@ export default {
         10
       ) + 1} ${this.$route.query.referenceBases} > ${
         this.$route.query.alternateBases
-      }`;
-    } else {
-      // Default to basic search
-      this.query = "";
+      }`;ic
     }
   }
 };
