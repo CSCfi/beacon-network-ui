@@ -35,7 +35,9 @@ describe("AdvancedSearch.vue Example search", () => {
   it("All inputs exist and are filled correctly", async () => {
     // Varian location inputs
     const assemblyInput = wrapper.find("[data-testid=assemblyInput]");
-    const chromosomeOption = wrapper.find("[data-testid=chromosomeOption]:checked");
+    const chromosomeOption = wrapper.find(
+      "[data-testid=chromosomeOption]:checked"
+    );
     const coordType = wrapper.find("[data-testid=coordTypeRange]");
     const minStart = wrapper.find("[data-testid=minStart]");
     const maxStart = wrapper.find("[data-testid=maxStart]");
@@ -79,7 +81,9 @@ describe("AdvancedSearch.vue Example search", () => {
     await wrapper.vm.$nextTick();
     // Varian location inputs
     const assemblyInput = wrapper.find("[data-testid=assemblyInput]");
-    const chromosomeOption = wrapper.find("[data-testid=chromosomeOption]:checked");
+    const chromosomeOption = wrapper.find(
+      "[data-testid=chromosomeOption]:checked"
+    );
     const coordType = wrapper.find("[data-testid=coordTypeRange]");
     const start = wrapper.find("[data-testid=start]");
     const end = wrapper.find("[data-testid=end]");

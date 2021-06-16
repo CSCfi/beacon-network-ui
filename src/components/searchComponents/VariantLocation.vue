@@ -5,7 +5,11 @@
       <div class="columns">
         <div class="column">
           <label class="form-label" for="assembly">Assembly</label>
-          <b-input data-testid="assemblyInput" list="assembly" v-model="assembly"></b-input>
+          <b-input
+            data-testid="assemblyInput"
+            list="assembly"
+            v-model="assembly"
+          ></b-input>
           <datalist id="assembly">
             <option
               data-testid="assemblyOption"
@@ -48,7 +52,11 @@
               native-value="exact"
               >Exact</b-radio
             >
-            <b-radio data-testid="coordTypeRange" v-model="coordType" name="coordType" native-value="range"
+            <b-radio
+              data-testid="coordTypeRange"
+              v-model="coordType"
+              name="coordType"
+              native-value="range"
               >Range</b-radio
             >
           </fieldset>

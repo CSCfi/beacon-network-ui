@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <p data-testid="logo" v-if="$route.meta.hideSmallLogo">
+    <p id="logo" v-if="$route.meta.hideSmallLogo">
       <router-link to="/">
         <img
           class="bigLogo"
