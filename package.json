@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "jest",
+    "test": "jest --ci",
     "coverage": "jest --coverage",
     "lint": "vue-cli-service lint",
     "start": "serve -l 8080 -s dist"
