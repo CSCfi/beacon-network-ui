@@ -1,4 +1,5 @@
 module.exports = {
   preset: "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
-  setupFilesAfterEnv: ["<rootDir>/tests/unit/vueSetup.js"]
+  setupFilesAfterEnv: ["<rootDir>/tests/unit/vueSetup.js"],
+  coverageReporters: ["text", "html"]
 };
