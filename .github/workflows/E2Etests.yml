@@ -1,0 +1,69 @@
+name: End-to-end tests
+on: [push]
+
+jobs:
+  cypress-e2e-headless:
+    name: Cypress e2e
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["14"]
+        browser: ["firefox", "chrome"]
+    steps:
+      - name: Setup and Run backend
+        run: |
+          git clone --branch testForGHActioncs https://github.com/CSCfi/beacon-network
+          docker build -t cscfi/beacon-network .
+          docker-compose -f docker-compose-test.yml up
+          sleep 30
+      - name: Add api_keys to registry
+        run: |
+          docker exec -it beacon-network_db_registry_1 bash 
+          psql registry -U user
+          INSERT INTO api_keys VALUES ('07b4e8ed58a6f97897b03843474c8cc981d154ffe45b10ef88a9f127b15c5c56', 'test key');
+          INSERT INTO api_keys VALUES ('07b4e8ed58a6f97897b03843474c8cc981d154ffe45b10ef88a9f127b15c1234', 'test key');
+      - name: Add beacon to registry
+        run: |
+          curl -X 'POST' \
+            'localhost:8080/services' \
+            -H 'Authorization: 07b4e8ed58a6f97897b03843474c8cc981d154ffe45b10ef88a9f127b15c5c56' \
+            -H 'accept: application/json' \
+            -H 'Content-Type: application/json' \
+            -d '{
+            "type": "beacon",
+            "url": ""https://staging-elixirbeacon.rahtiapp.fi/service-info""
+          }'
+
+      -name: Add aggregator to registry
+        run: |
+          curl -X 'POST' \
+            'localhost:8080/services' \
+            -H 'Authorization: 07b4e8ed58a6f97897b03843474c8cc981d154ffe45b10ef88a9f127b15c1234' \
+            -H 'accept: application/json' \
+            -H 'Content-Type: application/json' \
+            -d '{
+            "type": "beacon-aggregator",
+            "url": "http://app_aggregator:5050/service-info"
+          }'
+      - uses: actions/checkout@v2
+      - name: Run Frontend
+        run: |
+          sudo npm install -g npm@7.6.0
+          npm run serve
+      - name: e2e tests     
+      - uses: cypress-io/github-action@v2
+        with:
+          run: |
+            npx cypress run
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          retention-days: 5
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          retention-days: 5
