@@ -47,6 +47,7 @@ jobs:
         env: 
           VUE_APP_AGGREGATOR_URL: http://0.0.0.0:5050/
           VUE_APP_REGISTRY_URL: http://0.0.0.0:8080/
+          VUE_APP_DEVELOPMENT: true
         run: |
           npm install
           npm run build
