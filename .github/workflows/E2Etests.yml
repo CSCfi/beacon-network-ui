@@ -12,6 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup and Run backend
+        env: 
+          DEVELOPMENT: true
         run: |
           git clone --branch dev https://github.com/CSCfi/beacon-network
           cd beacon-network
