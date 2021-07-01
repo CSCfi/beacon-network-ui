@@ -4,7 +4,7 @@ describe("Home tab", () => {
       cy.visit("/");
       cy.contains("Advanced Search");
     });
-    it("can do a exmaple search", () => {
+    it("can do a example search", () => {
       cy.get('[data-testid="exampleButton"]').click();
       cy.get('[data-testid="searchButton"]').click();
       cy.contains("Development Beacon");
