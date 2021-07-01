@@ -39,6 +39,11 @@ npm test
 npm run coverage
 ```
 
+##### Run E2E Tests
+```
+npx cypress run
+```
+
 ### License
 
 `beacon-network-ui` and all it sources are released under *Apache 2.0 License*.

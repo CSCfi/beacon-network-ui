@@ -6,6 +6,7 @@
       <b-field grouped group-multiline class="filtered">
         <div class="field">
           <b-switch
+            data-testid="hitsButton"
             v-model="hits"
             :disabled="response.length < 1"
             title="Option to show only results and hide other responses"
@@ -15,6 +16,7 @@
 
         <div class="field">
           <b-switch
+            data-testid="unknownButton"
             v-model="errors"
             :disabled="response.length < 1"
             title="Option to show only results and hide other responses"
@@ -147,7 +149,11 @@ export default {
     queryAPI: function() {
       var vm = this;
       vm.response = []; // Clear table
-      var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
+      if (process.env.VUE_APP_DEVELOPMENT) {
+        var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
+      } else {
+        var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
+      }
 
       // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
       // Copy the query object and remove the unwanted keys, so that we can use

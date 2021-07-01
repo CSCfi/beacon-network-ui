@@ -1,6 +1,12 @@
 <template>
   <section>
-    <b-button data-testid="returnButton" tag="router-link" to="/" type="is-primary" class="return-button">
+    <b-button
+      data-testid="returnButton"
+      tag="router-link"
+      to="/"
+      type="is-primary"
+      class="return-button"
+    >
       Return to main page
     </b-button>
 

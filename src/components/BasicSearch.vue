@@ -172,7 +172,7 @@ export default {
         10
       ) + 1} ${this.$route.query.referenceBases} > ${
         this.$route.query.alternateBases
-      }`;ic
+      }`;
     }
   }
 };

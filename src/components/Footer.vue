@@ -43,9 +43,9 @@
                 >
               </li>
               <li>
-                <router-link 
+                <router-link
                   data-testid="accessibility"
-                  to="/accessibility" 
+                  to="/accessibility"
                   title="Accessibility statement"
                   >Accessibility Statement</router-link
                 >
@@ -72,11 +72,12 @@
                 >
               </li>
               <li>
-                <a 
+                <a
                   data-testid="ga4gh"
-                  href="https://www.ga4gh.org/" 
+                  href="https://www.ga4gh.org/"
                   title="GA4GH website"
-                  >GA4GH</a>
+                  >GA4GH</a
+                >
               </li>
               <li>
                 <a

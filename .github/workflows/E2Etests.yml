@@ -1,0 +1,73 @@
+name: End-to-end tests
+on: [push]
+
+jobs:
+  cypress-e2e-headless:
+    name: Cypress e2e
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["14"]
+        browser: ["firefox", "chrome"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup and Run backend
+        env: 
+          DEVELOPMENT: true
+        run: |
+          git clone --branch dev https://github.com/CSCfi/beacon-network
+          cd beacon-network
+          docker build -t cscfi/beacon-network .
+          docker-compose -f docker-compose-test.yml up -d
+          sleep 30
+      - name: Add api_keys to registry
+        run: |
+          cat ./testApiKeys.sql | docker exec -i beacon-network_db_registry_1 psql -U user -d registry
+      - name: Add beacon to registry
+        run: |
+          curl -X 'POST' \
+            'localhost:8080/services' \
+          -H 'Authorization: 07b4e8ed58a6f97897b03843474c8cc981d154ffe45b10ef88a9f127b15c5c56' \
+          -H 'accept: application/json' \
+          -H 'Content-Type: application/json' \
+          -d '{
+          "type": "beacon",
+          "url": "https://staging-elixirbeacon.rahtiapp.fi/service-info"
+          }'
+      - name: Add aggregator to registry
+        run: |
+          curl -X 'POST' \
+            'localhost:8080/services' \
+          -H 'Authorization: 07b4e8ed58a6f97897b03843474c8cc981d154ffe45b10ef88a9f127b15c1234' \
+          -H 'accept: application/json' \
+          -H 'Content-Type: application/json' \
+          -d '{
+          "type": "beacon-aggregator",
+          "url": "http://app_aggregator:5050/service-info"
+          }'
+      - name: Run Frontend
+        env: 
+          VUE_APP_AGGREGATOR_URL: http://0.0.0.0:5050/
+          VUE_APP_REGISTRY_URL: http://0.0.0.0:8080/
+          VUE_APP_DEVELOPMENT: true
+        run: |
+          npm install
+          npm run build
+          nohup python -m http.server 8081 --d ./dist &
+      - name: Run tests
+        uses: cypress-io/github-action@v2
+        with:
+          browser: ${{ matrix.browser }}
+          headless: true
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          retention-days: 5
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          retention-days: 5
