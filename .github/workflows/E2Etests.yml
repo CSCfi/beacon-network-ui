@@ -32,7 +32,7 @@ jobs:
           -H 'Content-Type: application/json' \
           -d '{
           "type": "beacon",
-          "url": "https://staging-elixirbeacon.rahtiapp.fi/service-info"
+          "url": "https://staging-elixirbeacon.rahtiapp.fi"
           }'
       - name: Add aggregator to registry
         run: |
@@ -43,7 +43,7 @@ jobs:
           -H 'Content-Type: application/json' \
           -d '{
           "type": "beacon-aggregator",
-          "url": "http://app_aggregator:5050/service-info"
+          "url": "http://app_aggregator:5050"
           }'
       - name: Run Frontend
         env: 
