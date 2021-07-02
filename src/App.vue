@@ -30,6 +30,16 @@
       >
         <b-button class="login" type="is-primary">Log Out</b-button>
       </a>
+      <router-link v-if="$route.path != '/datasets'" to="/datasets">
+        <b-button class="datasets" type="is-primary" size="is-medium"
+          >Datasets</b-button
+        >
+      </router-link>
+      <router-link v-if="$route.path == '/datasets'" to="/">
+        <b-button class="datasets" type="is-primary" size="is-medium"
+          >Return to front page</b-button
+        >
+      </router-link>
     </div>
     <router-view />
     <Footer />
