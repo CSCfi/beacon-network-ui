@@ -7,7 +7,7 @@
       v-for="beacon in beaconsAndDataSets"
       :key="beacon.id"
     >
-      <a>{{ beacon.beaconName }}</a>
+      <a> data-testid="beaconButton" {{ beacon.beaconName }}</a>
       <ul v-if="beacon.active">
         <li class="indented" v-for="dataset in beacon.datasets" :key="dataset">
           {{ dataset }}
