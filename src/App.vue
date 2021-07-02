@@ -35,7 +35,6 @@
           data-testid="datasetsButton"
           class="datasets"
           type="is-primary"
-          size="is-medium"
           >Datasets</b-button
         >
       </router-link>
@@ -44,7 +43,6 @@
           data-testid="returnToHomeTab"
           class="datasets"
           type="is-primary"
-          size="is-medium"
           >Return to front page</b-button
         >
       </router-link>
@@ -130,6 +128,10 @@ export default {
 
 .logo {
   height: 80px;
+}
+.datasets {
+  margin-top: 19px;
+  height: 100px;
 }
 </style>
 
