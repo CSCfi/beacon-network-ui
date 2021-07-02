@@ -53,6 +53,9 @@ export default {
             for (const data of response.data.datasets) {
               datasets.push(data.id);
             }
+            if (datasets.length == 0) {
+              datasets.push("No datasets");
+            }
             beaconData.datasets = datasets;
           })
           .catch(error => {
@@ -65,11 +68,9 @@ export default {
       var vm = this;
       vm.beacons = []; // Clear view
       var url = `${vm.registry}services?type=beacon`;
-      console.log(url);
       axios
         .get(url)
         .then(response => {
-          console.log(response);
           for (const data of response.data) {
             vm.beacons.push(data);
           }
