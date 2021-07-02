@@ -43,7 +43,7 @@ jobs:
           -H 'Content-Type: application/json' \
           -d '{
           "type": "beacon-aggregator",
-          "url": "http://app_aggregator:5050"
+          "url": "http://app_aggregator:5050/service-info"
           }'
       - name: Run Frontend
         env: 
