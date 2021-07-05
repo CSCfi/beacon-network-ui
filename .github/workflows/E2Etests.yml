@@ -9,42 +9,42 @@ jobs:
       matrix:
         node: ["14"]
         browser: ["firefox", "chrome"]
+
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup and Run backend
-        env: 
-          DEVELOPMENT: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: network=host
+
+      - name: Clone backend
         run: |
-          git clone --branch dev https://github.com/CSCfi/beacon-network
-          cd beacon-network
-          docker build -t cscfi/beacon-network .
-          docker-compose -f docker-compose-test.yml up -d
-          sleep 30
-      - name: Add api_keys to registry
+          git clone --branch feature/multistage-build https://github.com/CSCfi/beacon-network
+
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          file: ./beacnon-network/Dockerfile
+          tags: localhost:5000/beacon-network:latest
+          cache-from: localhost:5000/beacon-network:latest
+          cache-to: type=local,dest=/tmp/.buildx-cache
+     
+      - name: Run beacon-network container
         run: |
-          cat ./testApiKeys.sql | docker exec -i beacon-network_db_registry_1 psql -U user -d registry
-      - name: Add beacon to registry
-        run: |
-          curl -X 'POST' \
-            'localhost:8080/services' \
-          -H 'Authorization: 07b4e8ed58a6f97897b03843474c8cc981d154ffe45b10ef88a9f127b15c5c56' \
-          -H 'accept: application/json' \
-          -H 'Content-Type: application/json' \
-          -d '{
-          "type": "beacon",
-          "url": "https://staging-elixirbeacon.rahtiapp.fi"
-          }'
-      - name: Add aggregator to registry
-        run: |
-          curl -X 'POST' \
-            'localhost:8080/services' \
-          -H 'Authorization: 07b4e8ed58a6f97897b03843474c8cc981d154ffe45b10ef88a9f127b15c1234' \
-          -H 'accept: application/json' \
-          -H 'Content-Type: application/json' \
-          -d '{
-          "type": "beacon-aggregator",
-          "url": "http://app_aggregator:5050/service-info"
-          }'
+          docker-compose -f beacon-network/docker-compose-test.yml up -d
+          sleep 30 
+
+      - name: Set up for tests
+        run: ./beacon-network/tests/test_files/add_fixtures.sh
+
       - name: Run Frontend
         env: 
           VUE_APP_AGGREGATOR_URL: http://0.0.0.0:5050/
