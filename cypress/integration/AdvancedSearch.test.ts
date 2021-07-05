@@ -13,6 +13,7 @@ describe("Advanced search", () => {
     it("can show unknown beacons", () => {
         cy.get('[data-testid="unknownButton"]').click();
         cy.contains("ELIXIR-FI Beacon Aggregator");
+        cy.contains("ELIXIR-FI Beacon Other Aggregator");
     });
     it("can do an invalid search", () => {
         cy.visit("/");
