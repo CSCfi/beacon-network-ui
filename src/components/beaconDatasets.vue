@@ -5,43 +5,41 @@
       <p class="panel-heading">
         Datasets
       </p>
-      <b-field>
-        <div class="panel-block">
-          <p class="control has-icons">
-            <label for="searchBarDataset" style="display:none"
-              >Search Bar</label
-            >
-            <b-input
-              data-testid="searchBar"
-              @keydown.native.enter="searchDatasets()"
-              id="searchBarDataset"
-              v-model="searchValue"
-              class="searchbar"
-              type="search"
-              placeholder="Search"
-            />
-          </p>
-          <div class="panel-block">
-            <button
-              data-testid="searchButton"
-              type="is-primary"
-              class="button is-link is-outlined is-fullwidth"
-              v-on:click="searchDatasets()"
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </b-field>
+
       <div class="panel-block">
-        <b-button
-          class="button is-link is-outlined is-fullwidth"
-          v-on:click="closeDatasets()"
-          data-testid="closeButton"
-        >
-          Close all search results
-        </b-button>
+        <p class="control has-icons">
+          <label for="searchBarDataset" style="display:none">Search Bar</label>
+          <b-input
+            data-testid="searchBar"
+            @keydown.native.enter="searchDatasets()"
+            id="searchBarDataset"
+            v-model="searchValue"
+            class="searchbar"
+            type="search"
+            placeholder="Search"
+          />
+        </p>
+        <div class="panel-block">
+          <button
+            data-testid="searchButton"
+            type="is-primary"
+            class="button is-link is-outlined is-fullwidth"
+            v-on:click="searchDatasets()"
+          >
+            Search
+          </button>
+        </div>
+        <div class="panel-block">
+          <b-button
+            class="button is-link is-outlined is-fullwidth"
+            v-on:click="closeDatasets()"
+            data-testid="closeButton"
+          >
+            Close all search results
+          </b-button>
+        </div>
       </div>
+
       <ul
         v-on:click="setDisplay(beacon)"
         v-for="beacon in beaconsAndDataSets"
@@ -160,7 +158,8 @@ export default {
   margin-left: 40px;
   list-style-type: circle;
 }
-h1 {
-  font-size: 150%;
+.panel-icon {
+  margin-top: 5px;
+  margin-left: 10px;
 }
 </style>
