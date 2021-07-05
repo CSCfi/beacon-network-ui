@@ -176,24 +176,26 @@ export default {
       websocket.onopen = function() {
         // The connection was opened
         vm.isLoading = true;
-        // console.log('websocket opened');
       };
       websocket.onclose = function() {
         // The connection was closed
         vm.isLoading = false;
-        //console.log("websocket closed");
         vm.checkResponse();
       };
       websocket.onmessage = function(event) {
         // New message arrived
-        // console.log('websocket received data');
-        // console.log(event.data);
-        vm.response.push(vm.getErrorBeaconId(JSON.parse(event.data)));
+        // check if a beacon with the same id exists already
+        // prevent results appearing 2 times.
+        // this can occur when aggregators query the same beacons
+        const found = vm.response.some(
+          resp => resp.beaconId === event.data.beaconId
+        );
+        if (!found)
+          vm.response.push(vm.getErrorBeaconId(JSON.parse(event.data)));
       };
       websocket.onerror = function() {
         // There was an error with your WebSocket
         vm.isLoading = false;
-        // console.log("websocket errored");
         vm.checkResponse();
       };
     },
