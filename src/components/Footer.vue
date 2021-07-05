@@ -173,9 +173,8 @@ export default {
   background: #3e3e3e;
   color: white;
   padding: 0;
-  flex-shrink: 0;
-  font-size: 0.875em;
-  margin-top: 20px;
+
+  margin-top: auto;
 }
 .footer .footerContainer.centered h5 {
   color: white;
