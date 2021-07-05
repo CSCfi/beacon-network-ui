@@ -1,25 +1,74 @@
 <template>
+  <!-- inspired by https://bulma.io/documentation/components/panel/ -->
   <section v-on:load="queryAPI" title="List of beacons and their datasets">
-    <h1>Datasets</h1>
-
-    <li
-      v-on:click="setDisplay(beacon)"
-      v-for="beacon in beaconsAndDataSets"
-      :key="beacon.id"
-    >
-      <a data-testid="beaconButton"> {{ beacon.beaconName }}</a>
-      <ul v-if="beacon.active">
-        <li class="indented" v-for="dataset in beacon.datasets" :key="dataset">
-          {{ dataset }}
-        </li>
-      </ul>
-    </li>
-
-    <div class="tile is-ancestor" style="text-align:center" v-if="error">
-      <p style="margin:auto">
-        {{ error }}
+    <nav class="panel">
+      <p class="panel-heading">
+        Datasets
       </p>
-    </div>
+      <b-field>
+        <div class="panel-block">
+          <p class="control has-icons">
+            <label for="searchBarDataset" style="display:none"
+              >Search Bar</label
+            >
+            <b-input
+              data-testid="searchBar"
+              @keydown.native.enter="searchDatasets()"
+              id="searchBarDataset"
+              v-model="searchValue"
+              class="searchbar"
+              type="search"
+              placeholder="Search"
+            />
+          </p>
+          <div class="panel-block">
+            <button
+              data-testid="searchButton"
+              type="is-primary"
+              class="button is-link is-outlined is-fullwidth"
+              v-on:click="searchDatasets()"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </b-field>
+      <div class="panel-block">
+        <b-button
+          class="button is-link is-outlined is-fullwidth"
+          v-on:click="closeDatasets()"
+          data-testid="closeButton"
+        >
+          Close all search results
+        </b-button>
+      </div>
+      <ul
+        v-on:click="setDisplay(beacon)"
+        v-for="beacon in beaconsAndDataSets"
+        :key="beacon.id"
+      >
+        <a testclass="panel-block is-active" data-testid="beaconButton">
+          <span v-if="!beacon.active" class="panel-icon">
+            <i>+</i>
+          </span>
+          <span v-if="beacon.active" class="panel-icon">
+            <i>-</i>
+          </span>
+          {{ beacon.beaconName }}
+        </a>
+        <ul v-if="beacon.active">
+          <ul
+            class="indented"
+            v-for="dataset in beacon.datasets"
+            :key="dataset"
+          >
+            {{
+              dataset
+            }}
+          </ul>
+        </ul>
+      </ul>
+    </nav>
   </section>
 </template>
 
@@ -29,6 +78,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      searchValue: "",
       beacons: [],
       beaconsAndDataSets: [],
       error: "",
@@ -37,6 +87,23 @@ export default {
     };
   },
   methods: {
+    closeDatasets: function() {
+      var vm = this;
+      for (const beacon of vm.beaconsAndDataSets) {
+        beacon.active = false;
+      }
+    },
+    searchDatasets: function() {
+      var vm = this;
+      vm.closeDatasets();
+      for (const beacon of vm.beaconsAndDataSets) {
+        beacon.datasets.forEach(dataset => {
+          if (dataset.toLowerCase().includes(vm.searchValue.toLowerCase())) {
+            beacon.active = true;
+          }
+        });
+      }
+    },
     queryBeaconAPI: async function() {
       var vm = this;
 
@@ -66,7 +133,7 @@ export default {
     },
     queryAPI: function() {
       var vm = this;
-      vm.beacons = []; // Clear view
+      vm.beacons = [];
       var url = `${vm.registry}services?type=beacon`;
       axios
         .get(url)

@@ -8,6 +8,21 @@ describe("Datasets page", () => {
     cy.get('[data-testid="beaconButton"]').click();
     cy.contains("urn:hg:1000genome");
   });
+  it("can close datasets", () => {
+    cy.get('[data-testid="closeButton"]').click();
+    cy.contains("urn:hg:1000genome").should("not.exist");
+  });
+  it("can do a faulty search", () => {
+    cy.get('[data-testid="searchBar"]').type("testing");
+    cy.get('[data-testid="searchButton"]').click();
+    cy.contains("urn:hg:1000genome").should("not.exist");
+  });
+  it("can do a search", () => {
+    cy.get('[data-testid="searchBar"]').clear();
+    cy.get('[data-testid="searchBar"]').type("urn");
+    cy.get('[data-testid="searchButton"]').click();
+    cy.contains("urn:hg:1000genome");
+  });
   it("can return to main page", () => {
     cy.get('[data-testid="returnToHomeTab"]').click();
     cy.contains("Advanced Search");
