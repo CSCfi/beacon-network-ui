@@ -30,6 +30,22 @@
       >
         <b-button class="login" type="is-primary">Log Out</b-button>
       </a>
+      <router-link v-if="$route.path != '/datasets'" to="/datasets">
+        <b-button
+          data-testid="datasetsButton"
+          class="datasets"
+          type="is-primary"
+          >Datasets</b-button
+        >
+      </router-link>
+      <router-link v-if="$route.path == '/datasets'" to="/">
+        <b-button
+          data-testid="returnToHomeTab"
+          class="datasets"
+          type="is-primary"
+          >Return to front page</b-button
+        >
+      </router-link>
     </div>
     <router-view />
     <Footer />
@@ -112,6 +128,10 @@ export default {
 
 .logo {
   height: 80px;
+}
+.datasets {
+  margin-top: 19px;
+  height: 100px;
 }
 </style>
 
