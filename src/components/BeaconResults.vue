@@ -190,8 +190,11 @@ export default {
         const found = vm.response.some(
           resp => resp.beaconId === event.data.beaconId
         );
-        if (!found)
-          vm.response.push(vm.getErrorBeaconId(JSON.parse(event.data)));
+        var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+        const found_nobeaconid = vm.response.some(
+          resp => resp.beaconId === nobeaconid.beaconId
+        );
+        if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
       };
       websocket.onerror = function() {
         // There was an error with your WebSocket
