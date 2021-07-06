@@ -2,6 +2,9 @@ version: '3.2'
 
 services:
     beacon-network-ui:
+        environment:
+            VUE_APP_REGISTRY_URL:
+            VUE_APP_AGGREGATOR_URL:
         container_name: beacon-network-ui
         build:
             context: .
