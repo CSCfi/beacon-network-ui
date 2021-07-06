@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: 'CSCfi/beacon-network'
-          ref: 'feature/multistage-build'
+          ref: 'dev'
           path: beacon-network
 
       - name: Build
