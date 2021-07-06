@@ -81,6 +81,10 @@ export default {
     }
   },
   methods: {
+    // we first try the registry to fetch info
+    // if that does not work we try the beacon directly
+    // because there is no way to know the information that
+    // comes from another aggregator
     getInfo: function() {
       axios
         .get(`${this.registry}services/${this.$props.beaconId}`)
@@ -88,7 +92,18 @@ export default {
           this.data = response.data;
         })
         .catch(error => {
-          console.log(this.$props.beaconId, error);
+          var try_url = this.$props.beaconId
+            .split(".")
+            .reverse()
+            .join(".");
+          axios
+            .get(`https://${try_url}`)
+            .then(response => {
+              this.data = response.data;
+            })
+            .catch(error => {
+              // We could not fetch info for beacon
+            });
         });
     }
   },
