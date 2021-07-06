@@ -10,12 +10,12 @@ describe("Basic Search", () => {
     cy.contains("Display 1 result(s)");
   });
   it("can display results", () => {
-    cy.get('[data-testid="displayResults"]').click();
+    cy.get('[data-testid="displayResults"]').first().click();
     cy.contains("urn:hg:1000genome dataset location");
     cy.contains("T > C");
   });
   it("can hide results", () => {
-    cy.get('[data-testid="displayResults"]').click();
+    cy.get('[data-testid="displayResults"]').first().click();
     cy.contains("urn:hg:1000genome dataset location").should("not.exist");
     cy.contains("T > C").should("not.exist");
   });
