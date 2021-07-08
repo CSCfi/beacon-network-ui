@@ -5,11 +5,13 @@ describe("Datasets page", () => {
     cy.contains("Datasets");
   });
   it("can show beacons data sets", () => {
-    cy.get('[data-testid="beaconButton"]').first().click();
+    cy.get('[data-testid="beaconButton"]')
+      .contains("Development Beacon")
+      .click();
     cy.contains("urn:hg:1000genome");
   });
   it("can close datasets", () => {
-    cy.get('[data-testid="closeButton"]').first().click();
+    cy.get('[data-testid="closeButton"]').click();
     cy.contains("urn:hg:1000genome").should("not.exist");
   });
   it("can do a faulty search", () => {
