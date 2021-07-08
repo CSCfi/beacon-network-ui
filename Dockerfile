@@ -1,19 +1,25 @@
-FROM node:14-alpine AS build
+FROM node:14.17-alpine AS build
 
 WORKDIR /usr/src/app
 
-COPY package.json .
-COPY tsconfig.json ./
+COPY ["package.json", "package-lock.json*", "./"]
+
+ENV VUE_APP_AGGREGATOR_URL=
+
+ENV  VUE_APP_REGISTRY_URL=
+
+COPY . .
+
 RUN npm install
 
-COPY . ./
+RUN npm run build
 
-FROM build as start
+FROM node:14.17-alpine AS run
 
 WORKDIR /usr/src/app
 
-COPY --from=build /usr/src/app/ /usr/src/app/
+COPY --from=build /usr/src/app/dist ./dist
 
-EXPOSE 3000
+EXPOSE 8080
 
-CMD ["npm", "run", "serve"]
+CMD npx http-server ./dist
