@@ -1,5 +1,9 @@
 ## Beacon Network UI
 
+[![End-to-end tests](https://github.com/CSCfi/beacon-network-ui/actions/workflows/E2Etests.yml/badge.svg)](https://github.com/CSCfi/beacon-network-ui/actions/workflows/E2Etests.yml)
+[![Unit tests and coverage](https://github.com/CSCfi/beacon-network-ui/actions/workflows/unittests.yml/badge.svg)](https://github.com/CSCfi/beacon-network-ui/actions/workflows/unittests.yml)
+[![Coverage Status](https://coveralls.io/repos/github/CSCfi/beacon-network-ui/badge.svg?branch=refs/heads/unit_tests)](https://coveralls.io/github/CSCfi/beacon-network-ui?branch=refs/heads/unit_tests)
+
 Beacon Network UI serves as a Graphical User Interface for Beacon Network APIs.
 
 Beacon Network consumes the following APIs:
