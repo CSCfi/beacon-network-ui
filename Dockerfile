@@ -13,7 +13,7 @@ ENV VUE_APP_REGISTRY_URL=${VUE_APP_REGISTRY_URL}
 COPY . .
 
 RUN npm install -g npm@7.19.1 \
-    && npm install
+    && npm install --production
 
 RUN npm run build
 
