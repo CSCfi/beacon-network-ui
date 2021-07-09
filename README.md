@@ -48,6 +48,13 @@ npm run coverage
 npx cypress run
 ```
 
+### Build and run with Docker
+
+```
+docker build --build-arg VUE_APP_REGISTRY_URL=<url> --build-arg VUE_APP_AGGREGATOR_URL=<url> -t cscfi/beacon-network-ui .
+docker run -p 8080:8080 cscfi/beacon-network-ui -d
+```
+
 ### License
 
 `beacon-network-ui` and all it sources are released under *Apache 2.0 License*.
