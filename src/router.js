@@ -68,7 +68,12 @@ export default new Router({
     {
       path: "/datasets",
       name: "datasets",
-      component: () => import("./components/beaconDatasets.vue")
+      component: () => import("./views/beaconDatasets.vue")
+    },
+    {
+      path: "/history",
+      name: "history",
+      component: () => import("./views/History.vue")
     }
   ]
 });
