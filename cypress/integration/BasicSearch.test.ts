@@ -33,7 +33,7 @@ describe("Basic Search", () => {
   it("generates search history", () => {
     cy.restoreLocalStorage();
     // history only shows the invalid search because cy.saveLocalStorage(); overwrites cy.saveLocalStorage(); in example search
-    cy.visit("/history");
+    cy.get('[data-testid="historyButton"]').click();
     cy.contains(
       "results?searchType=basic&includeDatasetResponses=HIT&assemblyId=GRCh38&referenceName=MT&start=4&referenceBases=T&alternateBases=C"
     );
