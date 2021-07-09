@@ -2,7 +2,7 @@
   <section>
     <div class="results-section">
       <b-button
-        data-testid="displayResults"
+        :data-testid="beaconId"
         @click="displayResults"
         class="show-more"
         type="is-primary"
@@ -105,7 +105,7 @@
 
 <script>
 export default {
-  props: ["results"],
+  props: ["results", "beaconId"],
   data() {
     return {
       display: false

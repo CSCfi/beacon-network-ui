@@ -47,6 +47,7 @@
             <BeaconResultTileDetails
               :key="resp.beaconId"
               v-bind:results="resp.datasetAlleleResponses"
+              :beaconId="resp.beaconId"
             ></BeaconResultTileDetails>
           </div>
         </section>
