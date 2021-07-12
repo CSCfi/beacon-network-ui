@@ -1,6 +1,9 @@
 <template>
   <div class="container content">
-    <form @submit.prevent="advancedSearch" title="Advanced Search Options">
+    <a>
+      v2 search
+    </a>
+    <form @submit.prevent="advancedSearchV2" title="Advanced Search Options">
       <div>
         <component :is="compVL" ref="VL"></component>
         <hr />
@@ -49,12 +52,12 @@
           >Example range query</b-button
         ></span
       >
-      <span id="BeaconV1Search"
+      <span id="BeaconV2Search"
         ><b-button
           data-testid="beaconV2Advanced"
           @click="setV2()"
           title="Switch to the advanced search form which has more options"
-          >BeaconV2 Search</b-button
+          >BeaconV1 Search</b-button
         ></span
       >
       <span id="basicSearch"

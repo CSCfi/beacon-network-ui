@@ -1,6 +1,9 @@
 <template>
   <div class="container" style="margin-bottom:24px">
     <section>
+      <a>
+        v2 search
+      </a>
       <form @submit.prevent="onSubmit">
         <b-field>
           <p class="control">
@@ -68,7 +71,7 @@
           data-testid="beaconV2Basic"
           @click="setV2()"
           title="Switch to the advanced search form which has more options"
-          >BeaconV2 Search</b-button
+          >BeaconV1 Search</b-button
         ></span
       >
       <span id="advancedSearch"
