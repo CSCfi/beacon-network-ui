@@ -13,6 +13,7 @@
       data-testid="component"
       v-bind:is="componentName"
       @changeSearchForm="toggleForm"
+      @setV2="setV2"
     ></component>
     <div v-if="$route.path === '/results'">
       <hr id="divider" />
@@ -34,28 +35,59 @@
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
 import AdvancedSearch from "@/components/AdvancedSearch.vue";
+import BasicSearchV2 from "@/components/BasicSearchV2.vue";
+import AdvancedSearchV2 from "@/components/AdvancedSearchV2.vue";
 import VueCookies from "vue-cookies";
 
 export default {
   name: "home",
   components: {
     BasicSearch,
-    AdvancedSearch
+    AdvancedSearch,
+    BasicSearchV2,
+    AdvancedSearchV2
   },
   data() {
     return {
       queryParams: {},
       results: false,
+      toggleV2: false,
       componentName: BasicSearch
     };
   },
   methods: {
     toggleForm: function() {
-      if (this.componentName === BasicSearch) {
-        this.componentName = AdvancedSearch;
+      if (this.toggleV2) {
+        if (this.componentName === BasicSearch) {
+          this.componentName = BasicSearchV2;
+        } else if (this.componentName === AdvancedSearch) {
+          this.componentName = AdvancedSearchV2;
+        } else if (this.componentName === BasicSearchV2) {
+          this.componentName = AdvancedSearchV2;
+        } else {
+          this.componentName = BasicSearchV2;
+        }
       } else {
-        this.componentName = BasicSearch;
+        if (this.componentName === BasicSearchV2) {
+          console.log("here");
+          this.componentName = BasicSearch;
+        } else if (this.componentName === AdvancedSearchV2) {
+          this.componentName = AdvancedSearch;
+        } else if (this.componentName === BasicSearch) {
+          this.componentName = AdvancedSearch;
+        } else {
+          this.componentName = BasicSearch;
+        }
       }
+    },
+    setV2: function() {
+      console.log(this.toggleV2);
+      if (this.toggleV2) {
+        this.toggleV2 = false;
+      } else {
+        this.toggleV2 = true;
+      }
+      this.toggleForm();
     },
     cookieToast: function() {
       // Check if cookies have been accepted, if not, show toast regarding cookies
