@@ -1,9 +1,7 @@
 <template>
   <div class="container" style="margin-bottom:24px">
     <section>
-      <a>
-        v2 search
-      </a>
+      v2 search
       <form @submit.prevent="onSubmit">
         <b-field>
           <p class="control">
@@ -66,9 +64,9 @@
           >Example variant query</b-button
         ></span
       >
-      <span id="BeaconV2Search"
+      <span id="BeaconV1Search"
         ><b-button
-          data-testid="beaconV2Basic"
+          data-testid="beaconV1Basic"
           @click="setV2()"
           title="Switch to the advanced search form which has more options"
           >BeaconV1 Search</b-button
@@ -194,6 +192,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.searchbar-footer span#BeaconV1Search {
+  margin-left: auto;
+}
 h2 {
   font-size: 2em;
 }
