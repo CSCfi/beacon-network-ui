@@ -217,27 +217,14 @@ export default {
       }
     },
     setSearchToLocaStorage: function() {
-      var hours = new Date().getHours();
-      var minutes = new Date().getMinutes();
-      var seconds = new Date().getSeconds();
-      if (hours < 10) {
-        hours = "0" + hours;
-      }
-      if (minutes < 10) {
-        minutes = "0" + minutes;
-      }
-      if (seconds < 10) {
-        seconds = "0" + seconds;
-      }
-      const time = hours + ":" + minutes + ":" + seconds;
       if (localStorage.getItem("searches") == null) {
         var searches = [];
-        var search = { url: window.location.href, time: time };
+        var search = { url: window.location.href, date: new Date() };
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
       } else {
         var searches = JSON.parse(localStorage.getItem("searches"));
-        var search = { url: window.location.href, time: time };
+        var search = { url: window.location.href, date: new Date() };
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
       }
