@@ -5,7 +5,14 @@
       <p class="panel-heading">
         Search history
       </p>
+      <div v-if="!isNotEmpty">
+        We could not find any previous queries. Please try searching something.
+        <router-link to="/">
+          <a> Return to front page</a>
+        </router-link>
+      </div>
       <b-table
+        v-if="isNotEmpty"
         :data="searches"
         :per-page="perPage"
         :current-page.sync="currentPage"
@@ -59,6 +66,7 @@ export default {
   data() {
     return {
       searches: [],
+      isNotEmpty: false,
       isPaginated: true,
       isPaginationSimple: false,
       isPaginationRounded: false,
@@ -75,6 +83,9 @@ export default {
   },
   beforeMount() {
     this.searches = JSON.parse(localStorage.getItem("searches"));
+    if (this.searches != null) {
+      this.isNotEmpty = true;
+    }
   },
   methods: {
     parseAdvanced: function(url) {
