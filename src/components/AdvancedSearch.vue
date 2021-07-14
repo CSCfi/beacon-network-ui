@@ -1,5 +1,6 @@
 <template>
   <div class="container content">
+    v1 search
     <form @submit.prevent="advancedSearch" title="Advanced Search Options">
       <div>
         <component :is="compVL" ref="VL"></component>
@@ -49,10 +50,10 @@
           >Example range query</b-button
         ></span
       >
-      <span id="BeaconV1Search"
+      <span id="BeaconV2Search"
         ><b-button
           data-testid="beaconV2Advanced"
-          @click="setV2()"
+          @click="setV2"
           title="Switch to the advanced search form which has more options"
           >BeaconV2 Search</b-button
         ></span
@@ -223,6 +224,9 @@ export default {
 
 <style scoped>
 span#basicSearch {
+  margin-left: auto;
+}
+span#BeaconV2Search {
   margin-left: auto;
 }
 .stretch {

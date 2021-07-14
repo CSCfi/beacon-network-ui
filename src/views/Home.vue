@@ -69,7 +69,6 @@ export default {
         }
       } else {
         if (this.componentName === BasicSearchV2) {
-          console.log("here");
           this.componentName = BasicSearch;
         } else if (this.componentName === AdvancedSearchV2) {
           this.componentName = AdvancedSearch;
@@ -81,7 +80,6 @@ export default {
       }
     },
     setV2: function() {
-      console.log(this.toggleV2);
       if (this.toggleV2) {
         this.toggleV2 = false;
       } else {

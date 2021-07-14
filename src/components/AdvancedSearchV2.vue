@@ -1,13 +1,15 @@
 <template>
   <div class="container content">
-    <a>
-      v2 search
-    </a>
-    <form @submit.prevent="advancedSearchV2" title="Advanced Search Options">
-      <div>
-        <component :is="compVL" ref="VL"></component>
-        <hr />
-        <component :is="compVT" ref="VT"></component>
+    <h2>V2 search</h2>
+    <form
+      @submit.prevent="advancedSearchV2"
+      title="Advanced Search Options for beaconv2"
+    >
+      <div v-for="(v2, index) of listV2" :key="index">
+        <component :is="v2" ref="search"></component>
+        <b-button v-if="checkListLenght()" v-on:click="removeInputfield(index)">
+          Delete</b-button
+        >
       </div>
       <b-message
         data-testid="errorMessage"
@@ -25,6 +27,13 @@
       </b-message>
 
       <div class="search-footer">
+        <b-button
+          @click="addComponent"
+          data-testid="resetButton"
+          type="is-secondary"
+          title="Empty all form fields and reset the view to its initial state"
+          >Add more search parameters</b-button
+        >
         <b-button
           @click="resetForm"
           data-testid="resetButton"
@@ -52,9 +61,9 @@
           >Example range query</b-button
         ></span
       >
-      <span id="BeaconV2Search"
+      <span id="BeaconV1Search"
         ><b-button
-          data-testid="beaconV2Advanced"
+          data-testid="beaconV1Advanced"
           @click="setV2()"
           title="Switch to the advanced search form which has more options"
           >BeaconV1 Search</b-button
@@ -73,20 +82,18 @@
 </template>
 
 <script>
-import VariantLocation from "./searchComponents/VariantLocation.vue";
-import VariantTransformation from "./searchComponents/VariantTransformation.vue";
+import advancedv2Search from "./searchComponents/beaconV2Search.vue";
 export default {
   name: "AdvancedSearch",
   components: {
-    VariantLocation,
-    VariantTransformation
+    advancedv2Search
   },
   data() {
     return {
-      compVL: VariantLocation,
-      compVT: VariantTransformation,
+      listV2: [advancedv2Search],
       errorMessages: [],
-      errorTooltip: false
+      errorTooltip: false,
+      componentRefs: {}
     };
   },
   methods: {
@@ -96,135 +103,60 @@ export default {
     changeSearchForm: function() {
       this.$emit("changeSearchForm");
     },
-    validateInput: function() {
-      this.errorMessages = [];
-      this.errorTooltip = false;
-      // Validate referenceBases field
-      if (!this.$refs.VT.refBases) {
-        this.validated = false;
-        this.errorMessages.push(
-          "Reference Base(s) must be given, possible values are: A, T, C, G, N."
-        );
-        this.errorTooltip = true;
-      }
-      // Validate alternateBases field if variantType is unspecified
-      if (
-        this.$refs.VT.altBases === "" &&
-        this.$refs.VT.variantType == "Unspecified"
-      ) {
-        this.errorMessages.push(
-          "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N."
-        );
-        this.errorTooltip = true;
-      }
-      // Validate exact coords
-      if (this.$refs.VL.coordType === "exact") {
-        if (
-          parseInt(this.$refs.VL.start) >= parseInt(this.$refs.VL.end) &&
-          parseInt(this.$refs.VL.end) != 0
-        ) {
-          this.errorMessages.push(
-            "If End coordinate is set, it must be greater than Start coordinate."
-          );
-          this.errorTooltip = true;
-        }
-      }
-      // Validate range coords
-      if (this.$refs.VL.coordType === "range") {
-        if (
-          parseInt(this.$refs.VL.startMin) >= parseInt(this.$refs.VL.endMin)
-        ) {
-          this.errorMessages.push(
-            "Minimum End coordinate must be greater than Minimum Start coordinate."
-          );
-          this.errorTooltip = true;
-        }
-        if (
-          parseInt(this.$refs.VL.startMin) >= parseInt(this.$refs.VL.startMax)
-        ) {
-          this.errorMessages.push(
-            "Maximum Start coordinate must be greater than Minimum Start coordinate."
-          );
-          this.errorTooltip = true;
-        }
-        if (
-          parseInt(this.$refs.VL.startMax) >= parseInt(this.$refs.VL.endMax)
-        ) {
-          this.errorMessages.push(
-            "Maximum End coordinate must be greater than Maximum Start coordinate."
-          );
-          this.errorTooltip = true;
-        }
-        if (parseInt(this.$refs.VL.endMin) >= parseInt(this.$refs.VL.endMax)) {
-          this.errorMessages.push(
-            "Maximum End coordinate must be greater than Minimum End coordinate."
-          );
-          this.errorTooltip = true;
-        }
-      }
-    },
+    validateInput: function() {},
     advancedSearch: function() {
-      this.validateInput();
-      if (this.errorMessages.length === 0) {
-        // Base query string
-        var queryObj = {
-          searchType: "advanced",
-          coordType: this.$refs.VL.coordType,
-          includeDatasetResponses: "HIT",
-          assemblyId: this.$refs.VL.assembly,
-          referenceName: this.$refs.VL.referenceName,
-          referenceBases: this.$refs.VT.refBases
-        };
-        // Handle the other params
-        if (this.$refs.VL.coordType === "exact") {
-          queryObj.start =
-            this.$refs.VL.start > 0 ? this.$refs.VL.start - 1 : 0;
-          if (this.$refs.VL.end != 0 && this.$refs.VL.end > this.$refs.VL.start)
-            queryObj.end = this.$refs.VL.end > 0 ? this.$refs.VL.end - 1 : 0;
-        }
-        if (this.$refs.VL.coordType === "range") {
-          queryObj.startMin =
-            this.$refs.VL.startMin > 0 ? this.$refs.VL.startMin - 1 : 0;
-          queryObj.startMax =
-            this.$refs.VL.startMax > 0 ? this.$refs.VL.startMax - 1 : 0;
-          queryObj.endMin =
-            this.$refs.VL.endMin > 0 ? this.$refs.VL.endMin - 1 : 0;
-          queryObj.endMax =
-            this.$refs.VL.endMax > 0 ? this.$refs.VL.endMax - 1 : 0;
-        }
-        if (this.$refs.VT.altBases) {
-          queryObj.alternateBases = this.$refs.VT.altBases;
-          this.$refs.VT.variantType = "Unspecified";
-        } else {
-          queryObj.variantType = this.$refs.VT.variantType;
-          this.$refs.VT.altBases = "";
-        }
-        // Change view to results and send GET query string
-        this.$router.push(
-          {
-            path: "results",
-            query: queryObj
-          },
-          undefined,
-          () => {}
-        );
-      }
+      // add fucntionality when backend is implemented
+      // Change view to results and send GET query string
+      this.$router.push(
+        {
+          path: "results",
+          query: queryObj
+        },
+        undefined,
+        () => {}
+      );
     },
     exampleSearch: function() {
-      this.$refs.VL.exampleSearch();
-      this.$refs.VT.exampleSearch();
-      document.getElementById("searchButton").focus();
+      Object.keys(this.$refs).forEach(el => {
+        this.$refs[el].forEach(element => {
+          element.searchInInput = "Individulas";
+          element.searchByInput = "Biosamples";
+        });
+      });
     },
-
     resetForm: function() {
-      this.$refs.VL.resetForm();
-      this.$refs.VT.resetForm();
+      Object.keys(this.$refs).forEach(el => {
+        this.$refs[el].forEach(element => {
+          element.resetForm();
+        });
+      });
+    },
+    addComponent: function() {
+      this.listV2.push(advancedv2Search);
+    },
+    checkListLenght: function() {
+      if (this.listV2.length > 1) {
+        return true;
+      }
+      return false;
+    },
+    removeInputfield(input) {
+      var array = this.listV2;
+      const index = input;
+      if (index > -1) {
+        array.splice(index, 1);
+      }
+
+      this.listV2 = array;
     }
   }
 };
 </script>
 
 <style scoped>
+span#BeaconV1Search {
+  margin-left: auto;
+}
 span#basicSearch {
   margin-left: auto;
 }

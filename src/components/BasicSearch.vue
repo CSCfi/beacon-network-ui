@@ -1,6 +1,7 @@
 <template>
   <div class="container" style="margin-bottom:24px">
     <section>
+      v1 search
       <form @submit.prevent="onSubmit">
         <b-field>
           <p class="control">
@@ -211,6 +212,9 @@ h2 {
 #searchButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+.searchbar-footer span#BeaconV2Search {
+  margin-left: auto;
 }
 </style>
 <style>
