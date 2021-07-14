@@ -37,7 +37,7 @@
                 v-if="!urlIsBasic(props.row.url)"
                 class="tag is-danger is-light"
               >
-                <b-tooltip :label="props.row.url">
+                <b-tooltip :label="parseAdvancedEnd(props.row.url)">
                   {{ parseAdvanced(parseUrl(props.row.url)) }}
                 </b-tooltip>
               </span>
@@ -93,6 +93,12 @@ export default {
         splitUrl[5] +
         "&" +
         splitUrl[6]
+      );
+    },
+    parseAdvancedEnd: function(url) {
+      var splitUrl = url.split("&");
+      return (
+        splitUrl[6] + "&" + splitUrl[7] + "&" + splitUrl[8] + "&" + splitUrl[9]
       );
     },
     parseUrl: function(url) {
