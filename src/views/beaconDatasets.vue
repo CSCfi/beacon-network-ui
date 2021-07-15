@@ -5,20 +5,16 @@
       <p class="panel-heading">
         Datasets
       </p>
-
       <div class="panel-block">
-        <p class="control has-icons">
-          <label for="searchBarDataset" style="display:none">Search Bar</label>
-          <b-input
-            data-testid="searchBar"
-            @keydown.native.enter="searchDatasets()"
-            id="searchBarDataset"
-            v-model="searchValue"
-            class="searchbar"
-            type="search"
-            placeholder="Search"
-          />
-        </p>
+        <b-input
+          data-testid="searchBar"
+          @keydown.native.enter="searchDatasets()"
+          id="searchBarDataset"
+          v-model="searchValue"
+          class="searchbar"
+          type="search"
+          placeholder="Search"
+        />
         <div class="panel-block">
           <button
             data-testid="searchButton"
@@ -39,7 +35,6 @@
           </b-button>
         </div>
       </div>
-
       <ul
         v-on:click="setDisplay(beacon)"
         v-for="beacon in beaconsAndDataSets"

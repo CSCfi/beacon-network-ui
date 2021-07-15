@@ -1,65 +1,61 @@
 <template>
   <div id="app">
     <h1 style="display:none">ELIXIR Beacon Network</h1>
-    <div
+    <b-navbar
       id="nav"
       :class="[
         $route.path !== '/' && $route.path !== '/results' ? 'borderNav' : null
       ]"
-    >
-      <div id="logo" v-if="!$route.meta.hideSmallLogo">
-        <router-link to="/"
-          ><img
-            class="logo"
-            alt="ELIXIR Beacon Network logo"
-            src="./assets/beacon-network-logo.png"
-        /></router-link>
-      </div>
-      <a
-        v-if="!getCookie('logged_in')"
-        class="login"
-        :href="login_url"
-        title="Authenticate at ELIXIR AAI"
-        ><img src="./assets/elixir-login.png" alt="ELIXIR AAI Login button"
-      /></a>
-      <a
-        v-if="getCookie('logged_in')"
-        class="login"
-        :href="logout_url"
-        title="Log out from ELIXIR Beacon Network"
-      >
-        <b-button class="login" type="is-primary">Log Out</b-button>
-      </a>
-      <router-link v-if="$route.path != '/datasets'" to="/datasets">
-        <b-button
+      ><template #brand>
+        <div id="logo" v-if="!$route.meta.hideSmallLogo">
+          <router-link to="/"
+            ><img
+              class="logo"
+              alt="ELIXIR Beacon Network logo"
+              src="./assets/beacon-network-logo.png"
+          /></router-link>
+        </div>
+      </template>
+      <template #start>
+        <b-navbar-item
+          href="/datasets"
+          v-if="$route.path != '/datasets'"
           data-testid="datasetsButton"
-          class="datasets"
-          type="is-primary"
-          >Datasets</b-button
         >
-      </router-link>
-      <router-link v-if="$route.path == '/datasets'" to="/">
-        <b-button
-          data-testid="returnToHomeTab"
-          class="datasets"
-          type="is-primary"
-          >Return to front page</b-button
+          Datasets
+        </b-navbar-item>
+        <b-navbar-item v-else href="/" data-testid="returnToHomeTab">
+          Return to front page
+        </b-navbar-item>
+        <b-navbar-item
+          v-if="$route.path != '/history'"
+          href="/history"
+          data-testid="historyButton"
         >
-      </router-link>
-      <router-link v-if="$route.path != '/history'" to="/history">
-        <b-button data-testid="historyButton" class="datasets" type="is-primary"
-          >Search history</b-button
+          Search history
+        </b-navbar-item>
+        <b-navbar-item v-else href="/" data-testid="returnToHomeFromHistory">
+          Return to front page
+        </b-navbar-item>
+      </template>
+      <template #end>
+        <a
+          v-if="!getCookie('logged_in')"
+          class="login"
+          :href="login_url"
+          title="Authenticate at ELIXIR AAI"
+          ><img src="./assets/elixir-login.png" alt="ELIXIR AAI Login button"
+        /></a>
+        <a
+          v-if="getCookie('logged_in')"
+          class="login"
+          :href="logout_url"
+          title="Log out from ELIXIR Beacon Network"
         >
-      </router-link>
-      <router-link v-if="$route.path == '/history'" to="/">
-        <b-button
-          data-testid="returnToHomeFromHistory"
-          class="datasets"
-          type="is-primary"
-          >Return to front page</b-button
-        >
-      </router-link>
-    </div>
+          <b-button class="login" type="is-primary">Log Out</b-button>
+        </a>
+      </template>
+    </b-navbar>
     <router-view />
     <Footer />
   </div>
@@ -109,6 +105,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   padding: 0 30px 0 30px;
+  min-height: 90px;
 }
 
 .borderNav {

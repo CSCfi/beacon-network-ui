@@ -1,5 +1,4 @@
 <template>
-  <!-- inspired by https://bulma.io/documentation/components/panel/ -->
   <section title="History of searches in current seesion">
     <nav class="panel">
       <p class="panel-heading">
