@@ -53,7 +53,7 @@
         </b-table-column>
         <b-table-column field="date" label="Date" sortable v-slot="props">
           <span class="tag is-info">
-            {{ parseDate(props.row.date) }}
+            {{ props.row.date }}
           </span>
         </b-table-column>
       </b-table>
@@ -108,18 +108,15 @@ export default {
     },
     parseAdvancedEnd: function(url) {
       var splitUrl = url.split("&");
-      return (
-        splitUrl[6] + "&" + splitUrl[7] + "&" + splitUrl[8] + "&" + splitUrl[9]
-      );
+      var end = "";
+      for (let index = 6; index <= splitUrl.length; index++) {
+        end += splitUrl[index];
+      }
+      return end;
     },
     parseUrl: function(url) {
       var splitUrl = url.split("/");
       return splitUrl[3];
-    },
-    parseDate: function(date) {
-      var split = date.split("T");
-      var splitTime = split[1].split(".");
-      return splitTime[0];
     },
     urlIsBasic: function(url) {
       if (url.includes("basic")) {

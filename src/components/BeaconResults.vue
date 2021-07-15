@@ -219,12 +219,32 @@ export default {
     setSearchToLocaStorage: function() {
       if (localStorage.getItem("searches") == null) {
         var searches = [];
-        var search = { url: window.location.href, date: new Date() };
+        var currentdate = new Date();
+        var time =
+          currentdate.getHours() +
+          ":" +
+          currentdate.getMinutes() +
+          ":" +
+          currentdate.getSeconds();
+        var search = {
+          url: window.location.href,
+          date: time
+        };
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
       } else {
+        var currentdate = new Date();
+        var time =
+          currentdate.getHours() +
+          ":" +
+          currentdate.getMinutes() +
+          ":" +
+          currentdate.getSeconds();
         var searches = JSON.parse(localStorage.getItem("searches"));
-        var search = { url: window.location.href, date: new Date() };
+        var search = {
+          url: window.location.href,
+          date: time
+        };
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
       }
