@@ -1,3 +1,5 @@
+import "cypress-localstorage-commands";
+
 describe("Basic Search", () => {
   it("successfully loads", () => {
     cy.visit("/");
@@ -11,6 +13,7 @@ describe("Basic Search", () => {
   });
   it("can display results", () => {
     cy.get('[data-testid="fi.rahtiapp.staging-elixirbeacon"]').click();
+    cy.wait(3000);
     cy.contains("urn:hg:1000genome dataset location");
     cy.contains("T > C");
   });
@@ -25,5 +28,14 @@ describe("Basic Search", () => {
     cy.get('[data-testid="testBar"]').type("MT : 5 T > C");
     cy.get('[data-testid="searchButton"]').click();
     cy.contains("No results found.");
+    cy.saveLocalStorage();
+  });
+  it("generates search history", () => {
+    cy.restoreLocalStorage();
+    // history only shows the invalid search because cy.saveLocalStorage(); overwrites cy.saveLocalStorage(); in example search
+    cy.get('[data-testid="historyButton"]').click();
+    cy.contains(
+      "results?searchType=basic&includeDatasetResponses=HIT&assemblyId=GRCh38&referenceName=MT&start=4&referenceBases=T&alternateBases=C"
+    );
   });
 });

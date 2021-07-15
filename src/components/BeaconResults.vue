@@ -215,10 +215,56 @@ export default {
         this.response = [];
         this.notFound = true;
       }
+    },
+    setSearchToLocaStorage: function() {
+      if (localStorage.getItem("searches") == null) {
+        var searches = [];
+        var currentdate = new Date();
+        var date =
+          currentdate.getHours() +
+          ":" +
+          currentdate.getMinutes() +
+          ":" +
+          currentdate.getSeconds() +
+          " " +
+          currentdate.getDay() +
+          "/" +
+          currentdate.getMonth() +
+          "/" +
+          currentdate.getFullYear();
+        var search = {
+          url: window.location.href,
+          date: date
+        };
+        searches.push(search);
+        localStorage.setItem("searches", JSON.stringify(searches));
+      } else {
+        var currentdate = new Date();
+        var date =
+          currentdate.getHours() +
+          ":" +
+          currentdate.getMinutes() +
+          ":" +
+          currentdate.getSeconds() +
+          " " +
+          currentdate.getDay() +
+          "/" +
+          currentdate.getMonth() +
+          "/" +
+          currentdate.getFullYear();
+        var searches = JSON.parse(localStorage.getItem("searches"));
+        var search = {
+          url: window.location.href,
+          date: date
+        };
+        searches.push(search);
+        localStorage.setItem("searches", JSON.stringify(searches));
+      }
     }
   },
   beforeMount() {
     this.queryAPI();
+    this.setSearchToLocaStorage();
   }
 };
 </script>

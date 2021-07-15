@@ -46,6 +46,19 @@
           >Return to front page</b-button
         >
       </router-link>
+      <router-link v-if="$route.path != '/history'" to="/history">
+        <b-button data-testid="historyButton" class="datasets" type="is-primary"
+          >Search history</b-button
+        >
+      </router-link>
+      <router-link v-if="$route.path == '/history'" to="/">
+        <b-button
+          data-testid="returnToHomeFromHistory"
+          class="datasets"
+          type="is-primary"
+          >Return to front page</b-button
+        >
+      </router-link>
     </div>
     <router-view />
     <Footer />
