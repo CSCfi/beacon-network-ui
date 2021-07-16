@@ -219,6 +219,7 @@ export default {
     setSearchToLocaStorage: function() {
       if (localStorage.getItem("searches") == null) {
         var searches = [];
+        console.log(new Date());
         var currentdate = new Date();
         var date =
           currentdate.getHours() +
@@ -227,11 +228,13 @@ export default {
           ":" +
           currentdate.getSeconds() +
           " " +
-          currentdate.getDay() +
+          currentdate.getDate() +
           "/" +
           currentdate.getMonth() +
           "/" +
           currentdate.getFullYear();
+        console.log(currentdate.getMonth());
+        console.log(currentdate.getDay());
         var search = {
           url: window.location.href,
           date: date
@@ -239,7 +242,10 @@ export default {
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
       } else {
+        console.log(new Date());
         var currentdate = new Date();
+        console.log(currentdate.getMonth() + 1);
+        console.log(currentdate.getDate());
         var date =
           currentdate.getHours() +
           ":" +
@@ -247,9 +253,9 @@ export default {
           ":" +
           currentdate.getSeconds() +
           " " +
-          currentdate.getDay() +
+          currentdate.getDate() +
           "/" +
-          currentdate.getMonth() +
+          (currentdate.getMonth() + 1) +
           "/" +
           currentdate.getFullYear();
         var searches = JSON.parse(localStorage.getItem("searches"));
