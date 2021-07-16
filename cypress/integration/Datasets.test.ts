@@ -1,7 +1,8 @@
 describe("Datasets page", () => {
   it("can be opened", () => {
     cy.visit("/");
-    cy.get('[data-testid="datasetsButton"]').click({ force: true });
+    cy.viewport(1920, 1080);
+    cy.get('[data-testid="datasetsButton"]').click();
     cy.contains("Datasets");
   });
   it("can show beacons data sets", () => {
@@ -26,7 +27,8 @@ describe("Datasets page", () => {
     cy.contains("urn:hg:1000genome");
   });
   it("can return to main page", () => {
-    cy.get('[data-testid="returnToHomeTab"]').click({ force: true });
+    cy.viewport(1920, 1080);
+    cy.get('[data-testid="returnToHomeTab"]').click();
     cy.contains("Advanced Search");
   });
 });
