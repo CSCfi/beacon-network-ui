@@ -229,9 +229,9 @@ export default {
           currentdate.getSeconds() +
           " " +
           currentdate.getDate() +
-          "/" +
-          currentdate.getMonth() +
-          "/" +
+          "." +
+          (currentdate.getMonth() + 1) +
+          "." +
           currentdate.getFullYear();
         console.log(currentdate.getMonth());
         console.log(currentdate.getDay());
@@ -254,9 +254,9 @@ export default {
           currentdate.getSeconds() +
           " " +
           currentdate.getDate() +
-          "/" +
+          "." +
           (currentdate.getMonth() + 1) +
-          "/" +
+          "." +
           currentdate.getFullYear();
         var searches = JSON.parse(localStorage.getItem("searches"));
         var search = {
