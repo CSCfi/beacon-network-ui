@@ -31,7 +31,7 @@ jobs:
           ref: 'dev'
           path: beacon-network
 
-      - name: Build
+      - name: Build Backend
         uses: docker/build-push-action@v2
         with:
           context: ./beacon-network
@@ -47,16 +47,24 @@ jobs:
           docker-compose -f docker-compose-test.yml up -d
           sleep 30
           ./tests/test_files/add_fixtures.sh
-          
+
+      - name: Build Frontend
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          build-args: |
+            "VUE_APP_AGGREGATOR_URL=http://localhost:5050/"
+            "VUE_APP_REGISTRY_URL=http://localhost:8080/"
+            "VUE_APP_DEVELOPMENT=true"
+          push: true
+          file: ./Dockerfile
+          tags: localhost:5000/beacon-network-ui:latest
+          cache-from: localhost:5000/beacon-network-ui:latest
+          cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Run Frontend
-        env: 
-          VUE_APP_AGGREGATOR_URL: http://localhost:5050/
-          VUE_APP_REGISTRY_URL: http://localhost:8080/
-          VUE_APP_DEVELOPMENT: true
         run: |
-          npm install
-          npm run build
-          nohup python -m http.server 8081 --d ./dist &
+          docker-compose -f docker-compose-test.yml up -d
+          sleep 30
       - name: Run tests
         uses: cypress-io/github-action@v2
         with:
