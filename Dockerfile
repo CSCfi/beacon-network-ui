@@ -16,7 +16,7 @@ ENV VUE_APP_DEVELOPMENT=${VUE_APP_DEVELOPMENT}
 
 COPY . .
 
-RUN npm install -g npm@7.19.1 \
+RUN npm install -g npm@7.20.0 \
     && npm install --production
 
 RUN npm run build --production
@@ -27,4 +27,4 @@ COPY --from=build /usr/src/app/dist ./dist
 
 EXPOSE 8080
 
-CMD npx http-server ./dist
+CMD npx http-server --proxy http://localhost:8080? ./dist
