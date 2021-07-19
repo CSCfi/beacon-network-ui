@@ -15,6 +15,8 @@
           type="search"
           placeholder="Search"
         />
+      </div>
+      <div class="panel-block">
         <div class="panel-block">
           <button
             data-testid="searchButton"

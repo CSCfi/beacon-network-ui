@@ -6,6 +6,7 @@
       :class="[
         $route.path !== '/' && $route.path !== '/results' ? 'borderNav' : null
       ]"
+      spaced="true"
       ><template #brand>
         <div id="logo" v-if="!$route.meta.hideSmallLogo">
           <router-link to="/"
@@ -48,20 +49,21 @@
       </template>
       <template #end>
         <a
+          :href="login_url"
           v-if="!getCookie('logged_in')"
           class="login"
-          :href="login_url"
           title="Authenticate at ELIXIR AAI"
           ><img src="./assets/elixir-login.png" alt="ELIXIR AAI Login button"
         /></a>
-        <a
-          v-if="getCookie('logged_in')"
+
+        <b-navbar-item
+          v-else
           class="login"
           :href="logout_url"
           title="Log out from ELIXIR Beacon Network"
         >
-          <b-button class="login" type="is-primary">Log Out</b-button>
-        </a>
+          Log Out
+        </b-navbar-item>
       </template>
     </b-navbar>
     <router-view />
@@ -109,11 +111,10 @@ export default {
   flex-direction: column;
   height: 100%;
 }
+
 #nav {
-  display: flex;
   flex-wrap: wrap;
-  padding: 0 30px 0 30px;
-  min-height: 90px;
+  min-height: auto;
 }
 
 .borderNav {
@@ -124,7 +125,6 @@ export default {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
-  padding: 0 30px 0 30px;
 }
 
 #nav a.router-link-exact-active {
@@ -137,19 +137,17 @@ export default {
 
 .login {
   margin-left: auto;
-  margin-top: 15px;
+  margin-top: 23px;
+  height: 50px;
 }
 
 .login img {
   width: 100px;
+  height: 50px;
 }
 
 .logo {
   height: 80px;
-}
-.datasets {
-  margin-top: 19px;
-  height: 100px;
 }
 </style>
 
