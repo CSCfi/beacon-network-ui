@@ -227,10 +227,10 @@ export default {
           ":" +
           currentdate.getSeconds() +
           " " +
-          currentdate.getDay() +
-          "/" +
-          currentdate.getMonth() +
-          "/" +
+          currentdate.getDate() +
+          "." +
+          (currentdate.getMonth() + 1) +
+          "." +
           currentdate.getFullYear();
         var search = {
           url: window.location.href,
@@ -247,10 +247,10 @@ export default {
           ":" +
           currentdate.getSeconds() +
           " " +
-          currentdate.getDay() +
-          "/" +
-          currentdate.getMonth() +
-          "/" +
+          currentdate.getDate() +
+          "." +
+          (currentdate.getMonth() + 1) +
+          "." +
           currentdate.getFullYear();
         var searches = JSON.parse(localStorage.getItem("searches"));
         var search = {
