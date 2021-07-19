@@ -17,16 +17,19 @@
         </div>
       </template>
       <template #start>
+        <!-- If v-if is used v-else has to be used otherwise none of the components will render-->
         <b-navbar-item
           href="/datasets"
-          v-if="$route.path != '/datasets'"
+          v-if="$route.path != '/datasets' && $route.path != '/history'"
           data-testid="datasetsButton"
         >
           Datasets
         </b-navbar-item>
+
         <b-navbar-item v-else href="/" data-testid="returnToHomeTab">
           Return to front page
         </b-navbar-item>
+
         <b-navbar-item
           v-if="$route.path != '/history'"
           href="/history"
@@ -34,8 +37,13 @@
         >
           Search history
         </b-navbar-item>
-        <b-navbar-item v-else href="/" data-testid="returnToHomeFromHistory">
-          Return to front page
+
+        <b-navbar-item
+          v-else
+          href="/datasets"
+          data-testid="datasetsButtonFromHistory"
+        >
+          Datasets
         </b-navbar-item>
       </template>
       <template #end>
