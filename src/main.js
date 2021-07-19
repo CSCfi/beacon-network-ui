@@ -9,7 +9,7 @@ import VueMatomo from "vue-matomo";
 Vue.config.productionTip = false;
 Vue.use(VueCookies);
 Vue.use(Buefy);
-if ( process.env.VUE_APP_MATOMO_UR &&  process.env.VUE_APP_MATOMO_ID) {
+if (process.env.VUE_APP_MATOMO_UR && process.env.VUE_APP_MATOMO_ID) {
   Vue.use(VueMatomo, {
     // Configure your matomo server and site by providing
     host: process.env.VUE_APP_MATOMO_URL,
