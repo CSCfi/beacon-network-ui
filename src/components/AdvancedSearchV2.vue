@@ -5,30 +5,101 @@
       @submit.prevent="advancedSearchV2"
       title="Advanced Search Options for beaconv2"
     >
-      <div v-for="(v2, index) of listV2" :key="index">
-        <component :is="v2" ref="search"></component>
-        <b-button v-if="checkListLenght()" v-on:click="removeInputfield(index)">
-          Delete</b-button
-        >
-      </div>
-      <b-message
-        data-testid="errorMessage"
-        v-if="errorTooltip"
-        type="is-danger"
-        aria-close-label="Close notification"
-        role="alert"
-      >
-        Form errors:
-        <ol>
-          <li v-for="err in errorMessages" :value="err" :key="err">
-            {{ err }}
-          </li>
-        </ol>
-      </b-message>
+      <tr v-for="(row, index) in list" :key="index">
+        <div class="columns">
+          <div class="column">
+            <label class="form-label" for="searchInInput">Search In</label>
+            {{ index }}
+            <b-input
+              :key="index"
+              data-testid="inInput"
+              list="searchInInputs"
+              v-model="row.searchInInput"
+              v-on:input="pickSearchBySet(row)"
+            />
+            <datalist id="searchInInputs">
+              <option
+                data-testid="inputOption"
+                v-for="input1 in searchInInputs"
+                :value="input1"
+                :key="input1"
+              >
+                {{ input1 }}
+              </option>
+            </datalist>
+          </div>
 
+          <div class="column">
+            <label class="form-label" for="id">From Id</label>
+            <b-input
+              data-testid="id"
+              v-if="coordType === 'exact'"
+              type="number"
+              v-model="row.fromId"
+              controls-position="compact"
+              min="0"
+              title="Exact start coordinate"
+            ></b-input>
+          </div>
+          <div class="column">
+            <label class="form-label" for="id">To Id</label>
+            <b-input
+              data-testid="id"
+              v-if="coordType === 'exact'"
+              type="number"
+              v-model="row.toId"
+              controls-position="compact"
+              min="0"
+              title="Exact start coordinate"
+            ></b-input>
+          </div>
+          <div class="column">
+            <label class="form-label" for="row.searchByInputs">Search By</label>
+            <b-input
+              data-testid="searchByInput"
+              list="row.searchByInputs"
+              v-model="row.searchByInput"
+            ></b-input>
+            <datalist id="row.searchByInputs">
+              <option
+                data-testid="byInputOption"
+                v-for="input2 in row.searchByInputs"
+                :value="input2"
+                :key="input2"
+                :title="'Input ID ' + input2"
+              >
+                {{ input2 }}
+              </option>
+            </datalist>
+          </div>
+          <div class="column">
+            <label class="form-label" for="removeButton">Remove this row</label>
+            <b-button
+              v-if="checkListLenght"
+              v-on:click="removeInputfield(index)"
+              >Remove</b-button
+            >
+          </div>
+        </div>
+
+        <b-message
+          data-testid="errorMessage"
+          v-if="errorTooltip"
+          type="is-danger"
+          aria-close-label="Close notification"
+          role="alert"
+        >
+          Form errors:
+          <ol>
+            <li v-for="err in errorMessages" :value="err" :key="err">
+              {{ err }}
+            </li>
+          </ol>
+        </b-message>
+      </tr>
       <div class="search-footer">
         <b-button
-          @click="addComponent"
+          @click="addRow"
           data-testid="resetButton"
           type="is-secondary"
           title="Empty all form fields and reset the view to its initial state"
@@ -52,6 +123,7 @@
         >
       </div>
     </form>
+
     <div class="search-footer">
       <span id="example" v-if="$route.path === '/'">
         <b-button
@@ -82,21 +154,61 @@
 </template>
 
 <script>
-import advancedv2Search from "./searchComponents/beaconV2Search.vue";
 export default {
   name: "AdvancedSearch",
-  components: {
-    advancedv2Search
-  },
+  components: {},
   data() {
     return {
-      listV2: [advancedv2Search],
+      list: [],
       errorMessages: [],
       errorTooltip: false,
-      componentRefs: {}
+      componentRefs: {},
+      id: 0,
+      coordType: "exact",
+      searchInInput: "",
+      searchInInputs: [
+        "Individuals",
+        "Biosamples",
+        "G variants",
+        "Runs",
+        "Variants in sample",
+        "Variant interpretations",
+        "Analyses",
+        "Interactors",
+        "Cohorts"
+      ],
+      searchByInput: "",
+      searchByInputs: [""]
     };
   },
   methods: {
+    pickSearchBySet: function(row) {
+      console.log(row);
+      if (row.searchInInput == "Individuals") {
+        row.searchByInputs = ["Biosamples", "G variants", "cohorts"];
+      } else if (row.searchInInput == "Biosamples") {
+        row.searchByInputs = [
+          "Individuals",
+          "G variants",
+          "Runs",
+          "Variants in sample"
+        ];
+      } else if (row.searchInInput == "G variants") {
+        row.searchByInputs = [
+          "Individuals",
+          "Biosamples",
+          "Variants in sample",
+          "Variant interpretations"
+        ];
+      } else if (row.searchInInput == "Runs") {
+        row.searchByInputs = ["Biosamples", "Analyses"];
+      } else if (row.searchInInput == "Interactors") {
+        row.searchByInputs = ["Individuals"];
+      } else if (row.searchInInput == "Cohorts") {
+        row.searchByInputs = ["Individuals"];
+      }
+      this.list.forEach(element => {});
+    },
     setV2: function() {
       this.$emit("setV2");
     },
@@ -131,24 +243,29 @@ export default {
         });
       });
     },
-    addComponent: function() {
-      this.listV2.push(advancedv2Search);
+    addRow: function() {
+      this.list.push({
+        searchInInput: "",
+        tsearchInInputs: [],
+        fromId: "0",
+        toId: "0",
+        searchByInput: "",
+        searchByInputs: ["Pick a search value first"]
+      });
     },
     checkListLenght: function() {
-      if (this.listV2.length > 1) {
+      console.log(this.list.length);
+      if (this.list.length > 1) {
         return true;
       }
       return false;
     },
-    removeInputfield(input) {
-      var array = this.listV2;
-      const index = input;
-      if (index > -1) {
-        array.splice(index, 1);
-      }
-
-      this.listV2 = array;
+    removeInputfield(index) {
+      this.list.splice(index, 1);
     }
+  },
+  beforeMount() {
+    this.addRow();
   }
 };
 </script>

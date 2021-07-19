@@ -1,61 +1,6 @@
 <template>
   <form @submit.prevent="beaconV2Search">
-    <div>
-      <div class="columns">
-        <div class="column">
-          <label class="form-label" for="searchInInput">Search In</label>
-          <b-input
-            data-testid="inInput"
-            list="searchInInputs"
-            v-model="searchInInput"
-            v-on:input="pickSearchBySet()"
-          />
-          <datalist id="searchInInputs">
-            <option
-              data-testid="inputOption"
-              v-for="input1 in searchInInputs"
-              :value="input1"
-              :key="input1"
-            >
-              {{ input1 }}
-            </option>
-          </datalist>
-        </div>
-
-        <div class="column">
-          <label class="form-label" for="id"> Id</label>
-          <b-input
-            data-testid="id"
-            v-if="coordType === 'exact'"
-            type="number"
-            v-model="id"
-            controls-position="compact"
-            min="0"
-            title="Exact start coordinate"
-          ></b-input>
-        </div>
-
-        <div class="column">
-          <label class="form-label" for="searchByInputs">Search By</label>
-          <b-input
-            data-testid="searchByInput"
-            list="searchByInputs"
-            v-model="searchByInput"
-          ></b-input>
-          <datalist id="searchByInputs">
-            <option
-              data-testid="byInputOption"
-              v-for="input2 in searchByInputs"
-              :value="input2"
-              :key="input2"
-              :title="'Input ID ' + input2"
-            >
-              {{ input2 }}
-            </option>
-          </datalist>
-        </div>
-      </div>
-    </div>
+    <div></div>
   </form>
 </template>
 <script>
