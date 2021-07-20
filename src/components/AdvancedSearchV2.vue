@@ -5,28 +5,25 @@
       @submit.prevent="advancedSearchV2"
       title="Advanced Search Options for beaconv2"
     >
-      <tr v-for="(row, index) in list" :key="index">
+      <div v-for="(row, index) in list" :key="index">
         <div class="columns">
           <div class="column">
-            <label class="form-label" for="searchInInput">Search In</label>
-            {{ index }}
-            <b-input
-              :key="index"
+            <label class="form-label" for="row.searchInInput">Search In</label>
+            <b-select
               data-testid="inInput"
-              list="searchInInputs"
               v-model="row.searchInInput"
-              v-on:input="pickSearchBySet(row)"
-            />
-            <datalist id="searchInInputs">
+              v-on:input="pickSearchBySet(index)"
+              expanded
+            >
               <option
                 data-testid="inputOption"
-                v-for="input1 in searchInInputs"
+                v-for="(input1, index) in row.searchInInputs"
                 :value="input1"
-                :key="input1"
+                :key="index"
               >
                 {{ input1 }}
               </option>
-            </datalist>
+            </b-select>
           </div>
 
           <div class="column">
@@ -41,6 +38,7 @@
               title="Exact start coordinate"
             ></b-input>
           </div>
+
           <div class="column">
             <label class="form-label" for="id">To Id</label>
             <b-input
@@ -53,50 +51,47 @@
               title="Exact start coordinate"
             ></b-input>
           </div>
-          <div class="column">
-            <label class="form-label" for="row.searchByInputs">Search By</label>
-            <b-input
+          <div class="column" v-if="row.searchByInputs">
+            <label class="form-label" for="searchByInputs">Search By</label>
+            <b-select
               data-testid="searchByInput"
-              list="row.searchByInputs"
+              list="searchByInputs"
               v-model="row.searchByInput"
-            ></b-input>
-            <datalist id="row.searchByInputs">
+              expanded
+            >
               <option
                 data-testid="byInputOption"
                 v-for="input2 in row.searchByInputs"
                 :value="input2"
                 :key="input2"
-                :title="'Input ID ' + input2"
               >
                 {{ input2 }}
               </option>
-            </datalist>
+            </b-select>
           </div>
-          <div class="column">
-            <label class="form-label" for="removeButton">Remove this row</label>
-            <b-button
-              v-if="checkListLenght"
-              v-on:click="removeInputfield(index)"
-              >Remove</b-button
-            >
-          </div>
+          <b-button
+            v-if="checkListLenght()"
+            v-on:click="removeInputfield(index)"
+            id="removeButton"
+            >Remove</b-button
+          >
         </div>
+      </div>
+      <b-message
+        data-testid="errorMessage"
+        v-if="errorTooltip"
+        type="is-danger"
+        aria-close-label="Close notification"
+        role="alert"
+      >
+        Form errors:
+        <ol>
+          <li v-for="err in errorMessages" :value="err" :key="err">
+            {{ err }}
+          </li>
+        </ol>
+      </b-message>
 
-        <b-message
-          data-testid="errorMessage"
-          v-if="errorTooltip"
-          type="is-danger"
-          aria-close-label="Close notification"
-          role="alert"
-        >
-          Form errors:
-          <ol>
-            <li v-for="err in errorMessages" :value="err" :key="err">
-              {{ err }}
-            </li>
-          </ol>
-        </b-message>
-      </tr>
       <div class="search-footer">
         <b-button
           @click="addRow"
@@ -162,52 +157,41 @@ export default {
       list: [],
       errorMessages: [],
       errorTooltip: false,
-      componentRefs: {},
-      id: 0,
-      coordType: "exact",
-      searchInInput: "",
-      searchInInputs: [
-        "Individuals",
-        "Biosamples",
-        "G variants",
-        "Runs",
-        "Variants in sample",
-        "Variant interpretations",
-        "Analyses",
-        "Interactors",
-        "Cohorts"
-      ],
-      searchByInput: "",
-      searchByInputs: [""]
+      coordType: "exact"
     };
   },
   methods: {
-    pickSearchBySet: function(row) {
-      console.log(row);
-      if (row.searchInInput == "Individuals") {
-        row.searchByInputs = ["Biosamples", "G variants", "cohorts"];
-      } else if (row.searchInInput == "Biosamples") {
-        row.searchByInputs = [
+    pickSearchBySet: function(index) {
+      const element = this.list[index];
+      if (element.searchInInput === "Individuals") {
+        element.searchByInputs = ["Biosamples", "G variants", "cohorts"];
+      } else if (element.searchInInput === "Biosamples") {
+        element.searchByInputs = [
           "Individuals",
           "G variants",
           "Runs",
           "Variants in sample"
         ];
-      } else if (row.searchInInput == "G variants") {
-        row.searchByInputs = [
+      } else if (element.searchInInput === "G variants") {
+        element.searchByInputs = [
           "Individuals",
           "Biosamples",
           "Variants in sample",
           "Variant interpretations"
         ];
-      } else if (row.searchInInput == "Runs") {
-        row.searchByInputs = ["Biosamples", "Analyses"];
-      } else if (row.searchInInput == "Interactors") {
-        row.searchByInputs = ["Individuals"];
-      } else if (row.searchInInput == "Cohorts") {
-        row.searchByInputs = ["Individuals"];
+      } else if (element.searchInInput === "Runs") {
+        element.searchByInputs = ["Biosamples", "Analyses"];
+      } else if (element.searchInInput === "Interactors") {
+        element.searchByInputs = ["Individuals"];
+      } else if (element.searchInInput === "Cohorts") {
+        element.searchByInputs = ["Individuals"];
+      } else if (element.searchInInput === "Variants in sample") {
+        element.searchByInputs = [""];
+      } else if (element.searchInInput === "Variant interpretations") {
+        element.searchByInputs = [""];
+      } else if (element.searchInInput === "Analyses") {
+        element.searchByInputs = ["Runs", "Variants in sample"];
       }
-      this.list.forEach(element => {});
     },
     setV2: function() {
       this.$emit("setV2");
@@ -229,32 +213,78 @@ export default {
       );
     },
     exampleSearch: function() {
-      Object.keys(this.$refs).forEach(el => {
-        this.$refs[el].forEach(element => {
-          element.searchInInput = "Individulas";
-          element.searchByInput = "Biosamples";
-        });
+      this.list = [];
+      this.list.push({
+        searchInInput: "Biosamples",
+        searchInInputs: [
+          "Individuals",
+          "Biosamples",
+          "G variants",
+          "Runs",
+          "Variants in sample",
+          "Variant interpretations",
+          "Analyses",
+          "Interactors",
+          "Cohorts"
+        ],
+        fromId: "10",
+        toId: "20",
+        searchByInput: "Individuals",
+        searchByInputs: ["Pick a search value first"]
       });
+      this.list.push({
+        searchInInput: "G variants",
+        searchInInputs: [
+          "Individuals",
+          "Biosamples",
+          "G variants",
+          "Runs",
+          "Variants in sample",
+          "Variant interpretations",
+          "Analyses",
+          "Interactors",
+          "Cohorts"
+        ],
+        fromId: "10",
+        toId: "20",
+        searchByInput: "Biosamples",
+        searchByInputs: ["Pick a search value first"]
+      });
+      this.pickSearchBySet(0);
+      this.pickSearchBySet(1);
     },
     resetForm: function() {
-      Object.keys(this.$refs).forEach(el => {
-        this.$refs[el].forEach(element => {
-          element.resetForm();
-        });
+      this.list.forEach(row => {
+        row.searchInInput = "";
+        row.searchByInput = "";
+        row.searchByInputs = ["Pick a search value first"];
+        row.fromId = "0";
+        row.toId = "0";
       });
     },
     addRow: function() {
-      this.list.push({
-        searchInInput: "",
-        tsearchInInputs: [],
-        fromId: "0",
-        toId: "0",
-        searchByInput: "",
-        searchByInputs: ["Pick a search value first"]
-      });
+      if (this.list.length < 6) {
+        this.list.push({
+          searchInInput: "",
+          searchInInputs: [
+            "Individuals",
+            "Biosamples",
+            "G variants",
+            "Runs",
+            "Variants in sample",
+            "Variant interpretations",
+            "Analyses",
+            "Interactors",
+            "Cohorts"
+          ],
+          fromId: "0",
+          toId: "0",
+          searchByInput: "",
+          searchByInputs: ["Pick a search value first"]
+        });
+      }
     },
     checkListLenght: function() {
-      console.log(this.list.length);
       if (this.list.length > 1) {
         return true;
       }
@@ -296,6 +326,10 @@ span#basicSearch {
 }
 .column-top-margin {
   margin-top: 20px;
+}
+#removeButton {
+  margin-top: 43px;
+  height: 41px;
 }
 /* fix safari bug https://github.com/jgthms/bulma/issues/2626 */
 .select select {
