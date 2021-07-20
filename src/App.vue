@@ -6,7 +6,7 @@
       :class="[
         $route.path !== '/' && $route.path !== '/results' ? 'borderNav' : null
       ]"
-      spaced="true"
+      :spaced="true"
       ><template #brand>
         <div id="logo" v-if="!$route.meta.hideSmallLogo">
           <router-link to="/"
