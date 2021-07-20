@@ -1,6 +1,7 @@
 describe("Datasets page", () => {
   it("can be opened", () => {
     cy.visit("/");
+    cy.get(".navbar-burger").click();
     cy.get('[data-testid="datasetsButton"]').click();
     cy.contains("Datasets");
   });
@@ -26,6 +27,7 @@ describe("Datasets page", () => {
     cy.contains("urn:hg:1000genome");
   });
   it("can return to main page", () => {
+    cy.get(".navbar-burger").click();
     cy.get('[data-testid="returnToHomeTab"]').click();
     cy.contains("Advanced Search");
   });
