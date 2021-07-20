@@ -8,3 +8,4 @@ updates:
     labels:
       - "npm dependencies"
     target-branch: "dev"
+    open-pull-requests-limit: 10
