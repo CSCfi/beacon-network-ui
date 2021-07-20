@@ -7,3 +7,4 @@ updates:
       day: "monday"
     labels:
       - "npm dependencies"
+    target-branch: "dev"
