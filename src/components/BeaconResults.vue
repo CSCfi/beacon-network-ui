@@ -2,13 +2,25 @@
   <section class="container columns results-table">
     <div class="column is-one-fifth">
       <p class="subtitle">Filter results</p>
+
       <b-field grouped group-multiline class="filtered">
         <div class="field">
           <b-switch
+            data-testid="hitsButton"
             v-model="hits"
             :disabled="response.length < 1"
             title="Option to show only results and hide other responses"
             >Hits Only</b-switch
+          >
+        </div>
+
+        <div class="field">
+          <b-switch
+            data-testid="unknownButton"
+            v-model="errors"
+            :disabled="response.length < 1"
+            title="Option to show only results and hide other responses"
+            >Show Unknown</b-switch
           >
         </div>
       </b-field>
@@ -35,10 +47,18 @@
             <BeaconResultTileDetails
               :key="resp.beaconId"
               v-bind:results="resp.datasetAlleleResponses"
+              :beaconId="resp.beaconId"
             ></BeaconResultTileDetails>
           </div>
         </section>
-        <section v-if="!resp.exists && !hits">
+        <section v-if="resp.exists == false && !hits">
+          <BeaconResultTile
+            :key="resp.beaconId"
+            :exists="resp.exists"
+            v-bind:beaconId="resp.beaconId"
+          ></BeaconResultTile>
+        </section>
+        <section v-if="resp.exists == null && errors">
           <BeaconResultTile
             :key="resp.beaconId"
             :exists="resp.exists"
@@ -76,6 +96,7 @@ export default {
       notFound: false,
       queryParams: undefined,
       hits: true,
+      errors: false,
       isLoading: false,
       response: [],
       variantTypes: [
@@ -101,6 +122,19 @@ export default {
     }
   },
   methods: {
+    // This function generates beaconId for errored beacon queries since these queries don't currently return the beaconId
+    getErrorBeaconId: function(response) {
+      if (response.beaconId == undefined) {
+        // Creates the beacon id from the url
+        var splitUrl = response.service.split("/");
+        var beaconId = splitUrl[2]
+          .split(".")
+          .reverse()
+          .join(".");
+        response.beaconId = beaconId;
+      }
+      return response;
+    },
     sortNumbers(a, b, isAsc) {
       // console.log(a, b);
       if (isAsc) {
@@ -116,7 +150,11 @@ export default {
     queryAPI: function() {
       var vm = this;
       vm.response = []; // Clear table
-      var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
+      if (process.env.VUE_APP_DEVELOPMENT) {
+        var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
+      } else {
+        var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
+      }
 
       // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
       // Copy the query object and remove the unwanted keys, so that we can use
@@ -136,28 +174,32 @@ export default {
 
       // Create websocket
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
-
       websocket.onopen = function() {
         // The connection was opened
         vm.isLoading = true;
-        // console.log('websocket opened');
       };
       websocket.onclose = function() {
         // The connection was closed
         vm.isLoading = false;
-        // console.log('websocket closed');
         vm.checkResponse();
       };
       websocket.onmessage = function(event) {
         // New message arrived
-        // console.log('websocket received data');
-        // console.log(event.data);
-        vm.response.push(JSON.parse(event.data));
+        // check if a beacon with the same id exists already
+        // prevent results appearing 2 times.
+        // this can occur when aggregators query the same beacons
+        const found = vm.response.some(
+          resp => resp.beaconId === event.data.beaconId
+        );
+        var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+        const found_nobeaconid = vm.response.some(
+          resp => resp.beaconId === nobeaconid.beaconId
+        );
+        if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
       };
       websocket.onerror = function() {
         // There was an error with your WebSocket
         vm.isLoading = false;
-        // console.log('websocket errored');
         vm.checkResponse();
       };
     },
@@ -173,10 +215,56 @@ export default {
         this.response = [];
         this.notFound = true;
       }
+    },
+    setSearchToLocaStorage: function() {
+      if (localStorage.getItem("searches") == null) {
+        var searches = [];
+        var currentdate = new Date();
+        var date =
+          currentdate.getHours() +
+          ":" +
+          currentdate.getMinutes() +
+          ":" +
+          currentdate.getSeconds() +
+          " " +
+          currentdate.getDate() +
+          "." +
+          (currentdate.getMonth() + 1) +
+          "." +
+          currentdate.getFullYear();
+        var search = {
+          url: window.location.href,
+          date: date
+        };
+        searches.push(search);
+        localStorage.setItem("searches", JSON.stringify(searches));
+      } else {
+        var currentdate = new Date();
+        var date =
+          currentdate.getHours() +
+          ":" +
+          currentdate.getMinutes() +
+          ":" +
+          currentdate.getSeconds() +
+          " " +
+          currentdate.getDate() +
+          "." +
+          (currentdate.getMonth() + 1) +
+          "." +
+          currentdate.getFullYear();
+        var searches = JSON.parse(localStorage.getItem("searches"));
+        var search = {
+          url: window.location.href,
+          date: date
+        };
+        searches.push(search);
+        localStorage.setItem("searches", JSON.stringify(searches));
+      }
     }
   },
   beforeMount() {
     this.queryAPI();
+    this.setSearchToLocaStorage();
   }
 };
 </script>

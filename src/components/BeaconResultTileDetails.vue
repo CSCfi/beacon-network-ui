@@ -2,6 +2,7 @@
   <section>
     <div class="results-section">
       <b-button
+        :data-testid="beaconId"
         @click="displayResults"
         class="show-more"
         type="is-primary"
@@ -15,8 +16,8 @@
       </b-button>
       <div v-if="display" class="details-rows">
         <b-table :data="results" :striped="true" class="column details-table">
-          <template slot-scope="results">
-            <b-table-column label="Access">
+          <b-table-column label="Access">
+            <template v-slot:default="results">
               <b-tag
                 class="accessibility-green-tag"
                 v-if="checkForPublicDatasets(results.row)"
@@ -36,11 +37,10 @@
                 ><b>Controlled</b></b-tag
               >
               <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
-            </b-table-column>
-            <b-table-column
-              label="Dataset"
-              title="Unique identifier of dataset"
-            >
+            </template>
+          </b-table-column>
+          <b-table-column label="Dataset" title="Unique identifier of dataset">
+            <template v-slot:default="results">
               {{ results.row.datasetId }}
               <span v-if="results.row.externalUrl"
                 ><a
@@ -50,21 +50,27 @@
                   dataset location</a
                 ></span
               >
-            </b-table-column>
-            <b-table-column
-              label="Variant"
-              title="Reference and alternate bases of this variant"
-            >
+            </template>
+          </b-table-column>
+          <b-table-column
+            label="Variant"
+            title="Reference and alternate bases of this variant"
+          >
+            <template v-slot:default="results">
               {{ results.row.referenceBases }} >
               {{ results.row.alternateBases }}
-            </b-table-column>
-            <b-table-column label="VT" title="Variant Type">
+            </template>
+          </b-table-column>
+          <b-table-column label="VT" title="Variant Type">
+            <template v-slot:default="results">
               {{ results.row.variantType }}
-            </b-table-column>
-            <b-table-column
-              label="Region"
-              title="Start and end coordinates of this variant"
-            >
+            </template>
+          </b-table-column>
+          <b-table-column
+            label="Region"
+            title="Start and end coordinates of this variant"
+          >
+            <template v-slot:default="results">
               <div
                 v-if="
                   results.row.referenceName &&
@@ -79,14 +85,18 @@
               <div v-else title="Some information is missing">
                 ?
               </div>
-            </b-table-column>
-            <b-table-column label="AC" title="Allele Count">
+            </template>
+          </b-table-column>
+          <b-table-column label="AC" title="Allele Count">
+            <template v-slot:default="results">
               {{ results.row.variantCount }}
-            </b-table-column>
-            <b-table-column label="AF" title="Allele Frequency">
+            </template>
+          </b-table-column>
+          <b-table-column label="AF" title="Allele Frequency">
+            <template v-slot:default="results">
               {{ results.row.frequency }}
-            </b-table-column>
-          </template>
+            </template>
+          </b-table-column>
         </b-table>
       </div>
     </div>
@@ -95,7 +105,7 @@
 
 <script>
 export default {
-  props: ["results"],
+  props: ["results", "beaconId"],
   data() {
     return {
       display: false

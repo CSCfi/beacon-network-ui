@@ -1,0 +1,20 @@
+version: "3"
+services:
+  frontend:
+    image: localhost:5000/beacon-network-ui
+    container_name: "beacon-network-ui"
+    command: npx http-server --proxy http://localhost:8081\? ./dist
+    environment:
+      PORT: 8081
+    ports:
+      - 8081:8081
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    networks:
+      # Change if using different network for backend container
+      - beacon-network_apps
+
+networks:
+  beacon-network_apps:
+    external: true

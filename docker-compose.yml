@@ -1,0 +1,11 @@
+version: '3.2'
+
+services:
+    beacon-network-ui:
+        container_name: beacon-network-ui
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+        - '8080:8080'
+        restart: on-failure

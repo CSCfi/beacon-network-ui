@@ -64,6 +64,16 @@ export default new Router({
       path: "/accessibility",
       name: "accessibility",
       component: () => import("./views/Accessibility.vue")
+    },
+    {
+      path: "/datasets",
+      name: "datasets",
+      component: () => import("./views/beaconDatasets.vue")
+    },
+    {
+      path: "/history",
+      name: "history",
+      component: () => import("./views/History.vue")
     }
   ]
 });

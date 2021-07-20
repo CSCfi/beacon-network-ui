@@ -1,6 +1,11 @@
 <template>
   <div class="content word-wrap">
-    <b-button tag="router-link" to="/" type="is-primary">
+    <b-button
+      data-testid="returnButton"
+      tag="router-link"
+      to="/"
+      type="is-primary"
+    >
       Return to main page
     </b-button>
     <h1>How to use Beacon Network</h1>
@@ -45,6 +50,7 @@
     <figure class="highlight is-expanded">
       <div class="button-container">
         <button
+          data-testid="testButton1"
           class="button is-text is-small copy-code"
           v-on:click="exampleSearch('1 : 104431389 C > INS')"
         >
@@ -63,6 +69,7 @@
     <figure class="highlight is-expanded">
       <div class="button-container">
         <button
+          data-testid="testButton2"
           class="button is-text is-small copy-code"
           v-on:click="exampleSearch('MT : 7599 G > A')"
         >
@@ -84,6 +91,7 @@
     <figure class="highlight is-expanded">
       <div class="button-container">
         <button
+          data-testid="testButton3"
           class="button is-text is-small copy-code"
           v-on:click="exampleSearch('MT : 194 TTACTAAAGT > NNNNNNNNGT')"
         >
