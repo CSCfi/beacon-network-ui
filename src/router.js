@@ -74,6 +74,11 @@ export default new Router({
       path: "/history",
       name: "history",
       component: () => import("./views/History.vue")
+    },
+    {
+      path: "*",
+      name: "error404",
+      component: () => import("./views/404.vue")
     }
   ]
 });
