@@ -1,7 +1,7 @@
 <template>
   <div id="col">
     <h1 id="header">(404) Page NotFound</h1>
-    <b-button @click="toHome()">
+    <b-button data-testid="homeButton" @click="toHome()">
       Return to homepage
     </b-button>
   </div>
