@@ -1,81 +1,11 @@
 <template>
   <div class="container content">
-    <h2>V2 search</h2>
-    <form
-      @submit.prevent="advancedSearchV2"
-      title="Advanced Search Options for beaconv2"
-    >
-      <div v-for="(row, index) in list" :key="index">
-        <div class="columns">
-          <div class="column">
-            <label class="form-label" for="row.searchInInput">Search In</label>
-            <b-select
-              data-testid="inInput"
-              v-model="row.searchInInput"
-              v-on:input="pickSearchBySet(index)"
-              expanded
-            >
-              <option
-                data-testid="inputOption"
-                v-for="(input1, index) in row.searchInInputs"
-                :value="input1"
-                :key="index"
-              >
-                {{ input1 }}
-              </option>
-            </b-select>
-          </div>
-
-          <div class="column">
-            <label class="form-label" for="id">From Id</label>
-            <b-input
-              data-testid="id"
-              v-if="coordType === 'exact'"
-              type="number"
-              v-model="row.fromId"
-              controls-position="compact"
-              min="0"
-              title="Exact start coordinate"
-            ></b-input>
-          </div>
-
-          <div class="column">
-            <label class="form-label" for="id">To Id</label>
-            <b-input
-              data-testid="id"
-              v-if="coordType === 'exact'"
-              type="number"
-              v-model="row.toId"
-              controls-position="compact"
-              min="0"
-              title="Exact start coordinate"
-            ></b-input>
-          </div>
-          <div class="column" v-if="row.searchByInputs">
-            <label class="form-label" for="searchByInputs">Search By</label>
-            <b-select
-              data-testid="searchByInput"
-              list="searchByInputs"
-              v-model="row.searchByInput"
-              expanded
-            >
-              <option
-                data-testid="byInputOption"
-                v-for="input2 in row.searchByInputs"
-                :value="input2"
-                :key="input2"
-              >
-                {{ input2 }}
-              </option>
-            </b-select>
-          </div>
-          <b-button
-            v-if="checkListLenght()"
-            v-on:click="removeInputfield(index)"
-            id="removeButton"
-            >Remove</b-button
-          >
-        </div>
+    v2 search
+    <form @submit.prevent="advancedSearch" title="Advanced Search Options">
+      <div>
+        <component :is="compVL" ref="VL"></component>
+        <hr />
+        <component :is="compVT" ref="VT"></component>
       </div>
       <b-message
         data-testid="errorMessage"
@@ -94,13 +24,6 @@
 
       <div class="search-footer">
         <b-button
-          @click="addRow"
-          data-testid="resetButton"
-          type="is-secondary"
-          title="Empty all form fields and reset the view to its initial state"
-          >Add more search parameters</b-button
-        >
-        <b-button
           @click="resetForm"
           data-testid="resetButton"
           type="is-secondary"
@@ -118,7 +41,6 @@
         >
       </div>
     </form>
-
     <div class="search-footer">
       <span id="example" v-if="$route.path === '/'">
         <b-button
@@ -128,12 +50,20 @@
           >Example range query</b-button
         ></span
       >
-      <span id="BeaconV1Search"
+      <span id="BeaconV2Search"
+        ><b-button
+          data-testid="beaconV2Advanced"
+          @click="setV2"
+          title="Switch to the advanced search form which has more options"
+          >BeaconV2 Search</b-button
+        ></span
+      >
+      <span id="Listing"
         ><b-button
           data-testid="beaconV1Advanced"
-          @click="setV2()"
+          @click="toggleListing()"
           title="Switch to the advanced search form which has more options"
-          >BeaconV1 Search</b-button
+          >To Listing</b-button
         ></span
       >
       <span id="basicSearch"
@@ -149,162 +79,165 @@
 </template>
 
 <script>
+import VariantLocation from "./searchComponents/VariantLocation.vue";
+import VariantTransformation from "./searchComponents/VariantTransformation.vue";
 export default {
   name: "AdvancedSearch",
-  components: {},
+  components: {
+    VariantLocation,
+    VariantTransformation
+  },
   data() {
     return {
-      list: [],
+      compVL: VariantLocation,
+      compVT: VariantTransformation,
       errorMessages: [],
-      errorTooltip: false,
-      coordType: "exact"
+      errorTooltip: false
     };
   },
   methods: {
-    pickSearchBySet: function(index) {
-      const element = this.list[index];
-      if (element.searchInInput === "Individuals") {
-        element.searchByInputs = ["Biosamples", "G variants", "cohorts"];
-      } else if (element.searchInInput === "Biosamples") {
-        element.searchByInputs = [
-          "Individuals",
-          "G variants",
-          "Runs",
-          "Variants in sample"
-        ];
-      } else if (element.searchInInput === "G variants") {
-        element.searchByInputs = [
-          "Individuals",
-          "Biosamples",
-          "Variants in sample",
-          "Variant interpretations"
-        ];
-      } else if (element.searchInInput === "Runs") {
-        element.searchByInputs = ["Biosamples", "Analyses"];
-      } else if (element.searchInInput === "Interactors") {
-        element.searchByInputs = ["Individuals"];
-      } else if (element.searchInInput === "Cohorts") {
-        element.searchByInputs = ["Individuals"];
-      } else if (element.searchInInput === "Variants in sample") {
-        element.searchByInputs = [""];
-      } else if (element.searchInInput === "Variant interpretations") {
-        element.searchByInputs = [""];
-      } else if (element.searchInInput === "Analyses") {
-        element.searchByInputs = ["Runs", "Variants in sample"];
-      }
-    },
     setV2: function() {
       this.$emit("setV2");
+    },
+    toggleListing: function() {
+      this.$emit("toggleListing");
     },
     changeSearchForm: function() {
       this.$emit("changeSearchForm");
     },
-    validateInput: function() {},
+    validateInput: function() {
+      this.errorMessages = [];
+      this.errorTooltip = false;
+      // Validate referenceBases field
+      if (!this.$refs.VT.refBases) {
+        this.validated = false;
+        this.errorMessages.push(
+          "Reference Base(s) must be given, possible values are: A, T, C, G, N."
+        );
+        this.errorTooltip = true;
+      }
+      // Validate alternateBases field if variantType is unspecified
+      if (
+        this.$refs.VT.altBases === "" &&
+        this.$refs.VT.variantType == "Unspecified"
+      ) {
+        this.errorMessages.push(
+          "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N."
+        );
+        this.errorTooltip = true;
+      }
+      // Validate exact coords
+      if (this.$refs.VL.coordType === "exact") {
+        if (
+          parseInt(this.$refs.VL.start) >= parseInt(this.$refs.VL.end) &&
+          parseInt(this.$refs.VL.end) != 0
+        ) {
+          this.errorMessages.push(
+            "If End coordinate is set, it must be greater than Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+      }
+      // Validate range coords
+      if (this.$refs.VL.coordType === "range") {
+        if (
+          parseInt(this.$refs.VL.startMin) >= parseInt(this.$refs.VL.endMin)
+        ) {
+          this.errorMessages.push(
+            "Minimum End coordinate must be greater than Minimum Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+        if (
+          parseInt(this.$refs.VL.startMin) >= parseInt(this.$refs.VL.startMax)
+        ) {
+          this.errorMessages.push(
+            "Maximum Start coordinate must be greater than Minimum Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+        if (
+          parseInt(this.$refs.VL.startMax) >= parseInt(this.$refs.VL.endMax)
+        ) {
+          this.errorMessages.push(
+            "Maximum End coordinate must be greater than Maximum Start coordinate."
+          );
+          this.errorTooltip = true;
+        }
+        if (parseInt(this.$refs.VL.endMin) >= parseInt(this.$refs.VL.endMax)) {
+          this.errorMessages.push(
+            "Maximum End coordinate must be greater than Minimum End coordinate."
+          );
+          this.errorTooltip = true;
+        }
+      }
+    },
     advancedSearch: function() {
-      // add fucntionality when backend is implemented
-      // Change view to results and send GET query string
-      this.$router.push(
-        {
-          path: "results",
-          query: queryObj
-        },
-        undefined,
-        () => {}
-      );
+      this.validateInput();
+      if (this.errorMessages.length === 0) {
+        // Base query string
+        var queryObj = {
+          searchType: "advanced",
+          coordType: this.$refs.VL.coordType,
+          includeDatasetResponses: "HIT",
+          assemblyId: this.$refs.VL.assembly,
+          referenceName: this.$refs.VL.referenceName,
+          referenceBases: this.$refs.VT.refBases
+        };
+        // Handle the other params
+        if (this.$refs.VL.coordType === "exact") {
+          queryObj.start =
+            this.$refs.VL.start > 0 ? this.$refs.VL.start - 1 : 0;
+          if (this.$refs.VL.end != 0 && this.$refs.VL.end > this.$refs.VL.start)
+            queryObj.end = this.$refs.VL.end > 0 ? this.$refs.VL.end - 1 : 0;
+        }
+        if (this.$refs.VL.coordType === "range") {
+          queryObj.startMin =
+            this.$refs.VL.startMin > 0 ? this.$refs.VL.startMin - 1 : 0;
+          queryObj.startMax =
+            this.$refs.VL.startMax > 0 ? this.$refs.VL.startMax - 1 : 0;
+          queryObj.endMin =
+            this.$refs.VL.endMin > 0 ? this.$refs.VL.endMin - 1 : 0;
+          queryObj.endMax =
+            this.$refs.VL.endMax > 0 ? this.$refs.VL.endMax - 1 : 0;
+        }
+        if (this.$refs.VT.altBases) {
+          queryObj.alternateBases = this.$refs.VT.altBases;
+          this.$refs.VT.variantType = "Unspecified";
+        } else {
+          queryObj.variantType = this.$refs.VT.variantType;
+          this.$refs.VT.altBases = "";
+        }
+        // Change view to results and send GET query string
+        this.$router.push(
+          {
+            path: "results",
+            query: queryObj
+          },
+          undefined,
+          () => {}
+        );
+      }
     },
     exampleSearch: function() {
-      this.list = [];
-      this.list.push({
-        searchInInput: "Biosamples",
-        searchInInputs: [
-          "Individuals",
-          "Biosamples",
-          "G variants",
-          "Runs",
-          "Variants in sample",
-          "Variant interpretations",
-          "Analyses",
-          "Interactors",
-          "Cohorts"
-        ],
-        fromId: "10",
-        toId: "20",
-        searchByInput: "Individuals",
-        searchByInputs: ["Pick a search value first"]
-      });
-      this.list.push({
-        searchInInput: "G variants",
-        searchInInputs: [
-          "Individuals",
-          "Biosamples",
-          "G variants",
-          "Runs",
-          "Variants in sample",
-          "Variant interpretations",
-          "Analyses",
-          "Interactors",
-          "Cohorts"
-        ],
-        fromId: "10",
-        toId: "20",
-        searchByInput: "Biosamples",
-        searchByInputs: ["Pick a search value first"]
-      });
-      this.pickSearchBySet(0);
-      this.pickSearchBySet(1);
+      this.$refs.VL.exampleSearch();
+      this.$refs.VT.exampleSearch();
+      document.getElementById("searchButton").focus();
     },
+
     resetForm: function() {
-      this.list.forEach(row => {
-        row.searchInInput = "";
-        row.searchByInput = "";
-        row.searchByInputs = ["Pick a search value first"];
-        row.fromId = "0";
-        row.toId = "0";
-      });
-    },
-    addRow: function() {
-      if (this.list.length < 6) {
-        this.list.push({
-          searchInInput: "",
-          searchInInputs: [
-            "Individuals",
-            "Biosamples",
-            "G variants",
-            "Runs",
-            "Variants in sample",
-            "Variant interpretations",
-            "Analyses",
-            "Interactors",
-            "Cohorts"
-          ],
-          fromId: "0",
-          toId: "0",
-          searchByInput: "",
-          searchByInputs: ["Pick a search value first"]
-        });
-      }
-    },
-    checkListLenght: function() {
-      if (this.list.length > 1) {
-        return true;
-      }
-      return false;
-    },
-    removeInputfield(index) {
-      this.list.splice(index, 1);
+      this.$refs.VL.resetForm();
+      this.$refs.VT.resetForm();
     }
-  },
-  beforeMount() {
-    this.addRow();
   }
 };
 </script>
 
 <style scoped>
-span#BeaconV1Search {
+span#basicSearch {
   margin-left: auto;
 }
-span#basicSearch {
+span#BeaconV2Search {
   margin-left: auto;
 }
 .stretch {
@@ -326,10 +259,6 @@ span#basicSearch {
 }
 .column-top-margin {
   margin-top: 20px;
-}
-#removeButton {
-  margin-top: 43px;
-  height: 41px;
 }
 /* fix safari bug https://github.com/jgthms/bulma/issues/2626 */
 .select select {

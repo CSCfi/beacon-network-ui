@@ -14,6 +14,7 @@
       v-bind:is="componentName"
       @changeSearchForm="toggleForm"
       @setV2="setV2"
+      @toggleListing="toggleListing"
     ></component>
     <div v-if="$route.path === '/results'">
       <hr id="divider" />
@@ -37,6 +38,7 @@ import BasicSearch from "@/components/BasicSearch.vue";
 import AdvancedSearch from "@/components/AdvancedSearch.vue";
 import BasicSearchV2 from "@/components/BasicSearchV2.vue";
 import AdvancedSearchV2 from "@/components/AdvancedSearchV2.vue";
+import ListingV2 from "@/components/ListingV2.vue";
 import VueCookies from "vue-cookies";
 
 export default {
@@ -45,7 +47,8 @@ export default {
     BasicSearch,
     AdvancedSearch,
     BasicSearchV2,
-    AdvancedSearchV2
+    AdvancedSearchV2,
+    ListingV2
   },
   data() {
     return {
@@ -86,6 +89,9 @@ export default {
         this.toggleV2 = true;
       }
       this.toggleForm();
+    },
+    toggleListing: function() {
+      this.componentName = ListingV2;
     },
     cookieToast: function() {
       // Check if cookies have been accepted, if not, show toast regarding cookies

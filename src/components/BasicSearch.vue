@@ -72,6 +72,14 @@
           >BeaconV2 Search</b-button
         ></span
       >
+      <span id="Listing"
+        ><b-button
+          data-testid="beaconV1Advanced"
+          @click="toggleListing()"
+          title="Switch to the advanced search form which has more options"
+          >To Listing</b-button
+        ></span
+      >
       <span id="advancedSearch"
         ><b-button
           data-testid="advanced"
@@ -115,6 +123,9 @@ export default {
     },
     changeSearchForm: function() {
       this.$emit("changeSearchForm");
+    },
+    toggleListing: function() {
+      this.$emit("toggleListing");
     },
     onSubmit: function() {
       // onSubmit is called when user inputs ENTER on search bar
