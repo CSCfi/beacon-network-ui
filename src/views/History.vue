@@ -1,5 +1,5 @@
 <template>
-  <section title="History of searches in current seesion">
+  <section title="History of searches in current session">
     <nav class="panel">
       <p class="panel-heading">
         Search history
@@ -50,7 +50,7 @@
             </a>
           </router-link>
         </b-table-column>
-        <b-table-column field="date" label="Date" sortable v-slot="props">
+        <b-table-column field="date" label="Date" v-slot="props">
           <span class="tag is-info">
             {{ props.row.date }}
           </span>
