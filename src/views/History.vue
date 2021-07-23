@@ -50,7 +50,7 @@
             </a>
           </router-link>
         </b-table-column>
-        <b-table-column field="date" label="Date" v-slot="props">
+        <b-table-column field="date" label="Date" sortable v-slot="props">
           <span class="tag is-info">
             {{ props.row.date }}
           </span>
