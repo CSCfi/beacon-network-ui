@@ -15,6 +15,7 @@
       @changeSearchForm="toggleForm"
       @setV2="setV2"
       @toggleListing="toggleListing"
+      @returnToPrevious="returnToPrevious"
     ></component>
     <div v-if="$route.path === '/results'">
       <hr id="divider" />
@@ -55,7 +56,8 @@ export default {
       queryParams: {},
       results: false,
       toggleV2: false,
-      componentName: BasicSearch
+      componentName: BasicSearch,
+      previous: BasicSearch
     };
   },
   methods: {
@@ -90,7 +92,11 @@ export default {
       }
       this.toggleForm();
     },
+    returnToPrevious: function() {
+      this.componentName = this.previous;
+    },
     toggleListing: function() {
+      this.previous = this.componentName;
       this.componentName = ListingV2;
     },
     cookieToast: function() {
