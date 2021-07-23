@@ -220,18 +220,31 @@ export default {
       if (localStorage.getItem("searches") == null) {
         var searches = [];
         var currentdate = new Date();
+        var hours = currentdate.getHours();
+        var minutes = currentdate.getMinutes();
+        var seconds = currentdate.getSeconds();
+
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+          seconds = "0" + seconds;
+        }
         var date =
-          currentdate.getHours() +
-          ":" +
-          currentdate.getMinutes() +
-          ":" +
-          currentdate.getSeconds() +
-          " " +
-          currentdate.getDate() +
-          "/" +
+          currentdate.getFullYear() +
+          "-" +
           (currentdate.getMonth() + 1) +
-          "/" +
-          currentdate.getFullYear();
+          "-" +
+          currentdate.getDate() +
+          " " +
+          hours +
+          ":" +
+          minutes +
+          ":" +
+          seconds;
         var search = {
           url: window.location.href,
           date: date
@@ -255,17 +268,18 @@ export default {
           seconds = "0" + seconds;
         }
         var date =
+          currentdate.getFullYear() +
+          "-" +
+          (currentdate.getMonth() + 1) +
+          "-" +
+          currentdate.getDate() +
+          " " +
           hours +
           ":" +
           minutes +
           ":" +
-          seconds +
-          " " +
-          currentdate.getDate() +
-          "/" +
-          (currentdate.getMonth() + 1) +
-          "/" +
-          currentdate.getFullYear();
+          seconds;
+
         var searches = JSON.parse(localStorage.getItem("searches"));
         var search = {
           url: window.location.href,
