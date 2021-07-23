@@ -27,12 +27,11 @@
           </div>
 
           <div class="column">
-            <label class="form-label" for="id">Input</label>
+            <label class="form-label" for="id">Search value</label>
             <b-input
               data-testid="id"
               v-if="coordType === 'exact'"
-              type="number"
-              v-model="row.fromId"
+              v-model="row.searchValue"
               controls-position="compact"
               min="0"
               title="Exact start coordinate"
@@ -97,7 +96,7 @@
           >Reset Form</b-button
         >
         <b-button
-          @click="advancedSearch"
+          @click="listingSearch"
           type="is-primary"
           class="search-button"
           id="searchButton"
@@ -127,9 +126,9 @@
       <span id="basicSearch"
         ><b-button
           data-testid="basic"
-          @click="changeSearchForm"
+          @click="returnToPrevious()"
           title="Switch back to the basic search bar"
-          >Basic Search</b-button
+          >Return to previous page</b-button
         ></span
       >
     </div>
@@ -184,13 +183,15 @@ export default {
     setV2: function() {
       this.$emit("setV2");
     },
-    changeSearchForm: function() {
-      this.$emit("changeSearchForm");
+    returnToPrevious: function() {
+      this.$emit("returnToPrevious");
     },
     validateInput: function() {},
-    advancedSearch: function() {
+    listingSearch: function() {
       var queryObj = {
-        searchInInput: this.list[0].searchInInput
+        searchInInput: this.list[0].searchInInput,
+        searchValue: this.list[0].searchValue,
+        searchByInput: this.list[0].searchByInput
       };
       this.$router.push(
         {
@@ -216,7 +217,7 @@ export default {
           "Interactors",
           "Cohorts"
         ],
-        fromId: "10",
+        searchValue: "10",
         searchByInput: "Individuals",
         searchByInputs: ["Pick a search value first"]
       });
@@ -233,7 +234,7 @@ export default {
           "Interactors",
           "Cohorts"
         ],
-        fromId: "10",
+        searchValue: "10",
         searchByInput: "Biosamples",
         searchByInputs: ["Pick a search value first"]
       });
@@ -245,7 +246,7 @@ export default {
         row.searchInInput = "";
         row.searchByInput = "";
         row.searchByInputs = ["Pick a search value first"];
-        row.fromId = "0";
+        row.searchValue = "0";
         row.toId = "0";
       });
     },
@@ -264,7 +265,7 @@ export default {
             "Interactors",
             "Cohorts"
           ],
-          fromId: "0",
+          searchValue: "0",
           toId: "0",
           searchByInput: "",
           searchByInputs: ["Pick a search value first"]
