@@ -159,7 +159,7 @@ export default {
           "Runs",
           "Variants in sample"
         ];
-      } else if (element.searchInInput === "G variants") {
+      } else if (element.searchInInput === "g_variants") {
         element.searchByInputs = [
           "Individuals",
           "Biosamples",
@@ -190,7 +190,6 @@ export default {
     listingSearch: function() {
       var queryObj = {
         searchInInput: this.list[0].searchInInput,
-        searchValue: this.list[0].searchValue,
         searchByInput: this.list[0].searchByInput
       };
       this.$router.push(
@@ -209,7 +208,7 @@ export default {
         searchInInputs: [
           "Individuals",
           "Biosamples",
-          "G variants",
+          "g_variants",
           "Runs",
           "Variants in sample",
           "Variant interpretations",
@@ -226,7 +225,7 @@ export default {
         searchInInputs: [
           "Individuals",
           "Biosamples",
-          "G variants",
+          "g_variants",
           "Runs",
           "Variants in sample",
           "Variant interpretations",
@@ -255,15 +254,13 @@ export default {
         this.list.push({
           searchInInput: "",
           searchInInputs: [
-            "Individuals",
-            "Biosamples",
-            "G variants",
-            "Runs",
-            "Variants in sample",
-            "Variant interpretations",
-            "Analyses",
-            "Interactors",
-            "Cohorts"
+            "individuals",
+            "biosamples",
+            "g_variants",
+            "runs",
+            "analyses",
+            "interactors",
+            "cohorts"
           ],
           searchValue: "0",
           toId: "0",
