@@ -1,6 +1,6 @@
 <template>
   <div class="container content">
-    <h2>V2 search</h2>
+    <h2>V2 listings search</h2>
     <form
       @submit.prevent="advancedSearchV2"
       title="Advanced Search Options for beaconv2"
@@ -42,7 +42,6 @@
             <label class="form-label" for="searchByInputs">Search By</label>
             <b-select
               data-testid="searchByInput"
-              list="searchByInputs"
               v-model="row.searchByInput"
               expanded
             >
@@ -80,13 +79,6 @@
       </b-message>
 
       <div class="search-footer">
-        <b-button
-          @click="addRow"
-          data-testid="resetButton"
-          type="is-secondary"
-          title="Empty all form fields and reset the view to its initial state"
-          >Add more search parameters</b-button
-        >
         <b-button
           @click="resetForm"
           data-testid="resetButton"
@@ -141,6 +133,7 @@ export default {
   components: {},
   data() {
     return {
+      // input values are in a list incase if in the future a multisearch feature is added
       list: [],
       errorMessages: [],
       errorTooltip: false,
@@ -150,34 +143,30 @@ export default {
   methods: {
     pickSearchBySet: function(index) {
       const element = this.list[index];
-      if (element.searchInInput === "Individuals") {
-        element.searchByInputs = ["Biosamples", "G variants", "cohorts"];
-      } else if (element.searchInInput === "Biosamples") {
+      if (element.searchInInput === "individuals") {
+        element.searchByInputs = ["biosamples", "g_variants", "cohorts"];
+      } else if (element.searchInInput === "biosamples") {
         element.searchByInputs = [
-          "Individuals",
-          "G variants",
-          "Runs",
-          "Variants in sample"
+          "individuals",
+          "g_variants",
+          "runs",
+          "variants in sample"
         ];
       } else if (element.searchInInput === "g_variants") {
         element.searchByInputs = [
-          "Individuals",
-          "Biosamples",
-          "Variants in sample",
-          "Variant interpretations"
+          "individuals",
+          "biosamples",
+          "variants in sample",
+          "variant interpretations"
         ];
-      } else if (element.searchInInput === "Runs") {
-        element.searchByInputs = ["Biosamples", "Analyses"];
-      } else if (element.searchInInput === "Interactors") {
-        element.searchByInputs = ["Individuals"];
-      } else if (element.searchInInput === "Cohorts") {
-        element.searchByInputs = ["Individuals"];
-      } else if (element.searchInInput === "Variants in sample") {
-        element.searchByInputs = [""];
-      } else if (element.searchInInput === "Variant interpretations") {
-        element.searchByInputs = [""];
-      } else if (element.searchInInput === "Analyses") {
-        element.searchByInputs = ["Runs", "Variants in sample"];
+      } else if (element.searchInInput === "runs") {
+        element.searchByInputs = ["biosamples", "analyses"];
+      } else if (element.searchInInput === "interactors") {
+        element.searchByInputs = ["individuals"];
+      } else if (element.searchInInput === "cohorts") {
+        element.searchByInputs = ["individuals"];
+      } else if (element.searchInInput === "analyses") {
+        element.searchByInputs = ["runs", "variants in sample"];
       }
     },
     setV2: function() {
@@ -190,8 +179,13 @@ export default {
     listingSearch: function() {
       var queryObj = {
         searchInInput: this.list[0].searchInInput,
+        id: this.list[0].searchValue,
         searchByInput: this.list[0].searchByInput
       };
+      if (queryObj.searchByInput == undefined) {
+        queryObj.searchByInput = "";
+      }
+      console.log(queryObj);
       this.$router.push(
         {
           path: "results",
@@ -204,52 +198,31 @@ export default {
     exampleSearch: function() {
       this.list = [];
       this.list.push({
-        searchInInput: "Biosamples",
+        searchInInput: "biosamples",
         searchInInputs: [
-          "Individuals",
-          "Biosamples",
+          "individuals",
+          "biosamples",
           "g_variants",
-          "Runs",
-          "Variants in sample",
-          "Variant interpretations",
-          "Analyses",
-          "Interactors",
-          "Cohorts"
+          "runs",
+          "analyses",
+          "interactors",
+          "cohorts"
         ],
-        searchValue: "10",
-        searchByInput: "Individuals",
+        searchValue: "SAMN03283350",
+        searchByInput: "individuals",
         searchByInputs: ["Pick a search value first"]
       });
-      this.list.push({
-        searchInInput: "G variants",
-        searchInInputs: [
-          "Individuals",
-          "Biosamples",
-          "g_variants",
-          "Runs",
-          "Variants in sample",
-          "Variant interpretations",
-          "Analyses",
-          "Interactors",
-          "Cohorts"
-        ],
-        searchValue: "10",
-        searchByInput: "Biosamples",
-        searchByInputs: ["Pick a search value first"]
-      });
+
       this.pickSearchBySet(0);
-      this.pickSearchBySet(1);
     },
     resetForm: function() {
-      this.list.forEach(row => {
-        row.searchInInput = "";
-        row.searchByInput = "";
-        row.searchByInputs = ["Pick a search value first"];
-        row.searchValue = "0";
-        row.toId = "0";
-      });
+      this.removeInputfield(0);
+      this.addRow();
     },
     addRow: function() {
+      /* this methdod was created so search fields could be easily added.
+       But the back end currently offers no support for multiple different queries 
+       so this method is only used before mount*/
       if (this.list.length < 6) {
         this.list.push({
           searchInInput: "",
