@@ -187,7 +187,6 @@ export default {
           // vm.query.split(" ")[5]) is an alternateBases
           queryObj["alternateBases"] = vm.query.split(" ")[5];
         }
-        console.log(queryObj);
         // Change view to results and send GET query string
         this.$router.push(
           {

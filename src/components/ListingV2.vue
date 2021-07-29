@@ -178,11 +178,7 @@ export default {
     },
     validateInput: function() {
       var vm = this;
-      if (
-        vm.list[0].searchInInput !== "" &&
-        vm.list[0].searchValue !== "" &&
-        vm.list[0].searchByInput !== ""
-      ) {
+      if (vm.list[0].searchInInput !== "" && vm.list[0].searchValue !== "") {
         vm.validated = true;
       } else {
         vm.validated = false;

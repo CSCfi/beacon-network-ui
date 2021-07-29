@@ -3,9 +3,9 @@
     v2 search
     <form @submit.prevent="advancedSearch" title="Advanced Search Options">
       <div>
-        <component :is="compVL" ref="VL"></component>
+        <component :is="compVL" v-bind:isBeaconV2="true" ref="VL"></component>
         <hr />
-        <component :is="compVT" ref="VT"></component>
+        <component :is="compVT" v-bind:isBeaconV2="true" ref="VT"></component>
       </div>
       <b-message
         data-testid="errorMessage"
@@ -55,7 +55,7 @@
           data-testid="beaconV2Advanced"
           @click="setV2"
           title="Switch to the advanced search form which has more options"
-          >BeaconV2 Search</b-button
+          >BeaconV1 Search</b-button
         ></span
       >
       <span id="Listing"
@@ -108,16 +108,17 @@ export default {
     validateInput: function() {
       this.errorMessages = [];
       this.errorTooltip = false;
+      // remove comments if these are still needed
       // Validate referenceBases field
-      if (!this.$refs.VT.refBases) {
+      /*if (!this.$refs.VT.refBases) {
         this.validated = false;
         this.errorMessages.push(
           "Reference Base(s) must be given, possible values are: A, T, C, G, N."
         );
         this.errorTooltip = true;
-      }
+      } */
       // Validate alternateBases field if variantType is unspecified
-      if (
+      /*  if (
         this.$refs.VT.altBases === "" &&
         this.$refs.VT.variantType == "Unspecified"
       ) {
@@ -125,7 +126,7 @@ export default {
           "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N."
         );
         this.errorTooltip = true;
-      }
+      } */
       // Validate exact coords
       if (this.$refs.VL.coordType === "exact") {
         if (
@@ -177,6 +178,7 @@ export default {
       if (this.errorMessages.length === 0) {
         // Base query string
         var queryObj = {
+          searchInInput: this.$refs.VL.searchInInput,
           searchType: "advanced",
           coordType: this.$refs.VL.coordType,
           includeDatasetResponses: "HIT",
@@ -206,6 +208,9 @@ export default {
           this.$refs.VT.variantType = "Unspecified";
         } else {
           queryObj.variantType = this.$refs.VT.variantType;
+          if (this.$refs.VT.variantType == "Unspecified") {
+            queryObj.variantType = "";
+          }
           this.$refs.VT.altBases = "";
         }
         // Change view to results and send GET query string

@@ -3,9 +3,9 @@
     v1 search
     <form @submit.prevent="advancedSearch" title="Advanced Search Options">
       <div>
-        <component :is="compVL" ref="VL"></component>
+        <component :is="compVL" v-bind:isBeaconV2="false" ref="VL"></component>
         <hr />
-        <component :is="compVT" ref="VT"></component>
+        <component :is="compVT" v-bind:isBeaconV2="false" ref="VT"></component>
       </div>
       <b-message
         data-testid="errorMessage"
