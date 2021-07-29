@@ -96,7 +96,7 @@ export default {
         "&" +
         splitUrl[2] +
         "&" +
-        splitUrl[2] +
+        splitUrl[3] +
         "&" +
         splitUrl[4] +
         "&" +
@@ -115,10 +115,11 @@ export default {
     },
     parseUrl: function(url) {
       var splitUrl = url.split("/");
+      console.log;
       return splitUrl[3];
     },
     urlIsBasic: function(url) {
-      if (url.includes("basic")) {
+      if (url.includes("basic") || url.includes("searchInInput")) {
         return true;
       } else {
         return false;
