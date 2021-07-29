@@ -307,7 +307,6 @@ export default {
   beforeMount() {
     this.queryAPI();
     this.setSearchToLocaStorage();
-    console.log(this.response);
   }
 };
 </script>

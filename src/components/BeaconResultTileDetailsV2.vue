@@ -58,7 +58,11 @@
               <div class="media-content">
                 <div class="content">
                   <ul v-for="(result, index) in results" :key="index">
-                    <ul v-for="(content, index) in result" :key="index">
+                    <ul
+                      id="resultContent"
+                      v-for="(content, index) in result"
+                      :key="index"
+                    >
                       {{
                         index + ": "
                       }}
@@ -71,7 +75,22 @@
                           {{ content }}
                         </span>
                         <div v-else v-for="(cont, ind) in content" :key="ind">
-                          {{ ind + ": " + cont }}
+                          <span v-if="checkIfObject(cont)">
+                            {{ ind + ": " + cont }}
+                          </span>
+                          <div v-else v-for="(con, inx) in cont" :key="inx">
+                            <span v-if="checkIfObject(con)">
+                              {{ inx + ": " + con }}
+                            </span>
+                            <div v-else v-for="(co, ix) in con" :key="ix">
+                              <span v-if="checkIfObject(co)">
+                                {{ ix + ": " + co }}
+                              </span>
+                              <div v-else v-for="(c, i) in co" :key="i">
+                                {{ i + ": " + c }}
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </ul>
                     </ul>
@@ -129,7 +148,6 @@ export default {
       else this.display = true;
     },
     checkForPublicDatasets: function(result) {
-      console.log(result);
       if (
         result.info &&
         result.info.accessType &&
@@ -159,6 +177,9 @@ export default {
 </script>
 
 <style scoped>
+#resultContent {
+  border-bottom: 1px solid black;
+}
 .results-section {
   /* text-align: center; */
 }
