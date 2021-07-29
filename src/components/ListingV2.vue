@@ -72,9 +72,9 @@
       >
         Form errors:
         <ol>
-          <li v-for="err in errorMessages" :value="err" :key="err">
-            {{ err }}
-          </li>
+          {{
+            errorMessage
+          }}
         </ol>
       </b-message>
 
@@ -135,9 +135,10 @@ export default {
     return {
       // input values are in a list incase if in the future a multisearch feature is added
       list: [],
-      errorMessages: [],
-      errorTooltip: false,
-      coordType: "exact"
+      coordType: "exact",
+      validated: false,
+      errorMessage: "",
+      errorTooltip: false
     };
   },
   methods: {
@@ -175,24 +176,43 @@ export default {
     returnToPrevious: function() {
       this.$emit("returnToPrevious");
     },
-    validateInput: function() {},
-    listingSearch: function() {
-      var queryObj = {
-        searchInInput: this.list[0].searchInInput,
-        id: this.list[0].searchValue,
-        searchByInput: this.list[0].searchByInput
-      };
-      if (queryObj.searchByInput == undefined) {
-        queryObj.searchByInput = "";
+    validateInput: function() {
+      var vm = this;
+      if (
+        vm.list[0].searchInInput !== "" &&
+        vm.list[0].searchValue !== "" &&
+        vm.list[0].searchByInput !== ""
+      ) {
+        vm.validated = true;
+      } else {
+        vm.validated = false;
       }
-      this.$router.push(
-        {
-          path: "results",
-          query: queryObj
-        },
-        undefined,
-        () => {}
-      );
+    },
+    listingSearch: function() {
+      var vm = this;
+      vm.errorTooltip = false;
+      vm.validateInput();
+      if (vm.validated) {
+        var queryObj = {
+          searchInInput: this.list[0].searchInInput,
+          id: this.list[0].searchValue,
+          searchByInput: this.list[0].searchByInput
+        };
+        if (queryObj.searchByInput == undefined) {
+          queryObj.searchByInput = "";
+        }
+        this.$router.push(
+          {
+            path: "results",
+            query: queryObj
+          },
+          undefined,
+          () => {}
+        );
+      } else {
+        vm.errorMessage = "Search inputs are empty";
+        vm.errorTooltip = true;
+      }
     },
     exampleSearch: function() {
       this.list = [];

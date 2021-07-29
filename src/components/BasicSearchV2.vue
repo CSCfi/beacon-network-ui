@@ -14,10 +14,28 @@
               title="Assembly ID"
             >
               <option value="GRCh38">GRCh38</option>
-              <option value="GRCh37">GRCh37</option>
+              <option value="GRCh37.p1">GRCh37.p1</option>
               <option value="hg19">hg19</option>
             </b-select>
+
+            <b-select
+              id="searchInInput"
+              data-testid="inInput"
+              v-model="searchInInput"
+              expanded
+              size="is-medium"
+            >
+              <option
+                data-testid="inputOption"
+                v-for="(input1, index) in searchInInputs"
+                :value="input1"
+                :key="index"
+              >
+                {{ input1 }}
+              </option>
+            </b-select>
           </p>
+
           <b-tooltip
             class="stretch"
             animated
@@ -114,6 +132,16 @@ export default {
         "CNV",
         "SNP",
         "MNP"
+      ],
+      searchInInput: "individuals",
+      searchInInputs: [
+        "individuals",
+        "biosamples",
+        "g_variants",
+        "runs",
+        "analyses",
+        "interactors",
+        "cohorts"
       ]
     };
   },
@@ -142,6 +170,7 @@ export default {
       if (vm.validated) {
         // Query string
         var queryObj = {
+          searchInInput: vm.searchInInput,
           searchType: "basic",
           includeDatasetResponses: "HIT",
           assemblyId: vm.assembly,
@@ -149,6 +178,7 @@ export default {
           start: vm.query.split(" ")[2] > 0 ? vm.query.split(" ")[2] - 1 : 0,
           referenceBases: vm.query.split(" ")[3]
         };
+
         // Determine if last element is a base of a variant type
         if (vm.variantTypes.includes(vm.query.split(" ")[5])) {
           // vm.query.split(" ")[5]) is a variantType
@@ -157,6 +187,7 @@ export default {
           // vm.query.split(" ")[5]) is an alternateBases
           queryObj["alternateBases"] = vm.query.split(" ")[5];
         }
+        console.log(queryObj);
         // Change view to results and send GET query string
         this.$router.push(
           {
@@ -173,7 +204,9 @@ export default {
     },
     exampleSearch: function() {
       var vm = this;
-      vm.query = "MT : 10 T > C";
+      vm.assembly = "GRCh37.p1";
+      vm.searchInInput = "g_variants";
+      vm.query = "MT : 151 T > C";
       document.getElementById("searchBar").focus();
     },
     validateInput: function() {
@@ -203,6 +236,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#searchInInput {
+  width: 200px;
+}
 .searchbar-footer span#BeaconV1Search {
   margin-left: auto;
 }

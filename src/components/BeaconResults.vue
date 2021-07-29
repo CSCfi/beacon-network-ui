@@ -250,7 +250,11 @@ export default {
       if (this.response.find(resp => resp.exists === true)) {
         this.notFound = false;
         return true;
-      } else if (this.response.find(resp => resp.response.exists === true)) {
+      } else if (
+        this.response.find(
+          resp => resp.response !== undefined && resp.response.exists === true
+        )
+      ) {
         this.notFound = false;
         return true;
       } else {
