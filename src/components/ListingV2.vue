@@ -185,7 +185,6 @@ export default {
       if (queryObj.searchByInput == undefined) {
         queryObj.searchByInput = "";
       }
-      console.log(queryObj);
       this.$router.push(
         {
           path: "results",
