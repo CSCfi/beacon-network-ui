@@ -3,6 +3,24 @@
     <div>
       <h2>Variant Location</h2>
       <div class="columns">
+        <div class="column" v-if="isBeaconV2">
+          <label class="form-label" for="searchInInput"> Dataset</label>
+          <b-select
+            id="searchInInput"
+            data-testid="inInput"
+            v-model="searchInInput"
+            expanded
+          >
+            <option
+              data-testid="inputOption"
+              v-for="(input1, index) in searchInInputs"
+              :value="input1"
+              :key="index"
+            >
+              {{ input1 }}
+            </option>
+          </b-select>
+        </div>
         <div class="column">
           <label class="form-label" for="assembly">Assembly</label>
           <b-input
@@ -142,6 +160,7 @@
 </template>
 <script>
 export default {
+  props: ["isBeaconV2"],
   name: "VariantLocation",
   data() {
     return {
@@ -153,7 +172,7 @@ export default {
       endMin: 0,
       endMax: 0,
       assembly: "",
-      assemblies: ["GRCh38", "GRCh37", "hg19"],
+      assemblies: ["GRCh38", "GRCh37.p1", "hg19"],
       referenceName: "1",
       referenceNames: [
         "1",
@@ -181,18 +200,39 @@ export default {
         "X",
         "Y",
         "MT"
+      ],
+      searchInInput: "individuals",
+      searchInInputs: [
+        "individuals",
+        "biosamples",
+        "g_variants",
+        "runs",
+        "analyses",
+        "interactors",
+        "cohorts"
       ]
     };
   },
   methods: {
     exampleSearch: function() {
-      this.assembly = "GRCh38";
-      this.referenceName = "MT";
-      this.coordType = "range";
-      this.startMin = 190;
-      this.startMax = 200;
-      this.endMin = 200;
-      this.endMax = 210;
+      if (this.$props.isBeaconV2) {
+        this.searchInInput = "g_variants";
+        this.assembly = "GRCh37.p1";
+        this.referenceName = "21";
+        this.coordType = "range";
+        this.startMin = 42809490;
+        this.startMax = 42809491;
+        this.endMin = 42809491;
+        this.endMax = 42809492;
+      } else {
+        this.assembly = "GRCh38";
+        this.referenceName = "MT";
+        this.coordType = "range";
+        this.startMin = 190;
+        this.startMax = 200;
+        this.endMin = 200;
+        this.endMax = 210;
+      }
     },
     resetForm: function() {
       this.assembly = "";

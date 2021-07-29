@@ -56,6 +56,7 @@
 </template>
 <script>
 export default {
+  props: ["isBeaconV2"],
   name: "VariantTrasformation",
   data() {
     return {
@@ -79,8 +80,12 @@ export default {
   },
   methods: {
     exampleSearch: function() {
-      this.refBases = "TTACTAAAGT";
-      this.variantType = "MNP";
+      if (this.$props.isBeaconV2) {
+        this.variantType = "DEL";
+      } else {
+        this.refBases = "TTACTAAAGT";
+        this.variantType = "MNP";
+      }
     },
     resetForm: function() {
       this.refBases = "";
