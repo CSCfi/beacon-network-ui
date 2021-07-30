@@ -30,7 +30,6 @@
             <label class="form-label" for="id">Search value</label>
             <b-input
               data-testid="id"
-              v-if="coordType === 'exact'"
               v-model="row.searchValue"
               controls-position="compact"
               min="0"
@@ -135,7 +134,6 @@ export default {
     return {
       // input values are in a list incase if in the future a multisearch feature is added
       list: [],
-      coordType: "exact",
       validated: false,
       errorMessage: "",
       errorTooltip: false

@@ -60,7 +60,7 @@
       >
       <span id="Listing"
         ><b-button
-          data-testid="beaconV1Advanced"
+          data-testid="beaconListing"
           @click="toggleListing()"
           title="Switch to the advanced search form which has more options"
           >To Listing</b-button
