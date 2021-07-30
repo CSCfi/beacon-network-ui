@@ -1,4 +1,4 @@
-describe("Advanced search", () => {
+describe("Advanced search V2", () => {
   it("successfully loads", () => {
     cy.visit("/");
     cy.get('[data-testid="beaconV2Basic"]').click();

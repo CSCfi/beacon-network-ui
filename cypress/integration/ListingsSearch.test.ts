@@ -1,6 +1,6 @@
 import "cypress-localstorage-commands";
 
-describe("Basic Search version 2", () => {
+describe("Listings search", () => {
   it("successfully loads", () => {
     cy.visit("/");
     cy.get('[data-testid="beaconListing"]').click();
