@@ -30,9 +30,10 @@
       <div v-if="isLoading" class="loading-indicator spinner">
         <Loading></Loading>
       </div>
-      <!-- beaconV1 tile -->
-      <div v-for="resp in response" :key="resp.beaconId">
-        <section v-if="resp.exists">
+
+      <div v-for="(resp, index) in response" :key="index">
+        <!-- beaconV1 tile -->
+        <section v-if="!checkIfV2(resp) && resp.exists">
           <BeaconResultTile
             :title="'Response from Beacon ' + resp.beaconId"
             :key="resp.beaconId"
@@ -53,44 +54,45 @@
             ></BeaconResultTileDetails>
           </div>
         </section>
+        <!-- beaconV2 tile -->
+        <section v-if="checkIfV2(resp) && resp.response.exists">
+          <BeaconResultTile
+            :title="'Response from Beacon ' + resp.meta.beaconId"
+            :key="resp.meta.beaconId"
+            :exists="resp.response.exists"
+            v-bind:beaconId="resp.meta.beaconId"
+          ></BeaconResultTile>
+          <div
+            v-if="resp.response.results && resp.response.numTotalResults > 0"
+          >
+            <BeaconResultTileDetailsV2
+              :key="resp.meta.beaconId"
+              v-bind:results="resp.response.results"
+              :beaconId="resp.meta.beaconId"
+              :beaconVersion="2"
+            ></BeaconResultTileDetailsV2>
+          </div>
+        </section>
+        <section
+          v-if="checkIfV2(resp) && resp.response.exists == false && !hits"
+        >
+          <BeaconResultTile
+            :key="resp.meta.beaconId"
+            :exists="resp.response.exists"
+            v-bind:beaconId="resp.meta.beaconId"
+          ></BeaconResultTile>
+        </section>
+        <section
+          v-if="checkIfV2(resp) && resp.response.exists == null && errors"
+        >
+          <BeaconResultTile
+            :key="resp.meta.beaconId"
+            :exists="resp.response.exists"
+            v-bind:beaconId="resp.meta.beaconId"
+          ></BeaconResultTile>
+        </section>
       </div>
-      <div v-if="beaconV2">
-        <div v-for="resp in response" :key="resp.meta.beaconId">
-          <!-- beaconV2 tile -->
-          <section v-if="resp.response.exists">
-            <BeaconResultTile
-              :title="'Response from Beacon ' + resp.meta.beaconId"
-              :key="resp.meta.beaconId"
-              :exists="resp.response.exists"
-              v-bind:beaconId="resp.meta.beaconId"
-            ></BeaconResultTile>
-            <div
-              v-if="resp.response.results && resp.response.numTotalResults > 0"
-            >
-              <BeaconResultTileDetailsV2
-                :key="resp.meta.beaconId"
-                v-bind:results="resp.response.results"
-                :beaconId="resp.meta.beaconId"
-                :beaconVersion="2"
-              ></BeaconResultTileDetailsV2>
-            </div>
-          </section>
-          <section v-if="resp.response.exists == false && !hits">
-            <BeaconResultTile
-              :key="resp.meta.beaconId"
-              :exists="resp.response.exists"
-              v-bind:beaconId="resp.meta.beaconId"
-            ></BeaconResultTile>
-          </section>
-          <section v-if="resp.response.exists == null && errors">
-            <BeaconResultTile
-              :key="resp.meta.beaconId"
-              :exists="resp.response.exists"
-              v-bind:beaconId="resp.meta.beaconId"
-            ></BeaconResultTile>
-          </section>
-        </div>
-      </div>
+
       <div
         v-if="notFound && !isLoading"
         class="content has-text-grey has-text-centered"
@@ -150,13 +152,18 @@ export default {
     }
   },
   methods: {
+    checkIfV2: function(beacon) {
+      if (beacon.meta != undefined) {
+        return true;
+      }
+      return false;
+    },
     getErrorBeaconId: function(response) {
       // This function generates beaconId for errored beacon queries since these queries don't currently return the beaconId
       if (
         response.beaconId == undefined &&
         response.meta == undefined &&
-        response.response == undefined &&
-        response.exists != null
+        response.response == undefined
       ) {
         // Creates the beacon id from the url
         var splitUrl = response.service.split("/");
@@ -166,7 +173,6 @@ export default {
           .join(".");
         response.beaconId = beaconId;
       }
-
       return response;
     },
     sortNumbers(a, b, isAsc) {
@@ -223,18 +229,17 @@ export default {
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
 
-        const found = vm.response.some(
-          resp => resp.beaconId === event.data.beaconId
-        );
-        var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
-        const found_nobeaconid = vm.response.some(
-          resp => resp.beaconId === nobeaconid.beaconId
-        );
+        if (JSON.parse(event.data) != null) {
+          const found = vm.response.some(
+            resp => resp.beaconId == JSON.parse(event.data).beaconId
+          );
 
-        if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
-        //check if beacon are v2
-        if (vm.response[0].meta != undefined) {
-          vm.beaconV2 = true;
+          var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+
+          const found_nobeaconid = vm.response.some(resp => {
+            resp.beaconId === nobeaconid.beaconId;
+          });
+          if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
         }
       };
       websocket.onerror = function() {
