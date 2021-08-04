@@ -10,6 +10,7 @@
             />
           </figure>
         </div>
+
         <div class="media-content">
           <div class="content">
             <p class="title is-size-5">{{ beacon.organization.name }}</p>
@@ -37,6 +38,9 @@
               >Contact Us</a
             ></small
           >
+        </div>
+        <div class="media-right">
+          <b-tag type="is-success">{{ beacon.version }}</b-tag>
         </div>
       </article>
     </div>
