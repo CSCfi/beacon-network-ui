@@ -221,11 +221,8 @@ h2 {
   #advancedSearch {
     order: 1;
   }
-  #Listingfour {
-    order: 2;
-  }
   #example {
-    order: 3;
+    order: 2;
   }
 }
 #searchBar {

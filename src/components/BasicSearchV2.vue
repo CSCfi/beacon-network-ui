@@ -3,37 +3,35 @@
     <section>
       <form @submit.prevent="onSubmit">
         <b-field>
-          <p class="control">
-            <label for="assembly" style="display:none">Assembly</label>
-            <b-select
-              id="assembly"
-              placeholder="Assembly"
-              v-model="assembly"
-              size="is-medium"
-              title="Assembly ID"
-            >
-              <option value="GRCh38">GRCh38</option>
-              <option value="GRCh37.p1">GRCh37.p1</option>
-              <option value="hg19">hg19</option>
-            </b-select>
+          <label for="assembly" style="display:none">Assembly</label>
 
-            <b-select
-              id="searchInInput"
-              data-testid="inInput"
-              v-model="searchInInput"
-              expanded
-              size="is-medium"
+          <b-select
+            id="assembly"
+            placeholder="Assembly"
+            v-model="assembly"
+            size="is-medium"
+            title="Assembly ID"
+          >
+            <option value="GRCh38">GRCh38</option>
+            <option value="GRCh37.p1">GRCh37.p1</option>
+            <option value="hg19">hg19</option>
+          </b-select>
+
+          <b-select
+            id="searchInInput"
+            data-testid="inInput"
+            v-model="searchInInput"
+            size="is-medium"
+          >
+            <option
+              data-testid="inputOption"
+              v-for="(input1, index) in searchInInputs"
+              :value="input1"
+              :key="index"
             >
-              <option
-                data-testid="inputOption"
-                v-for="(input1, index) in searchInInputs"
-                :value="input1"
-                :key="index"
-              >
-                {{ input1 }}
-              </option>
-            </b-select>
-          </p>
+              {{ input1 }}
+            </option>
+          </b-select>
 
           <b-tooltip
             class="stretch"
@@ -223,15 +221,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#searchInInput {
-  width: 200px;
-}
 @media screen and (min-width: 1025px) {
-  .searchbar-footer span#BeaconV1Search {
+  .searchbar-footer span#Listing {
     margin-left: auto;
   }
-  .searchbar-footer span#advancedSearch {
-    margin-left: auto;
+  #searchButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
 
@@ -250,23 +246,22 @@ h2 {
   display: flex;
 }
 
-#searchButton {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
 @media screen and (max-width: 801px) {
   .searchbar-footer {
     display: flex;
     flex-flow: column;
   }
-  #advancedSearch {
+  #searchButton {
     order: 1;
   }
-  #Listingfour {
+  #advancedSearch {
     order: 2;
   }
-  #example {
+  #Listing {
     order: 3;
+  }
+  #example {
+    order: 4;
   }
 }
 #searchBar {
