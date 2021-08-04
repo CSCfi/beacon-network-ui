@@ -41,7 +41,7 @@
         >
       </div>
     </form>
-    <div class="search-footer">
+    <div class="searchbar-footer">
       <span id="example" v-if="$route.path === '/'">
         <b-button
           data-testid="exampleButton"
@@ -239,11 +239,34 @@ export default {
 </script>
 
 <style scoped>
-span#basicSearch {
-  margin-left: auto;
+@media screen and (min-width: 1025px) {
+  .searchbar-footer {
+    display: flex;
+  }
+  .searchbar-footer span#BeaconV2Search {
+    margin-left: auto;
+  }
+  .searchbar-footer span#basicSearch {
+    margin-left: auto;
+  }
 }
-span#BeaconV2Search {
-  margin-left: auto;
+@media screen and (max-width: 801px) {
+  .searchbar-footer {
+    display: flex;
+    flex-flow: column;
+  }
+  #basicSearch {
+    order: 1;
+  }
+  #Listingfour {
+    order: 2;
+  }
+  #BeaconV2Search {
+    order: 3;
+  }
+  #example {
+    order: 4;
+  }
 }
 .stretch {
   width: 100%;
@@ -253,7 +276,7 @@ span#BeaconV2Search {
   font-size: 0.9em;
   display: flex;
 }
-.search-footer span#advancedSearch {
+.searchbar-footer span#advancedSearch {
   margin-left: auto;
 }
 .search-button {

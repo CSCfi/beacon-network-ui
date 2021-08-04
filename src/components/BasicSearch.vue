@@ -217,18 +217,39 @@ h2 {
   font-size: 0.9em;
   display: flex;
 }
-.searchbar-footer span#advancedSearch {
-  margin-left: auto;
-}
+
 #searchButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-.searchbar-footer span#BeaconV2Search {
-  margin-left: auto;
+
+@media screen and (min-width: 1025px) {
+  .searchbar-footer span#BeaconV2Search {
+    margin-left: auto;
+  }
+  .searchbar-footer span#advancedSearch {
+    margin-left: auto;
+  }
 }
-</style>
-<style>
+
+@media screen and (max-width: 801px) {
+  .searchbar-footer {
+    display: flex;
+    flex-flow: column;
+  }
+  #advancedSearch {
+    order: 1;
+  }
+  #Listingfour {
+    order: 2;
+  }
+  #BeaconV1Search {
+    order: 3;
+  }
+  #example {
+    order: 4;
+  }
+}
 #searchBar {
   border-radius: 0;
 }

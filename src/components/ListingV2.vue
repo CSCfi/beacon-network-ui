@@ -106,14 +106,6 @@
           >Example range query</b-button
         ></span
       >
-      <span id="BeaconV1Search"
-        ><b-button
-          data-testid="beaconV1Advanced"
-          @click="setV2()"
-          title="Switch to the advanced search form which has more options"
-          >BeaconV1 Search</b-button
-        ></span
-      >
       <span id="basicSearch"
         ><b-button
           data-testid="basic"
