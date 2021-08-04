@@ -231,10 +231,7 @@ export default {
   .searchbar-footer {
     display: flex;
   }
-  .searchbar-footer span#BeaconV2Search {
-    margin-left: auto;
-  }
-  .searchbar-footer span#basicSearch {
+  .searchbar-footer span#Listing {
     margin-left: auto;
   }
 }
