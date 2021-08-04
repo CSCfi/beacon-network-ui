@@ -9,11 +9,13 @@
         />
       </router-link>
     </p>
+    <b-switch v-model="toggleV2" id="v2Switch">
+      {{ toggleV2 ? "Beacon V2" : "Beacon V1" }}
+    </b-switch>
     <component
       data-testid="component"
       v-bind:is="componentName"
       @changeSearchForm="toggleForm"
-      @setV2="setV2"
       @toggleListing="toggleListing"
       @returnToPrevious="returnToPrevious"
     ></component>
@@ -60,6 +62,13 @@ export default {
       previous: BasicSearch
     };
   },
+
+  watch: {
+    toggleV2() {
+      //called whenever toggleV2 changes
+      this.toggleForm();
+    }
+  },
   methods: {
     toggleForm: function() {
       if (this.toggleV2) {
@@ -83,14 +92,6 @@ export default {
           this.componentName = BasicSearch;
         }
       }
-    },
-    setV2: function() {
-      if (this.toggleV2) {
-        this.toggleV2 = false;
-      } else {
-        this.toggleV2 = true;
-      }
-      this.toggleForm();
     },
     returnToPrevious: function() {
       this.componentName = this.previous;
@@ -159,7 +160,11 @@ export default {
 .hidden {
   display: none;
 }
-
+@media screen and (min-width: 1025px) {
+  #v2Switch {
+    margin-left: 65px;
+  }
+}
 #divider {
   background-color: #e7e7e7;
   height: 1px;

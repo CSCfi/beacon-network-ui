@@ -1,6 +1,5 @@
 <template>
   <div class="container content">
-    v2 search
     <form @submit.prevent="advancedSearch" title="Advanced Search Options">
       <div>
         <component :is="compVL" v-bind:isBeaconV2="true" ref="VL"></component>
@@ -50,14 +49,6 @@
           >Example range query</b-button
         ></span
       >
-      <span id="BeaconV2Search"
-        ><b-button
-          data-testid="beaconV2Advanced"
-          @click="setV2"
-          title="Switch to the advanced search form which has more options"
-          >BeaconV1 Search</b-button
-        ></span
-      >
       <span id="Listing"
         ><b-button
           data-testid="beaconListing"
@@ -96,9 +87,6 @@ export default {
     };
   },
   methods: {
-    setV2: function() {
-      this.$emit("setV2");
-    },
     toggleListing: function() {
       this.$emit("toggleListing");
     },
@@ -261,11 +249,8 @@ export default {
   #Listingfour {
     order: 2;
   }
-  #BeaconV2Search {
-    order: 3;
-  }
   #example {
-    order: 4;
+    order: 3;
   }
 }
 .stretch {
