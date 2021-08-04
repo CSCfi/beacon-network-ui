@@ -1,7 +1,6 @@
 <template>
   <div class="container" style="margin-bottom:24px">
     <section>
-      v1 search
       <form @submit.prevent="onSubmit">
         <b-field>
           <p class="control">
@@ -64,22 +63,7 @@
           >Example variant query</b-button
         ></span
       >
-      <span id="BeaconV2Search"
-        ><b-button
-          data-testid="beaconV2Basic"
-          @click="setV2()"
-          title="Switch to the advanced search form which has more options"
-          >BeaconV2 Search</b-button
-        ></span
-      >
-      <span id="Listing"
-        ><b-button
-          data-testid="beaconListing"
-          @click="toggleListing()"
-          title="Switch to the advanced search form which has more options"
-          >To Listing</b-button
-        ></span
-      >
+
       <span id="advancedSearch"
         ><b-button
           data-testid="advanced"
@@ -118,9 +102,6 @@ export default {
     };
   },
   methods: {
-    setV2: function() {
-      this.$emit("setV2");
-    },
     changeSearchForm: function() {
       this.$emit("changeSearchForm");
     },
@@ -243,11 +224,8 @@ h2 {
   #Listingfour {
     order: 2;
   }
-  #BeaconV1Search {
-    order: 3;
-  }
   #example {
-    order: 4;
+    order: 3;
   }
 }
 #searchBar {

@@ -1,6 +1,5 @@
 <template>
   <div class="container content">
-    v1 search
     <form @submit.prevent="advancedSearch" title="Advanced Search Options">
       <div>
         <component :is="compVL" v-bind:isBeaconV2="false" ref="VL"></component>
@@ -50,22 +49,7 @@
           >Example range query</b-button
         ></span
       >
-      <span id="BeaconV2Search"
-        ><b-button
-          data-testid="beaconV2Advanced"
-          @click="setV2"
-          title="Switch to the advanced search form which has more options"
-          >BeaconV2 Search</b-button
-        ></span
-      >
-      <span id="Listing"
-        ><b-button
-          data-testid="beaconListing"
-          @click="toggleListing()"
-          title="Switch to the advanced search form which has more options"
-          >To Listing</b-button
-        ></span
-      >
+
       <span id="basicSearch"
         ><b-button
           data-testid="basic"
@@ -256,11 +240,8 @@ export default {
   #Listingfour {
     order: 2;
   }
-  #BeaconV2Search {
-    order: 3;
-  }
   #example {
-    order: 4;
+    order: 3;
   }
 }
 .stretch {
