@@ -96,25 +96,6 @@ export default {
     validateInput: function() {
       this.errorMessages = [];
       this.errorTooltip = false;
-      // remove comments if these are still needed
-      // Validate referenceBases field
-      /*if (!this.$refs.VT.refBases) {
-        this.validated = false;
-        this.errorMessages.push(
-          "Reference Base(s) must be given, possible values are: A, T, C, G, N."
-        );
-        this.errorTooltip = true;
-      } */
-      // Validate alternateBases field if variantType is unspecified
-      /*  if (
-        this.$refs.VT.altBases === "" &&
-        this.$refs.VT.variantType == "Unspecified"
-      ) {
-        this.errorMessages.push(
-          "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N."
-        );
-        this.errorTooltip = true;
-      } */
       // Validate exact coords
       if (this.$refs.VL.coordType === "exact") {
         if (
