@@ -54,6 +54,20 @@
             ></BeaconResultTileDetails>
           </div>
         </section>
+        <section v-if="!checkIfV2(resp) && resp.exists == false && !hits">
+          <BeaconResultTile
+            :key="resp.beaconId"
+            :exists="resp.exists"
+            v-bind:beaconId="resp.beaconId"
+          ></BeaconResultTile>
+        </section>
+        <section v-if="!checkIfV2(resp) && resp.exists == null && errors">
+          <BeaconResultTile
+            :key="resp.beaconId"
+            :exists="resp.exists"
+            v-bind:beaconId="resp.beaconId"
+          ></BeaconResultTile>
+        </section>
         <!-- beaconV2 tile -->
         <section v-if="checkIfV2(resp) && resp.response.exists">
           <BeaconResultTile
