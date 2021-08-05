@@ -9,9 +9,7 @@
         />
       </router-link>
     </p>
-    <b-switch v-model="toggleV2" id="v2Switch">
-      {{ toggleV2 ? "Beacon V2" : "Beacon V1" }}
-    </b-switch>
+
     <component
       data-testid="component"
       v-bind:is="componentName"
@@ -19,6 +17,9 @@
       @toggleListing="toggleListing"
       @returnToPrevious="returnToPrevious"
     ></component>
+    <b-switch v-model="toggleV2" id="v2Switch">
+      {{ toggleV2 ? "Beacon v2 search enabled" : "Beacon v2 search disabled" }}
+    </b-switch>
     <div v-if="$route.path === '/results'">
       <hr id="divider" />
       <p class="results-disclaimer">
@@ -31,6 +32,7 @@
         >.
       </p>
     </div>
+
     <router-view />
   </div>
 </template>
@@ -156,13 +158,14 @@ export default {
 .visible {
   display: block;
 }
-
 .hidden {
   display: none;
 }
 @media screen and (min-width: 1025px) {
   #v2Switch {
-    margin-left: 65px;
+    display: flex;
+    flex-flow: column-reverse;
+    bottom: 20px;
   }
 }
 #divider {

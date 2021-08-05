@@ -40,7 +40,10 @@
           >
         </div>
         <div class="media-right">
-          <b-tag type="is-success">{{ beacon.version }}</b-tag>
+          <b-taglist attached>
+            <b-tag type="is-dark">Beacon API</b-tag>
+            <b-tag type="is-success">{{ beacon.type.version }}</b-tag>
+          </b-taglist>
         </div>
       </article>
     </div>
