@@ -205,9 +205,6 @@ h2 {
 }
 
 @media screen and (min-width: 1025px) {
-  .searchbar-footer span#BeaconV2Search {
-    margin-left: auto;
-  }
   .searchbar-footer span#advancedSearch {
     margin-left: auto;
   }
