@@ -13,12 +13,12 @@ describe("Basic Search version 2", () => {
     cy.contains("Display 1 result(s)");
   });
   it("can display results", () => {
-    cy.get('[data-testid="localhost:5050"]').click();
+    cy.get('[data-testid="beacon:5050"]').click();
     cy.wait(3000);
     cy.contains("variants id: 1313772");
   });
   it("can hide results", () => {
-    cy.get('[data-testid="localhost:5050"]').click();
+    cy.get('[data-testid="beacon:5050"]').click();
     cy.contains("variants id: 1313772").should("not.exist");
   });
   it("can do an invalid search", () => {
