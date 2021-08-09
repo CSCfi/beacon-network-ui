@@ -1,7 +1,7 @@
 describe("Advanced search V2", () => {
   it("successfully loads", () => {
     cy.visit("/");
-    cy.get('[data-testid="beaconV2Basic"]').click();
+    cy.get("#v2Switch").click();
     cy.get('[data-testid="advanced"]').click();
     cy.contains("v2 search");
   });
@@ -13,7 +13,7 @@ describe("Advanced search V2", () => {
   });
   it("can do an invalid search", () => {
     cy.visit("/");
-    cy.get('[data-testid="beaconV2Basic"]').click();
+    cy.get("#v2Switch").click();
     cy.get('[data-testid="advanced"]').click();
     cy.get('[data-testid="exampleButton"]').click();
 

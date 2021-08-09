@@ -3,6 +3,7 @@ import "cypress-localstorage-commands";
 describe("Listings search", () => {
   it("successfully loads", () => {
     cy.visit("/");
+    cy.get("#v2Switch").click();
     cy.get('[data-testid="beaconListing"]').click();
     cy.contains("V2 listings search");
   });
