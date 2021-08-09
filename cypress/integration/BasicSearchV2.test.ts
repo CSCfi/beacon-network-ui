@@ -3,7 +3,7 @@ import "cypress-localstorage-commands";
 describe("Basic Search version 2", () => {
   it("successfully loads", () => {
     cy.visit("/");
-    cy.get('[data-testid="beaconV2Basic"]').click();
+    cy.get("#v2Switch").click();
     cy.contains("v2 search");
   });
   it("can do a example search", () => {
@@ -23,7 +23,7 @@ describe("Basic Search version 2", () => {
   });
   it("can do an invalid search", () => {
     cy.visit("/");
-    cy.get('[data-testid="beaconV2Basic"]').click();
+    cy.get("#v2Switch").click();
     cy.get('[data-testid="testBar"]').clear();
     cy.get('[data-testid="testBar"]').type("MT : 5 T > C");
     cy.get('[data-testid="searchButton"]').click();
