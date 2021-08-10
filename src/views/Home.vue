@@ -154,6 +154,7 @@ export default {
 <style scoped>
 .home {
   flex: 1 0 auto;
+  margin: auto;
 }
 .visible {
   display: block;
@@ -161,13 +162,7 @@ export default {
 .hidden {
   display: none;
 }
-@media screen and (min-width: 1025px) {
-  #v2Switch {
-    display: flex;
-    flex-flow: column-reverse;
-    bottom: 20px;
-  }
-}
+
 #divider {
   background-color: #e7e7e7;
   height: 1px;

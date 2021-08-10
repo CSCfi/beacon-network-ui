@@ -42,7 +42,7 @@
         <div class="media-right">
           <b-taglist attached>
             <b-tag type="is-dark">Beacon API</b-tag>
-            <b-tag type="is-success">{{ beacon.type.version }}</b-tag>
+            <b-tag type="is-success">v{{ beacon.type.version }}</b-tag>
           </b-taglist>
         </div>
       </article>
