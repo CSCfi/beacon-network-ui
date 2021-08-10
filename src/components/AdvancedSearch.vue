@@ -226,10 +226,11 @@ export default {
     margin-left: auto;
   }
   .searchbar-footer span#basicSearch {
+    margin-top: 5px;
     margin-left: auto;
   }
 }
-@media screen and (max-width: 801px) {
+@media screen and (max-width: 1024px) {
   .searchbar-footer {
     display: flex;
     flex-flow: column;
@@ -248,7 +249,7 @@ export default {
   width: 100%;
 }
 .search-footer {
-  margin-top: 12px;
+  margin-top: 10px;
   font-size: 0.9em;
   display: flex;
 }

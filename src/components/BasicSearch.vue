@@ -194,7 +194,7 @@ h2 {
   width: 100%;
 }
 .searchbar-footer {
-  margin-top: 12px;
+  margin-top: 10px;
   font-size: 0.9em;
   display: flex;
 }
@@ -210,7 +210,7 @@ h2 {
   }
 }
 
-@media screen and (max-width: 801px) {
+@media screen and (max-width: 1024px) {
   .searchbar-footer {
     display: flex;
     flex-flow: column;

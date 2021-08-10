@@ -79,22 +79,25 @@
           >Example variant query</b-button
         ></span
       >
-      <span id="Listing"
-        ><b-button
-          data-testid="beaconListing"
-          @click="toggleListing()"
-          title="Switch to the advanced search form which has more options"
-          >To Listing</b-button
-        ></span
-      >
-      <span id="advancedSearch"
-        ><b-button
-          data-testid="advanced"
-          @click="changeSearchForm()"
-          title="Switch to the advanced search form which has more options"
-          >Advanced Search</b-button
-        ></span
-      >
+
+      <span class="field has-addons" id="advancedSearch">
+        <p class="control">
+          <b-button
+            data-testid="advanced"
+            @click="changeSearchForm()"
+            title="Switch to the advanced search form which has more options"
+            >Advanced Search</b-button
+          >
+        </p>
+        <p class="control">
+          <b-button
+            data-testid="beaconListing"
+            @click="toggleListing()"
+            title="Switch to the advanced search form which has more options"
+            >To Listing</b-button
+          >
+        </p>
+      </span>
     </div>
   </div>
 </template>
@@ -222,7 +225,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @media screen and (min-width: 1025px) {
-  .searchbar-footer span#Listing {
+  .searchbar-footer span#advancedSearch {
     margin-left: auto;
   }
   #searchButton {
@@ -246,7 +249,7 @@ h2 {
   display: flex;
 }
 
-@media screen and (max-width: 801px) {
+@media screen and (max-width: 1024px) {
   .searchbar-footer {
     display: flex;
     flex-flow: column;

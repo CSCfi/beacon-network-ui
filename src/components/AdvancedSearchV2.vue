@@ -49,22 +49,24 @@
           >Example range query</b-button
         ></span
       >
-      <span id="Listing"
-        ><b-button
-          data-testid="beaconListing"
-          @click="toggleListing()"
-          title="Switch to the advanced search form which has more options"
-          >To Listing</b-button
-        ></span
-      >
-      <span id="basicSearch"
-        ><b-button
-          data-testid="basic"
-          @click="changeSearchForm"
-          title="Switch back to the basic search bar"
-          >Basic Search</b-button
-        ></span
-      >
+      <span class="field has-addons" id="basicSearch">
+        <p class="control">
+          <b-button
+            data-testid="basic"
+            @click="changeSearchForm"
+            title="Switch back to the basic search bar"
+            >Basic Search</b-button
+          >
+        </p>
+        <p class="control">
+          <b-button
+            data-testid="beaconListing"
+            @click="toggleListing()"
+            title="Switch to the advanced search form which has more options"
+            >To Listing</b-button
+          >
+        </p>
+      </span>
     </div>
   </div>
 </template>
@@ -212,11 +214,12 @@ export default {
   .searchbar-footer {
     display: flex;
   }
-  .searchbar-footer span#Listing {
+  .searchbar-footer span#basicSearch {
     margin-left: auto;
+    margin-top: 5px;
   }
 }
-@media screen and (max-width: 801px) {
+@media screen and (max-width: 1024px) {
   .searchbar-footer {
     display: flex;
     flex-flow: column;
@@ -235,7 +238,7 @@ export default {
   width: 100%;
 }
 .search-footer {
-  margin-top: 12px;
+  margin-top: 10px;
   font-size: 0.9em;
   display: flex;
 }
