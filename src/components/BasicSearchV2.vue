@@ -211,6 +211,8 @@ export default {
     // Check searchType
     if (this.$route.query.searchType == "basic") {
       // Continue to parse the object into a string
+      this.assembly = `${this.$route.query.assemblyId}`;
+      this.searchInInput = `${this.$route.query.searchInInput}`;
       this.query = `${this.$route.query.referenceName} : ${parseInt(
         this.$route.query.start,
         10

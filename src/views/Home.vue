@@ -147,6 +147,11 @@ export default {
   },
   beforeMount() {
     this.cookieToast();
+    if (this.$route.query.searchInInput != null) {
+      this.toggleV2 = true;
+    } else {
+      this.toggleV2 = false;
+    }
   }
 };
 </script>
