@@ -48,8 +48,8 @@ jobs:
           ref: 'test'
           path: beacon2
           lfs: true
-
-       - name: Run beacon 2
+      
+      - name: Run beacon 2
         run: |
           cd beacon2/deploy
           docker network create beacon-network_apps
