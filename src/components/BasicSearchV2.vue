@@ -93,7 +93,7 @@
           <b-button
             data-testid="beaconListing"
             @click="toggleListing()"
-            title="Switch to the advanced search form which has more options"
+            title="Change to listings search"
             >To Listing</b-button
           >
         </p>
