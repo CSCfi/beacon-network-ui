@@ -215,7 +215,7 @@ export default {
         searchByInput: "individuals",
         searchByInputs: ["Pick a search value first"]
       });
-
+      document.getElementById("searchButton").focus();
       this.pickSearchBySet(0);
     },
     resetForm: function() {
