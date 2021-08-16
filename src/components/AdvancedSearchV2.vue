@@ -63,7 +63,7 @@
             data-testid="beaconListing"
             @click="toggleListing()"
             title="Change to listings search"
-            >To Listing</b-button
+            >Listing search</b-button
           >
         </p>
       </span>
