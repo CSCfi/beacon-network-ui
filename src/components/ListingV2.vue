@@ -1,10 +1,7 @@
 <template>
   <div class="container content">
     <h2>Listing search</h2>
-    <form
-      @submit.prevent="advancedSearchV2"
-      title="Advanced Search Options for beaconv2"
-    >
+    <form @submit.prevent="listingSearch" title="Listings search">
       <div v-for="(row, index) in list" :key="index">
         <div class="columns">
           <div class="column">
@@ -135,7 +132,7 @@ export default {
     pickSearchBySet: function(index) {
       const element = this.list[index];
       if (element.searchInInput === "individuals") {
-        element.searchByInputs = ["biosamples", "g_variants", "cohorts"];
+        element.searchByInputs = ["", "biosamples", "g_variants", "cohorts"];
       } else if (element.searchInInput === "biosamples") {
         element.searchByInputs = [
           "individuals",
@@ -145,19 +142,20 @@ export default {
         ];
       } else if (element.searchInInput === "g_variants") {
         element.searchByInputs = [
+          "",
           "individuals",
           "biosamples",
           "variants in sample",
           "variant interpretations"
         ];
       } else if (element.searchInInput === "runs") {
-        element.searchByInputs = ["biosamples", "analyses"];
+        element.searchByInputs = ["", "biosamples", "analyses"];
       } else if (element.searchInInput === "interactors") {
-        element.searchByInputs = ["individuals"];
+        element.searchByInputs = ["", "individuals"];
       } else if (element.searchInInput === "cohorts") {
-        element.searchByInputs = ["individuals"];
+        element.searchByInputs = ["", "individuals"];
       } else if (element.searchInInput === "analyses") {
-        element.searchByInputs = ["runs", "variants in sample"];
+        element.searchByInputs = ["", "runs", "variants in sample"];
       }
     },
     setV2: function() {
