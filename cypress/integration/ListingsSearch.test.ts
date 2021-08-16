@@ -5,7 +5,7 @@ describe("Listings search", () => {
     cy.visit("/");
     cy.get("#v2Switch").click();
     cy.get('[data-testid="beaconListing"]').click();
-    cy.contains("Listings search");
+    cy.contains("Listing search");
   });
   it("can do a example search", () => {
     cy.get('[data-testid="exampleButton"]').click();
