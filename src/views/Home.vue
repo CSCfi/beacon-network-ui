@@ -1,38 +1,42 @@
 <template>
   <div class="home">
-    <p id="logo" v-if="$route.meta.hideSmallLogo">
-      <router-link to="/">
-        <img
-          class="bigLogo"
-          alt="ELIXIR Beacon Network logo"
-          src="@/assets/beacon-network-logo.png"
-        />
-      </router-link>
-    </p>
+    <div class="home">
+      <p id="logo" v-if="$route.meta.hideSmallLogo">
+        <router-link to="/">
+          <img
+            class="bigLogo"
+            alt="ELIXIR Beacon Network logo"
+            src="@/assets/beacon-network-logo.png"
+          />
+        </router-link>
+      </p>
 
-    <component
-      data-testid="component"
-      v-bind:is="componentName"
-      @changeSearchForm="toggleForm"
-      @toggleListing="toggleListing"
-      @returnToPrevious="returnToPrevious"
-    ></component>
-    <b-switch v-model="toggleV2" id="v2Switch">
-      {{ toggleV2 ? "Beacon v2 search enabled" : "Beacon v2 search disabled" }}
-    </b-switch>
+      <component
+        data-testid="component"
+        v-bind:is="componentName"
+        @changeSearchForm="toggleForm"
+        @toggleListing="toggleListing"
+        @returnToPrevious="returnToPrevious"
+      ></component>
+      <b-switch v-model="toggleV2" id="v2Switch">
+        {{
+          toggleV2 ? "Beacon v2 search enabled" : "Beacon v2 search disabled"
+        }}
+      </b-switch>
+    </div>
+
     <div v-if="$route.path === '/results'">
       <hr id="divider" />
       <p class="results-disclaimer">
         Note that Beacon Network is using 1-based coordinates, while Beacons are
-        using 0-based coordinates. An automatic coordinate substraction is made
-        upon a query.<br />
+        using 0-based coordinates.<br />
+        An automatic coordinate substraction is made upon a query.<br />
         <router-link to="/guide"
           >More information on how to make queries is available in the Beacon
           Network guide</router-link
         >.
       </p>
     </div>
-
     <router-view />
   </div>
 </template>
@@ -158,7 +162,7 @@ export default {
 
 <style scoped>
 .home {
-  flex: 1 0 auto;
+  flex: auto;
   margin: auto;
 }
 .visible {
