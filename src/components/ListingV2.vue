@@ -1,6 +1,6 @@
 <template>
   <div class="container content">
-    <h2>Listings search</h2>
+    <h2>Listing search</h2>
     <form
       @submit.prevent="advancedSearchV2"
       title="Advanced Search Options for beaconv2"
