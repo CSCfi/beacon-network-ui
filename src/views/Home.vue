@@ -9,17 +9,27 @@
         />
       </router-link>
     </p>
-    <component
-      data-testid="component"
-      v-bind:is="componentName"
-      @changeSearchForm="toggleForm"
-    ></component>
+    <div class="container">
+      <component
+        data-testid="component"
+        v-bind:is="componentName"
+        @changeSearchForm="toggleForm"
+        @toggleListing="toggleListing"
+        @returnToPrevious="returnToPrevious"
+      ></component>
+      <b-switch v-model="toggleV2" id="v2Switch">
+        {{
+          toggleV2 ? "Beacon v2 search enabled" : "Beacon v2 search disabled"
+        }}
+      </b-switch>
+    </div>
+
     <div v-if="$route.path === '/results'">
       <hr id="divider" />
       <p class="results-disclaimer">
         Note that Beacon Network is using 1-based coordinates, while Beacons are
-        using 0-based coordinates. An automatic coordinate substraction is made
-        upon a query.<br />
+        using 0-based coordinates.<br />
+        An automatic coordinate substraction is made upon a query.<br />
         <router-link to="/guide"
           >More information on how to make queries is available in the Beacon
           Network guide</router-link
@@ -34,28 +44,66 @@
 // @ is an alias to /src
 import BasicSearch from "@/components/BasicSearch.vue";
 import AdvancedSearch from "@/components/AdvancedSearch.vue";
+import BasicSearchV2 from "@/components/BasicSearchV2.vue";
+import AdvancedSearchV2 from "@/components/AdvancedSearchV2.vue";
+import ListingV2 from "@/components/ListingV2.vue";
 import VueCookies from "vue-cookies";
 
 export default {
   name: "home",
   components: {
     BasicSearch,
-    AdvancedSearch
+    AdvancedSearch,
+    BasicSearchV2,
+    AdvancedSearchV2,
+    ListingV2
   },
   data() {
     return {
       queryParams: {},
       results: false,
-      componentName: BasicSearch
+      toggleV2: false,
+      componentName: BasicSearch,
+      previous: BasicSearch
     };
+  },
+
+  watch: {
+    toggleV2() {
+      //called whenever toggleV2 changes
+      this.toggleForm();
+    }
   },
   methods: {
     toggleForm: function() {
-      if (this.componentName === BasicSearch) {
-        this.componentName = AdvancedSearch;
+      if (this.toggleV2) {
+        if (this.componentName === BasicSearch) {
+          this.componentName = BasicSearchV2;
+        } else if (this.componentName === AdvancedSearch) {
+          this.componentName = AdvancedSearchV2;
+        } else if (this.componentName === BasicSearchV2) {
+          this.componentName = AdvancedSearchV2;
+        } else {
+          this.componentName = BasicSearchV2;
+        }
       } else {
-        this.componentName = BasicSearch;
+        if (this.componentName === BasicSearchV2) {
+          this.componentName = BasicSearch;
+        } else if (this.componentName === AdvancedSearchV2) {
+          this.componentName = AdvancedSearch;
+        } else if (this.componentName === BasicSearch) {
+          this.componentName = AdvancedSearch;
+        } else {
+          this.componentName = BasicSearch;
+        }
       }
+    },
+    returnToPrevious: function() {
+      this.componentName = this.previous;
+    },
+    toggleListing: function() {
+      this.previous = this.componentName;
+      this.componentName = ListingV2;
     },
     cookieToast: function() {
       // Check if cookies have been accepted, if not, show toast regarding cookies
@@ -102,6 +150,11 @@ export default {
   },
   beforeMount() {
     this.cookieToast();
+    if (this.$route.query.searchInInput != null) {
+      this.toggleV2 = true;
+    } else {
+      this.toggleV2 = false;
+    }
   }
 };
 </script>
@@ -113,7 +166,6 @@ export default {
 .visible {
   display: block;
 }
-
 .hidden {
   display: none;
 }
