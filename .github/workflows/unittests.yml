@@ -3,7 +3,7 @@ name: Unit tests and coverage
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,9 +21,8 @@ jobs:
           npm install coveralls
       - name: Run unit tests and save coverage
         run: CI=true npm test -- --coverage
-      - name: Report coverage to coveralls
-        env:
-          COVERALLS_REPO_TOKEN: "${{ secrets.COVERALLS_REPO_TOKEN }}"
-          COVERALLS_GIT_BRANCH: "${{ github.ref }}"
-        run: |
-          cat ./jest-coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./jest-coverage/lcov.info
