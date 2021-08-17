@@ -1,16 +1,15 @@
 <template>
   <div class="home">
-    <div class="home">
-      <p id="logo" v-if="$route.meta.hideSmallLogo">
-        <router-link to="/">
-          <img
-            class="bigLogo"
-            alt="ELIXIR Beacon Network logo"
-            src="@/assets/beacon-network-logo.png"
-          />
-        </router-link>
-      </p>
-
+    <p id="logo" v-if="$route.meta.hideSmallLogo">
+      <router-link to="/">
+        <img
+          class="bigLogo"
+          alt="ELIXIR Beacon Network logo"
+          src="@/assets/beacon-network-logo.png"
+        />
+      </router-link>
+    </p>
+    <div class="container">
       <component
         data-testid="component"
         v-bind:is="componentName"
@@ -162,8 +161,7 @@ export default {
 
 <style scoped>
 .home {
-  flex: auto;
-  margin: auto;
+  flex: 1 0 auto;
 }
 .visible {
   display: block;
