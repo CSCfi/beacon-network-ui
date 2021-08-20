@@ -319,7 +319,6 @@ export default {
         localStorage.setItem("searches", JSON.stringify(searches));
       } else {
         var currentdate = new Date();
-        console.log(currentdate);
         var hours = currentdate.getHours();
         var minutes = currentdate.getMinutes();
         var seconds = currentdate.getSeconds();
