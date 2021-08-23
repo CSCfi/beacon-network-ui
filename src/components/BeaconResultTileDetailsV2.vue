@@ -67,31 +67,79 @@
                     <b-table-column v-slot="props">
                       <b>{{ props.row[0] }}</b>
                     </b-table-column>
+
                     <template #detail="props">
                       <div v-if="typeof props.row[1] == 'string'">
                         {{ props.row[1] }}
                       </div>
+
                       <div v-if="typeof props.row[1] == 'object'">
                         <ul v-for="(prop, index) in props.row[1]" :key="index">
-                          <b v-if="typeof index == 'string'"> {{ index }}: </b>
-                          <b v-if="prop == null">
-                            No data
-                          </b>
-                          <b v-if="typeof prop != 'object'">
-                            {{ prop }}
-                          </b>
-                          <div v-else class="listOfItems">
-                            <li v-for="(item, index) in prop" :key="index">
-                              {{ index }}:
-                              <b v-if="typeof item != 'object'">
-                                {{ item }}
-                              </b>
-                              <div v-else class="listOfItems">
-                                <li v-for="(it, index) in item" :key="index">
-                                  {{ index }}: {{ it }}
-                                </li>
-                              </div>
-                            </li>
+                          <div v-if="typeof prop != 'object'">
+                            <b>{{ index }}: {{ prop }}</b>
+                          </div>
+                        </ul>
+                        <ul
+                          v-for="(prop, index) in props.row[1]"
+                          :key="index + 1"
+                        >
+                          <div v-if="typeof prop == 'object'">
+                            <b-table
+                              :data="[{ key: index, value: prop }]"
+                              ref="table"
+                              class="column details-table"
+                              detailed
+                              @details-open="
+                                row => $buefy.toast.open(`Expanded ${row.id}`)
+                              "
+                            >
+                              <b-table-column v-slot="props">
+                                <b>{{ props.row.key }}</b>
+                              </b-table-column>
+                              <template #detail="props">
+                                <b
+                                  v-if="
+                                    props.row.value === null ||
+                                      props.row.value.lenght === 0
+                                  "
+                                  >No data</b
+                                >
+                                <ul
+                                  v-for="(value, index) in props.row.value"
+                                  :key="index"
+                                >
+                                  <b-table
+                                    v-if="typeof value == 'object'"
+                                    :data="[{ key: index, value: value }]"
+                                    ref="table"
+                                    class="column details-table"
+                                    detailed
+                                    @details-open="
+                                      row =>
+                                        $buefy.toast.open(`Expanded ${row.id}`)
+                                    "
+                                  >
+                                    <b-table-column v-slot="props">
+                                      <b>{{ props.row.key }}</b>
+                                    </b-table-column>
+                                    <template #detail="props">
+                                      <ul
+                                        v-for="(item, index) in props.row.value"
+                                        :key="index"
+                                      >
+                                        {{
+                                          index
+                                        }}:
+                                        {{
+                                          item
+                                        }}
+                                      </ul>
+                                    </template>
+                                  </b-table>
+                                  <b v-else>{{ index }}: {{ value }}</b>
+                                </ul>
+                              </template>
+                            </b-table>
                           </div>
                         </ul>
                       </div>
