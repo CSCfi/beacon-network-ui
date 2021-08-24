@@ -76,14 +76,54 @@
                       <div v-if="typeof props.row[1] == 'object'">
                         <ul v-for="(prop, index) in props.row[1]" :key="index">
                           <div v-if="typeof prop != 'object'">
-                            <b>{{ index }}: {{ prop }}</b>
+                            <b>{{ index }} {{ prop }}</b>
                           </div>
                         </ul>
+
+                        <b-table
+                          v-if="
+                            props.row[1] != null &&
+                              props.row[1][0] != undefined &&
+                              props.row[1][0].sampleOriginType != null
+                          "
+                          :data="props.row[1]"
+                          :columns="columns"
+                        >
+                        </b-table>
+                        <b-table
+                          v-if="
+                            props.row != null && props.row[0] === 'handovers'
+                          "
+                          :data="props.row[1]"
+                        >
+                          <b-table-column label="Url" v-slot="props">
+                            <a :href="props.row.url">{{
+                              parseUrl(props.row.url)
+                            }}</a>
+                          </b-table-column>
+                          <b-table-column label="Note" v-slot="props">
+                            {{ props.row.note }}
+                          </b-table-column>
+                        </b-table>
                         <ul
                           v-for="(prop, index) in props.row[1]"
-                          :key="index + 1"
+                          :key="index + 1432"
                         >
-                          <div v-if="typeof prop == 'object'">
+                          <template
+                            v-if="
+                              prop != null && prop.sampleOriginType != undefined
+                            "
+                          >
+                          </template>
+                          <div
+                            v-if="
+                              typeof prop == 'object' &&
+                                prop != null &&
+                                prop.sampleOriginType == null &&
+                                props.row != null &&
+                                props.row[0] !== 'handovers'
+                            "
+                          >
                             <b-table
                               :data="[{ key: index, value: prop }]"
                               ref="table"
@@ -100,7 +140,7 @@
                                 <b
                                   v-if="
                                     props.row.value === null ||
-                                      props.row.value.lenght === 0
+                                      props.row.value.lenght == 0
                                   "
                                   >No data</b
                                 >
@@ -143,7 +183,10 @@
                           </div>
                         </ul>
                       </div>
-                      <div v-if="props.row[1] == null">
+
+                      <div
+                        v-if="props.row[1] == null || props.row[1].lenght == 0"
+                      >
                         No data
                       </div>
                     </template>
@@ -164,11 +207,23 @@ export default {
   data() {
     return {
       showDetailIcon: true,
-      display: false
+      display: false,
+      columns: [
+        { field: "sampleOriginType", label: "Sample Origin Type" },
+        { field: "sampleOriginDetail", label: "Sample Origin Detail" }
+      ],
+      columnsForHandovers: [
+        { field: "url", label: "Url" },
+        { field: "note", label: "Note" }
+      ]
     };
   },
   computed: {},
   methods: {
+    parseUrl(url) {
+      const urlSplit = url.split("/");
+      return urlSplit[2];
+    },
     getId: function(results) {
       if (Object.keys(results.row)[0] != "variant") {
         const id = Object.keys(results.row)[0];
@@ -181,7 +236,6 @@ export default {
         return "variants id: " + results.row.variant.variantId;
       }
     },
-    getIndexById(id) {},
     checkObjectLenght: function(item) {
       if (item == null || item.lenght == 0) {
         return false;
