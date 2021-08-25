@@ -16,11 +16,14 @@
       </b-button>
       <div v-if="display" class="details-rows">
         <b-table
+
           :data="parsedResults"
+
           :striped="true"
           ref="table"
           class="column details-table"
           detailed
+
           :hover="true"
           @details-open="row => $buefy.toast.open(`Expanded ${row.id}`)"
         >
@@ -32,6 +35,8 @@
           <!-- remove tags if accessibility is not visible in baecon2 --->
           <b-table-column :visible="false" label="Access">
             <template v-slot:default="parsedResults">
+
+
               <b-tag
                 class="accessibility-green-tag"
                 v-if="checkForPublicDatasets(results)"
@@ -40,19 +45,24 @@
               >
               <b-tag
                 class="accessibility-yellow-tag"
+
                 v-else-if="checkForRegisteredDatasets(parsedResults)"
+
                 title="Dataset requires ELIXIR Bona Fide status to access"
                 ><b>Registered</b></b-tag
               >
               <b-tag
                 class="accessibility-red-tag"
+
                 v-else-if="checkForControlledDatasets(parsedResults)"
+
                 title="Dataset requires permissions from data owner to access"
                 ><b>Controlled</b></b-tag
               >
               <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
             </template>
           </b-table-column>
+
           <template #detail="parsedResults">
             <article class="media">
               <div class="media-content">
@@ -215,6 +225,7 @@
                       </div>
                     </template>
                   </b-table>
+
                 </div>
               </div>
             </article>
@@ -231,6 +242,7 @@ export default {
   data() {
     return {
       showDetailIcon: true,
+
       display: false,
       columns: [
         { field: "sampleOriginType", label: "Sample Origin Type" },
@@ -256,6 +268,7 @@ export default {
       const urlSplit = url.split("/");
       return urlSplit[2];
     },
+
     getId: function(results) {
       if (Object.keys(results.row)[0] != "variant") {
         const id = Object.keys(results.row)[0];
@@ -269,6 +282,7 @@ export default {
       }
     },
 
+
     checkIfObject: function(item) {
       if (typeof item === "object" && item !== null) {
         return false;
@@ -280,6 +294,7 @@ export default {
       else this.display = true;
     },
     checkForPublicDatasets: function(result) {
+
       // commented to reduce error messages FIX LATER if possible. Beacon2 does not seem to return access type
       /*       console.log(result);
       if (result.row != null) {
@@ -324,13 +339,16 @@ export default {
   beforeMount() {
     this.parseResultsToArray();
   }
+
 };
 </script>
 
 <style scoped>
+
 .listOfItems {
   margin-left: 50px;
 }
+
 #resultContent {
   border-bottom: 1px solid black;
 }
