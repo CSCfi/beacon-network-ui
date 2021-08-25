@@ -29,7 +29,6 @@
               ><b>{{ getId(props) }}</b></b-tag
             >
           </b-table-column>
-          <!-- remove tags if accessibility is not visible in baecon2 --->
           <b-table-column label="Access">
             <template v-slot:default="parsedResults">
               <b-tag
