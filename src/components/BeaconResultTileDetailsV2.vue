@@ -16,14 +16,11 @@
       </b-button>
       <div v-if="display" class="details-rows">
         <b-table
-
           :data="parsedResults"
-
           :striped="true"
           ref="table"
           class="column details-table"
           detailed
-
           :hover="true"
           @details-open="row => $buefy.toast.open(`Expanded ${row.id}`)"
         >
@@ -33,10 +30,8 @@
             >
           </b-table-column>
           <!-- remove tags if accessibility is not visible in baecon2 --->
-          <b-table-column :visible="false" label="Access">
+          <b-table-column label="Access">
             <template v-slot:default="parsedResults">
-
-
               <b-tag
                 class="accessibility-green-tag"
                 v-if="checkForPublicDatasets(results)"
@@ -45,17 +40,13 @@
               >
               <b-tag
                 class="accessibility-yellow-tag"
-
                 v-else-if="checkForRegisteredDatasets(parsedResults)"
-
                 title="Dataset requires ELIXIR Bona Fide status to access"
                 ><b>Registered</b></b-tag
               >
               <b-tag
                 class="accessibility-red-tag"
-
                 v-else-if="checkForControlledDatasets(parsedResults)"
-
                 title="Dataset requires permissions from data owner to access"
                 ><b>Controlled</b></b-tag
               >
@@ -225,7 +216,6 @@
                       </div>
                     </template>
                   </b-table>
-
                 </div>
               </div>
             </article>
@@ -282,7 +272,6 @@ export default {
       }
     },
 
-
     checkIfObject: function(item) {
       if (typeof item === "object" && item !== null) {
         return false;
@@ -294,9 +283,6 @@ export default {
       else this.display = true;
     },
     checkForPublicDatasets: function(result) {
-
-      // commented to reduce error messages FIX LATER if possible. Beacon2 does not seem to return access type
-      /*       console.log(result);
       if (result.row != null) {
         if (
           result.row.info &&
@@ -305,10 +291,10 @@ export default {
         )
           return true;
       }
-      return false; */
+      return false;
     },
     checkForRegisteredDatasets: function(result) {
-      /*       if (result.row != null) {
+      if (result.row != null) {
         if (
           result.row.info &&
           result.row.info.accessType &&
@@ -316,10 +302,10 @@ export default {
         )
           return true;
       }
-      return false; */
+      return false;
     },
     checkForControlledDatasets: function(result) {
-      /* if (result.row != null) {
+      if (result.row != null) {
         if (
           result.row.info &&
           result.row.info.accessType &&
@@ -327,7 +313,7 @@ export default {
         )
           return true;
       }
-      return false; */
+      return false;
     },
     parseResultsToArray: function() {
       this.parsedResults = JSON.parse(JSON.stringify(this.$props.results));
@@ -339,12 +325,10 @@ export default {
   beforeMount() {
     this.parseResultsToArray();
   }
-
 };
 </script>
 
 <style scoped>
-
 .listOfItems {
   margin-left: 50px;
 }
