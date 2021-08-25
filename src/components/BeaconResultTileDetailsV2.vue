@@ -21,6 +21,7 @@
           ref="table"
           class="column details-table"
           detailed
+          :hover="true"
           @details-open="row => $buefy.toast.open(`Expanded ${row.id}`)"
         >
           <b-table-column label="Id" field="id" v-slot="props">
@@ -28,11 +29,12 @@
               ><b>{{ getId(props) }}</b></b-tag
             >
           </b-table-column>
-          <b-table-column label="Access">
+          <!-- remove tags if accessibility is not visible in baecon2 --->
+          <b-table-column :visible="false" label="Access">
             <template v-slot:default="parsedResults">
               <b-tag
                 class="accessibility-green-tag"
-                v-if="checkForPublicDatasets(parsedResults)"
+                v-if="checkForPublicDatasets(results)"
                 title="Dataset is in public access"
                 ><b>Public</b></b-tag
               >
@@ -55,6 +57,7 @@
             <article class="media">
               <div class="media-content">
                 <div class="content">
+                  <!-- 1st table -->
                   <b-table
                     :data="objectToArray(parsedResults)"
                     ref="table"
@@ -69,14 +72,25 @@
                     </b-table-column>
 
                     <template #detail="props">
-                      <div v-if="typeof props.row[1] == 'string'">
+                      <!-- 2nd table -->
+                      <div
+                        v-if="
+                          typeof props.row[1] == 'string' ||
+                            typeof props.row[1] == 'number'
+                        "
+                      >
                         {{ props.row[1] }}
                       </div>
 
-                      <div v-if="typeof props.row[1] == 'object'">
+                      <div
+                        v-if="
+                          props.row[1] != null &&
+                            typeof props.row[1] == 'object'
+                        "
+                      >
                         <ul v-for="(prop, index) in props.row[1]" :key="index">
                           <div v-if="typeof prop != 'object'">
-                            <b>{{ index }} {{ prop }}</b>
+                            <b>{{ index }}: {{ prop }}</b>
                           </div>
                         </ul>
 
@@ -105,6 +119,7 @@
                             {{ props.row.note }}
                           </b-table-column>
                         </b-table>
+                        <!-- 3rd table -->
                         <ul
                           v-for="(prop, index) in props.row[1]"
                           :key="index + 1432"
@@ -134,13 +149,17 @@
                               "
                             >
                               <b-table-column v-slot="props">
-                                <b>{{ props.row.key }}</b>
+                                <b v-if="typeof props.row.key != 'number'"
+                                  >{{ props.row.key }}
+                                </b>
+                                <b v-else>{{ getResultId(props.row.value) }}</b>
                               </b-table-column>
+                              {{ props }}
                               <template #detail="props">
                                 <b
                                   v-if="
                                     props.row.value === null ||
-                                      props.row.value.lenght == 0
+                                      props.row.value.length == 0
                                   "
                                   >No data</b
                                 >
@@ -149,7 +168,9 @@
                                   :key="index"
                                 >
                                   <b-table
-                                    v-if="typeof value == 'object'"
+                                    v-if="
+                                      typeof value == 'object' && value != null
+                                    "
                                     :data="[{ key: index, value: value }]"
                                     ref="table"
                                     class="column details-table"
@@ -176,7 +197,10 @@
                                       </ul>
                                     </template>
                                   </b-table>
-                                  <b v-else>{{ index }}: {{ value }}</b>
+                                  <b v-else-if="value != null"
+                                    >{{ index }}: {{ value }}</b
+                                  >
+                                  <b v-else>{{ index }}: No data</b>
                                 </ul>
                               </template>
                             </b-table>
@@ -185,7 +209,7 @@
                       </div>
 
                       <div
-                        v-if="props.row[1] == null || props.row[1].lenght == 0"
+                        v-if="props.row[1] == null || props.row[1].length == 0"
                       >
                         No data
                       </div>
@@ -220,6 +244,14 @@ export default {
   },
   computed: {},
   methods: {
+    getResultId(results) {
+      for (var result in results) {
+        if (result.includes("Id")) {
+          return result + ": " + results[result];
+        }
+      }
+      return "No id";
+    },
     parseUrl(url) {
       const urlSplit = url.split("/");
       return urlSplit[2];
@@ -236,15 +268,7 @@ export default {
         return "variants id: " + results.row.variant.variantId;
       }
     },
-    checkObjectLenght: function(item) {
-      if (item == null || item.lenght == 0) {
-        return false;
-      }
-      if (item.lenght == 0) {
-        return false;
-      }
-      return true;
-    },
+
     checkIfObject: function(item) {
       if (typeof item === "object" && item !== null) {
         return false;
@@ -256,7 +280,7 @@ export default {
       else this.display = true;
     },
     checkForPublicDatasets: function(result) {
-      // commented to reduce error messages FIX LATER
+      // commented to reduce error messages FIX LATER if possible. Beacon2 does not seem to return access type
       /*       console.log(result);
       if (result.row != null) {
         if (
