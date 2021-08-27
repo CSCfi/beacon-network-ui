@@ -154,7 +154,6 @@
                                 </b>
                                 <b v-else>{{ getResultId(props.row.value) }}</b>
                               </b-table-column>
-                              {{ props }}
                               <template #detail="props">
                                 <b
                                   v-if="
@@ -183,18 +182,44 @@
                                     <b-table-column v-slot="props">
                                       <b>{{ props.row.key }}</b>
                                     </b-table-column>
+
                                     <template #detail="props">
-                                      <ul
-                                        v-for="(item, index) in props.row.value"
-                                        :key="index"
+                                      <b-table
+                                        v-if="
+                                          props.row.key != null &&
+                                            props.row.key === 'handovers'
+                                        "
+                                        :data="props.row.value"
                                       >
-                                        {{
-                                          index
-                                        }}:
-                                        {{
-                                          item
-                                        }}
-                                      </ul>
+                                        <b-table-column
+                                          label="Url"
+                                          v-slot="props"
+                                        >
+                                          <a :href="props.row.url">{{
+                                            parseUrl(props.row.url)
+                                          }}</a>
+                                        </b-table-column>
+                                        <b-table-column
+                                          label="Note"
+                                          v-slot="props"
+                                        >
+                                          {{ props.row.note }}
+                                        </b-table-column>
+                                      </b-table>
+                                      <div v-else>
+                                        <ul
+                                          v-for="(item, index) in props.row
+                                            .value"
+                                          :key="index"
+                                        >
+                                          {{
+                                            index
+                                          }}:
+                                          {{
+                                            item
+                                          }}
+                                        </ul>
+                                      </div>
                                     </template>
                                   </b-table>
                                   <b v-else-if="value != null"
