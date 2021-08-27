@@ -24,6 +24,19 @@
           >
         </div>
       </b-field>
+      <p class="subtitle">Filter by</p>
+
+      <b-field grouped group-multiline class="filtered">
+        <div
+          class="field"
+          v-for="(filter, index) in filteringTerms"
+          :key="index"
+        >
+          <b-checkbox v-for="(value, ind) in filter" :key="ind">
+            {{ value.label }}
+          </b-checkbox>
+        </div>
+      </b-field>
     </div>
 
     <div class="column">
@@ -156,6 +169,7 @@ export default {
         "MNP",
       ],
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
+      filteringTerms: []
     };
   },
   watch: {
@@ -316,7 +330,6 @@ export default {
         localStorage.setItem("searches", JSON.stringify(searches));
       } else {
         var currentdate = new Date();
-
         var hours = currentdate.getHours();
         var minutes = currentdate.getMinutes();
         var seconds = currentdate.getSeconds();
