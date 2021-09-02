@@ -27,7 +27,7 @@
     "cypress-localstorage-commands": "^1.5.0",
     "eslint": "^7.31.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-vue": "^7.14.0",
+    "eslint-plugin-vue": "^7.17.0",
     "minimist": "^1.2.5",
     "node-sass": "^6.0.1",
     "sass-loader": "^12.1.0",
