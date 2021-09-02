@@ -100,6 +100,86 @@
       </div>
       <pre>MT : 195 TTACTAAAGT > NNNNNNNNGT</pre>
     </figure>
+    <h3>Beacon 2.x</h3>
+    <h4>Basic Search and Advanced search</h4>
+    <p>
+      Search queries in beacon 2.x work much like they did in beacon 1.1.0,
+      except now queries can be filtered using the following models from the
+      dopdown field: <b>individuals, biosamples, g-variants and cohorts </b>.
+    </p>
+    <h4>Listings search</h4>
+    <p>
+      Listings search is a new feature of beacon 2.x. With this feature the user
+      can search data by modules. Listings search has three valid search
+      methods.
+    </p>
+    <h5>Generic search</h5>
+    <figure class="highlight is-expanded">
+      <div class="button-container">
+        <button
+          data-testid="testButton3"
+          class="button is-text is-small copy-code"
+          v-on:click="
+            listignsExampleSearch({
+              searchInInput: 'biosamples',
+              id: '',
+              searchByInput: ''
+            })
+          "
+        >
+          Try
+        </button>
+      </div>
+      <pre>
+        Search In:    Search value:  Search By:
+        biosample      -              -</pre
+      >
+    </figure>
+    <h5>Search by module id</h5>
+    <figure class="highlight is-expanded">
+      <div class="button-container">
+        <button
+          data-testid="testButton3"
+          class="button is-text is-small copy-code"
+          v-on:click="
+            listignsExampleSearch({
+              searchInInput: 'biosamples',
+              id: 'SAMN03283350',
+              searchByInput: ''
+            })
+          "
+        >
+          Try
+        </button>
+      </div>
+
+      <pre>
+        Search In:    Search value:  Search By: 
+        biosample     SAMN03283350    -</pre
+      >
+    </figure>
+    <h5>Search modules by modules</h5>
+    <figure class="highlight is-expanded">
+      <div class="button-container">
+        <button
+          data-testid="testButton3"
+          class="button is-text is-small copy-code"
+          v-on:click="
+            listignsExampleSearch({
+              searchInInput: 'biosamples',
+              id: 'SAMN03283350',
+              searchByInput: 'individuals'
+            })
+          "
+        >
+          Try
+        </button>
+      </div>
+      <pre>
+        Search In:    Search value:  Search By:
+        biosample     SAMN03283350   individuals</pre
+      >
+    </figure>
   </div>
 </template>
 
@@ -127,6 +207,16 @@ export default {
     },
     exampleSearch: function(queryString) {
       var queryObj = this.parseQueryString(queryString);
+      this.$router.push(
+        {
+          path: "results",
+          query: queryObj
+        },
+        undefined,
+        () => {}
+      );
+    },
+    listignsExampleSearch: function(queryObj) {
       this.$router.push(
         {
           path: "results",
