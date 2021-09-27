@@ -61,7 +61,7 @@ jobs:
           cd beacon2/deploy
           docker network create beacon-network_apps
           docker-compose up -d db
-          sleep 30
+          sleep 80
           docker-compose up -d
           sleep 30
           
