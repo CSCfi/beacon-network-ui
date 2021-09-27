@@ -1,9 +1,9 @@
 <template>
-  <div class="container" style="margin-bottom:24px">
+  <div class="container" style="margin-bottom: 24px">
     <section>
       <form @submit.prevent="onSubmit">
         <b-field>
-          <label for="assembly" style="display:none">Assembly</label>
+          <label for="assembly" style="display: none">Assembly</label>
 
           <b-select
             id="assembly"
@@ -38,7 +38,7 @@
             animated
             label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
           >
-            <label for="searchBar" style="display:none">Search Bar</label>
+            <label for="searchBar" style="display: none">Search Bar</label>
             <b-input
               id="searchBar"
               data-testid="testBar"
@@ -64,7 +64,7 @@
           aria-close-label="Close notification"
           role="alert"
           >{{ errorMessage }}
-          <router-link to="/guide" style="color:blue"
+          <router-link to="/guide" style="color: blue"
             >How to make a query?</router-link
           ></b-message
         >
@@ -112,7 +112,8 @@ export default {
       validated: false,
       errorMessage: "",
       errorTooltip: false,
-      regex: /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s:\s(\d+) ([ATCGN]+)\s>\s(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
+      regex:
+        /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s:\s(\d+) ([ATCGN]+)\s>\s(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
       variantTypes: [
         "DEL:ME",
         "INS:ME",
@@ -123,7 +124,7 @@ export default {
         "INV",
         "CNV",
         "SNP",
-        "MNP"
+        "MNP",
       ],
       searchInInput: "individuals",
       searchInInputs: [
@@ -133,24 +134,24 @@ export default {
         "runs",
         "analyses",
         "interactors",
-        "cohorts"
-      ]
+        "cohorts",
+      ],
     };
   },
   methods: {
-    toggleListing: function() {
+    toggleListing: function () {
       this.$emit("toggleListing");
     },
-    changeSearchForm: function() {
+    changeSearchForm: function () {
       this.$emit("changeSearchForm");
     },
-    onSubmit: function() {
+    onSubmit: function () {
       // onSubmit is called when user inputs ENTER on search bar
       // proxy the event to the basicSearch function
       var vm = this;
       vm.basicSearch();
     },
-    basicSearch: function() {
+    basicSearch: function () {
       // basicSearch is called when user clicks search button
       var vm = this;
       vm.errorTooltip = false;
@@ -165,7 +166,7 @@ export default {
           assemblyId: vm.assembly,
           referenceName: vm.query.split(" ")[0],
           start: vm.query.split(" ")[2] > 0 ? vm.query.split(" ")[2] - 1 : 0,
-          referenceBases: vm.query.split(" ")[3]
+          referenceBases: vm.query.split(" ")[3],
         };
 
         // Determine if last element is a base of a variant type
@@ -180,7 +181,7 @@ export default {
         this.$router.push(
           {
             path: "results",
-            query: queryObj
+            query: queryObj,
           },
           undefined,
           () => {}
@@ -190,21 +191,21 @@ export default {
         vm.errorTooltip = true;
       }
     },
-    exampleSearch: function() {
+    exampleSearch: function () {
       var vm = this;
       vm.assembly = "GRCh37.p1";
       vm.searchInInput = "g_variants";
       vm.query = "MT : 151 T > C";
       document.getElementById("searchBar").focus();
     },
-    validateInput: function() {
+    validateInput: function () {
       var vm = this;
       if (vm.regex.exec(vm.query)) {
         vm.validated = true;
       } else {
         vm.validated = false;
       }
-    }
+    },
   },
   beforeMount() {
     // If user reloads page, this places the current query params from the address bar into the search bar
@@ -213,14 +214,13 @@ export default {
       // Continue to parse the object into a string
       this.assembly = `${this.$route.query.assemblyId}`;
       this.searchInInput = `${this.$route.query.searchInInput}`;
-      this.query = `${this.$route.query.referenceName} : ${parseInt(
-        this.$route.query.start,
-        10
-      ) + 1} ${this.$route.query.referenceBases} > ${
+      this.query = `${this.$route.query.referenceName} : ${
+        parseInt(this.$route.query.start, 10) + 1
+      } ${this.$route.query.referenceBases} > ${
         this.$route.query.alternateBases
       }`;
     }
-  }
+  },
 };
 </script>
 

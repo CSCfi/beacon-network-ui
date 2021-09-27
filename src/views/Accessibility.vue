@@ -32,9 +32,7 @@
       WCAG 2.0 level of <b>AA</b>.
     </p>
     <h4>Keyboard Navigation</h4>
-    <p>
-      All features on this website are accessible with keyboard-only-use.
-    </p>
+    <p>All features on this website are accessible with keyboard-only-use.</p>
     <h4>Screen Reader Friendliness</h4>
     <p>
       Most elements and features on this website have been described for screen

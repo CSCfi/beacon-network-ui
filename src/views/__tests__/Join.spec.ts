@@ -8,7 +8,7 @@ const router = new VueRouter();
 
 const wrapper = mount(Join, {
   localVue,
-  router
+  router,
 });
 
 describe("Join.vue", () => {

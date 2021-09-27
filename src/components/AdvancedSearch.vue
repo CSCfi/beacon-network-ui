@@ -69,27 +69,27 @@ export default {
   name: "AdvancedSearch",
   components: {
     VariantLocation,
-    VariantTransformation
+    VariantTransformation,
   },
   data() {
     return {
       compVL: VariantLocation,
       compVT: VariantTransformation,
       errorMessages: [],
-      errorTooltip: false
+      errorTooltip: false,
     };
   },
   methods: {
-    setV2: function() {
+    setV2: function () {
       this.$emit("setV2");
     },
-    toggleListing: function() {
+    toggleListing: function () {
       this.$emit("toggleListing");
     },
-    changeSearchForm: function() {
+    changeSearchForm: function () {
       this.$emit("changeSearchForm");
     },
-    validateInput: function() {
+    validateInput: function () {
       this.errorMessages = [];
       this.errorTooltip = false;
       // Validate referenceBases field
@@ -156,7 +156,7 @@ export default {
         }
       }
     },
-    advancedSearch: function() {
+    advancedSearch: function () {
       this.validateInput();
       if (this.errorMessages.length === 0) {
         // Base query string
@@ -166,7 +166,7 @@ export default {
           includeDatasetResponses: "HIT",
           assemblyId: this.$refs.VL.assembly,
           referenceName: this.$refs.VL.referenceName,
-          referenceBases: this.$refs.VT.refBases
+          referenceBases: this.$refs.VT.refBases,
         };
         // Handle the other params
         if (this.$refs.VL.coordType === "exact") {
@@ -196,24 +196,24 @@ export default {
         this.$router.push(
           {
             path: "results",
-            query: queryObj
+            query: queryObj,
           },
           undefined,
           () => {}
         );
       }
     },
-    exampleSearch: function() {
+    exampleSearch: function () {
       this.$refs.VL.exampleSearch();
       this.$refs.VT.exampleSearch();
       document.getElementById("searchButton").focus();
     },
 
-    resetForm: function() {
+    resetForm: function () {
       this.$refs.VL.resetForm();
       this.$refs.VT.resetForm();
-    }
-  }
+    },
+  },
 };
 </script>
 

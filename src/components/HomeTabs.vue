@@ -58,13 +58,9 @@
             </div>
             <div class="word-wrap">
               <h4>Basic Search Structure</h4>
-              <p>
-                The search structure follows a strict convention of:
-              </p>
+              <p>The search structure follows a strict convention of:</p>
               <pre>Chromosome : Position ReferenceBase > AlternateBase</pre>
-              <p>
-                and
-              </p>
+              <p>and</p>
               <pre>Chromosome : Position ReferenceBase > VariantType</pre>
               <p>
                 Note that Beacon APIs use 0-based coordinate system, while
@@ -160,20 +156,20 @@ import ConnectedBeacons from "@/components/ConnectedBeacons.vue";
 
 export default {
   components: {
-    ConnectedBeacons
+    ConnectedBeacons,
   },
   data() {
     return {
       activeTab: 0,
-      query: ""
+      query: "",
     };
   },
   methods: {
-    changeSearch: function(queryString) {
+    changeSearch: function (queryString) {
       this.$root.$emit("changeSearch", queryString);
       document.getElementById("app").scrollIntoView();
-    }
-  }
+    },
+  },
 };
 </script>
 
