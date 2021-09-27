@@ -74,12 +74,12 @@ export default {
         "INV",
         "CNV",
         "SNP",
-        "MNP"
-      ]
+        "MNP",
+      ],
     };
   },
   methods: {
-    exampleSearch: function() {
+    exampleSearch: function () {
       if (this.$props.isBeaconV2) {
         this.variantType = "DEL";
       } else {
@@ -87,24 +87,24 @@ export default {
         this.variantType = "MNP";
       }
     },
-    resetForm: function() {
+    resetForm: function () {
       this.refBases = "";
 
       this.variantType = "Unspecified";
     },
-    resetAltBases: function() {
+    resetAltBases: function () {
       this.altBases = "";
     },
-    resetVariantType: function() {
+    resetVariantType: function () {
       this.variantType = "Unspecified";
-    }
+    },
   },
-  beforeMount: function() {
+  beforeMount: function () {
     if (this.$route.query.searchType == "advanced") {
       this.refBases = this.$route.query.referenceBases;
       this.altBases = this.$route.query.alternateBases;
       this.variantType = this.$route.query.variantType;
     }
-  }
+  },
 };
 </script>

@@ -56,7 +56,7 @@ export default {
     AdvancedSearch,
     BasicSearchV2,
     AdvancedSearchV2,
-    ListingV2
+    ListingV2,
   },
   data() {
     return {
@@ -64,7 +64,7 @@ export default {
       results: false,
       toggleV2: false,
       componentName: BasicSearch,
-      previous: BasicSearch
+      previous: BasicSearch,
     };
   },
 
@@ -72,10 +72,10 @@ export default {
     toggleV2() {
       //called whenever toggleV2 changes
       this.toggleForm();
-    }
+    },
   },
   methods: {
-    toggleForm: function() {
+    toggleForm: function () {
       if (this.toggleV2) {
         if (this.componentName === BasicSearch) {
           this.componentName = BasicSearchV2;
@@ -98,14 +98,14 @@ export default {
         }
       }
     },
-    returnToPrevious: function() {
+    returnToPrevious: function () {
       this.componentName = this.previous;
     },
-    toggleListing: function() {
+    toggleListing: function () {
       this.previous = this.componentName;
       this.componentName = ListingV2;
     },
-    cookieToast: function() {
+    cookieToast: function () {
       // Check if cookies have been accepted, if not, show toast regarding cookies
       if (!VueCookies.get("elixir-cookies")) {
         this.$buefy.snackbar.open({
@@ -125,13 +125,13 @@ export default {
             this.$buefy.toast.open({
               queue: false,
               message: "Cookies are in use!",
-              position: "is-bottom-right"
+              position: "is-bottom-right",
             });
-          }
+          },
         });
       }
     },
-    getCookie: function(cname) {
+    getCookie: function (cname) {
       // Function from https://www.w3schools.com/js/js_cookies.asp
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);
@@ -146,7 +146,7 @@ export default {
         }
       }
       return "";
-    }
+    },
   },
   beforeMount() {
     this.cookieToast();
@@ -155,7 +155,7 @@ export default {
     } else {
       this.toggleV2 = false;
     }
-  }
+  },
 };
 </script>
 

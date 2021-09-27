@@ -8,7 +8,7 @@ const router = new VueRouter();
 
 const wrapper = mount(Privacy, {
   localVue,
-  router
+  router,
 });
 
 describe("Privacy.vue", () => {

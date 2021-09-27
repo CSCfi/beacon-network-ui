@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  props: ["beacon"]
+  props: ["beacon"],
 };
 </script>
 <style scoped>

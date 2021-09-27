@@ -19,13 +19,9 @@
       structured manner.
     </p>
     <h3>Basic Search Structure</h3>
-    <p>
-      The search structure follows a strict convention of:
-    </p>
+    <p>The search structure follows a strict convention of:</p>
     <pre>Chromosome : Position ReferenceBase > AlternateBase</pre>
-    <p>
-      and
-    </p>
+    <p>and</p>
     <pre>Chromosome : Position ReferenceBase > VariantType</pre>
     <p>
       <b>Note that:</b> The Beacon Network UI is using a human-friendly 1-based
@@ -123,7 +119,7 @@
             listignsExampleSearch({
               searchInInput: 'biosamples',
               id: '',
-              searchByInput: ''
+              searchByInput: '',
             })
           "
         >
@@ -145,7 +141,7 @@
             listignsExampleSearch({
               searchInInput: 'biosamples',
               id: 'SAMN03283350',
-              searchByInput: ''
+              searchByInput: '',
             })
           "
         >
@@ -168,7 +164,7 @@
             listignsExampleSearch({
               searchInInput: 'biosamples',
               id: 'SAMN03283350',
-              searchByInput: 'individuals'
+              searchByInput: 'individuals',
             })
           "
         >
@@ -186,14 +182,14 @@
 <script>
 export default {
   methods: {
-    parseQueryString: function(queryString) {
+    parseQueryString: function (queryString) {
       // Function copypasted from BasicSearch.vue and simplified
       var queryObj = {
         includeDatasetResponses: "HIT",
         assemblyId: "GRCh38",
         referenceName: queryString.split(" ")[0],
         start: queryString.split(" ")[2],
-        referenceBases: queryString.split(" ")[3]
+        referenceBases: queryString.split(" ")[3],
       };
       // Determine if last element is a base of a variant type
       if (queryString.split(" ")[5] === "INS") {
@@ -205,28 +201,28 @@ export default {
       }
       return queryObj;
     },
-    exampleSearch: function(queryString) {
+    exampleSearch: function (queryString) {
       var queryObj = this.parseQueryString(queryString);
       this.$router.push(
         {
           path: "results",
-          query: queryObj
+          query: queryObj,
         },
         undefined,
         () => {}
       );
     },
-    listignsExampleSearch: function(queryObj) {
+    listignsExampleSearch: function (queryObj) {
       this.$router.push(
         {
           path: "results",
-          query: queryObj
+          query: queryObj,
         },
         undefined,
         () => {}
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -2,9 +2,7 @@
   <!-- inspired by https://bulma.io/documentation/components/panel/ -->
   <section v-on:load="queryAPI" title="List of beacons and their datasets">
     <nav class="panel">
-      <p class="panel-heading">
-        Datasets
-      </p>
+      <p class="panel-heading">Datasets</p>
       <div class="panel-block">
         <b-input
           data-testid="searchBar"
@@ -78,39 +76,39 @@ export default {
       beaconsAndDataSets: [],
       error: "",
       registry: process.env.VUE_APP_REGISTRY_URL,
-      active: false
+      active: false,
     };
   },
   methods: {
-    closeDatasets: function() {
+    closeDatasets: function () {
       var vm = this;
       for (const beacon of vm.beaconsAndDataSets) {
         beacon.active = false;
       }
     },
-    searchDatasets: function() {
+    searchDatasets: function () {
       var vm = this;
       vm.closeDatasets();
       for (const beacon of vm.beaconsAndDataSets) {
-        beacon.datasets.forEach(dataset => {
+        beacon.datasets.forEach((dataset) => {
           if (dataset.toLowerCase().includes(vm.searchValue.toLowerCase())) {
             beacon.active = true;
           }
         });
       }
     },
-    queryBeaconAPI: async function() {
+    queryBeaconAPI: async function () {
       var vm = this;
 
       for (const beacon of vm.beacons) {
         const beaconData = {
           beaconName: beacon.name,
           datasets: [],
-          active: false
+          active: false,
         };
         axios
           .get(beacon.url)
-          .then(response => {
+          .then((response) => {
             const datasets = [];
             for (const data of response.data.datasets) {
               datasets.push(data.id);
@@ -120,33 +118,33 @@ export default {
             }
             beaconData.datasets = datasets;
           })
-          .catch(error => {
+          .catch((error) => {
             beaconData.datasets = ["Unable to connect"];
           });
         vm.beaconsAndDataSets.push(beaconData);
       }
     },
-    queryAPI: function() {
+    queryAPI: function () {
       var vm = this;
       vm.beacons = [];
       var url = `${vm.registry}services?type=beacon`;
       axios
         .get(url)
-        .then(response => {
+        .then((response) => {
           for (const data of response.data) {
             vm.beacons.push(data);
           }
           vm.queryBeaconAPI();
         })
-        .catch(error => {});
+        .catch((error) => {});
     },
     setDisplay(beacon) {
       beacon.active = !beacon.active;
-    }
+    },
   },
   beforeMount() {
     this.queryAPI();
-  }
+  },
 };
 </script>
 <style>
