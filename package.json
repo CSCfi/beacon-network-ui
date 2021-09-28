@@ -34,7 +34,7 @@
     "serve": "^12.0.1",
     "vue": "^2.6.14",
     "vue-cookies": "^1.7.4",
-    "vue-material-design-icons": "^4.12.1",
+    "vue-material-design-icons": "^4.13.0",
     "vue-matomo": "^4.1.0",
     "vue-router": "^3.5.2"
   },
