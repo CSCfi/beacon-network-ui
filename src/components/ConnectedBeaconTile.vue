@@ -10,12 +10,20 @@
             />
           </figure>
         </div>
-        <div class="media-content">
+
+        <div class="media-body">
+          <div class="content" id="versionTag">
+            <b-taglist attached>
+              <b-tag type="is-dark">Beacon API</b-tag>
+              <b-tag type="is-success">v{{ beacon.type.version }}</b-tag>
+            </b-taglist>
+          </div>
           <div class="content">
             <p class="title is-size-5">{{ beacon.organization.name }}</p>
             <p class="subtitle is-6">{{ beacon.name }}</p>
             <p class="subtitle is-6">{{ beacon.description }}</p>
           </div>
+
           <small
             ><a
               v-bind:href="beacon.organization.url"
@@ -45,6 +53,11 @@
 
 <script>
 export default {
-  props: ["beacon"]
+  props: ["beacon"],
 };
 </script>
+<style scoped>
+#versionTag {
+  margin-right: auto;
+}
+</style>

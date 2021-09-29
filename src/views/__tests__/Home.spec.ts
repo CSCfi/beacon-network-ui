@@ -12,7 +12,7 @@ if (document.body) {
 const wrapper = mount(Home, {
   localVue,
   router,
-  attachTo: elem
+  attachTo: elem,
 });
 describe("Home.vue", () => {
   it("Advance search button in basic search changes form", async () => {

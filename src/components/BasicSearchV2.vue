@@ -3,20 +3,36 @@
     <section>
       <form @submit.prevent="onSubmit">
         <b-field>
-          <p class="control">
-            <label for="assembly" style="display: none">Assembly</label>
-            <b-select
-              id="assembly"
-              placeholder="Assembly"
-              v-model="assembly"
-              size="is-medium"
-              title="Assembly ID"
+          <label for="assembly" style="display: none">Assembly</label>
+
+          <b-select
+            id="assembly"
+            placeholder="Assembly"
+            v-model="assembly"
+            size="is-medium"
+            title="Assembly ID"
+          >
+            <option value="GRCh38">GRCh38</option>
+            <option value="GRCh37.p1">GRCh37.p1</option>
+            <option value="hg19">hg19</option>
+          </b-select>
+
+          <b-select
+            id="searchInInput"
+            data-testid="inInput"
+            v-model="searchInInput"
+            size="is-medium"
+          >
+            <option
+              data-testid="inputOption"
+              v-for="(input1, index) in searchInInputs"
+              :value="input1"
+              :key="index"
             >
-              <option value="GRCh38">GRCh38</option>
-              <option value="GRCh37">GRCh37</option>
-              <option value="hg19">hg19</option>
-            </b-select>
-          </p>
+              {{ input1 }}
+            </option>
+          </b-select>
+
           <b-tooltip
             class="stretch"
             animated
@@ -64,14 +80,24 @@
         ></span
       >
 
-      <span id="advancedSearch"
-        ><b-button
-          data-testid="advanced"
-          @click="changeSearchForm()"
-          title="Switch to the advanced search form which has more options"
-          >Advanced Search</b-button
-        ></span
-      >
+      <span class="field has-addons" id="advancedSearch">
+        <p class="control">
+          <b-button
+            data-testid="advanced"
+            @click="changeSearchForm()"
+            title="Switch to the advanced search form which has more options"
+            >Advanced Search</b-button
+          >
+        </p>
+        <p class="control">
+          <b-button
+            data-testid="beaconListing"
+            @click="toggleListing()"
+            title="Change to listings search"
+            >Listing search</b-button
+          >
+        </p>
+      </span>
     </div>
   </div>
 </template>
@@ -100,14 +126,24 @@ export default {
         "SNP",
         "MNP",
       ],
+      searchInInput: "individuals",
+      searchInInputs: [
+        "individuals",
+        "biosamples",
+        "g_variants",
+        "runs",
+        "analyses",
+        "interactors",
+        "cohorts",
+      ],
     };
   },
   methods: {
-    changeSearchForm: function () {
-      this.$emit("changeSearchForm");
-    },
     toggleListing: function () {
       this.$emit("toggleListing");
+    },
+    changeSearchForm: function () {
+      this.$emit("changeSearchForm");
     },
     onSubmit: function () {
       // onSubmit is called when user inputs ENTER on search bar
@@ -124,6 +160,7 @@ export default {
       if (vm.validated) {
         // Query string
         var queryObj = {
+          searchInInput: vm.searchInInput,
           searchType: "basic",
           includeDatasetResponses: "HIT",
           assemblyId: vm.assembly,
@@ -131,6 +168,7 @@ export default {
           start: vm.query.split(" ")[2] > 0 ? vm.query.split(" ")[2] - 1 : 0,
           referenceBases: vm.query.split(" ")[3],
         };
+
         // Determine if last element is a base of a variant type
         if (vm.variantTypes.includes(vm.query.split(" ")[5])) {
           // vm.query.split(" ")[5]) is a variantType
@@ -155,7 +193,9 @@ export default {
     },
     exampleSearch: function () {
       var vm = this;
-      vm.query = "MT : 10 T > C";
+      vm.assembly = "GRCh37.p1";
+      vm.searchInInput = "g_variants";
+      vm.query = "MT : 151 T > C";
       document.getElementById("searchBar").focus();
     },
     validateInput: function () {
@@ -172,6 +212,8 @@ export default {
     // Check searchType
     if (this.$route.query.searchType == "basic") {
       // Continue to parse the object into a string
+      this.assembly = `${this.$route.query.assemblyId}`;
+      this.searchInInput = `${this.$route.query.searchInInput}`;
       this.query = `${this.$route.query.referenceName} : ${
         parseInt(this.$route.query.start, 10) + 1
       } ${this.$route.query.referenceBases} > ${
@@ -184,6 +226,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@media screen and (min-width: 1025px) {
+  .searchbar-footer span#advancedSearch {
+    margin-left: auto;
+  }
+  #searchButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
 h2 {
   font-size: 2em;
 }
@@ -194,20 +246,9 @@ h2 {
   width: 100%;
 }
 .searchbar-footer {
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 0.9em;
   display: flex;
-}
-
-#searchButton {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-@media screen and (min-width: 1025px) {
-  .searchbar-footer span#advancedSearch {
-    margin-left: auto;
-  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -215,11 +256,17 @@ h2 {
     display: flex;
     flex-flow: column;
   }
-  #advancedSearch {
+  #searchButton {
     order: 1;
   }
-  #example {
+  #advancedSearch {
     order: 2;
+  }
+  #Listing {
+    order: 3;
+  }
+  #example {
+    order: 4;
   }
 }
 #searchBar {

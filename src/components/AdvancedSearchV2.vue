@@ -2,9 +2,9 @@
   <div class="container content">
     <form @submit.prevent="advancedSearch" title="Advanced Search Options">
       <div>
-        <component :is="compVL" v-bind:isBeaconV2="false" ref="VL"></component>
+        <component :is="compVL" v-bind:isBeaconV2="true" ref="VL"></component>
         <hr />
-        <component :is="compVT" v-bind:isBeaconV2="false" ref="VT"></component>
+        <component :is="compVT" v-bind:isBeaconV2="true" ref="VT"></component>
       </div>
       <b-message
         data-testid="errorMessage"
@@ -49,15 +49,24 @@
           >Example range query</b-button
         ></span
       >
-
-      <span id="basicSearch"
-        ><b-button
-          data-testid="basic"
-          @click="changeSearchForm"
-          title="Switch back to the basic search bar"
-          >Basic Search</b-button
-        ></span
-      >
+      <span class="field has-addons" id="basicSearch">
+        <p class="control">
+          <b-button
+            data-testid="basic"
+            @click="changeSearchForm"
+            title="Switch back to the basic search bar"
+            >Basic Search</b-button
+          >
+        </p>
+        <p class="control">
+          <b-button
+            data-testid="beaconListing"
+            @click="toggleListing()"
+            title="Change to listings search"
+            >Listing search</b-button
+          >
+        </p>
+      </span>
     </div>
   </div>
 </template>
@@ -80,9 +89,6 @@ export default {
     };
   },
   methods: {
-    setV2: function () {
-      this.$emit("setV2");
-    },
     toggleListing: function () {
       this.$emit("toggleListing");
     },
@@ -92,24 +98,6 @@ export default {
     validateInput: function () {
       this.errorMessages = [];
       this.errorTooltip = false;
-      // Validate referenceBases field
-      if (!this.$refs.VT.refBases) {
-        this.validated = false;
-        this.errorMessages.push(
-          "Reference Base(s) must be given, possible values are: A, T, C, G, N."
-        );
-        this.errorTooltip = true;
-      }
-      // Validate alternateBases field if variantType is unspecified
-      if (
-        this.$refs.VT.altBases === "" &&
-        this.$refs.VT.variantType == "Unspecified"
-      ) {
-        this.errorMessages.push(
-          "Alternate Base(s) must be given if Variant Type is unspecified, possible values are: A, T, C, G, N."
-        );
-        this.errorTooltip = true;
-      }
       // Validate exact coords
       if (this.$refs.VL.coordType === "exact") {
         if (
@@ -161,6 +149,7 @@ export default {
       if (this.errorMessages.length === 0) {
         // Base query string
         var queryObj = {
+          searchInInput: this.$refs.VL.searchInInput,
           searchType: "advanced",
           coordType: this.$refs.VL.coordType,
           includeDatasetResponses: "HIT",
@@ -190,6 +179,9 @@ export default {
           this.$refs.VT.variantType = "Unspecified";
         } else {
           queryObj.variantType = this.$refs.VT.variantType;
+          if (this.$refs.VT.variantType == "Unspecified") {
+            queryObj.variantType = "";
+          }
           this.$refs.VT.altBases = "";
         }
         // Change view to results and send GET query string
@@ -222,12 +214,9 @@ export default {
   .searchbar-footer {
     display: flex;
   }
-  .searchbar-footer span#BeaconV2Search {
-    margin-left: auto;
-  }
   .searchbar-footer span#basicSearch {
-    margin-top: 5px;
     margin-left: auto;
+    margin-top: 5px;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -253,7 +242,7 @@ export default {
   font-size: 0.9em;
   display: flex;
 }
-.search-footer span#advancedSearch {
+.searchbar-footer span#advancedSearch {
   margin-left: auto;
 }
 .search-button {

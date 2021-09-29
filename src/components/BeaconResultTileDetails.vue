@@ -74,17 +74,15 @@
               <div
                 v-if="
                   results.row.referenceName &&
-                    results.row.start &&
-                    results.row.end
+                  results.row.start &&
+                  results.row.end
                 "
               >
                 {{ results.row.referenceName }}:{{ results.row.start + 1 }}-{{
                   results.row.end + 1
                 }}
               </div>
-              <div v-else title="Some information is missing">
-                ?
-              </div>
+              <div v-else title="Some information is missing">?</div>
             </template>
           </b-table-column>
           <b-table-column label="AC" title="Allele Count">
@@ -108,16 +106,16 @@ export default {
   props: ["results", "beaconId"],
   data() {
     return {
-      display: false
+      display: false,
     };
   },
   watch: {},
   methods: {
-    displayResults: function() {
+    displayResults: function () {
       if (this.display) this.display = false;
       else this.display = true;
     },
-    checkForPublicDatasets: function(result) {
+    checkForPublicDatasets: function (result) {
       if (
         result.info &&
         result.info.accessType &&
@@ -125,7 +123,7 @@ export default {
       )
         return true;
     },
-    checkForRegisteredDatasets: function(result) {
+    checkForRegisteredDatasets: function (result) {
       if (
         result.info &&
         result.info.accessType &&
@@ -133,16 +131,16 @@ export default {
       )
         return true;
     },
-    checkForControlledDatasets: function(result) {
+    checkForControlledDatasets: function (result) {
       if (
         result.info &&
         result.info.accessType &&
         result.info.accessType == "CONTROLLED"
       )
         return true;
-    }
+    },
   },
-  beforeMount() {}
+  beforeMount() {},
 };
 </script>
 

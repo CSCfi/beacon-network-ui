@@ -40,7 +40,31 @@ jobs:
           tags: localhost:5000/beacon-network:latest
           cache-from: localhost:5000/beacon-network:latest
           cache-to: type=local,dest=/tmp/.buildx-cache
-     
+
+      - name: Clone beacon 2
+        uses: actions/checkout@v2
+        with:
+          repository: 'CSCfi/beacon-2.x'
+          ref: 'test'
+          path: beacon2
+
+      - name: Download beacon 2 data
+        env:
+          BEACON_2_DATA_URL: ${{ secrets.BEACON_2_DATA_URL }}
+        run: |
+          cd beacon2/deploy/db
+          rm data.sql.gz
+          wget $BEACON_2_DATA_URL
+      
+      - name: Run beacon 2
+        run: |
+          cd beacon2/deploy
+          docker network create beacon-network_apps
+          docker-compose up -d db
+          sleep 80
+          docker-compose up -d
+          sleep 30
+          
       - name: Set up beacon-network
         run: |
           cd beacon-network
@@ -53,8 +77,8 @@ jobs:
         with:
           context: .
           build-args: |
-            "VUE_APP_AGGREGATOR_URL=http://localhost:5050/"
-            "VUE_APP_REGISTRY_URL=http://localhost:8080/"
+            "VUE_APP_AGGREGATOR_URL=http://localhost:5054/"
+            "VUE_APP_REGISTRY_URL=http://localhost:8083/"
             "VUE_APP_DEVELOPMENT=true"
           push: true
           file: ./Dockerfile

@@ -8,7 +8,7 @@ const router = new VueRouter();
 
 const wrapper = mount(Accessibility, {
   localVue,
-  router
+  router,
 });
 
 describe("Accessibility.vue", () => {

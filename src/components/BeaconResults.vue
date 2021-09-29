@@ -30,8 +30,10 @@
       <div v-if="isLoading" class="loading-indicator spinner">
         <Loading></Loading>
       </div>
-      <div v-for="resp in response" :key="resp.beaconId">
-        <section v-if="resp.exists">
+
+      <div v-for="(resp, index) in response" :key="index">
+        <!-- beaconV1 tile -->
+        <section v-if="!checkIfV2(resp) && resp.exists">
           <BeaconResultTile
             :title="'Response from Beacon ' + resp.beaconId"
             :key="resp.beaconId"
@@ -41,31 +43,70 @@
           <div
             v-if="
               resp.datasetAlleleResponses &&
-                resp.datasetAlleleResponses.length > 0
+              resp.datasetAlleleResponses.length > 0
             "
           >
             <BeaconResultTileDetails
               :key="resp.beaconId"
               v-bind:results="resp.datasetAlleleResponses"
               :beaconId="resp.beaconId"
+              :beaconVersion="1"
             ></BeaconResultTileDetails>
           </div>
         </section>
-        <section v-if="resp.exists == false && !hits">
+        <section v-if="!checkIfV2(resp) && resp.exists == false && !hits">
           <BeaconResultTile
             :key="resp.beaconId"
             :exists="resp.exists"
             v-bind:beaconId="resp.beaconId"
           ></BeaconResultTile>
         </section>
-        <section v-if="resp.exists == null && errors">
+        <section v-if="!checkIfV2(resp) && resp.exists == null && errors">
           <BeaconResultTile
             :key="resp.beaconId"
             :exists="resp.exists"
             v-bind:beaconId="resp.beaconId"
+          ></BeaconResultTile>
+        </section>
+        <!-- beaconV2 tile -->
+        <section v-if="checkIfV2(resp) && resp.response.exists">
+          <BeaconResultTile
+            :title="'Response from Beacon ' + resp.meta.beaconId"
+            :key="resp.meta.beaconId"
+            :exists="resp.response.exists"
+            v-bind:beaconId="resp.meta.beaconId"
+          ></BeaconResultTile>
+          <div
+            v-if="resp.response.results && resp.response.numTotalResults > 0"
+          >
+            <BeaconResultTileDetailsV2
+              :key="resp.meta.beaconId"
+              v-bind:results="resp.response.results"
+              :beaconId="resp.meta.beaconId"
+              :beaconVersion="2"
+            ></BeaconResultTileDetailsV2>
+          </div>
+        </section>
+        <section
+          v-if="checkIfV2(resp) && resp.response.exists == false && !hits"
+        >
+          <BeaconResultTile
+            :key="resp.meta.beaconId"
+            :exists="resp.response.exists"
+            v-bind:beaconId="resp.meta.beaconId"
+          ></BeaconResultTile>
+        </section>
+        <section
+          v-if="checkIfV2(resp) && resp.response.exists == null && errors"
+        >
+          <BeaconResultTile
+            :key="resp.meta.beaconId"
+            :exists="resp.response.exists"
+            v-bind:beaconId="resp.meta.beaconId"
           ></BeaconResultTile>
         </section>
       </div>
+
       <div
         v-if="notFound && !isLoading"
         class="content has-text-grey has-text-centered"
@@ -83,16 +124,19 @@
 <script>
 import BeaconResultTile from "@/components/BeaconResultTile.vue";
 import BeaconResultTileDetails from "@/components/BeaconResultTileDetails.vue";
+import BeaconResultTileDetailsV2 from "@/components/BeaconResultTileDetailsV2.vue";
 import Loading from "vue-material-design-icons/Loading.vue";
 
 export default {
   components: {
     BeaconResultTile,
     BeaconResultTileDetails,
-    Loading
+    BeaconResultTileDetailsV2,
+    Loading,
   },
   data() {
     return {
+      beaconV2: false,
       notFound: false,
       queryParams: undefined,
       hits: true,
@@ -109,28 +153,35 @@ export default {
         "INV",
         "CNV",
         "SNP",
-        "MNP"
+        "MNP",
       ],
-      aggregator: process.env.VUE_APP_AGGREGATOR_URL
+      aggregator: process.env.VUE_APP_AGGREGATOR_URL,
     };
   },
   watch: {
-    "$route.query": function() {
+    "$route.query": function () {
       // Watch query string for changes in case the user makes a new
       // search while displaying results.
       this.queryAPI();
-    }
+    },
   },
   methods: {
-    // This function generates beaconId for errored beacon queries since these queries don't currently return the beaconId
-    getErrorBeaconId: function(response) {
-      if (response.beaconId == undefined) {
+    checkIfV2: function (beacon) {
+      if (beacon.meta != undefined) {
+        return true;
+      }
+      return false;
+    },
+    getErrorBeaconId: function (response) {
+      // This function generates beaconId for errored beacon queries since these queries don't currently return the beaconId
+      if (
+        response.beaconId == undefined &&
+        response.meta == undefined &&
+        response.response == undefined
+      ) {
         // Creates the beacon id from the url
         var splitUrl = response.service.split("/");
-        var beaconId = splitUrl[2]
-          .split(".")
-          .reverse()
-          .join(".");
+        var beaconId = splitUrl[2].split(".").reverse().join(".");
         response.beaconId = beaconId;
       }
       return response;
@@ -147,7 +198,7 @@ export default {
         );
       }
     },
-    queryAPI: function() {
+    queryAPI: function () {
       var vm = this;
       vm.response = []; // Clear table
       if (process.env.VUE_APP_DEVELOPMENT) {
@@ -174,41 +225,53 @@ export default {
 
       // Create websocket
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
-      websocket.onopen = function() {
+      websocket.onopen = function () {
         // The connection was opened
         vm.isLoading = true;
       };
-      websocket.onclose = function() {
+      websocket.onclose = function () {
         // The connection was closed
         vm.isLoading = false;
         vm.checkResponse();
       };
-      websocket.onmessage = function(event) {
+      websocket.onmessage = function (event) {
         // New message arrived
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-        const found = vm.response.some(
-          resp => resp.beaconId === event.data.beaconId
-        );
-        var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
-        const found_nobeaconid = vm.response.some(
-          resp => resp.beaconId === nobeaconid.beaconId
-        );
-        if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
+
+        if (JSON.parse(event.data) != null) {
+          const found = vm.response.some(
+            (resp) => resp.beaconId == JSON.parse(event.data).beaconId
+          );
+
+          var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+
+          const found_nobeaconid = vm.response.some((resp) => {
+            resp.beaconId === nobeaconid.beaconId;
+          });
+          if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
+        }
       };
-      websocket.onerror = function() {
+      websocket.onerror = function () {
         // There was an error with your WebSocket
         vm.isLoading = false;
         vm.checkResponse();
       };
     },
-    checkResponse: function() {
+    checkResponse: function () {
       // Checks if the response from aggregator contains any exists=true
       // If it doesn't, it clears the entire response array
       // This solution stems from buefy's requirements for displaying
       // an empty table template (display only if there is no data)
-      if (this.response.find(resp => resp.exists === true)) {
+      if (this.response.find((resp) => resp.exists === true)) {
+        this.notFound = false;
+        return true;
+      } else if (
+        this.response.find(
+          (resp) => resp.response !== undefined && resp.response.exists === true
+        )
+      ) {
         this.notFound = false;
         return true;
       } else {
@@ -216,56 +279,84 @@ export default {
         this.notFound = true;
       }
     },
-    setSearchToLocaStorage: function() {
+    setSearchToLocaStorage: function () {
       if (localStorage.getItem("searches") == null) {
         var searches = [];
         var currentdate = new Date();
+        var hours = currentdate.getHours();
+        var minutes = currentdate.getMinutes();
+        var seconds = currentdate.getSeconds();
+
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+          seconds = "0" + seconds;
+        }
         var date =
-          currentdate.getHours() +
-          ":" +
-          currentdate.getMinutes() +
-          ":" +
-          currentdate.getSeconds() +
-          " " +
-          currentdate.getDate() +
-          "." +
+          currentdate.getFullYear() +
+          "-" +
           (currentdate.getMonth() + 1) +
-          "." +
-          currentdate.getFullYear();
+          "-" +
+          currentdate.getDate() +
+          " " +
+          hours +
+          ":" +
+          minutes +
+          ":" +
+          seconds;
         var search = {
           url: window.location.href,
-          date: date
+          date: date,
         };
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
       } else {
         var currentdate = new Date();
+
+        var hours = currentdate.getHours();
+        var minutes = currentdate.getMinutes();
+        var seconds = currentdate.getSeconds();
+
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+          seconds = "0" + seconds;
+        }
         var date =
-          currentdate.getHours() +
-          ":" +
-          currentdate.getMinutes() +
-          ":" +
-          currentdate.getSeconds() +
-          " " +
-          currentdate.getDate() +
-          "." +
+          currentdate.getFullYear() +
+          "-" +
           (currentdate.getMonth() + 1) +
-          "." +
-          currentdate.getFullYear();
+          "-" +
+          currentdate.getDate() +
+          " " +
+          hours +
+          ":" +
+          minutes +
+          ":" +
+          seconds;
+
         var searches = JSON.parse(localStorage.getItem("searches"));
         var search = {
           url: window.location.href,
-          date: date
+          date: date,
         };
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
       }
-    }
+    },
   },
   beforeMount() {
     this.queryAPI();
     this.setSearchToLocaStorage();
-  }
+  },
 };
 </script>
 

@@ -8,7 +8,7 @@ const router = new VueRouter();
 
 const wrapper = mount(Footer, {
   localVue,
-  router
+  router,
 });
 
 describe("Footer.vue internal links", () => {

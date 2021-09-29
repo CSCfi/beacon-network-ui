@@ -1,9 +1,7 @@
 <template>
-  <section title="History of searches in current seesion">
+  <section title="History of searches in current session">
     <nav class="panel">
-      <p class="panel-heading">
-        Search history
-      </p>
+      <p class="panel-heading">Search history</p>
       <div v-if="!isNotEmpty">
         We could not find any previous queries. Please try searching something.
         <router-link to="/">
@@ -50,7 +48,13 @@
             </a>
           </router-link>
         </b-table-column>
-        <b-table-column field="date" label="Date" sortable v-slot="props">
+        <b-table-column
+          data-testid="dateButton"
+          field="date"
+          label="Date"
+          sortable
+          v-slot="props"
+        >
           <span class="tag is-info">
             {{ props.row.date }}
           </span>
@@ -77,7 +81,7 @@ export default {
       perPage: 5,
       isBordered: true,
       isHoverable: true,
-      isNarrowed: true
+      isNarrowed: true,
     };
   },
   beforeMount() {
@@ -87,7 +91,7 @@ export default {
     }
   },
   methods: {
-    parseAdvanced: function(url) {
+    parseAdvanced: function (url) {
       var splitUrl = url.split("&");
       return (
         splitUrl[0] +
@@ -96,7 +100,7 @@ export default {
         "&" +
         splitUrl[2] +
         "&" +
-        splitUrl[2] +
+        splitUrl[3] +
         "&" +
         splitUrl[4] +
         "&" +
@@ -105,7 +109,7 @@ export default {
         splitUrl[6]
       );
     },
-    parseAdvancedEnd: function(url) {
+    parseAdvancedEnd: function (url) {
       var splitUrl = url.split("&");
       var end = "";
       for (let index = 6; index <= splitUrl.length; index++) {
@@ -113,17 +117,18 @@ export default {
       }
       return end;
     },
-    parseUrl: function(url) {
+    parseUrl: function (url) {
       var splitUrl = url.split("/");
+      console.log;
       return splitUrl[3];
     },
-    urlIsBasic: function(url) {
-      if (url.includes("basic")) {
+    urlIsBasic: function (url) {
+      if (url.includes("basic") || url.includes("searchInInput")) {
         return true;
       } else {
         return false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
