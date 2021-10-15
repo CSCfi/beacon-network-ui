@@ -90,13 +90,11 @@
             </ul>
           </div>
           <div class="column is-one-fifth">
-            <a
-              class="login"
-              href="https://elixir-europe.org/"
-              title="Go to ELIXIR Europe"
-              ><img
-                src="@/assets/elixir-white-orange-logo.png"
-                alt="ELIXIR Europe Logo"
+            <a class="login" href="https://www.imi.europa.eu/" title="Go to IMI"
+              ><img src="@/assets/imi.png" alt="IMI Logo" /></a
+            ><br />
+            <a class="login" href="https://efpia.eu/" title="Go to Efpia"
+              ><img src="@/assets/efpia.png" alt="Efpia Logo"
             /></a>
           </div>
         </div>

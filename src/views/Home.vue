@@ -4,8 +4,8 @@
       <router-link to="/">
         <img
           class="bigLogo"
-          alt="ELIXIR Beacon Network logo"
-          src="@/assets/beacon-network-logo.png"
+          alt="Big Picture Network logo"
+          src="@/assets/bp-logo.png"
         />
       </router-link>
     </p>
@@ -17,16 +17,16 @@
         @toggleListing="toggleListing"
         @returnToPrevious="returnToPrevious"
       ></component>
-      <b-switch v-model="toggleV2" id="v2Switch">
+      <!-- <b-switch v-model="toggleV2" id="v2Switch">
         {{
           toggleV2 ? "Beacon v2 search enabled" : "Beacon v2 search disabled"
         }}
-      </b-switch>
+      </b-switch> -->
     </div>
 
     <div v-if="$route.path === '/results'">
       <hr id="divider" />
-      <p class="results-disclaimer">
+      <!-- <p class="results-disclaimer">
         Note that Beacon Network is using 1-based coordinates, while Beacons are
         using 0-based coordinates.<br />
         An automatic coordinate substraction is made upon a query.<br />
@@ -34,7 +34,7 @@
           >More information on how to make queries is available in the Beacon
           Network guide</router-link
         >.
-      </p>
+      </p> -->
     </div>
     <router-view />
   </div>

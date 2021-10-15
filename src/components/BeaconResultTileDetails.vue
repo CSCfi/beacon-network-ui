@@ -53,15 +53,14 @@
             </template>
           </b-table-column>
           <b-table-column
-            label="Variant"
-            title="Reference and alternate bases of this variant"
+            label="Images"
+            title="Number of images in dataset"
           >
             <template v-slot:default="results">
-              {{ results.row.referenceBases }} >
-              {{ results.row.alternateBases }}
+              {{ results.row.images }}
             </template>
           </b-table-column>
-          <b-table-column label="VT" title="Variant Type">
+          <!-- <b-table-column label="VT" title="Variant Type">
             <template v-slot:default="results">
               {{ results.row.variantType }}
             </template>
@@ -94,7 +93,7 @@
             <template v-slot:default="results">
               {{ results.row.frequency }}
             </template>
-          </b-table-column>
+          </b-table-column> -->
         </b-table>
       </div>
     </div>

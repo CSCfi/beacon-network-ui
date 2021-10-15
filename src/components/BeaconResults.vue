@@ -143,6 +143,7 @@ export default {
       errors: false,
       isLoading: false,
       response: [],
+      services: {},
       variantTypes: [
         "DEL:ME",
         "INS:ME",
@@ -156,6 +157,7 @@ export default {
         "MNP",
       ],
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
+      registry: process.env.VUE_APP_REGISTRY_URL,
     };
   },
   watch: {
@@ -198,66 +200,101 @@ export default {
         );
       }
     },
-    queryAPI: function () {
+    async externalRequest(url) {
+      let res = await fetch(url);
+      return await res.json();
+    },
+    async queryAPI() {
       var vm = this;
+      vm.isLoading = true;
       vm.response = []; // Clear table
-      if (process.env.VUE_APP_DEVELOPMENT) {
-        var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
-      } else {
-        var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
-      }
-
-      // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
-      // Copy the query object and remove the unwanted keys, so that we can use
-      // the pristine query object in BasicSearch and AdvancedSearch
-      var queryParamsObj = Object.assign({}, this.$route.query);
-      // Remove the `searchType` and `coordType` keys, which are not sent to Beacons
-      delete queryParamsObj.searchType;
-      delete queryParamsObj.coordType;
-      var queryParamsString = "";
-      for (var key in queryParamsObj) {
-        if (queryParamsString != "") {
-          queryParamsString += "&";
+      // Get services from registry
+      let services = await vm.externalRequest(vm.registry+"services");
+      // Get datasets from services
+      for (let i = 0; i < services.length; i++) {
+        try {
+          let serviceInfo = await this.externalRequest(services[i].url)
+          for (let j = 0; j < serviceInfo.datasets.length; j++) {
+            if (serviceInfo.datasets[j].id === this.$route.query.query) {
+              // Send results
+              let results = {
+                exists: true,
+                beaconId: serviceInfo.id,
+                datasetAlleleResponses: [
+                  {
+                    datasetId: serviceInfo.datasets[j].id,
+                    images: serviceInfo.datasets[j].variantCount,
+                    info: {
+                      accessType: "PUBLIC",
+                    },
+                  }
+                ]
+              }
+              vm.response.push(results);
+            }
+          }
+        } catch (error) {
+          // console.log(error);
         }
-        queryParamsString +=
-          key + "=" + encodeURIComponent(queryParamsObj[key]);
       }
+      vm.isLoading = false;
+      // if (process.env.VUE_APP_DEVELOPMENT) {
+      //   var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
+      // } else {
+      //   var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
+      // }
 
-      // Create websocket
-      var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
-      websocket.onopen = function () {
-        // The connection was opened
-        vm.isLoading = true;
-      };
-      websocket.onclose = function () {
-        // The connection was closed
-        vm.isLoading = false;
-        vm.checkResponse();
-      };
-      websocket.onmessage = function (event) {
-        // New message arrived
-        // check if a beacon with the same id exists already
-        // prevent results appearing 2 times.
-        // this can occur when aggregators query the same beacons
+      // // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
+      // // Copy the query object and remove the unwanted keys, so that we can use
+      // // the pristine query object in BasicSearch and AdvancedSearch
+      // var queryParamsObj = Object.assign({}, this.$route.query);
+      // // Remove the `searchType` and `coordType` keys, which are not sent to Beacons
+      // delete queryParamsObj.searchType;
+      // delete queryParamsObj.coordType;
+      // var queryParamsString = "";
+      // for (var key in queryParamsObj) {
+      //   if (queryParamsString != "") {
+      //     queryParamsString += "&";
+      //   }
+      //   queryParamsString +=
+      //     key + "=" + encodeURIComponent(queryParamsObj[key]);
+      // }
 
-        if (JSON.parse(event.data) != null) {
-          const found = vm.response.some(
-            (resp) => resp.beaconId == JSON.parse(event.data).beaconId
-          );
+      // // Create websocket
+      // var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
+      // websocket.onopen = function () {
+      //   // The connection was opened
+      //   vm.isLoading = true;
+      // };
+      // websocket.onclose = function () {
+      //   // The connection was closed
+      //   vm.isLoading = false;
+      //   vm.checkResponse();
+      // };
+      // websocket.onmessage = function (event) {
+      //   // New message arrived
+      //   // check if a beacon with the same id exists already
+      //   // prevent results appearing 2 times.
+      //   // this can occur when aggregators query the same beacons
 
-          var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+      //   if (JSON.parse(event.data) != null) {
+      //     const found = vm.response.some(
+      //       (resp) => resp.beaconId == JSON.parse(event.data).beaconId
+      //     );
 
-          const found_nobeaconid = vm.response.some((resp) => {
-            resp.beaconId === nobeaconid.beaconId;
-          });
-          if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
-        }
-      };
-      websocket.onerror = function () {
-        // There was an error with your WebSocket
-        vm.isLoading = false;
-        vm.checkResponse();
-      };
+      //     var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+
+      //     const found_nobeaconid = vm.response.some((resp) => {
+      //       resp.beaconId === nobeaconid.beaconId;
+      //     });
+      //     if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
+      //   }
+      // };
+      // websocket.onerror = function () {
+      //   // There was an error with your WebSocket
+      //   vm.isLoading = false;
+      //   vm.checkResponse();
+      // };
     },
     checkResponse: function () {
       // Checks if the response from aggregator contains any exists=true

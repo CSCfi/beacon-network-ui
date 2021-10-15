@@ -3,7 +3,7 @@
     <section>
       <form @submit.prevent="onSubmit">
         <b-field>
-          <p class="control">
+          <!-- <p class="control">
             <label for="assembly" style="display: none">Assembly</label>
             <b-select
               id="assembly"
@@ -16,12 +16,8 @@
               <option value="GRCh37">GRCh37</option>
               <option value="hg19">hg19</option>
             </b-select>
-          </p>
-          <b-tooltip
-            class="stretch"
-            animated
-            label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
-          >
+          </p> -->
+          <b-tooltip class="stretch" animated label="Dataset Name">
             <label for="searchBar" style="display: none">Search Bar</label>
             <b-input
               id="searchBar"
@@ -29,9 +25,9 @@
               class="stretch searchbar"
               size="is-medium"
               type="search"
-              placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
+              placeholder="Dataset Name"
               v-model="query"
-              title="Variant search term"
+              title="search term"
             ></b-input>
           </b-tooltip>
           <b-button
@@ -60,18 +56,18 @@
           data-testid="exampleButton"
           @click="exampleSearch"
           title="Insert an example search term to the search bar"
-          >Example variant query</b-button
+          >Example query</b-button
         ></span
       >
 
-      <span id="advancedSearch"
+      <!-- <span id="advancedSearch"
         ><b-button
           data-testid="advanced"
           @click="changeSearchForm()"
           title="Switch to the advanced search form which has more options"
           >Advanced Search</b-button
         ></span
-      >
+      > -->
     </div>
   </div>
 </template>
@@ -86,20 +82,20 @@ export default {
       validated: false,
       errorMessage: "",
       errorTooltip: false,
-      regex:
-        /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s:\s(\d+) ([ATCGN]+)\s>\s(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
-      variantTypes: [
-        "DEL:ME",
-        "INS:ME",
-        "DUP:TANDEM",
-        "DUP",
-        "DEL",
-        "INS",
-        "INV",
-        "CNV",
-        "SNP",
-        "MNP",
-      ],
+      // regex:
+      //   /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s:\s(\d+) ([ATCGN]+)\s>\s(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
+      // variantTypes: [
+      //   "DEL:ME",
+      //   "INS:ME",
+      //   "DUP:TANDEM",
+      //   "DUP",
+      //   "DEL",
+      //   "INS",
+      //   "INV",
+      //   "CNV",
+      //   "SNP",
+      //   "MNP",
+      // ],
     };
   },
   methods: {
@@ -123,22 +119,25 @@ export default {
       vm.validateInput();
       if (vm.validated) {
         // Query string
+        // var queryObj = {
+        //   searchType: "basic",
+        //   includeDatasetResponses: "HIT",
+        //   assemblyId: vm.assembly,
+        //   referenceName: vm.query.split(" ")[0],
+        //   start: vm.query.split(" ")[2] > 0 ? vm.query.split(" ")[2] - 1 : 0,
+        //   referenceBases: vm.query.split(" ")[3],
+        // };
         var queryObj = {
-          searchType: "basic",
-          includeDatasetResponses: "HIT",
-          assemblyId: vm.assembly,
-          referenceName: vm.query.split(" ")[0],
-          start: vm.query.split(" ")[2] > 0 ? vm.query.split(" ")[2] - 1 : 0,
-          referenceBases: vm.query.split(" ")[3],
-        };
-        // Determine if last element is a base of a variant type
-        if (vm.variantTypes.includes(vm.query.split(" ")[5])) {
-          // vm.query.split(" ")[5]) is a variantType
-          queryObj["variantType"] = vm.query.split(" ")[5];
-        } else {
-          // vm.query.split(" ")[5]) is an alternateBases
-          queryObj["alternateBases"] = vm.query.split(" ")[5];
+          query: vm.query,
         }
+        // // Determine if last element is a base of a variant type
+        // if (vm.variantTypes.includes(vm.query.split(" ")[5])) {
+        //   // vm.query.split(" ")[5]) is a variantType
+        //   queryObj["variantType"] = vm.query.split(" ")[5];
+        // } else {
+        //   // vm.query.split(" ")[5]) is an alternateBases
+        //   queryObj["alternateBases"] = vm.query.split(" ")[5];
+        // }
         // Change view to results and send GET query string
         this.$router.push(
           {
@@ -149,18 +148,19 @@ export default {
           () => {}
         );
       } else {
-        vm.errorMessage = "Variant search term is malformed, please try again.";
+        vm.errorMessage = "Please input a search term.";
         vm.errorTooltip = true;
       }
     },
     exampleSearch: function () {
       var vm = this;
-      vm.query = "MT : 10 T > C";
+      vm.query = "urn:demo:1";
       document.getElementById("searchBar").focus();
     },
     validateInput: function () {
       var vm = this;
-      if (vm.regex.exec(vm.query)) {
+      // if (vm.regex.exec(vm.query)) {
+      if (vm.query.length > 0) {
         vm.validated = true;
       } else {
         vm.validated = false;
