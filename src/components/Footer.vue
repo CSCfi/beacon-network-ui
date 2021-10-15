@@ -90,6 +90,9 @@
             </ul>
           </div>
           <div class="column is-one-fifth">
+            <a class="login" href="https://www.europa.eu/" title="Go to EU"
+              ><img src="@/assets/eu.png" alt="EU Logo" /></a
+            ><br />
             <a class="login" href="https://www.imi.europa.eu/" title="Go to IMI"
               ><img src="@/assets/imi.png" alt="IMI Logo" /></a
             ><br />

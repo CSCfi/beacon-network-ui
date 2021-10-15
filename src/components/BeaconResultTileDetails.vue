@@ -52,10 +52,7 @@
               >
             </template>
           </b-table-column>
-          <b-table-column
-            label="Images"
-            title="Number of images in dataset"
-          >
+          <b-table-column label="Images" title="Number of images in dataset">
             <template v-slot:default="results">
               {{ results.row.images }}
             </template>

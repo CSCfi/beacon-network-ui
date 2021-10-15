@@ -209,11 +209,11 @@ export default {
       vm.isLoading = true;
       vm.response = []; // Clear table
       // Get services from registry
-      let services = await vm.externalRequest(vm.registry+"services");
+      let services = await vm.externalRequest(vm.registry + "services");
       // Get datasets from services
       for (let i = 0; i < services.length; i++) {
         try {
-          let serviceInfo = await this.externalRequest(services[i].url)
+          let serviceInfo = await this.externalRequest(services[i].url);
           for (let j = 0; j < serviceInfo.datasets.length; j++) {
             if (serviceInfo.datasets[j].id === this.$route.query.query) {
               // Send results
@@ -227,9 +227,9 @@ export default {
                     info: {
                       accessType: "PUBLIC",
                     },
-                  }
-                ]
-              }
+                  },
+                ],
+              };
               vm.response.push(results);
             }
           }

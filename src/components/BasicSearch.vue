@@ -129,7 +129,7 @@ export default {
         // };
         var queryObj = {
           query: vm.query,
-        }
+        };
         // // Determine if last element is a base of a variant type
         // if (vm.variantTypes.includes(vm.query.split(" ")[5])) {
         //   // vm.query.split(" ")[5]) is a variantType
