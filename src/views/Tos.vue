@@ -8,20 +8,18 @@
     >
       Return to main page
     </b-button>
-    <h1>ELIXIR Beacon Network</h1>
+    <h1>BigPicture Beacon Network</h1>
     <h2>Terms of Service</h2>
     <p>
-      This document covers the privacy policies of ELIXIR Beacon Network (from
+      This document covers the privacy policies of BigPicture Beacon Network (from
       now on referred to as <i>service</i>).
     </p>
 
     <h3>Service</h3>
     <p>
-      The service is provided by ELIXIR Finland (CSC - IT Center for Science
-      Ltd.). As a service provider ELIXIR Finland is responsible for hosting the
-      service website and any underlying APIs. The service is operated by ELIXIR
-      Europe (ELIXIR Hub). As a service operator ELIXIR Europe is responsible
-      for managing the service contact address.
+      The service is provided by CSC - IT Center for Science
+      Ltd.. As a service provider is responsible for hosting the
+      service website and any underlying APIs.
     </p>
     <h3>Warranty and Liability</h3>
     <p>
@@ -48,13 +46,6 @@
     <p>
       This document may be updated at any time without given notice.
       <br /><i>Last updated: 24 September 2019.</i>
-    </p>
-    <h3>Contact Us</h3>
-    <p>
-      Should any questions or suggestions emerge, we urge you to contact us at
-      <br /><a href="mailto:bn-contact@elixir-europe.org"
-        >bn-contact@elixir-europe.org</a
-      ><br />
     </p>
     <router-link to="/privacy">Privacy Policy</router-link><br />
   </div>

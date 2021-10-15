@@ -27,7 +27,7 @@
               <b-tag
                 class="accessibility-yellow-tag"
                 v-else-if="checkForRegisteredDatasets(results.row)"
-                title="Dataset requires ELIXIR Bona Fide status to access"
+                title="Dataset requires BigPicture Bona Fide status to access"
                 ><b>Registered</b></b-tag
               >
               <b-tag

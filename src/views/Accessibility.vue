@@ -56,14 +56,7 @@
       2.1 level AA if needed.
     </p>
     <h3>Changes to Accessibility Statement</h3>
-    <p><br /><i>Last updated: 26 November 2019.</i></p>
-    <h3>Contact Us</h3>
-    <p>
-      Should any questions or suggestions emerge, we urge you to contact us at
-      <br /><a href="mailto:bn-contact@elixir-europe.org"
-        >bn-contact@elixir-europe.org</a
-      ><br />
-    </p>
+    <p><br /><i>Last updated: 26 November 2019.</i></p>  
   </div>
 </template>
 

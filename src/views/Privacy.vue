@@ -8,7 +8,7 @@
     >
       Return to main page
     </b-button>
-    <h1>ELIXIR Beacon Network</h1>
+    <h1>BigPicture Beacon Network</h1>
     <h2>Privacy Policy</h2>
     <p>
       This document covers the privacy policies of ELIXIR Beacon Network (from
@@ -17,11 +17,9 @@
 
     <h3>Service</h3>
     <p>
-      The service is provided by ELIXIR Finland (CSC - IT Center for Science
-      Ltd.). As a service provider ELIXIR Finland is responsible for hosting the
-      service website and any underlying APIs. The service is operated by ELIXIR
-      Europe (ELIXIR Hub). As a service operator ELIXIR Europe is responsible
-      for managing the service contact address.
+      The service is provided by CSC - IT Center for Science
+      Ltd.. As a service provider is responsible for hosting the
+      service website and any underlying APIs. 
     </p>
     <h3>Personal Information</h3>
     <p>
@@ -66,15 +64,15 @@
       The service utilises anonymous page view tracking for evaluating traffic
       to the website, and its level of use. Tracking is conducted with
       <a href="https://matomo.org/">Matomo web analytics software</a> hosted by
-      CSC (ELIXIR Finland). The server and data are hosted and kept in Finland
+      CSC . The server and data are hosted and kept in Finland
       (EU), and the raw data is not shared outside of the organisation. IP
       addresses are anonymised by setting the last two digits to 0, e.g. the IP
       address <i>193.167.189.101</i> is logged as <i>193.167.0.0</i>. General
-      quarterly and yearly report data on page views may be shared with ELIXIR
+      quarterly and yearly report data on page views may be shared with BigPicture
       partners.
     </p>
     <p>
-      CSC (ELIXIR Finland) acts as the data owner and data handler for ELIXIR
+      CSC acts as the data owner and data handler for BigPicture
       Beacon Network traffic data.<br />
       <a href="https://www.csc.fi/en/privacy">CSC Privacy Policy</a>
     </p>
@@ -116,13 +114,7 @@
       This document may be updated at any time without given notice.
       <br /><i>Last updated: 26 May 2020.</i>
     </p>
-    <h3>Contact Us</h3>
-    <p>
-      Should any questions or suggestions emerge, we urge you to contact us at
-      <br /><a href="mailto:bn-contact@elixir-europe.org"
-        >bn-contact@elixir-europe.org</a
-      ><br />
-    </p>
+
     <router-link to="/tos">Terms of Service</router-link><br />
   </div>
 </template>
