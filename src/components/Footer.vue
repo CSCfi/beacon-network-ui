@@ -6,9 +6,9 @@
         <div class="columns">
           <div
             class="column"
-            title="ELIXIR Beacon Network website internal navigation"
+            title="BigPicture Beacon Network website internal navigation"
           >
-            <p class="footer-heading">ELIXIR Beacon Network</p>
+            <p class="footer-heading">BigPicture Beacon Network</p>
             <ul>
               <li>
                 <router-link
@@ -22,7 +22,7 @@
                 <router-link
                   data-testid="join"
                   to="/join"
-                  title="How to register a new Beacon to ELIXIR Beacon Network"
+                  title="How to register a new Beacon to BigPicture Beacon Network"
                   >Join the Network</router-link
                 >
               </li>
@@ -66,9 +66,9 @@
               <li>
                 <a
                   data-testid="elixirSite"
-                  href="https://elixir-europe.org/"
-                  title="ELIXIR Europe website"
-                  >ELIXIR Europe</a
+                  href="https://www.bigpicture.eu/"
+                  title="BigPicture website"
+                  >BigPicture</a
                 >
               </li>
               <li>
@@ -110,49 +110,21 @@
           <div class="column">
             <p>
               <img class="flag" alt="EU Flag" src="../assets/eu-flag-bw.jpg" />
-              ELIXIR is partly funded by the European Commission within the
-              Research Infrastructures programme of Horizon 2020.
+              BigPicture has received funding from the Innovative Medicines Initiative 2 Joint Undertaking under grant agreement No 945358. This Joint Undertaking receives support from the European Union’s Horizon 2020 research and innovation program and EFPIA.
             </p>
           </div>
           <div class="column contact">
-            <p class="address">
-              ELIXIR Beacon Network is operated by
-              <a
-                href="http://www.elixir-europe.org/"
-                title="Go to ELIXIR Europe"
-                >ELIXIR Hub</a
-              >
-              |
-              <a
-                href="mailto:bn-contact@elixir-europe.org"
-                title="Contact the ELIXIR Beacon Network operator"
-                >bn-contact@elixir-europe.org</a
-              >
-              <br />
-              ELIXIR Beacon Network is provided by
-              <a
-                href="http://www.elixir-finland.org/en/frontpage/"
-                title="Go to ELIXIR Finland, the ELIXIR Beacon Network provider"
-                >ELIXIR Finland</a
-              >
-              |
-              <a
-                href="https://www.csc.fi/"
-                title="Go to CSC, the ELIXIR Beacon Network provider"
-                >CSC</a
-              >
-            </p>
             <p class="legal">
-              Copyright © ELIXIR 2019 |
+              Copyright © BigPicture 2021 |
               <router-link
                 to="/tos"
-                title="Read the Terms of Service of ELIXIR Beacon Network"
+                title="Read the Terms of Service of BigPicture Beacon Network"
                 >Terms of Service</router-link
               >
               |
               <router-link
                 to="/privacy"
-                title="Read the Privacy Policy of ELIXIR Beacon Network"
+                title="Read the Privacy Policy of BigPicture Beacon Network"
                 >Privacy Policy</router-link
               >
             </p>
