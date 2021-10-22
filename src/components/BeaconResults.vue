@@ -175,6 +175,7 @@ export default {
       return false;
     },
     getErrorBeaconId: function (response) {
+      this.notFound = false;
       // This function generates beaconId for errored beacon queries since these queries don't currently return the beaconId
       if (
         response.beaconId == undefined &&
@@ -215,8 +216,8 @@ export default {
         try {
           let serviceInfo = await this.externalRequest(services[i].url);
           for (let j = 0; j < serviceInfo.datasets.length; j++) {
-            if (serviceInfo.datasets[j].id === this.$route.query.query) {
-              // Send results
+            if (serviceInfo.datasets[j].variantCount >= this.$route.query.query) {
+            // Send results
               let results = {
                 exists: true,
                 beaconId: serviceInfo.id,
@@ -238,6 +239,9 @@ export default {
         }
       }
       vm.isLoading = false;
+      if (vm.response.length == 0) {
+        this.notFound = true;
+      }
       // if (process.env.VUE_APP_DEVELOPMENT) {
       //   var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
       // } else {

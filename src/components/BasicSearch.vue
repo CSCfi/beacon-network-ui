@@ -17,7 +17,7 @@
               <option value="hg19">hg19</option>
             </b-select>
           </p> -->
-          <b-tooltip class="stretch" animated label="Dataset Name">
+          <b-tooltip class="stretch" animated label="Minimum number of images in a dataset">
             <label for="searchBar" style="display: none">Search Bar</label>
             <b-input
               id="searchBar"
@@ -25,7 +25,7 @@
               class="stretch searchbar"
               size="is-medium"
               type="search"
-              placeholder="Dataset Name"
+              placeholder="Minimum number of images in a dataset"
               v-model="query"
               title="search term"
             ></b-input>
@@ -154,7 +154,7 @@ export default {
     },
     exampleSearch: function () {
       var vm = this;
-      vm.query = "urn:demo:1";
+      vm.query = "25";
       document.getElementById("searchBar").focus();
     },
     validateInput: function () {

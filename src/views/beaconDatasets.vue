@@ -55,9 +55,7 @@
             v-for="dataset in beacon.datasets"
             :key="dataset"
           >
-            {{
-              dataset
-            }}
+            {{dataset.id}}, ({{dataset.images}} images)
           </ul>
         </ul>
       </ul>
@@ -91,7 +89,7 @@ export default {
       vm.closeDatasets();
       for (const beacon of vm.beaconsAndDataSets) {
         beacon.datasets.forEach((dataset) => {
-          if (dataset.toLowerCase().includes(vm.searchValue.toLowerCase())) {
+          if (dataset.id.toLowerCase().includes(vm.searchValue.toLowerCase())) {
             beacon.active = true;
           }
         });
@@ -111,7 +109,7 @@ export default {
           .then((response) => {
             const datasets = [];
             for (const data of response.data.datasets) {
-              datasets.push(data.id);
+              datasets.push({"id": data.id, "images": data.variantCount});
             }
             if (datasets.length == 0) {
               datasets.push("No datasets");
