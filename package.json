@@ -43,7 +43,7 @@
     "@cypress/code-coverage": "^3.9.11",
     "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
-    "@typescript-eslint/parser": "^4.32.0",
+    "@typescript-eslint/parser": "^4.33.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "cypress": "^8.5.0",
     "ts-jest": "^24.3.0",
