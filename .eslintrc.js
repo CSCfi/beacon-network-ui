@@ -1,24 +1,24 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
-  extends: ["plugin:vue/essential", "@vue/prettier"],
+  extends: ["plugin:vue/essential", "plugin:prettier/recommended"],
   rules: {
     "no-console": "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
   },
   parserOptions: {
-    parser: "babel-eslint"
+    parser: "babel-eslint",
   },
   overrides: [
     {
       files: ["*.ts", "*.tsx"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
-        project: "./tsconfig.json"
+        project: "./tsconfig.json",
       },
-      plugins: ["@typescript-eslint"]
-    }
-  ]
+      plugins: ["@typescript-eslint"],
+    },
+  ],
 };
