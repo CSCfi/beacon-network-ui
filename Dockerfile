@@ -40,7 +40,7 @@ ENV VUE_APP_SECURITY_DOCUMENT=${VUE_APP_SECURITY_DOCUMENT}
 
 COPY . .
 
-RUN npm install -g npm@7.20.0 \
+RUN npm install -g npm@8.1.2 \
     && npm install --production
 
 RUN npm run build --production
