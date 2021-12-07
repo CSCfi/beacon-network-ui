@@ -160,6 +160,7 @@ export default {
       if (vm.validated) {
         // Query string
         var queryObj = {};
+        queryObj.searchInInput = vm.searchInInput;
         queryObj.searchType = "basic";
         queryObj.includeDatasetResponses = "HIT";
         queryObj.assemblyId = vm.assembly;
