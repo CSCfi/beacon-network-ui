@@ -142,7 +142,7 @@
               >
             </p>
             <p class="legal">
-              Copyright © ELIXIR 2019 |
+              Copyright © ELIXIR 2019 - {{ new Date().getFullYear() }} |
               <router-link
                 to="/tos"
                 title="Read the Terms of Service of ELIXIR Beacon Network"
