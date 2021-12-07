@@ -87,7 +87,7 @@ export default {
       errorMessage: "",
       errorTooltip: false,
       regex:
-        /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s:\s(\d+) ([ATCGN]+)\s>\s(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
+        /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s?:\s?(\d+)\s?([ATCGN]+)\s?>\s?(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
       variantTypes: [
         "DEL:ME",
         "INS:ME",
@@ -123,22 +123,11 @@ export default {
       vm.validateInput();
       if (vm.validated) {
         // Query string
-        var queryObj = {
-          searchType: "basic",
-          includeDatasetResponses: "HIT",
-          assemblyId: vm.assembly,
-          referenceName: vm.query.split(" ")[0],
-          start: vm.query.split(" ")[2] > 0 ? vm.query.split(" ")[2] - 1 : 0,
-          referenceBases: vm.query.split(" ")[3],
-        };
-        // Determine if last element is a base of a variant type
-        if (vm.variantTypes.includes(vm.query.split(" ")[5])) {
-          // vm.query.split(" ")[5]) is a variantType
-          queryObj["variantType"] = vm.query.split(" ")[5];
-        } else {
-          // vm.query.split(" ")[5]) is an alternateBases
-          queryObj["alternateBases"] = vm.query.split(" ")[5];
-        }
+        var queryObj = {};
+        queryObj.searchType = "basic";
+        queryObj.includeDatasetResponses = "HIT";
+        queryObj.assemblyId = vm.assembly;
+        queryObj = Object.assign(queryObj, vm.buildQueryObj());
         // Change view to results and send GET query string
         this.$router.push(
           {
@@ -158,9 +147,34 @@ export default {
       vm.query = "MT : 10 T > C";
       document.getElementById("searchBar").focus();
     },
+    buildQueryObj: function () {
+      var vm = this;
+      var temp = vm.query.split(vm.regex).filter(Boolean);
+      var tempArray = [];
+      for (var i = 0; i < temp.length; i++) {
+        if (temp[i] != ":" && temp[i] != ">") {
+          tempArray.push(temp[i]);
+        }
+      }
+      var queryObj = {
+        referenceName: tempArray[0],
+        start: tempArray[1] > 0 ? tempArray[1] - 1 : 0,
+        referenceBases: tempArray[2],
+      };
+      // Determine if last element is a base of a variant type
+      if (vm.variantTypes.includes(tempArray[3])) {
+        // tempArray[3] is a variantType
+        queryObj["variantType"] = tempArray[3];
+      } else {
+        // tempArray[3] is an alternateBases
+        queryObj["alternateBases"] = tempArray[3];
+      }
+
+      return queryObj;
+    },
     validateInput: function () {
       var vm = this;
-      if (vm.regex.exec(vm.query)) {
+      if (vm.regex.test(vm.query)) {
         vm.validated = true;
       } else {
         vm.validated = false;

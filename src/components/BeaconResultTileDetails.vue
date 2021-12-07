@@ -145,9 +145,6 @@ export default {
 </script>
 
 <style scoped>
-.results-section {
-  /* text-align: center; */
-}
 .show-more {
   display: block;
   margin: 0 auto;

@@ -149,8 +149,8 @@
                               "
                             >
                               <b-table-column v-slot="props">
-                                <b v-if="typeof props.row.key != 'number'"
-                                  >{{ props.row.key }}
+                                <b v-if="typeof props.row.key != 'number'">
+                                  {{ props.row.key }}
                                 </b>
                                 <b v-else>{{ getResultId(props.row.value) }}</b>
                               </b-table-column>
@@ -359,9 +359,6 @@ export default {
 
 #resultContent {
   border-bottom: 1px solid black;
-}
-.results-section {
-  /* text-align: center; */
 }
 .show-more {
   display: block;
