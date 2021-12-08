@@ -29,7 +29,7 @@
       system, while datasets may use either a 0- or a 1-based coordinate system
       depending on the dataset file type. 1-based queries made from the Beacon
       Network UI are substracted by one, and received at the Beacon APIs as
-      0-based.
+      0-based. <b>Note that:</b> Spaces are not enforced.
     </p>
     <h3>Advanced Search</h3>
     <p>
