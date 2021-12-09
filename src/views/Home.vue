@@ -107,7 +107,12 @@ export default {
     },
     cookieToast: function () {
       // Check if cookies have been accepted, if not, show toast regarding cookies
-      if (!VueCookies.get("elixir-cookies")) {
+      if (
+        !VueCookies.get("elixir-cookies") &&
+        !VueCookies.get("elixir-cookies-toast-shown")
+      ) {
+        // Make a record of this toast being shown, so that it is not duplicated when view is changed
+        VueCookies.set("elixir-cookies-toast-shown", true, Infinity);
         this.$buefy.snackbar.open({
           indefinite: true,
           queue: false,
