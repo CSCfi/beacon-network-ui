@@ -110,7 +110,7 @@ export default {
       if (!VueCookies.get("elixir-cookies")) {
         this.$buefy.snackbar.open({
           indefinite: true,
-          queue: false,
+          queue: true,
           message:
             "Beacon Network utilises cookies and anonymous page view tracking. By using Beacon Network you accept the use of these cookies," +
             ' more information regarding cookies and optable tracking can be read from the <a href="/privacy" style="color:#000DFF">Privacy Policy</a>.' +
@@ -123,7 +123,7 @@ export default {
             VueCookies.set("elixir-tracking-consent", true, Infinity);
             VueCookies.set("elixir-cookies", "accepted", Infinity);
             this.$buefy.toast.open({
-              queue: false,
+              queue: true,
               message: "Cookies are in use!",
               position: "is-bottom-right",
             });

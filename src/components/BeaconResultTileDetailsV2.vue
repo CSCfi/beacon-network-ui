@@ -387,11 +387,6 @@ export default {
 .details-rows {
   margin: 10px 20px;
 }
-.hide-long-name {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
 .details-table {
   background: rgb(247, 247, 247);
   background: linear-gradient(
