@@ -57,8 +57,10 @@
             title="Reference and alternate bases of this variant"
           >
             <template v-slot:default="results">
-              {{ results.row.referenceBases }} >
-              {{ results.row.alternateBases }}
+              <span class="word-wrap">
+                {{ results.row.referenceBases }} >
+                {{ results.row.alternateBases }}
+              </span>
             </template>
           </b-table-column>
           <b-table-column label="VT" title="Variant Type">
@@ -145,6 +147,9 @@ export default {
 </script>
 
 <style scoped>
+.word-wrap {
+  word-break: break-all;
+}
 .show-more {
   display: block;
   margin: 0 auto;
@@ -171,11 +176,6 @@ export default {
 }
 .details-rows {
   margin: 10px 20px;
-}
-.hide-long-name {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
 .details-table {
   background: rgb(247, 247, 247);
