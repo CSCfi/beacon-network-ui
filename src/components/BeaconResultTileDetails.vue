@@ -87,12 +87,12 @@
           </b-table-column>
           <b-table-column label="AC" title="Allele Count">
             <template v-slot:default="results">
-              {{ results.row.variantCount }}
+              {{ results.row.variantCount ? results.row.variantCount : "" }}
             </template>
           </b-table-column>
           <b-table-column label="AF" title="Allele Frequency">
             <template v-slot:default="results">
-              {{ results.row.frequency }}
+              {{ results.row.frequency ? results.row.frequency : "" }}
             </template>
           </b-table-column>
         </b-table>
