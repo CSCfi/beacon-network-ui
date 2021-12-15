@@ -29,7 +29,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.19.1",
     "minimist": "^1.2.5",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "prettier": "^2.5.1",
     "regenerator-runtime": "^0.13.9",
     "sass-loader": "^12.4.0",
