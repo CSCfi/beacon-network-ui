@@ -33,11 +33,13 @@
           :key="index"
         >
           <b-table
+            id="filterTable"
             :data="filter"
             :columns="columns"
             detailed
             hoverable
             detail-key="label"
+            data-testid="filtersTest"
             @details-open="
               (row, index) => $buefy.toast.open(`Expanded ${row.label}`)
             "
