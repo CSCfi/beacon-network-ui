@@ -24,17 +24,55 @@
           >
         </div>
       </b-field>
-      <p class="subtitle">Filter by</p>
+      <p class="subtitle" v-if="beaconV2">Filter by</p>
 
-      <b-field grouped group-multiline class="filtered">
+      <b-field v-if="beaconV2">
         <div
-          class="field"
+          class="block"
           v-for="(filter, index) in filteringTerms"
           :key="index"
         >
-          <b-checkbox v-for="(value, ind) in filter" :key="ind">
-            {{ value.label }}
-          </b-checkbox>
+          <b-table
+            :data="filter"
+            :columns="columns"
+            detailed
+            hoverable
+            detail-key="label"
+            @details-open="
+              (row, index) => $buefy.toast.open(`Expanded ${row.label}`)
+            "
+            :show-detail-icon="showDetailIcon"
+          >
+            <template slot="detail" slot-scope="props">
+              <div v-for="(value, ind) in props.row" :key="ind">
+                <b-checkbox
+                  v-model="filterValue"
+                  :native-value="value"
+                  v-if="ind == 'id'"
+                >
+                  {{ "id: " + value }}
+                </b-checkbox>
+              </div>
+            </template>
+          </b-table>
+          <b-button
+            v-on:click="filterResults(filterValue)"
+            type="is-primary"
+            size="is-medium"
+            data-testid="filterButton"
+            >Apply Filter</b-button
+          >
+          <p class="content"></p>
+          <b-button
+            v-on:click="filterValue = []"
+            type="is-primary"
+            size="is-medium"
+            data-testid="filterResetButton"
+            @details-close="
+              (row, index) => $buefy.toast.close(`Expanded ${row.label}`)
+            "
+            >Reset filters</b-button
+          >
         </div>
       </b-field>
     </div>
@@ -169,7 +207,10 @@ export default {
         "MNP",
       ],
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
-      filteringTerms: []
+      filteringTerms: [],
+      filterValue: [],
+      columns: [{ field: "label" }],
+      showDetailIcon: true,
     };
   },
   watch: {
@@ -180,10 +221,34 @@ export default {
     },
   },
   methods: {
+    filterResults: function (filters) {
+      var queryParamsObj = Object.assign({}, this.$route.query);
+      var filterStrign = "";
+      if (filters.length != 0) {
+        for (var filter in filters) {
+          if (filter == 0) {
+            filterStrign += filters[filter];
+          } else {
+            filterStrign += "," + filters[filter];
+          }
+        }
+      }
+      queryParamsObj.filters = filterStrign;
+      this.$router.push(
+        {
+          path: "results",
+          query: queryParamsObj,
+        },
+        undefined,
+        () => {}
+      );
+    },
     checkIfV2: function (beacon) {
       if (beacon.meta != undefined) {
+        this.beaconV2 = true;
         return true;
       }
+      this.beaconV2 = false;
       return false;
     },
     getErrorBeaconId: function (response) {
@@ -236,7 +301,6 @@ export default {
         queryParamsString +=
           key + "=" + encodeURIComponent(queryParamsObj[key]);
       }
-
       // Create websocket
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
       websocket.onopen = function () {
@@ -389,7 +453,9 @@ export default {
   font-size: 16px;
 }
 .filtered {
-  position: sticky;
+  /* commented to avoid switches going over filters
+  might be useful in the future with more search results
+  position: sticky; */
   top: 20px;
 }
 .field {
