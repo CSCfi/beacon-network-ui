@@ -103,14 +103,24 @@
           >Example range query</b-button
         ></span
       >
-      <span id="basicSearch"
-        ><b-button
-          data-testid="basic"
-          @click="returnToPrevious()"
-          title="Switch back to the basic search bar"
-          >Return to previous page</b-button
-        ></span
-      >
+      <span class="field has-addons" id="advancedSearch">
+        <p class="control">
+          <b-button
+            data-testid="beaconListing"
+            @click="changeFormToB()"
+            title="Change to listings search"
+            >Basic search</b-button
+          >
+        </p>
+        <p class="control">
+          <b-button
+            data-testid="advanced"
+            @click="changeFormToA()"
+            title="Switch to the advanced search form which has more options"
+            >Advanced Search</b-button
+          >
+        </p>
+      </span>
     </div>
   </div>
 </template>
@@ -129,6 +139,12 @@ export default {
     };
   },
   methods: {
+    changeFormToA: function () {
+      this.$emit("changeFormToA");
+    },
+    changeFormToB: function () {
+      this.$emit("changeFormToB");
+    },
     pickSearchBySet: function (index) {
       const element = this.list[index];
       if (element.searchInInput === "individuals") {
