@@ -154,8 +154,6 @@ export default {
   },
   beforeMount() {
     this.queryAPI();
-    console.log(this.beaconsAndDataSets);
-    console.log(this.beacons);
   },
 };
 </script>
