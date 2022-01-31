@@ -84,7 +84,7 @@
         <p class="control">
           <b-button
             data-testid="advanced"
-            @click="changeSearchForm()"
+            @click="changeFormToA()"
             title="Switch to the advanced search form which has more options"
             >Advanced Search</b-button
           >
@@ -92,7 +92,7 @@
         <p class="control">
           <b-button
             data-testid="beaconListing"
-            @click="toggleListing()"
+            @click="changeFormToListing()"
             title="Change to listings search"
             >Listing search</b-button
           >
@@ -139,11 +139,11 @@ export default {
     };
   },
   methods: {
-    toggleListing: function () {
-      this.$emit("toggleListing");
+    changeFormToListing: function () {
+      this.$emit("changeFormToListing");
     },
-    changeSearchForm: function () {
-      this.$emit("changeSearchForm");
+    changeFormToA: function () {
+      this.$emit("changeFormToA");
     },
     onSubmit: function () {
       // onSubmit is called when user inputs ENTER on search bar
