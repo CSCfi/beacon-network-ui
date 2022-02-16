@@ -282,6 +282,7 @@ export default {
     queryAPI: function () {
       var vm = this;
       vm.response = []; // Clear table
+      vm.filteringTerms = [];
       if (process.env.VUE_APP_DEVELOPMENT) {
         var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
       } else {
@@ -320,7 +321,6 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-        console.log(JSON.parse(event.data));
 
         if (JSON.parse(event.data) != null) {
           const found = vm.response.some((resp) => {
@@ -342,10 +342,10 @@ export default {
             }
           });
           if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
-        }
 
-        if (JSON.parse(event.data).filteringTerms != undefined) {
-          vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
+          if (JSON.parse(event.data).filteringTerms != undefined) {
+            vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
+          }
         }
       };
       websocket.onerror = function () {
