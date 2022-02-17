@@ -279,6 +279,22 @@ export default {
         );
       }
     },
+    mergeFilterIds(existingIds, newIds) {
+      //checks for duplicates and adds ids to obj if new
+      var ids = [];
+      newIds.forEach.forEach((newId) => {
+        var doesNotExist = true;
+        existingIds.forEach.forEach((oldId) => {
+          if (newId == oldId) {
+            doesNotExist = false;
+          }
+        });
+        if (doesNotExist) {
+          ids.push(newId);
+        }
+      });
+      return existingIds.push(ids);
+    },
     queryAPI: function () {
       var vm = this;
       vm.response = []; // Clear table
@@ -321,30 +337,41 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-
         if (JSON.parse(event.data) != null) {
-          const found = vm.response.some((resp) => {
-            if (JSON.parse(event.data).meta == undefined) {
-              resp.beaconId == JSON.parse(event.data).beaconId;
-            } else {
-              resp.beaconId == JSON.parse(event.data).meta.beaconId;
-            }
-          });
-          // check if filter result and adds to filteringTerms
-
-          var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
-
-          const found_nobeaconid = vm.response.some((resp) => {
-            if (nobeaconid.meta == undefined) {
-              resp.beaconId === nobeaconid.beaconId;
-            } else {
-              resp.beaconId === nobeaconid.meta.beaconId;
-            }
-          });
-          if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
-
+          //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
-            vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
+            if (vm.filteringTerms.length == 0) {
+              vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
+            } else {
+              // check if obj exists and add ids to it
+              JSON.parse(event.data).filteringTerms.forEach((newObject) => {
+                vm.filteringTerms.forEach((object) => {
+                  if (object.label == newObject.label) {
+                    object.id = mergeFilterIds(object.id, newObject.id);
+                  }
+                });
+              });
+            }
+          } else {
+            const found = vm.response.some((resp) => {
+              if (JSON.parse(event.data).meta == undefined) {
+                resp.beaconId == JSON.parse(event.data).beaconId;
+              } else {
+                resp.beaconId == JSON.parse(event.data).meta.beaconId;
+              }
+            });
+            // checks if filter result and adds to filteringTerms
+
+            var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+
+            const found_nobeaconid = vm.response.some((resp) => {
+              if (nobeaconid.meta == undefined) {
+                resp.beaconId === nobeaconid.beaconId;
+              } else {
+                resp.beaconId === nobeaconid.meta.beaconId;
+              }
+            });
+            if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
           }
         }
       };
