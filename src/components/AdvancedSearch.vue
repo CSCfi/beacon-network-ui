@@ -80,14 +80,8 @@ export default {
     };
   },
   methods: {
-    setV2: function () {
-      this.$emit("setV2");
-    },
-    toggleListing: function () {
-      this.$emit("toggleListing");
-    },
     changeSearchForm: function () {
-      this.$emit("changeSearchForm");
+      this.$emit("changeFormToB");
     },
     validateInput: function () {
       this.errorMessages = [];

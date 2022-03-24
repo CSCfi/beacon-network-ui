@@ -67,7 +67,7 @@
       <span id="advancedSearch"
         ><b-button
           data-testid="advanced"
-          @click="changeSearchForm()"
+          @click="changeFormToA()"
           title="Switch to the advanced search form which has more options"
           >Advanced Search</b-button
         ></span
@@ -103,11 +103,8 @@ export default {
     };
   },
   methods: {
-    changeSearchForm: function () {
-      this.$emit("changeSearchForm");
-    },
-    toggleListing: function () {
-      this.$emit("toggleListing");
+    changeFormToA: function () {
+      this.$emit("changeFormToA");
     },
     onSubmit: function () {
       // onSubmit is called when user inputs ENTER on search bar

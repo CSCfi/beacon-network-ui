@@ -90,10 +90,10 @@ export default {
   },
   methods: {
     toggleListing: function () {
-      this.$emit("toggleListing");
+      this.$emit("changeFormToListing");
     },
     changeSearchForm: function () {
-      this.$emit("changeSearchForm");
+      this.$emit("changeFormToB");
     },
     validateInput: function () {
       this.errorMessages = [];

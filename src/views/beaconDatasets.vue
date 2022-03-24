@@ -3,6 +3,7 @@
   <section v-on:load="queryAPI" title="List of beacons and their datasets">
     <nav class="panel">
       <p class="panel-heading">Datasets</p>
+      <b class="panel-block">Search by dataset name or id</b>
       <div class="panel-block">
         <b-input
           data-testid="searchBar"
@@ -50,15 +51,7 @@
           {{ beacon.beaconName }}
         </a>
         <ul v-if="beacon.active">
-          <ul
-            class="indented"
-            v-for="dataset in beacon.datasets"
-            :key="dataset"
-          >
-            {{
-              dataset
-            }}
-          </ul>
+          <DatasetTile v-bind:dataset="beacon.datasets"> </DatasetTile>
         </ul>
       </ul>
     </nav>
@@ -67,8 +60,10 @@
 
 <script>
 import axios from "axios";
+import DatasetTile from "@/components/DatasetTile.vue";
 
 export default {
+  components: { DatasetTile },
   data() {
     return {
       searchValue: "",
@@ -77,6 +72,10 @@ export default {
       error: "",
       registry: process.env.VUE_APP_REGISTRY_URL,
       active: false,
+      columns: [
+        { field: "beaconName", label: "Beacon name", searchable: true },
+        { field: "name", label: "Dataset name", searchable: true },
+      ],
     };
   },
   methods: {
@@ -91,8 +90,19 @@ export default {
       vm.closeDatasets();
       for (const beacon of vm.beaconsAndDataSets) {
         beacon.datasets.forEach((dataset) => {
-          if (dataset.toLowerCase().includes(vm.searchValue.toLowerCase())) {
-            beacon.active = true;
+          if (dataset.name != undefined) {
+            if (
+              dataset.name.toLowerCase().includes(vm.searchValue.toLowerCase())
+            ) {
+              beacon.active = true;
+            }
+          }
+          if (dataset.id != undefined) {
+            if (
+              dataset.id.toLowerCase().includes(vm.searchValue.toLowerCase())
+            ) {
+              beacon.active = true;
+            }
           }
         });
       }
@@ -111,7 +121,7 @@ export default {
           .then((response) => {
             const datasets = [];
             for (const data of response.data.datasets) {
-              datasets.push(data.id);
+              datasets.push(data);
             }
             if (datasets.length == 0) {
               datasets.push("No datasets");
