@@ -11,7 +11,7 @@
     "start": "serve -l 8080 -s dist"
   },
   "dependencies": {
-    "@vue/cli-plugin-babel": "^5.0.3",
+    "@vue/cli-plugin-babel": "^5.0.4",
     "@vue/cli-plugin-eslint": "^5.0.3",
     "@vue/cli-plugin-typescript": "^5.0.3",
     "@vue/cli-plugin-unit-jest": "^5.0.3",
