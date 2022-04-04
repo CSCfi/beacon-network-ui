@@ -30,7 +30,7 @@
     "eslint-plugin-vue": "^7.19.1",
     "minimist": "^1.2.6",
     "node-sass": "^7.0.1",
-    "prettier": "^2.6.1",
+    "prettier": "^2.6.2",
     "regenerator-runtime": "^0.13.9",
     "sass-loader": "^12.6.0",
     "serve": "^13.0.2",
