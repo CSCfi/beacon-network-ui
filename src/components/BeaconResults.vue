@@ -301,6 +301,7 @@ export default {
     queryAPI: function() {
       var vm = this;
       vm.response = []; // Clear table
+      vm.filterValue = [];
       vm.filteringTerms = [];
       if (process.env.VUE_APP_DEVELOPMENT) {
         var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
