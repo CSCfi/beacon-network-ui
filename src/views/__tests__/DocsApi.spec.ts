@@ -8,7 +8,7 @@ const router = new VueRouter();
 
 const wrapper = mount(DocsApi, {
   localVue,
-  router,
+  router
 });
 
 describe("DocsApi.vue", () => {

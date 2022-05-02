@@ -71,9 +71,9 @@ curl -X PUT \
 export default {
   data() {
     return {
-      registry: process.env.VUE_APP_REGISTRY_URL,
+      registry: process.env.VUE_APP_REGISTRY_URL
     };
-  },
+  }
 };
 </script>
 

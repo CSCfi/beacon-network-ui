@@ -199,7 +199,7 @@ export default {
         "22",
         "X",
         "Y",
-        "MT",
+        "MT"
       ],
       searchInInput: "individuals",
       searchInInputs: [
@@ -209,12 +209,12 @@ export default {
         "runs",
         "analyses",
         "interactors",
-        "cohorts",
-      ],
+        "cohorts"
+      ]
     };
   },
   methods: {
-    exampleSearch: function () {
+    exampleSearch: function() {
       if (this.$props.isBeaconV2) {
         this.searchInInput = "g_variants";
         this.assembly = "GRCh37.p1";
@@ -234,7 +234,7 @@ export default {
         this.endMax = 210;
       }
     },
-    resetForm: function () {
+    resetForm: function() {
       this.assembly = "";
       this.referenceName = "1";
       this.coordType = "exact";
@@ -244,9 +244,9 @@ export default {
       this.startMax = 0;
       this.endMin = 0;
       this.endMax = 0;
-    },
+    }
   },
-  beforeMount: function () {
+  beforeMount: function() {
     if (this.$route.query.searchType == "advanced") {
       this.assembly = this.$route.query.assemblyId;
       this.referenceName = this.$route.query.referenceName;
@@ -258,6 +258,6 @@ export default {
       this.endMin = parseInt(this.$route.query.endMin) + 1;
       this.endMax = parseInt(this.$route.query.endMax) + 1;
     }
-  },
+  }
 };
 </script>

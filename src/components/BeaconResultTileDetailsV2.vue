@@ -22,7 +22,7 @@
           class="column details-table"
           detailed
           :hover="true"
-          @details-open="(row) => $buefy.toast.open(`Expanded ${row.id}`)"
+          @details-open="row => $buefy.toast.open(`Expanded ${row.id}`)"
         >
           <b-table-column label="Id" field="id" v-slot="props">
             <b-tag class="accessibility-green-tag"
@@ -64,7 +64,7 @@
                     class="column details-table"
                     detailed
                     @details-open="
-                      (row) => $buefy.toast.open(`Expanded ${row.id}`)
+                      row => $buefy.toast.open(`Expanded ${row.id}`)
                     "
                   >
                     <b-table-column v-slot="props">
@@ -76,7 +76,7 @@
                       <div
                         v-if="
                           typeof props.row[1] == 'string' ||
-                          typeof props.row[1] == 'number'
+                            typeof props.row[1] == 'number'
                         "
                       >
                         {{ props.row[1] }}
@@ -85,7 +85,7 @@
                       <div
                         v-if="
                           props.row[1] != null &&
-                          typeof props.row[1] == 'object'
+                            typeof props.row[1] == 'object'
                         "
                       >
                         <ul v-for="(prop, index) in props.row[1]" :key="index">
@@ -97,8 +97,8 @@
                         <b-table
                           v-if="
                             props.row[1] != null &&
-                            props.row[1][0] != undefined &&
-                            props.row[1][0].sampleOriginType != null
+                              props.row[1][0] != undefined &&
+                              props.row[1][0].sampleOriginType != null
                           "
                           :data="props.row[1]"
                           :columns="columns"
@@ -133,10 +133,10 @@
                           <div
                             v-if="
                               typeof prop == 'object' &&
-                              prop != null &&
-                              prop.sampleOriginType == null &&
-                              props.row != null &&
-                              props.row[0] !== 'handovers'
+                                prop != null &&
+                                prop.sampleOriginType == null &&
+                                props.row != null &&
+                                props.row[0] !== 'handovers'
                             "
                           >
                             <b-table
@@ -145,7 +145,7 @@
                               class="column details-table"
                               detailed
                               @details-open="
-                                (row) => $buefy.toast.open(`Expanded ${row.id}`)
+                                row => $buefy.toast.open(`Expanded ${row.id}`)
                               "
                             >
                               <b-table-column v-slot="props">
@@ -158,7 +158,7 @@
                                 <b
                                   v-if="
                                     props.row.value === null ||
-                                    props.row.value.length == 0
+                                      props.row.value.length == 0
                                   "
                                   >No data</b
                                 >
@@ -175,7 +175,7 @@
                                     class="column details-table"
                                     detailed
                                     @details-open="
-                                      (row) =>
+                                      row =>
                                         $buefy.toast.open(`Expanded ${row.id}`)
                                     "
                                   >
@@ -187,7 +187,7 @@
                                       <b-table
                                         v-if="
                                           props.row.key != null &&
-                                          props.row.key === 'handovers'
+                                            props.row.key === 'handovers'
                                         "
                                         :data="props.row.value"
                                       >
@@ -260,12 +260,12 @@ export default {
       display: false,
       columns: [
         { field: "sampleOriginType", label: "Sample Origin Type" },
-        { field: "sampleOriginDetail", label: "Sample Origin Detail" },
+        { field: "sampleOriginDetail", label: "Sample Origin Detail" }
       ],
       columnsForHandovers: [
         { field: "url", label: "Url" },
-        { field: "note", label: "Note" },
-      ],
+        { field: "note", label: "Note" }
+      ]
     };
   },
   computed: {},
@@ -283,7 +283,7 @@ export default {
       return urlSplit[2];
     },
 
-    getId: function (results) {
+    getId: function(results) {
       if (Object.keys(results.row)[0] != "variant") {
         const id = Object.keys(results.row)[0];
         const spacedId =
@@ -296,17 +296,17 @@ export default {
       }
     },
 
-    checkIfObject: function (item) {
+    checkIfObject: function(item) {
       if (typeof item === "object" && item !== null) {
         return false;
       }
       return true;
     },
-    displayResults: function () {
+    displayResults: function() {
       if (this.display) this.display = false;
       else this.display = true;
     },
-    checkForPublicDatasets: function (result) {
+    checkForPublicDatasets: function(result) {
       if (result.row != null) {
         if (
           result.row.info &&
@@ -317,7 +317,7 @@ export default {
       }
       return false;
     },
-    checkForRegisteredDatasets: function (result) {
+    checkForRegisteredDatasets: function(result) {
       if (result.row != null) {
         if (
           result.row.info &&
@@ -328,7 +328,7 @@ export default {
       }
       return false;
     },
-    checkForControlledDatasets: function (result) {
+    checkForControlledDatasets: function(result) {
       if (result.row != null) {
         if (
           result.row.info &&
@@ -339,16 +339,16 @@ export default {
       }
       return false;
     },
-    parseResultsToArray: function () {
+    parseResultsToArray: function() {
       this.parsedResults = JSON.parse(JSON.stringify(this.$props.results));
     },
-    objectToArray: function (object) {
+    objectToArray: function(object) {
       return Object.entries(object.row);
-    },
+    }
   },
   beforeMount() {
     this.parseResultsToArray();
-  },
+  }
 };
 </script>
 

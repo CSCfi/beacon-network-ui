@@ -14,7 +14,7 @@ describe("AdvancedSearch.vue Example search", () => {
   const wrapper = mount(AdvancedSearch, {
     localVue,
     router,
-    attachTo: elem,
+    attachTo: elem
   });
   it("Search works", async () => {
     const buttonExample = wrapper.find("[data-testid=exampleButton]");
@@ -118,7 +118,7 @@ describe("AdvancedSearch.vue with bad input", () => {
   const wrapper = mount(AdvancedSearch, {
     localVue,
     router,
-    attachTo: elem,
+    attachTo: elem
   });
   it("it displays error message", async () => {
     const buttonSearch = wrapper.find("[data-testid=searchTest]");

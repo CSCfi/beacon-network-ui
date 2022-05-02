@@ -12,7 +12,7 @@ if (document.body) {
 const wrapper = mount(BasicSearch, {
   localVue,
   router,
-  attachTo: elem,
+  attachTo: elem
 });
 describe("Example search", () => {
   it("Can fill the form and do a search", async () => {

@@ -10,7 +10,7 @@ describe("Guide.vue", () => {
   it('"Return button works', async () => {
     const wrapper = mount(Guide, {
       localVue,
-      router,
+      router
     });
     const returnButton = wrapper.find("[data-testid=returnButton]");
     expect(returnButton.exists()).toBe(true);
@@ -22,7 +22,7 @@ describe("Guide.vue", () => {
   it("First test button works", async () => {
     const wrapper = mount(Guide, {
       localVue,
-      router,
+      router
     });
     const testButton1 = wrapper.find("[data-testid=testButton1]");
     expect(testButton1.exists()).toBe(true);
@@ -36,7 +36,7 @@ describe("Guide.vue", () => {
   it("Second test button works", async () => {
     const wrapper = mount(Guide, {
       localVue,
-      router,
+      router
     });
     const testButton2 = wrapper.find("[data-testid=testButton2]");
     expect(testButton2.exists()).toBe(true);
@@ -50,7 +50,7 @@ describe("Guide.vue", () => {
   it("Third test button works", async () => {
     const wrapper = mount(Guide, {
       localVue,
-      router,
+      router
     });
     const testButton3 = wrapper.find("[data-testid=testButton3]");
     expect(testButton3.exists()).toBe(true);

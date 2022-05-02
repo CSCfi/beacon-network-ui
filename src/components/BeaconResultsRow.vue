@@ -29,36 +29,36 @@ import Alert from "vue-material-design-icons/Alert.vue";
 export default {
   props: ["beaconId"],
   components: {
-    Alert,
+    Alert
   },
   data() {
     return {
       registry: process.env.VUE_APP_REGISTRY_URL,
-      data: { name: "", organization: { name: "", logoUrl: "" } },
+      data: { name: "", organization: { name: "", logoUrl: "" } }
     };
   },
   watch: {
-    "$route.query.query": function () {
+    "$route.query.query": function() {
       // Watch query string for changes in case the user makes a new
       // search while displaying results.
       this.getInfo();
-    },
+    }
   },
   methods: {
-    getInfo: function () {
+    getInfo: function() {
       axios
         .get(`${this.registry}services/${this.$props.beaconId}`)
-        .then((response) => {
+        .then(response => {
           this.data = response.data;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(this.$props.beaconId, error);
         });
-    },
+    }
   },
   beforeMount() {
     this.getInfo();
-  },
+  }
 };
 </script>
 

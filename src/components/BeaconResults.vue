@@ -96,7 +96,7 @@
           <div
             v-if="
               resp.datasetAlleleResponses &&
-              resp.datasetAlleleResponses.length > 0
+                resp.datasetAlleleResponses.length > 0
             "
           >
             <BeaconResultTileDetails
@@ -185,7 +185,7 @@ export default {
     BeaconResultTile,
     BeaconResultTileDetails,
     BeaconResultTileDetailsV2,
-    Loading,
+    Loading
   },
   data() {
     return {
@@ -206,24 +206,24 @@ export default {
         "INV",
         "CNV",
         "SNP",
-        "MNP",
+        "MNP"
       ],
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
       filteringTerms: [],
       filterValue: [],
       columns: [{ field: "label" }],
-      showDetailIcon: true,
+      showDetailIcon: true
     };
   },
   watch: {
-    "$route.query": function () {
+    "$route.query": function() {
       // Watch query string for changes in case the user makes a new
       // search while displaying results.
       this.queryAPI();
-    },
+    }
   },
   methods: {
-    filterResults: function (filters) {
+    filterResults: function(filters) {
       var queryParamsObj = Object.assign({}, this.$route.query);
       var filterStrign = "";
       if (filters.length != 0) {
@@ -239,13 +239,13 @@ export default {
       this.$router.push(
         {
           path: "results",
-          query: queryParamsObj,
+          query: queryParamsObj
         },
         undefined,
         () => {}
       );
     },
-    checkIfV2: function (beacon) {
+    checkIfV2: function(beacon) {
       if (beacon.meta != undefined) {
         this.beaconV2 = true;
         return true;
@@ -253,7 +253,7 @@ export default {
       this.beaconV2 = false;
       return false;
     },
-    getErrorBeaconId: function (response) {
+    getErrorBeaconId: function(response) {
       // This function generates beaconId for errored beacon queries since these queries don't currently return the beaconId
       if (
         response.beaconId == undefined &&
@@ -262,7 +262,10 @@ export default {
       ) {
         // Creates the beacon id from the url
         var splitUrl = response.service.split("/");
-        var beaconId = splitUrl[2].split(".").reverse().join(".");
+        var beaconId = splitUrl[2]
+          .split(".")
+          .reverse()
+          .join(".");
         response.beaconId = beaconId;
       }
       return response;
@@ -282,9 +285,9 @@ export default {
     mergeFilterIds(existingIds, newIds) {
       //checks for duplicates and adds ids to obj if new
       var ids = [];
-      newIds.forEach.forEach((newId) => {
+      newIds.forEach.forEach(newId => {
         var doesNotExist = true;
-        existingIds.forEach.forEach((oldId) => {
+        existingIds.forEach.forEach(oldId => {
           if (newId == oldId) {
             doesNotExist = false;
           }
@@ -295,7 +298,7 @@ export default {
       });
       return existingIds.push(ids);
     },
-    queryAPI: function () {
+    queryAPI: function() {
       var vm = this;
       vm.response = []; // Clear table
       vm.filteringTerms = [];
@@ -323,16 +326,16 @@ export default {
       queryParamsString += "&filters=filter";
       // Create websocket
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
-      websocket.onopen = function () {
+      websocket.onopen = function() {
         // The connection was opened
         vm.isLoading = true;
       };
-      websocket.onclose = function () {
+      websocket.onclose = function() {
         // The connection was closed
         vm.isLoading = false;
         vm.checkResponse();
       };
-      websocket.onmessage = function (event) {
+      websocket.onmessage = function(event) {
         // New message arrived
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
@@ -344,8 +347,8 @@ export default {
               vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
             } else {
               // check if obj exists and add ids to it
-              JSON.parse(event.data).filteringTerms.forEach((newObject) => {
-                vm.filteringTerms.forEach((object) => {
+              JSON.parse(event.data).filteringTerms.forEach(newObject => {
+                vm.filteringTerms.forEach(object => {
                   if (object.label == newObject.label) {
                     object.id = mergeFilterIds(object.id, newObject.id);
                   }
@@ -353,7 +356,7 @@ export default {
               });
             }
           } else {
-            const found = vm.response.some((resp) => {
+            const found = vm.response.some(resp => {
               if (JSON.parse(event.data).meta == undefined) {
                 resp.beaconId == JSON.parse(event.data).beaconId;
               } else {
@@ -364,7 +367,7 @@ export default {
 
             var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
 
-            const found_nobeaconid = vm.response.some((resp) => {
+            const found_nobeaconid = vm.response.some(resp => {
               if (nobeaconid.meta == undefined) {
                 resp.beaconId === nobeaconid.beaconId;
               } else {
@@ -375,23 +378,23 @@ export default {
           }
         }
       };
-      websocket.onerror = function () {
+      websocket.onerror = function() {
         // There was an error with your WebSocket
         vm.isLoading = false;
         vm.checkResponse();
       };
     },
-    checkResponse: function () {
+    checkResponse: function() {
       // Checks if the response from aggregator contains any exists=true
       // If it doesn't, it clears the entire response array
       // This solution stems from buefy's requirements for displaying
       // an empty table template (display only if there is no data)
-      if (this.response.find((resp) => resp.exists === true)) {
+      if (this.response.find(resp => resp.exists === true)) {
         this.notFound = false;
         return true;
       } else if (
         this.response.find(
-          (resp) => resp.response !== undefined && resp.response.exists === true
+          resp => resp.response !== undefined && resp.response.exists === true
         )
       ) {
         this.notFound = false;
@@ -401,7 +404,7 @@ export default {
         this.notFound = true;
       }
     },
-    setSearchToLocaStorage: function () {
+    setSearchToLocaStorage: function() {
       if (localStorage.getItem("searches") == null) {
         var searches = [];
         var currentdate = new Date();
@@ -432,7 +435,7 @@ export default {
           seconds;
         var search = {
           url: window.location.href,
-          date: date,
+          date: date
         };
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
@@ -467,17 +470,17 @@ export default {
         var searches = JSON.parse(localStorage.getItem("searches"));
         var search = {
           url: window.location.href,
-          date: date,
+          date: date
         };
         searches.push(search);
         localStorage.setItem("searches", JSON.stringify(searches));
       }
-    },
+    }
   },
   beforeMount() {
     this.queryAPI();
     this.setSearchToLocaStorage();
-  },
+  }
 };
 </script>
 

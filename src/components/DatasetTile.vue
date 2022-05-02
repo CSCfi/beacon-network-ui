@@ -8,7 +8,7 @@
         class="column details-table"
         detailed
         :hover="true"
-        @details-open="(row) => $buefy.toast.open(`Expanded ${row.id}`)"
+        @details-open="row => $buefy.toast.open(`Expanded ${row.id}`)"
       >
         <b-table-column field="name" label="Dataset" v-slot="props">
           {{ props.row.name }}
@@ -48,6 +48,6 @@ import axios from "axios";
 
 export default {
   props: ["dataset"],
-  methods: {},
+  methods: {}
 };
 </script>

@@ -79,11 +79,11 @@ if (process.env.VUE_APP_MATOMO_URL && process.env.VUE_APP_MATOMO_ID) {
     //   ['appendToTrackingUrl', 'new_visit=1'],
     //   etc.
     // ]
-    preInitActions: [],
+    preInitActions: []
   });
 }
 
 new Vue({
   router,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount("#app");

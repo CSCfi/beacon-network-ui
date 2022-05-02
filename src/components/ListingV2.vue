@@ -134,17 +134,17 @@ export default {
       list: [],
       validated: false,
       errorMessage: "",
-      errorTooltip: false,
+      errorTooltip: false
     };
   },
   methods: {
-    changeFormToA: function () {
+    changeFormToA: function() {
       this.$emit("changeFormToA");
     },
-    changeFormToB: function () {
+    changeFormToB: function() {
       this.$emit("changeFormToB");
     },
-    pickSearchBySet: function (index) {
+    pickSearchBySet: function(index) {
       const element = this.list[index];
       if (element.searchInInput === "individuals") {
         element.searchByInputs = ["", "biosamples", "g_variants", "cohorts"];
@@ -153,7 +153,7 @@ export default {
           "individuals",
           "g_variants",
           "runs",
-          "variants in sample",
+          "variants in sample"
         ];
       } else if (element.searchInInput === "g_variants") {
         element.searchByInputs = [
@@ -161,7 +161,7 @@ export default {
           "individuals",
           "biosamples",
           "variants in sample",
-          "variant interpretations",
+          "variant interpretations"
         ];
       } else if (element.searchInInput === "runs") {
         element.searchByInputs = ["", "biosamples", "analyses"];
@@ -173,13 +173,13 @@ export default {
         element.searchByInputs = ["", "runs", "variants in sample"];
       }
     },
-    setV2: function () {
+    setV2: function() {
       this.$emit("setV2");
     },
-    returnToPrevious: function () {
+    returnToPrevious: function() {
       this.$emit("returnToPrevious");
     },
-    validateInput: function () {
+    validateInput: function() {
       var vm = this;
       if (vm.list[0].searchInInput !== "" && vm.list[0].searchValue !== "") {
         vm.validated = true;
@@ -187,7 +187,7 @@ export default {
         vm.validated = false;
       }
     },
-    listingSearch: function () {
+    listingSearch: function() {
       var vm = this;
       vm.errorTooltip = false;
       vm.validateInput();
@@ -195,7 +195,7 @@ export default {
         var queryObj = {
           searchInInput: this.list[0].searchInInput,
           id: this.list[0].searchValue,
-          searchByInput: this.list[0].searchByInput,
+          searchByInput: this.list[0].searchByInput
         };
         if (queryObj.searchByInput == undefined) {
           queryObj.searchByInput = "";
@@ -203,7 +203,7 @@ export default {
         this.$router.push(
           {
             path: "results",
-            query: queryObj,
+            query: queryObj
           },
           undefined,
           () => {}
@@ -213,7 +213,7 @@ export default {
         vm.errorTooltip = true;
       }
     },
-    exampleSearch: function () {
+    exampleSearch: function() {
       this.list = [];
       this.list.push({
         searchInInput: "biosamples",
@@ -224,20 +224,20 @@ export default {
           "runs",
           "analyses",
           "interactors",
-          "cohorts",
+          "cohorts"
         ],
         searchValue: "SAMN03283350",
         searchByInput: "individuals",
-        searchByInputs: ["Pick a search value first"],
+        searchByInputs: ["Pick a search value first"]
       });
       document.getElementById("searchButton").focus();
       this.pickSearchBySet(0);
     },
-    resetForm: function () {
+    resetForm: function() {
       this.removeInputfield(0);
       this.addRow();
     },
-    addRow: function () {
+    addRow: function() {
       /* this methdod was created so search fields could be easily added.
        But the back end currently offers no support for multiple different queries 
        so this method is only used before mount*/
@@ -251,16 +251,16 @@ export default {
             "runs",
             "analyses",
             "interactors",
-            "cohorts",
+            "cohorts"
           ],
           searchValue: "0",
           toId: "0",
           searchByInput: "",
-          searchByInputs: ["Pick a search value first"],
+          searchByInputs: ["Pick a search value first"]
         });
       }
     },
-    checkListLenght: function () {
+    checkListLenght: function() {
       if (this.list.length > 1) {
         return true;
       }
@@ -268,11 +268,11 @@ export default {
     },
     removeInputfield(index) {
       this.list.splice(index, 1);
-    },
+    }
   },
   beforeMount() {
     this.addRow();
-  },
+  }
 };
 </script>
 

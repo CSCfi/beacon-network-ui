@@ -4,7 +4,7 @@
     <b-navbar
       id="nav"
       :class="[
-        $route.path !== '/' && $route.path !== '/results' ? 'borderNav' : null,
+        $route.path !== '/' && $route.path !== '/results' ? 'borderNav' : null
       ]"
       :spaced="true"
       ><template #brand>
@@ -77,14 +77,14 @@ export default {
   data() {
     return {
       login_url: process.env.VUE_APP_LOGIN_URL,
-      logout_url: process.env.VUE_APP_LOGOUT_URL,
+      logout_url: process.env.VUE_APP_LOGOUT_URL
     };
   },
   components: {
-    Footer,
+    Footer
   },
   methods: {
-    getCookie: function (cname) {
+    getCookie: function(cname) {
       // Function from https://www.w3schools.com/js/js_cookies.asp
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);
@@ -99,8 +99,8 @@ export default {
         }
       }
       return "";
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
@@ -166,8 +166,8 @@ $snackbar-color: #000;
 $colors: (
   "primary": (
     $primary,
-    $primary-invert,
-  ),
+    $primary-invert
+  )
 );
 
 // Links
