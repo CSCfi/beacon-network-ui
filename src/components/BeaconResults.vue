@@ -24,8 +24,8 @@
           >
         </div>
       </b-field>
+      {{ beaconV2 }}
       <p class="subtitle" v-if="beaconV2">Filter by</p>
-
       <b-field v-if="beaconV2">
         <div
           class="block"
@@ -86,6 +86,7 @@
 
       <div v-for="(resp, index) in response" :key="index">
         <!-- beaconV1 tile -->
+
         <section v-if="!checkIfV2(resp) && resp.exists">
           <BeaconResultTile
             :title="'Response from Beacon ' + resp.beaconId"
@@ -247,10 +248,18 @@ export default {
     },
     checkIfV2: function(beacon) {
       if (beacon.meta != undefined) {
-        this.beaconV2 = true;
         return true;
       }
-      this.beaconV2 = false;
+
+      return false;
+    },
+    checkIfV2Inresponse: function() {
+      this.response.forEach(response => {
+        if (response.meta != undefined) {
+          console.log("here");
+          return true;
+        }
+      });
       return false;
     },
     getErrorBeaconId: function(response) {
@@ -346,6 +355,9 @@ export default {
               });
             }
           } else {
+            if (JSON.parse(event.data).meta != undefined) {
+              vm.beaconV2 = true;
+            }
             const found = vm.response.some(resp => {
               if (JSON.parse(event.data).meta == undefined) {
                 resp.beaconId == JSON.parse(event.data).beaconId;
