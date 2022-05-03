@@ -347,13 +347,18 @@ export default {
             if (vm.filteringTerms.length == 0) {
               vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
             } else {
-              // check if obj exists and add ids to it
+              // check if filtering term exists and add ids to it
               JSON.parse(event.data).filteringTerms.forEach(newObject => {
+                var exists = false;
                 vm.filteringTerms.forEach(object => {
                   if (object.label == newObject.label) {
                     object.id = mergeFilterIds(object.id, newObject.id);
+                    exists = true;
                   }
                 });
+                if (!exists) {
+                  vm.filteringTerms.push(newObject);
+                }
               });
             }
           } else {
