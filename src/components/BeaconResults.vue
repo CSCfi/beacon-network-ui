@@ -282,22 +282,6 @@ export default {
         );
       }
     },
-    mergeFilterIds(existingIds, newIds) {
-      //checks for duplicates and adds ids to obj if new
-      var ids = [];
-      newIds.forEach.forEach(newId => {
-        var doesNotExist = true;
-        existingIds.forEach.forEach(oldId => {
-          if (newId == oldId) {
-            doesNotExist = false;
-          }
-        });
-        if (doesNotExist) {
-          ids.push(newId);
-        }
-      });
-      return existingIds.push(ids);
-    },
     queryAPI: function() {
       var vm = this;
       vm.response = []; // Clear table
@@ -352,7 +336,7 @@ export default {
                 var exists = false;
                 vm.filteringTerms.forEach(object => {
                   if (object.label == newObject.label) {
-                    object.id = mergeFilterIds(object.id, newObject.id);
+                    object.id.push(newObject.id);
                     exists = true;
                   }
                 });
