@@ -131,15 +131,15 @@
 import VueCookies from "vue-cookies";
 export default {
   methods: {
-    enableTracking: function() {
+    enableTracking: function () {
       this.$matomo.setConsentGiven();
       VueCookies.set("elixir-tracking-consent", "true", Infinity);
     },
-    disableTracking: function() {
+    disableTracking: function () {
       this.$matomo.forgetConsentGiven();
       VueCookies.set("elixir-tracking-consent", "false", Infinity);
     },
-    getCookie: function(cname) {
+    getCookie: function (cname) {
       // Function from https://www.w3schools.com/js/js_cookies.asp
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);
@@ -154,8 +154,8 @@ export default {
         }
       }
       return "";
-    }
-  }
+    },
+  },
 };
 </script>
 

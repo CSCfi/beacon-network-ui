@@ -8,7 +8,7 @@ const router = new VueRouter();
 
 const wrapper = mount(Tos, {
   localVue,
-  router
+  router,
 });
 
 describe("Tos.vue", () => {

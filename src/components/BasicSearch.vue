@@ -86,7 +86,8 @@ export default {
       validated: false,
       errorMessage: "",
       errorTooltip: false,
-      regex: /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s?:\s?(\d+)\s?([ATCGN]+)\s?>\s?(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
+      regex:
+        /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s?:\s?(\d+)\s?([ATCGN]+)\s?>\s?(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
       variantTypes: [
         "DEL:ME",
         "INS:ME",
@@ -97,21 +98,21 @@ export default {
         "INV",
         "CNV",
         "SNP",
-        "MNP"
-      ]
+        "MNP",
+      ],
     };
   },
   methods: {
-    changeFormToA: function() {
+    changeFormToA: function () {
       this.$emit("changeFormToA");
     },
-    onSubmit: function() {
+    onSubmit: function () {
       // onSubmit is called when user inputs ENTER on search bar
       // proxy the event to the basicSearch function
       var vm = this;
       vm.basicSearch();
     },
-    basicSearch: function() {
+    basicSearch: function () {
       // basicSearch is called when user clicks search button
       var vm = this;
       vm.errorTooltip = false;
@@ -128,7 +129,7 @@ export default {
         this.$router.push(
           {
             path: "results",
-            query: queryObj
+            query: queryObj,
           },
           undefined,
           () => {}
@@ -138,12 +139,12 @@ export default {
         vm.errorTooltip = true;
       }
     },
-    exampleSearch: function() {
+    exampleSearch: function () {
       var vm = this;
       vm.query = "MT : 10 T > C";
       document.getElementById("searchBar").focus();
     },
-    buildQueryObj: function() {
+    buildQueryObj: function () {
       var vm = this;
       var temp = vm.query.split(vm.regex).filter(Boolean);
       var tempArray = [];
@@ -155,7 +156,7 @@ export default {
       var queryObj = {
         referenceName: tempArray[0],
         start: tempArray[1] > 0 ? tempArray[1] - 1 : 0,
-        referenceBases: tempArray[2]
+        referenceBases: tempArray[2],
       };
       // Determine if last element is a base of a variant type
       if (vm.variantTypes.includes(tempArray[3])) {
@@ -168,28 +169,27 @@ export default {
 
       return queryObj;
     },
-    validateInput: function() {
+    validateInput: function () {
       var vm = this;
       if (vm.regex.test(vm.query)) {
         vm.validated = true;
       } else {
         vm.validated = false;
       }
-    }
+    },
   },
   beforeMount() {
     // If user reloads page, this places the current query params from the address bar into the search bar
     // Check searchType
     if (this.$route.query.searchType == "basic") {
       // Continue to parse the object into a string
-      this.query = `${this.$route.query.referenceName} : ${parseInt(
-        this.$route.query.start,
-        10
-      ) + 1} ${this.$route.query.referenceBases} > ${
+      this.query = `${this.$route.query.referenceName} : ${
+        parseInt(this.$route.query.start, 10) + 1
+      } ${this.$route.query.referenceBases} > ${
         this.$route.query.alternateBases
       }`;
     }
-  }
+  },
 };
 </script>
 

@@ -197,7 +197,7 @@ import ConnectedBeaconTile from "@/components/ConnectedBeaconTile.vue";
 export default {
   name: "RegistrationForm",
   components: {
-    ConnectedBeaconTile
+    ConnectedBeaconTile,
   },
   data() {
     return {
@@ -210,62 +210,62 @@ export default {
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
       ui: process.env.VUE_APP_UI_URL,
       audience: process.env.VUE_APP_JWT_AUDIENCE,
-      securityDocument: process.env.VUE_APP_SECURITY_DOCUMENT
+      securityDocument: process.env.VUE_APP_SECURITY_DOCUMENT,
     };
   },
   props: {},
   methods: {
-    onSubmit: function() {
+    onSubmit: function () {
       // onSubmit is called when user inputs ENTER on search bar
       // proxy the event to the basicSearch function
       var vm = this;
       vm.registerButton();
     },
-    registerButton: function() {
+    registerButton: function () {
       // registerButton is called when user clicks register button
       var vm = this;
       vm.registerService();
     },
-    registerService: function() {
+    registerService: function () {
       var vm = this;
       var registry = `${vm.registry}services`;
       var headers = {
         Authorization: vm.apikey,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       };
       var data = {
         type: "beacon",
-        url: vm.url
+        url: vm.url,
       };
       // console.log(vm.email, vm.url, vm.apikey);
       axios
         .post(registry, data, { headers: headers })
-        .then(response => {
+        .then((response) => {
           vm.response = response;
           // console.log(response)
           vm.getNewBeaconInfo();
         })
-        .catch(error => {
+        .catch((error) => {
           vm.error = error.response;
           // console.log(error.response)
         });
     },
-    getNewBeaconInfo: function() {
+    getNewBeaconInfo: function () {
       var vm = this;
 
       var url = `${vm.registry}services/${vm.response.data.serviceId}`;
 
       axios
         .get(url)
-        .then(resp => {
+        .then((resp) => {
           console.log(resp);
           vm.beacon = resp.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

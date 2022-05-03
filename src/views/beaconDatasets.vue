@@ -74,22 +74,22 @@ export default {
       active: false,
       columns: [
         { field: "beaconName", label: "Beacon name", searchable: true },
-        { field: "name", label: "Dataset name", searchable: true }
-      ]
+        { field: "name", label: "Dataset name", searchable: true },
+      ],
     };
   },
   methods: {
-    closeDatasets: function() {
+    closeDatasets: function () {
       var vm = this;
       for (const beacon of vm.beaconsAndDataSets) {
         beacon.active = false;
       }
     },
-    searchDatasets: function() {
+    searchDatasets: function () {
       var vm = this;
       vm.closeDatasets();
       for (const beacon of vm.beaconsAndDataSets) {
-        beacon.datasets.forEach(dataset => {
+        beacon.datasets.forEach((dataset) => {
           if (dataset.name != undefined) {
             if (
               dataset.name.toLowerCase().includes(vm.searchValue.toLowerCase())
@@ -107,18 +107,18 @@ export default {
         });
       }
     },
-    queryBeaconAPI: async function() {
+    queryBeaconAPI: async function () {
       var vm = this;
 
       for (const beacon of vm.beacons) {
         const beaconData = {
           beaconName: beacon.name,
           datasets: [],
-          active: false
+          active: false,
         };
         axios
           .get(beacon.url)
-          .then(response => {
+          .then((response) => {
             const datasets = [];
             for (const data of response.data.datasets) {
               datasets.push(data);
@@ -128,33 +128,33 @@ export default {
             }
             beaconData.datasets = datasets;
           })
-          .catch(error => {
+          .catch((error) => {
             beaconData.datasets = ["Unable to connect"];
           });
         vm.beaconsAndDataSets.push(beaconData);
       }
     },
-    queryAPI: function() {
+    queryAPI: function () {
       var vm = this;
       vm.beacons = [];
       var url = `${vm.registry}services?type=beacon`;
       axios
         .get(url)
-        .then(response => {
+        .then((response) => {
           for (const data of response.data) {
             vm.beacons.push(data);
           }
           vm.queryBeaconAPI();
         })
-        .catch(error => {});
+        .catch((error) => {});
     },
     setDisplay(beacon) {
       beacon.active = !beacon.active;
-    }
+    },
   },
   beforeMount() {
     this.queryAPI();
-  }
+  },
 };
 </script>
 <style>

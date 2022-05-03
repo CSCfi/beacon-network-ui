@@ -156,20 +156,20 @@ import ConnectedBeacons from "@/components/ConnectedBeacons.vue";
 
 export default {
   components: {
-    ConnectedBeacons
+    ConnectedBeacons,
   },
   data() {
     return {
       activeTab: 0,
-      query: ""
+      query: "",
     };
   },
   methods: {
-    changeSearch: function(queryString) {
+    changeSearch: function (queryString) {
       this.$root.$emit("changeSearch", queryString);
       document.getElementById("app").scrollIntoView();
-    }
-  }
+    },
+  },
 };
 </script>
 
