@@ -53,7 +53,7 @@
           v-if="!getCookie('logged_in')"
           class="login"
           title="Authenticate at ELIXIR AAI"
-          ><img src="./assets/elixir-login.png" alt="ELIXIR AAI Login button"
+          ><img src="./assets/login-ls.png" alt="ELIXIR AAI Login button"
         /></a>
 
         <b-navbar-item
@@ -142,7 +142,7 @@ export default {
 }
 
 .login img {
-  width: 100px;
+  width: 125px;
   height: 50px;
 }
 
