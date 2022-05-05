@@ -24,6 +24,59 @@
           >
         </div>
       </b-field>
+      {{ beaconV2 }}
+      <p class="subtitle" v-if="beaconV2">Filter by</p>
+      <b-field v-if="beaconV2">
+        <div
+          class="block"
+          v-for="(filter, index) in filteringTerms"
+          :key="index"
+        >
+          <b-table
+            id="filterTable"
+            :data="filter"
+            :columns="columns"
+            detailed
+            hoverable
+            detail-key="label"
+            data-testid="filtersTest"
+            @details-open="
+              (row, index) => $buefy.toast.open(`Expanded ${row.label}`)
+            "
+            :show-detail-icon="showDetailIcon"
+          >
+            <template slot="detail" slot-scope="props">
+              <div v-for="(value, ind) in props.row" :key="ind">
+                <b-checkbox
+                  v-model="filterValue"
+                  :native-value="value"
+                  v-if="ind == 'id'"
+                >
+                  {{ "id: " + value }}
+                </b-checkbox>
+              </div>
+            </template>
+          </b-table>
+          <b-button
+            v-on:click="filterResults(filterValue)"
+            type="is-primary"
+            size="is-medium"
+            data-testid="filterButton"
+            >Apply Filter</b-button
+          >
+          <p class="content"></p>
+          <b-button
+            v-on:click="filterValue = []"
+            type="is-primary"
+            size="is-medium"
+            data-testid="filterResetButton"
+            @details-close="
+              (row, index) => $buefy.toast.close(`Expanded ${row.label}`)
+            "
+            >Reset filters</b-button
+          >
+        </div>
+      </b-field>
     </div>
 
     <div class="column">
@@ -33,6 +86,7 @@
 
       <div v-for="(resp, index) in response" :key="index">
         <!-- beaconV1 tile -->
+
         <section v-if="!checkIfV2(resp) && resp.exists">
           <BeaconResultTile
             :title="'Response from Beacon ' + resp.beaconId"
@@ -156,6 +210,10 @@ export default {
         "MNP",
       ],
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
+      filteringTerms: [],
+      filterValue: [],
+      columns: [{ field: "label" }],
+      showDetailIcon: true,
     };
   },
   watch: {
@@ -166,10 +224,42 @@ export default {
     },
   },
   methods: {
+    filterResults: function (filters) {
+      var queryParamsObj = Object.assign({}, this.$route.query);
+      var filterStrign = "";
+      if (filters.length != 0) {
+        for (var filter in filters) {
+          if (filter == 0) {
+            filterStrign += filters[filter];
+          } else {
+            filterStrign += "," + filters[filter];
+          }
+        }
+      }
+      queryParamsObj.filters = filterStrign;
+      this.$router.push(
+        {
+          path: "results",
+          query: queryParamsObj,
+        },
+        undefined,
+        () => {}
+      );
+    },
     checkIfV2: function (beacon) {
       if (beacon.meta != undefined) {
         return true;
       }
+
+      return false;
+    },
+    checkIfV2Inresponse: function () {
+      this.response.forEach((response) => {
+        if (response.meta != undefined) {
+          console.log("here");
+          return true;
+        }
+      });
       return false;
     },
     getErrorBeaconId: function (response) {
@@ -201,6 +291,8 @@ export default {
     queryAPI: function () {
       var vm = this;
       vm.response = []; // Clear table
+      vm.filterValue = [];
+      vm.filteringTerms = [];
       if (process.env.VUE_APP_DEVELOPMENT) {
         var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
       } else {
@@ -222,7 +314,7 @@ export default {
         queryParamsString +=
           key + "=" + encodeURIComponent(queryParamsObj[key]);
       }
-
+      queryParamsString += "&filters=filter";
       // Create websocket
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
       websocket.onopen = function () {
@@ -239,18 +331,50 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-
         if (JSON.parse(event.data) != null) {
-          const found = vm.response.some(
-            (resp) => resp.beaconId == JSON.parse(event.data).beaconId
-          );
+          //checks if response is filteringTerms or not
+          if (JSON.parse(event.data).filteringTerms != undefined) {
+            if (vm.filteringTerms.length == 0) {
+              vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
+            } else {
+              // check if filtering term exists and add ids to it
+              JSON.parse(event.data).filteringTerms.forEach((newObject) => {
+                var exists = false;
+                vm.filteringTerms.forEach((object) => {
+                  if (object.label == newObject.label) {
+                    object.id.push(newObject.id);
+                    exists = true;
+                  }
+                });
+                if (!exists) {
+                  vm.filteringTerms.push(newObject);
+                }
+              });
+            }
+          } else {
+            if (JSON.parse(event.data).meta != undefined) {
+              vm.beaconV2 = true;
+            }
+            const found = vm.response.some((resp) => {
+              if (JSON.parse(event.data).meta == undefined) {
+                resp.beaconId == JSON.parse(event.data).beaconId;
+              } else {
+                resp.beaconId == JSON.parse(event.data).meta.beaconId;
+              }
+            });
+            // checks if filter result and adds to filteringTerms
 
-          var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+            var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
 
-          const found_nobeaconid = vm.response.some((resp) => {
-            resp.beaconId === nobeaconid.beaconId;
-          });
-          if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
+            const found_nobeaconid = vm.response.some((resp) => {
+              if (nobeaconid.meta == undefined) {
+                resp.beaconId === nobeaconid.beaconId;
+              } else {
+                resp.beaconId === nobeaconid.meta.beaconId;
+              }
+            });
+            if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
+          }
         }
       };
       websocket.onerror = function () {
@@ -316,7 +440,6 @@ export default {
         localStorage.setItem("searches", JSON.stringify(searches));
       } else {
         var currentdate = new Date();
-
         var hours = currentdate.getHours();
         var minutes = currentdate.getMinutes();
         var seconds = currentdate.getSeconds();
@@ -376,7 +499,9 @@ export default {
   font-size: 16px;
 }
 .filtered {
-  position: sticky;
+  /* commented to avoid switches going over filters
+  might be useful in the future with more search results
+  position: sticky; */
   top: 20px;
 }
 .field {

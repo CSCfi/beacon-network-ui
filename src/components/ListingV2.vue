@@ -13,7 +13,6 @@
               expanded
             >
               <option
-                data-testid="inputOption"
                 v-for="(input1, index) in row.searchInInputs"
                 :value="input1"
                 :key="index"
