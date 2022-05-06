@@ -161,6 +161,13 @@ export default {
     } else {
       this.toggleV2 = false;
     }
+    if (this.$route.query.searchType == "advanced") {
+      if (!this.toggleV2) {
+        this.componentName = AdvancedSearchV2;
+      } else {
+        this.componentName = AdvancedSearch;
+      }
+    }
   },
 };
 </script>
