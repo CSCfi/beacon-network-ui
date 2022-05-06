@@ -85,6 +85,8 @@ export default {
         this.componentName = AdvancedSearch;
       } else if (this.componentName == AdvancedSearch) {
         this.componentName = AdvancedSearchV2;
+      } else if (this.componentName == ListingV2) {
+        this.componentName = BasicSearch;
       }
     },
     setFormToA: function () {
