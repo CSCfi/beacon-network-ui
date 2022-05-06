@@ -142,7 +142,7 @@ export default {
 }
 
 .login img {
-  width: 125px;
+  width: 200px;
   height: 50px;
 }
 
