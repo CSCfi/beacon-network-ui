@@ -101,7 +101,7 @@
     <p>
       Search queries in beacon 2.x work much like they did in beacon 1.1.0,
       except now queries can be filtered using the following models from the
-      dopdown field: <b>individuals, biosamples, g-variants and cohorts </b>.
+      dropdown field: <b>individuals, biosamples, g-variants and cohorts </b>.
     </p>
     <h4>Listings search</h4>
     <p>
