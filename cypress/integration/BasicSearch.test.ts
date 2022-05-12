@@ -13,7 +13,7 @@ describe("Basic Search", () => {
   });
   it("can display results", () => {
     cy.get('[data-testid="fi.rahtiapp.staging-elixirbeacon"]').click();
-
+    cy.wait(3000);
     cy.contains("urn:hg:1000genome dataset location");
     cy.contains("T > C");
   });
