@@ -48,7 +48,6 @@ import BasicSearchV2 from "@/components/BasicSearchV2.vue";
 import AdvancedSearchV2 from "@/components/AdvancedSearchV2.vue";
 import ListingV2 from "@/components/ListingV2.vue";
 import VueCookies from "vue-cookies";
-import BasicSearchVue from "@/components/BasicSearch.vue";
 
 export default {
   name: "home",
@@ -65,7 +64,6 @@ export default {
       results: false,
       toggleV2: false,
       componentName: BasicSearch,
-      previous: BasicSearch,
     };
   },
 
@@ -85,6 +83,8 @@ export default {
         this.componentName = AdvancedSearch;
       } else if (this.componentName == AdvancedSearch) {
         this.componentName = AdvancedSearchV2;
+      } else if (this.componentName == ListingV2 && !this.toggleV2) {
+        this.componentName = BasicSearch;
       }
     },
     setFormToA: function () {
@@ -156,10 +156,22 @@ export default {
   },
   beforeMount() {
     this.cookieToast();
-    if (this.$route.query.searchInInput != null) {
+    if (this.$route.query.searchInInput != undefined) {
       this.toggleV2 = true;
     } else {
       this.toggleV2 = false;
+    }
+    if (this.$route.query.searchType == "advanced") {
+      if (!this.toggleV2) {
+        this.componentName = AdvancedSearchV2;
+      } else {
+        this.componentName = AdvancedSearch;
+      }
+    }
+    if (this.$route.query.searchType == "listing") {
+      if (this.toggleV2) {
+        this.componentName = ListingV2;
+      }
     }
   },
 };
