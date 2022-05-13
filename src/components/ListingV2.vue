@@ -13,7 +13,6 @@
               expanded
             >
               <option
-                data-testid="inputOption"
                 v-for="(input1, index) in row.searchInInputs"
                 :value="input1"
                 :key="index"
@@ -194,6 +193,7 @@ export default {
       vm.validateInput();
       if (vm.validated) {
         var queryObj = {
+          searchType: "listing",
           searchInInput: this.list[0].searchInInput,
           id: this.list[0].searchValue,
           searchByInput: this.list[0].searchByInput,
@@ -273,6 +273,25 @@ export default {
   },
   beforeMount() {
     this.addRow();
+    if (this.$route.query.id != undefined) {
+      this.list = [];
+      this.list.push({
+        searchInInput: this.$route.query.searchInInput,
+        searchInInputs: [
+          "individuals",
+          "biosamples",
+          "g_variants",
+          "runs",
+          "analyses",
+          "interactors",
+          "cohorts",
+        ],
+        searchValue: this.$route.query.id,
+        toId: "0",
+        searchByInput: this.$route.query.searchByInput,
+        searchByInputs: [this.$route.query.searchByInput],
+      });
+    }
   },
 };
 </script>

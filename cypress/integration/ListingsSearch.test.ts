@@ -19,7 +19,7 @@ describe("Listings search", () => {
     cy.get(".navbar-burger").click();
     cy.get('[data-testid="historyButton"]').click();
     cy.contains(
-      "results?searchInInput=biosamples&id=SAMN03283350&searchByInput=individuals"
+      "results?searchType=listing&searchInInput=biosamples&id=SAMN03283350&searchByInput=individuals"
     );
   });
 });
