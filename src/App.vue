@@ -78,12 +78,69 @@ export default {
     return {
       login_url: process.env.VUE_APP_LOGIN_URL,
       logout_url: process.env.VUE_APP_LOGOUT_URL,
+      loading: false,
+      issuer_url: process.env.VUE_APP_ISSUER,
+      client_id: process.env.VUE_APP_CLIENT_ID,
+      client_secret: process.env.VUE_APP_CLIENT_SECRET,
+      callback_url: process.env.VUE_APP_CALLBACK,
     };
   },
   components: {
     Footer,
   },
   methods: {
+    oidcAuth: async function () {
+      this.loading = true;
+      const issuer = new URL(this.issuer_url);
+      const authorizationServer = await oauth
+        .discoveryRequest(issuer)
+        .then((response) => oauth.processDiscoveryResponse(issuer, response));
+
+      sessionStorage.setItem("as", JSON.stringify(authorizationServer));
+
+      const client = {
+        client_id: this.client_id,
+        client_secret: this.client_secret,
+        token_endpoint_auth_method: "client_secret_basic",
+      };
+      sessionStorage.setItem("client", JSON.stringify(client));
+
+      const redirect_uri = this.callback_url;
+      sessionStorage.setItem("uri", JSON.stringify(redirect_uri));
+
+      if (
+        authorizationServer.code_challenge_methods_supported?.includes(
+          "S256"
+        ) !== true
+      ) {
+        // This example assumes S256 PKCE support is signalled
+        // If it isn't supported, random `nonce` should be used for CSRF protection.
+        throw new Error();
+      }
+
+      const code_verifier = oauth.generateRandomCodeVerifier();
+      const code_challenge = await oauth.calculatePKCECodeChallenge(
+        code_verifier
+      );
+
+      sessionStorage.setItem("code_verifier", JSON.stringify(code_verifier));
+
+      const code_challenge_method = "S256";
+
+      const authorizationUrl = new URL(
+        authorizationServer.authorization_endpoint
+      );
+      authorizationUrl.searchParams.set("client_id", client.client_id);
+      authorizationUrl.searchParams.set("code_challenge", code_challenge);
+      authorizationUrl.searchParams.set(
+        "code_challenge_method",
+        code_challenge_method
+      );
+      authorizationUrl.searchParams.set("redirect_uri", redirect_uri);
+      authorizationUrl.searchParams.set("response_type", "code");
+      authorizationUrl.searchParams.set("scope", "openid ga4gh_passport_v1");
+      location.href = authorizationUrl;
+    },
     getCookie: function (cname) {
       // Function from https://www.w3schools.com/js/js_cookies.asp
       var name = cname + "=";
