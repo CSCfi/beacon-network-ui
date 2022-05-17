@@ -11,6 +11,7 @@
     "start": "serve -l 8080 -s dist"
   },
   "dependencies": {
+    "@panva/oauth4webapi": "^1.0.0",
     "@vue/cli-plugin-babel": "^5.0.4",
     "@vue/cli-plugin-eslint": "^5.0.4",
     "@vue/cli-plugin-typescript": "^5.0.4",

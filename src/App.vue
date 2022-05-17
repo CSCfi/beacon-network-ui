@@ -49,7 +49,7 @@
       </template>
       <template #end>
         <a
-          :href="login_url"
+          v-on:click="oidcAuth()"
           v-if="!getCookie('logged_in')"
           class="login"
           title="Authenticate at ELIXIR AAI"
@@ -59,7 +59,7 @@
         <b-navbar-item
           v-else
           class="login"
-          :href="logout_url"
+          v-on:click="logout()"
           title="Log out from ELIXIR Beacon Network"
         >
           Log Out
@@ -73,6 +73,7 @@
 
 <script>
 import Footer from "@/components/Footer.vue";
+import * as oauth from "@panva/oauth4webapi";
 export default {
   data() {
     return {
@@ -91,6 +92,7 @@ export default {
   methods: {
     oidcAuth: async function () {
       this.loading = true;
+      console.log(this.issuer_url);
       const issuer = new URL(this.issuer_url);
       const authorizationServer = await oauth
         .discoveryRequest(issuer)
@@ -156,6 +158,15 @@ export default {
         }
       }
       return "";
+    },
+    logout: function () {
+      document.cookie = "id_token=" + " " + ";max-age=" + "0";
+
+      // access token cookie
+      document.cookie = "access_token=" + " " + ";max-age=" + "0";
+
+      //login cookie
+      document.cookie = "logged_in=" + false + ";secure" + ";max-age=" + "0";
     },
   },
 };
