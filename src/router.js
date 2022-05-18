@@ -80,5 +80,10 @@ export default new Router({
       name: "error404",
       component: () => import("./views/404.vue"),
     },
+    {
+      path: "/callback",
+      name: "callback",
+      component: () => import("./views/Callback.vue"),
+    },
   ],
 });

@@ -295,6 +295,7 @@ export default {
       vm.filteringTerms = [];
       if (process.env.VUE_APP_DEVELOPMENT) {
         var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
+        wss = wss.replace("0.0.0.0", "localhost");
       } else {
         var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
       }
