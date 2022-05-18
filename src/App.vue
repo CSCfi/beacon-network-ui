@@ -98,17 +98,13 @@ export default {
         .discoveryRequest(issuer)
         .then((response) => oauth.processDiscoveryResponse(issuer, response));
 
-      sessionStorage.setItem("as", JSON.stringify(authorizationServer));
-
       const client = {
         client_id: this.client_id,
         client_secret: this.client_secret,
         token_endpoint_auth_method: "client_secret_basic",
       };
-      sessionStorage.setItem("client", JSON.stringify(client));
 
       const redirect_uri = this.callback_url;
-      sessionStorage.setItem("uri", JSON.stringify(redirect_uri));
 
       if (
         authorizationServer.code_challenge_methods_supported?.includes(

@@ -12,7 +12,13 @@ import Loading from "vue-material-design-icons/Loading.vue";
 import * as oauth from "@panva/oauth4webapi";
 export default {
   data() {
-    return { aggregator: process.env.VUE_APP_AGGREGATOR_URL };
+    return {
+      aggregator: process.env.VUE_APP_AGGREGATOR_URL,
+      callback_url: process.env.VUE_APP_CALLBACK,
+      issuer_url: process.env.VUE_APP_ISSUER,
+      client_id: process.env.VUE_APP_CLIENT_ID,
+      client_secret: process.env.VUE_APP_CLIENT_SECRET,
+    };
   },
   components: {
     Loading,
@@ -22,11 +28,21 @@ export default {
       let sub;
       let access_token;
 
-      const authorizationServer = JSON.parse(sessionStorage.getItem("as"));
-      const client = JSON.parse(sessionStorage.getItem("client"));
-      const redirect_uri = JSON.parse(sessionStorage.getItem("uri"));
+      const redirect_uri = this.callback_url;
       const code_verifier = JSON.parse(sessionStorage.getItem("code_verifier"));
+      sessionStorage.removeItem("code_verifier");
       const currentUrl = new URL(window.location.href);
+
+      const issuer = new URL(this.issuer_url);
+      const authorizationServer = await oauth
+        .discoveryRequest(issuer)
+        .then((response) => oauth.processDiscoveryResponse(issuer, response));
+
+      const client = {
+        client_id: this.client_id,
+        client_secret: this.client_secret,
+        token_endpoint_auth_method: "client_secret_basic",
+      };
 
       const params = oauth.validateAuthResponse(
         authorizationServer,
@@ -92,11 +108,6 @@ export default {
       //login cookie
       document.cookie = "logged_in=" + true + ";secure" + ";max-age=" + "3600";
 
-      // remove items from session storage
-      sessionStorage.removeItem("as");
-      sessionStorage.removeItem("client");
-      sessionStorage.removeItem("uri");
-      sessionStorage.removeItem("code_verifier");
       window.location.href = "/";
     },
   },
