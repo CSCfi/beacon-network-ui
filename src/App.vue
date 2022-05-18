@@ -66,12 +66,19 @@
         </b-navbar-item>
       </template>
     </b-navbar>
+    <div v-if="loading">
+      <div class="loading-text">Loading</div>
+      <div class="loading-indicator spinner">
+        <Loading></Loading>
+      </div>
+    </div>
     <router-view />
     <Footer />
   </div>
 </template>
 
 <script>
+import Loading from "vue-material-design-icons/Loading.vue";
 import Footer from "@/components/Footer.vue";
 import * as oauth from "@panva/oauth4webapi";
 export default {
@@ -88,11 +95,11 @@ export default {
   },
   components: {
     Footer,
+    Loading,
   },
   methods: {
     oidcAuth: async function () {
       this.loading = true;
-      console.log(this.issuer_url);
       const issuer = new URL(this.issuer_url);
       const authorizationServer = await oauth
         .discoveryRequest(issuer)
@@ -243,4 +250,23 @@ $link-focus-border: $primary;
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
+
+// Loading indicator
+.loading-text {
+  text-align: center;
+}
+.loading-indicator {
+  text-align: center;
+}
+.spinner {
+  animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>
