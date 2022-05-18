@@ -170,6 +170,8 @@ export default {
 
       //login cookie
       document.cookie = "logged_in=" + false + ";secure" + ";max-age=" + "0";
+
+      document.cookie = "profile=" + " " + ";secure" + ";max-age=" + "0";
       window.location.reload();
     },
   },

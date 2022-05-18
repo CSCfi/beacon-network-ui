@@ -52,7 +52,7 @@ export default {
       );
       if (oauth.isOAuth2Error(params)) {
         console.log("error", params);
-        throw new Error(); // Handle OAuth 2.0 redirect error
+        throw new Error();
       }
 
       const response = await oauth.authorizationCodeGrantRequest(
@@ -67,7 +67,7 @@ export default {
         for (const challenge of challenges) {
           console.log("challenge", challenge);
         }
-        throw new Error(); // Handle www-authenticate challenges as needed
+        throw new Error();
       }
       const result = await oauth.processAuthorizationCodeOpenIDResponse(
         authorizationServer,
@@ -76,10 +76,11 @@ export default {
       );
       if (oauth.isOAuth2Error(result)) {
         console.log("error", result);
-        throw new Error(); // Handle OAuth 2.0 response body error
+        throw new Error();
       }
       ({ access_token } = result);
-
+      const claims = oauth.getValidatedIdTokenClaims(result);
+      ({ sub } = claims);
       var domain = window.location.hostname;
       // id token
       document.cookie =
@@ -108,6 +109,29 @@ export default {
       //login cookie
       document.cookie = "logged_in=" + true + ";secure" + ";max-age=" + "3600";
 
+      const response1 = await oauth.userInfoRequest(
+        authorizationServer,
+        client,
+        access_token
+      );
+      console.log("response " + response1);
+      let challenges1;
+      if ((challenges1 = oauth.parseWwwAuthenticateChallenges(response1))) {
+        for (const challenge of challenges1) {
+          console.log("challenge", challenge);
+        }
+        throw new Error();
+      }
+
+      const result1 = await oauth.processUserInfoResponse(
+        authorizationServer,
+        client,
+        sub,
+        response1
+      );
+
+      document.cookie =
+        "profile=" + JSON.stringify(result1) + ";secure" + ";max-age=" + "3600";
       window.location.href = "/";
     },
   },
