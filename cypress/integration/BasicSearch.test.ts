@@ -12,13 +12,13 @@ describe("Basic Search", () => {
     cy.contains("Display 1 result(s)");
   });
   it("can display results", () => {
-    cy.get('[data-testid="fi.rahtiapp.staging-elixirbeacon"]').click();
+    cy.get('[data-testid="fi.rahtiapp.staging-elixirbeacon"]').click({multiple: true});
     cy.wait(3000);
     cy.contains("urn:hg:1000genome dataset location");
     cy.contains("T > C");
   });
   it("can hide results", () => {
-    cy.get('[data-testid="fi.rahtiapp.staging-elixirbeacon"]').click();
+    cy.get('[data-testid="fi.rahtiapp.staging-elixirbeacon"]').click({multiple: true});
     cy.contains("urn:hg:1000genome dataset location").should("not.exist");
     cy.contains("T > C").should("not.exist");
   });
