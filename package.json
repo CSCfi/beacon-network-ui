@@ -20,7 +20,7 @@
     "acorn": "^8.7.1",
     "axios": "^0.27.2",
     "@babel/eslint-parser": "^7.5.4",
-    "buefy": "^0.9.20",
+    "buefy": "^0.9.21",
     "bulma": "^0.9.4",
     "core-js": "^3.22.5",
     "cypress-localstorage-commands": "^1.7.0",
