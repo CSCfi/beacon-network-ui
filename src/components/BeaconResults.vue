@@ -24,7 +24,6 @@
           >
         </div>
       </b-field>
-      {{ beaconV2 }}
       <p class="subtitle" v-if="beaconV2">Filter by</p>
       <b-field v-if="beaconV2">
         <div
