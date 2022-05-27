@@ -18,6 +18,7 @@ export default {
       issuer_url: process.env.VUE_APP_ISSUER,
       client_id: process.env.VUE_APP_CLIENT_ID,
       client_secret: process.env.VUE_APP_CLIENT_SECRET,
+      expectedState: process.env.VUE_APP_STATE,
     };
   },
   components: {
@@ -43,18 +44,17 @@ export default {
         client_secret: this.client_secret,
         token_endpoint_auth_method: "client_secret_basic",
       };
-
       const params = oauth.validateAuthResponse(
         authorizationServer,
         client,
         currentUrl,
-        oauth.expectNoState
+        this.expectedState
       );
+
       if (oauth.isOAuth2Error(params)) {
         console.log("error", params);
         throw new Error();
       }
-
       const response = await oauth.authorizationCodeGrantRequest(
         authorizationServer,
         client,
@@ -62,6 +62,7 @@ export default {
         redirect_uri,
         code_verifier
       );
+
       let challenges;
       if ((challenges = oauth.parseWwwAuthenticateChallenges(response))) {
         for (const challenge of challenges) {
@@ -74,6 +75,7 @@ export default {
         client,
         response
       );
+
       if (oauth.isOAuth2Error(result)) {
         console.log("error", result);
         throw new Error();
@@ -114,7 +116,7 @@ export default {
         client,
         access_token
       );
-      console.log("response " + response1);
+
       let challenges1;
       if ((challenges1 = oauth.parseWwwAuthenticateChallenges(response1))) {
         for (const challenge of challenges1) {

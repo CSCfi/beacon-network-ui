@@ -91,6 +91,7 @@ export default {
       client_id: process.env.VUE_APP_CLIENT_ID,
       client_secret: process.env.VUE_APP_CLIENT_SECRET,
       callback_url: process.env.VUE_APP_CALLBACK,
+      state: process.env.VUE_APP_STATE,
     };
   },
   components: {
@@ -144,6 +145,7 @@ export default {
       authorizationUrl.searchParams.set("redirect_uri", redirect_uri);
       authorizationUrl.searchParams.set("response_type", "code");
       authorizationUrl.searchParams.set("scope", "openid ga4gh_passport_v1");
+      authorizationUrl.searchParams.set("state", this.state);
       location.href = authorizationUrl;
     },
     getCookie: function (cname) {
