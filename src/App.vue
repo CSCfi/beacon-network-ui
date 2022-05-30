@@ -141,7 +141,7 @@ export default {
   height: 50px;
 }
 
-.login img {
+.login {
   width: 200px;
   height: 50px;
 }
