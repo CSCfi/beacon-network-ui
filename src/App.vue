@@ -164,7 +164,46 @@ export default {
       }
       return "";
     },
-    logout: function () {
+    logout: async function () {
+      const issuer = new URL(this.issuer_url);
+      const authorizationServer = await oauth
+        .discoveryRequest(issuer)
+        .then((response) => oauth.processDiscoveryResponse(issuer, response));
+
+      const client = {
+        client_id: this.client_id,
+        client_secret: this.client_secret,
+        token_endpoint_auth_method: "client_secret_basic",
+      };
+
+      const revokeAccessToken = await oauth.revocationRequest(
+        authorizationServer,
+        client,
+        "access_token"
+      );
+
+      const resultAccessTokenRevokation = await oauth.processRevocationResponse(
+        revokeAccessToken
+      );
+
+      if (oauth.isOAuth2Error(resultAccessTokenRevokation)) {
+        console.log("error", resultAccessTokenRevokation);
+        throw new Error();
+      }
+
+      const revokeidToken = await oauth.revocationRequest(
+        authorizationServer,
+        client,
+        "id_token"
+      );
+      const resultidTokenRevokation = await oauth.processRevocationResponse(
+        revokeidToken
+      );
+
+      if (oauth.isOAuth2Error(resultidTokenRevokation)) {
+        console.log("error", resultidTokenRevokation);
+        throw new Error();
+      }
       document.cookie = "id_token=" + " " + ";max-age=" + "0";
 
       // access token cookie
@@ -174,7 +213,6 @@ export default {
       document.cookie = "logged_in=" + false + ";secure" + ";max-age=" + "0";
 
       document.cookie = "profile=" + " " + ";secure" + ";max-age=" + "0";
-      window.location.reload();
     },
   },
 };
