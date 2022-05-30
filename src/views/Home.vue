@@ -125,7 +125,7 @@ export default {
           type: "is-dark",
           onAction: () => {
             // Set a cookie to prevent toast on subsequent visits
-            this.$matomo.rememberConsentGiven();
+
             VueCookies.set("elixir-tracking-consent", true, Infinity);
             VueCookies.set("elixir-cookies", "accepted", Infinity);
             this.$buefy.toast.open({
