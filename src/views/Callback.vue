@@ -18,6 +18,7 @@ export default {
       client_id: process.env.VUE_APP_CLIENT_ID,
       client_secret: process.env.VUE_APP_CLIENT_SECRET,
       expectedState: process.env.VUE_APP_STATE,
+      cookieDomain: process.env.VUE_APP_COOKIE_DOMAIN,
     };
   },
   components: {
@@ -82,18 +83,7 @@ export default {
       ({ access_token } = result);
       const claims = oauth.getValidatedIdTokenClaims(result);
       ({ sub } = claims);
-      var domain = window.location.hostname;
-      // id token
-      document.cookie =
-        "id_token=" +
-        result.id_token +
-        ";secure" +
-        ";domain=" +
-        domain +
-        ";path=/" +
-        ";SameSite=None" +
-        ";max-age=" +
-        "3600";
+      var domain = this.cookieDomain;
 
       // access token cookie
       document.cookie =

@@ -92,6 +92,7 @@ export default {
       client_secret: process.env.VUE_APP_CLIENT_SECRET,
       callback_url: process.env.VUE_APP_CALLBACK,
       state: process.env.VUE_APP_STATE,
+      scope: process.env.VUE_APP_SCOPE,
     };
   },
   components: {
@@ -144,7 +145,7 @@ export default {
       );
       authorizationUrl.searchParams.set("redirect_uri", redirect_uri);
       authorizationUrl.searchParams.set("response_type", "code");
-      authorizationUrl.searchParams.set("scope", "openid ga4gh_passport_v1");
+      authorizationUrl.searchParams.set("scope", this.scope);
       authorizationUrl.searchParams.set("state", this.state);
       location.href = authorizationUrl;
     },
@@ -191,25 +192,8 @@ export default {
         throw new Error();
       }
 
-      const revokeidToken = await oauth.revocationRequest(
-        authorizationServer,
-        client,
-        "id_token"
-      );
-      const resultidTokenRevokation = await oauth.processRevocationResponse(
-        revokeidToken
-      );
-
-      if (oauth.isOAuth2Error(resultidTokenRevokation)) {
-        console.log("error", resultidTokenRevokation);
-        throw new Error();
-      }
-      document.cookie = "id_token=" + " " + ";max-age=" + "0";
-
-      // access token cookie
       document.cookie = "access_token=" + " " + ";max-age=" + "0";
 
-      //login cookie
       document.cookie = "logged_in=" + false + ";secure" + ";max-age=" + "0";
 
       document.cookie = "profile=" + " " + ";secure" + ";max-age=" + "0";
