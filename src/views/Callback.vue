@@ -13,7 +13,6 @@ import * as oauth from "@panva/oauth4webapi";
 export default {
   data() {
     return {
-      aggregator: process.env.VUE_APP_AGGREGATOR_URL,
       callback_url: process.env.VUE_APP_CALLBACK,
       issuer_url: process.env.VUE_APP_ISSUER,
       client_id: process.env.VUE_APP_CLIENT_ID,
