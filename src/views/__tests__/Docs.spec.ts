@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
-import Docs from "@/views/Docs.vue";
+import Docs from "@/views/DocsPage.vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);

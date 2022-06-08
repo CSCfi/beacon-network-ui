@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import HomePage from "./views/HomePage.vue";
 
 Vue.use(Router);
 
@@ -13,7 +13,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      component: Home,
+      component: HomePage,
       children: [
         {
           path: "",
@@ -33,52 +33,52 @@ export default new Router({
     {
       path: "/join",
       name: "join",
-      component: () => import("./views/Join.vue"),
+      component: () => import("./views/JoinPage.vue"),
     },
     {
       path: "/docs",
       name: "docs",
-      component: () => import("./views/Docs.vue"),
+      component: () => import("./views/DocsPage.vue"),
     },
     {
       path: "/docsapi",
       name: "docsapi",
-      component: () => import("./views/DocsApi.vue"),
+      component: () => import("./views/DocsApiPage.vue"),
     },
     {
       path: "/tos",
       name: "tos",
-      component: () => import("./views/Tos.vue"),
+      component: () => import("./views/TosPage.vue"),
     },
     {
       path: "/privacy",
       name: "privacy",
-      component: () => import("./views/Privacy.vue"),
+      component: () => import("./views/PrivacyPage.vue"),
     },
     {
       path: "/guide",
       name: "guide",
-      component: () => import("./views/Guide.vue"),
+      component: () => import("./views/GuidePage.vue"),
     },
     {
       path: "/accessibility",
       name: "accessibility",
-      component: () => import("./views/Accessibility.vue"),
+      component: () => import("./views/AccessibilityPage.vue"),
     },
     {
       path: "/datasets",
       name: "datasets",
-      component: () => import("./views/beaconDatasets.vue"),
+      component: () => import("./views/beaconDatasetsPage.vue"),
     },
     {
       path: "/history",
       name: "history",
-      component: () => import("./views/History.vue"),
+      component: () => import("./views/HistoryPage.vue"),
     },
     {
       path: "*",
       name: "error404",
-      component: () => import("./views/404.vue"),
+      component: () => import("./views/404Page.vue"),
     },
   ],
 });
