@@ -24,7 +24,7 @@
     "bulma": "^0.9.4",
     "core-js": "^3.22.7",
     "cypress-localstorage-commands": "^2.1.0",
-    "eslint": "^8.16.0",
+    "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.19.1",
