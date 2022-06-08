@@ -80,5 +80,10 @@ export default new Router({
       name: "error404",
       component: () => import("./views/404Page.vue"),
     },
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import("./views/Profile.vue"),
+    },
   ],
 });

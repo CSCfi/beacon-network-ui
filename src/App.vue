@@ -58,12 +58,18 @@
 
         <b-navbar-item
           v-else
-          class="login"
           :href="logout_url"
           title="Log out from ELIXIR Beacon Network"
         >
           Log Out
         </b-navbar-item>
+
+        <b-navbar-item
+          href="/profile"
+          v-if="getCookie('logged_in')"
+          title="Authenticate at ELIXIR AAI"
+          >Profile</b-navbar-item
+        >
       </template>
     </b-navbar>
     <router-view />
@@ -100,6 +106,10 @@ export default {
       }
       return "";
     },
+    openProfilePage: function () {},
+  },
+  beforeMount() {
+    console.log(document.cookie);
   },
 };
 </script>
