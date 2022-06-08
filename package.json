@@ -22,7 +22,7 @@
     "@babel/eslint-parser": "^7.18.2",
     "buefy": "^0.9.21",
     "bulma": "^0.9.4",
-    "core-js": "^3.22.7",
+    "core-js": "^3.22.8",
     "cypress-localstorage-commands": "^2.1.0",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
