@@ -83,7 +83,7 @@ export default new Router({
     {
       path: "/profile",
       name: "profile",
-      component: () => import("./views/Profile.vue"),
+      component: () => import("./views/ProfilePage.vue"),
     },
   ],
 });
