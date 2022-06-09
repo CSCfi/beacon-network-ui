@@ -50,7 +50,7 @@ import ListingV2 from "@/components/ListingV2.vue";
 import VueCookies from "vue-cookies";
 
 export default {
-  name: "home",
+  name: "homePage",
   components: {
     BasicSearch,
     AdvancedSearch,

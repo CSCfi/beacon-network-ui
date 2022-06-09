@@ -67,12 +67,12 @@
       </template>
     </b-navbar>
     <router-view />
-    <Footer />
+    <BottomFooter />
   </div>
 </template>
 
 <script>
-import Footer from "@/components/Footer.vue";
+import BottomFooter from "@/components/Footer.vue";
 export default {
   data() {
     return {
@@ -81,7 +81,7 @@ export default {
     };
   },
   components: {
-    Footer,
+    BottomFooter,
   },
   methods: {
     getCookie: function (cname) {

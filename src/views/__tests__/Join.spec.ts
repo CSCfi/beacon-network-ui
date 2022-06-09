@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
-import Join from "@/views/Join.vue";
+import Join from "@/views/JoinPage.vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
