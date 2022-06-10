@@ -55,7 +55,6 @@
           title="Authenticate at ELIXIR AAI"
           ><img src="./assets/login-ls.png" alt="ELIXIR AAI Login button"
         /></a>
-
         <b-navbar-item
           v-else
           :href="logout_url"
@@ -66,10 +65,13 @@
 
         <b-navbar-item
           href="/profile"
-          v-if="getCookie('logged_in')"
+          v-if="getCookie('logged_in') && $route.name !== 'profile'"
           title="Authenticate at ELIXIR AAI"
           >Profile</b-navbar-item
         >
+        <b-navbar-item v-else href="/" title="returnToFrontPageFomProfile">
+          Return
+        </b-navbar-item>
       </template>
     </b-navbar>
     <router-view />

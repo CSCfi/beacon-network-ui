@@ -1,22 +1,16 @@
 <template>
-  <div>
+  <div class="profileComponent">
     <b>Profile</b>
     <table>
       <tr v-for="(index, prof) in profile" :key="prof">
         <td v-if="prof === 'sub'">Elixir ID</td>
         <td v-else>{{ prof }}</td>
-        <td>
-          <b-tooltip
-            multilined
-            size="is-large"
-            class="profileValue"
-            :label="indexToString(index)"
-          >
-            <div v-if="typeof index === 'string' || typeof index === 'boolean'">
-              {{ index }}
-            </div>
-            <div :title="index[0]" v-else>{{ cutLongString(index[0]) }}...</div>
-          </b-tooltip>
+
+        <td v-if="typeof index === 'string' || typeof index === 'boolean'">
+          {{ index }}
+        </td>
+        <td style="white-space: pre" :title="index[0]" v-else>
+          {{ index[0] }}
         </td>
       </tr>
     </table>
@@ -105,7 +99,24 @@ th,
 td {
   border: 1px solid black;
 }
+th,
+td {
+  padding: 5px;
+  white-space: pre;
+}
+.response_value {
+  width: 1200px;
+  margin: auto;
+  white-space: pre;
+}
 .profileValue {
   overflow: hidden;
+}
+.responseArray {
+  white-space: initial;
+}
+.profileComponent {
+  margin: auto;
+  padding: 5px;
 }
 </style>
