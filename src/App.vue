@@ -64,13 +64,20 @@
         </b-navbar-item>
 
         <b-navbar-item
-          href="/profile"
-          v-if="getCookie('logged_in') && $route.name !== 'profile'"
-          title="Authenticate at ELIXIR AAI"
-          >Profile</b-navbar-item
+          v-if="$route.path == '/profile'"
+          class="login"
+          href="/"
+          title="Return to front page"
         >
-        <b-navbar-item v-else href="/" title="returnToFrontPageFomProfile">
-          Return
+          Return to front page
+        </b-navbar-item>
+        <b-navbar-item
+          v-else-if="getCookie('logged_in')"
+          class="login"
+          href="/profile"
+          title="Log out from ELIXIR Beacon Network"
+        >
+          Profile
         </b-navbar-item>
       </template>
     </b-navbar>
