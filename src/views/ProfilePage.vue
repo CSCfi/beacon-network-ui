@@ -6,7 +6,16 @@
         <td v-if="prof === 'sub'">Elixir ID</td>
         <td v-else>{{ prof }}</td>
 
-        <td v-if="typeof index === 'string' || typeof index === 'boolean'">
+        <td v-if="prof === 'email'">
+          <span v-for="(key, i) in index" :key="i">
+            <span v-if="typeof key !== 'boolean'" style="padding-right: 10px">{{
+              key
+            }}</span>
+            <b-tag v-else-if="key" type="is-success">Verified</b-tag>
+            <b-tag v-else type="is-danger">Unverified</b-tag>
+          </span>
+        </td>
+        <td v-else-if="typeof index === 'string' || typeof index === 'boolean'">
           {{ index }}
         </td>
         <td style="white-space: pre" :title="index[0]" v-else>
