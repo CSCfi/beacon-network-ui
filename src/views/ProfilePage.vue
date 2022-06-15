@@ -18,9 +18,9 @@
         <td v-else-if="typeof index === 'string' || typeof index === 'boolean'">
           {{ index }}
         </td>
-        <td style="white-space: pre" :title="index[0]" v-else>
-          {{ index[0] }}
-        </td>
+        <div v-else v-for="(key, i) in index" :key="i">
+          {{ key }}
+        </div>
       </tr>
     </table>
   </div>
