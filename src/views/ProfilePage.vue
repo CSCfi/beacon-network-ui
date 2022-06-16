@@ -1,6 +1,10 @@
 <template>
   <div class="profileComponent">
     <b>Profile</b>
+    <div v-if="isLoading" class="loading-indicator spinner">
+      <Loading></Loading>
+    </div>
+
     <table>
       <tr v-for="(index, prof) in profile" :key="prof">
         <td v-if="prof === 'sub'">Elixir ID</td>
@@ -32,9 +36,17 @@
 
 <script>
 import axios from "axios";
+import Loading from "vue-material-design-icons/Loading.vue";
 export default {
+  components: {
+    Loading,
+  },
   data() {
-    return { profile: "", accountInfo: process.env.VUE_APP_ACCOUNT_INFO };
+    return {
+      profile: "",
+      accountInfo: process.env.VUE_APP_ACCOUNT_INFO,
+      isLoading: true,
+    };
   },
   methods: {
     indexToString: function (value) {
@@ -94,6 +106,7 @@ export default {
         .catch((error) => {
           console.log(this.$props, error);
         });
+      this.isLoading = false;
     },
   },
   beforeMount() {
@@ -130,5 +143,19 @@ td {
 }
 .datasetAccess {
   padding-left: 5px;
+}
+.loading-indicator {
+  text-align: center;
+}
+.spinner {
+  animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
