@@ -255,7 +255,6 @@ export default {
     checkIfV2Inresponse: function () {
       this.response.forEach((response) => {
         if (response.meta != undefined) {
-          console.log("here");
           return true;
         }
       });
