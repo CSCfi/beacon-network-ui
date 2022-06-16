@@ -48,21 +48,6 @@
         </b-navbar-item>
       </template>
       <template #end>
-        <a
-          :href="login_url"
-          v-if="!getCookie('logged_in')"
-          class="login"
-          title="Authenticate at ELIXIR AAI"
-          ><img src="./assets/login-ls.png" alt="ELIXIR AAI Login button"
-        /></a>
-        <b-navbar-item
-          v-else
-          :href="logout_url"
-          title="Log out from ELIXIR Beacon Network"
-        >
-          Log Out
-        </b-navbar-item>
-
         <b-navbar-item
           v-if="$route.path == '/profile'"
           href="/"
@@ -76,6 +61,20 @@
           title="Log out from ELIXIR Beacon Network"
         >
           Profile
+        </b-navbar-item>
+        <a
+          :href="login_url"
+          v-if="!getCookie('logged_in')"
+          class="login"
+          title="Authenticate at ELIXIR AAI"
+          ><img src="./assets/login-ls.png" alt="ELIXIR AAI Login button"
+        /></a>
+        <b-navbar-item
+          v-else
+          :href="logout_url"
+          title="Log out from ELIXIR Beacon Network"
+        >
+          Log Out
         </b-navbar-item>
       </template>
     </b-navbar>
