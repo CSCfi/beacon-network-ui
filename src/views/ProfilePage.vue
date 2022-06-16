@@ -15,10 +15,14 @@
             <b-tag v-else type="is-danger">Unverified</b-tag>
           </span>
         </td>
+        <td v-else-if="prof === 'Bona fide status'">
+          <b-tag v-if="index === 'Verified'" type="is-success">Verified</b-tag>
+          <b-tag v-else type="is-danger">Unverified</b-tag>
+        </td>
         <td v-else-if="typeof index === 'string' || typeof index === 'boolean'">
           {{ index }}
         </td>
-        <div v-else v-for="(key, i) in index" :key="i">
+        <div class="datasetAccess" v-else v-for="(key, i) in index" :key="i">
           {{ key }}
         </div>
       </tr>
@@ -74,8 +78,6 @@ export default {
         return obj;
       } else {
         if (obj[0].length > 50) {
-          console.log(obj.length);
-          console.log(obj[0].substring(50, obj[0].length - 1));
           return obj[0].substring(50, obj[0].length);
         }
         return obj[0];
@@ -88,8 +90,6 @@ export default {
         })
         .then((response) => {
           this.profile = response.data;
-          console.log(response);
-          console.log(document.cookie);
         })
         .catch((error) => {
           console.log(this.$props, error);
@@ -127,5 +127,8 @@ td {
 .profileComponent {
   margin: auto;
   padding: 5px;
+}
+.datasetAccess {
+  padding-left: 5px;
 }
 </style>

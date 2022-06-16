@@ -115,9 +115,7 @@ export default {
     },
     openProfilePage: function () {},
   },
-  beforeMount() {
-    console.log(document.cookie);
-  },
+  beforeMount() {},
 };
 </script>
 <style>
