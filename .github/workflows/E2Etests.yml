@@ -80,6 +80,7 @@ jobs:
             "VUE_APP_AGGREGATOR_URL=http://localhost:5054/"
             "VUE_APP_REGISTRY_URL=http://localhost:8083/"
             "VUE_APP_DEVELOPMENT=true"
+            "VUE_APP_ACCOUNT_INFO=http://localhost:8080/userinfo"
           push: true
           file: ./Dockerfile
           tags: localhost:5000/beacon-network-ui:latest
