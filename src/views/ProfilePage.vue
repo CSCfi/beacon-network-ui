@@ -4,6 +4,10 @@
     <div v-if="isLoading" class="loading-indicator spinner">
       <Loading></Loading>
     </div>
+    <div v-if="errorMSG">
+      A error ocurred or you have not logged in. Please return to front page and
+      try loggin in.
+    </div>
 
     <table>
       <tr v-for="(index, prof) in profile" :key="prof">
@@ -46,6 +50,7 @@ export default {
       profile: "",
       accountInfo: process.env.VUE_APP_ACCOUNT_INFO,
       isLoading: true,
+      errorMSG: false,
     };
   },
   methods: {
@@ -104,6 +109,7 @@ export default {
           this.profile = response.data;
         })
         .catch((error) => {
+          this.errorMSG = true;
           console.log(this.$props, error);
         });
       this.isLoading = false;
