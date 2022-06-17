@@ -23,10 +23,7 @@
             <b-tag v-else type="is-danger">Unverified</b-tag>
           </span>
         </td>
-        <td v-else-if="prof === 'Bona fide status'">
-          <b-tag v-if="index === 'Verified'" type="is-success">Verified</b-tag>
-          <b-tag v-else type="is-danger">Unverified</b-tag>
-        </td>
+
         <td v-else-if="typeof index === 'string' || typeof index === 'boolean'">
           {{ index }}
         </td>
@@ -34,6 +31,10 @@
           {{ key }}
         </div>
       </tr>
+      <td v-if="!isLoading">Bona fide status</td>
+      <td v-if="!isLoading">
+        <b-tag type="is-danger">Unverified</b-tag> Not yet implemented
+      </td>
     </table>
   </div>
 </template>
@@ -106,13 +107,13 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
+          this.isLoading = false;
           this.profile = response.data;
         })
         .catch((error) => {
           this.errorMSG = true;
           console.log(this.$props, error);
         });
-      this.isLoading = false;
     },
   },
   beforeMount() {
