@@ -15,12 +15,14 @@
         <td v-else>{{ prof }}</td>
 
         <td v-if="prof === 'email'">
-          <span v-for="(key, i) in index" :key="i">
-            <span v-if="typeof key !== 'boolean'" style="padding-right: 10px">{{
-              key
-            }}</span>
-            <b-tag v-else-if="key" type="is-success">Verified</b-tag>
-            <b-tag v-else type="is-danger">Unverified</b-tag>
+          <span v-for="(ind, k) in index" :key="k">
+            <span v-if="typeof ind === 'string'">{{ ind }}</span>
+            <b-tag class="datasetAccess" v-else-if="ind" type="is-success"
+              >Verified</b-tag
+            >
+            <b-tag class="datasetAccess" v-else type="is-danger"
+              >Unverified</b-tag
+            >
           </span>
         </td>
 
@@ -42,6 +44,7 @@
 <script>
 import axios from "axios";
 import Loading from "vue-material-design-icons/Loading.vue";
+import { Buffer } from "buffer";
 export default {
   components: {
     Loading,
@@ -101,6 +104,28 @@ export default {
         return obj[0];
       }
     },
+    processResponse: function (response) {
+      delete response.given_name;
+      delete response.family_name;
+
+      var visas = response.ga4gh_passport_v1;
+      var accessGrants = [];
+
+      visas.forEach((visa) => {
+        var splitVisas = visa.split(".");
+        var decoded = JSON.parse(
+          Buffer.from(splitVisas[1], "base64").toString("utf8")
+        );
+        if (decoded.ga4gh_visa_v1.type == "ControlledAccessGrants") {
+          accessGrants.push(decoded.ga4gh_visa_v1.value);
+        }
+      });
+
+      response.email = [response.email, response.email_verified];
+      delete response.email_verified;
+      delete response.ga4gh_passport_v1;
+      response.Dataset_acceess = accessGrants;
+    },
     getProfile: function () {
       axios
         .get(this.accountInfo, {
@@ -108,6 +133,7 @@ export default {
         })
         .then((response) => {
           this.isLoading = false;
+          var processedResponse = this.processResponse(response.data);
           this.profile = response.data;
         })
         .catch((error) => {
@@ -149,7 +175,7 @@ td {
   padding: 5px;
 }
 .datasetAccess {
-  padding-left: 5px;
+  padding: 5px;
 }
 .loading-indicator {
   text-align: center;
@@ -164,5 +190,8 @@ td {
   100% {
     transform: rotate(360deg);
   }
+}
+b-tag {
+  padding: 5px;
 }
 </style>
