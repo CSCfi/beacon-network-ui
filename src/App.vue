@@ -17,8 +17,8 @@
           /></router-link>
         </div>
       </template>
-      <template #start>
-        <!-- If v-if is used v-else has to be used otherwise none of the components will render-->
+      <template #start> Logo here </template>
+      <template #end>
         <b-navbar-item
           href="/datasets"
           v-if="$route.path != '/datasets' && $route.path != '/history'"
@@ -46,15 +46,13 @@
         >
           Datasets
         </b-navbar-item>
-      </template>
-      <template #end>
-        <a
+        <b-navbar-item
           :href="login_url"
           v-if="!getCookie('logged_in')"
-          class="login"
           title="Authenticate at ELIXIR AAI"
-          ><img src="./assets/login-ls.png" alt="ELIXIR AAI Login button"
-        /></a>
+        >
+          Login
+        </b-navbar-item>
 
         <b-navbar-item
           v-else

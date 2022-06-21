@@ -1,47 +1,25 @@
 <template>
   <div class="container" style="margin-bottom: 24px">
-    <section>
+    <section class="searchBarField">
       <form @submit.prevent="onSubmit">
-        <b-field>
-          <p class="control">
-            <label for="assembly" style="display: none">Assembly</label>
-            <b-select
-              id="assembly"
-              placeholder="Assembly"
-              v-model="assembly"
-              size="is-medium"
-              title="Assembly ID"
-            >
-              <option value="GRCh38">GRCh38</option>
-              <option value="GRCh37">GRCh37</option>
-              <option value="hg19">hg19</option>
-            </b-select>
-          </p>
-          <b-tooltip
-            class="stretch"
-            animated
-            label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
-          >
-            <label for="searchBar" style="display: none">Search Bar</label>
-            <b-input
-              id="searchBar"
-              data-testid="testBar"
-              class="stretch searchbar"
-              size="is-medium"
-              type="search"
-              placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
-              v-model="query"
-              title="Variant search term"
-            ></b-input>
-          </b-tooltip>
-          <b-button
-            v-on:click="basicSearch()"
-            type="is-primary"
+        <b-tooltip
+          class="stretch searchbar"
+          animated
+          label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
+        >
+          <label for="searchBar">Search Terms</label>
+          <b-input
+            class="stretch searchbar"
+            id="searchBar"
+            data-testid="testBar"
             size="is-medium"
-            data-testid="searchButton"
-            >Search</b-button
-          >
-        </b-field>
+            type="search"
+            placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
+            v-model="query"
+            title="Variant search term"
+          ></b-input>
+        </b-tooltip>
+
         <b-message
           v-if="errorTooltip"
           type="is-danger"
@@ -55,23 +33,190 @@
       </form>
     </section>
     <div class="searchbar-footer">
-      <span id="example" v-if="$route.path === '/'">
-        <b-button
-          data-testid="exampleButton"
-          @click="exampleSearch"
-          title="Insert an example search term to the search bar"
-          >Example variant query</b-button
-        ></span
-      >
+      <div class="dropDownButtonGroup">
+        <div class="dropDown1">
+          <div>Anatomical</div>
+          <b-dropdown aria-role="list" v-model="sexOptions">
+            <template #trigger="{ active }">
+              <b-button
+                size="is-medium"
+                type="is-secondary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
+              >
+                <p v-if="sexOptions.length == 0">Select</p>
+                <p v-else>{{ sexOptions }}</p>
+              </b-button>
+            </template>
+            <b-dropdown-item value="Male" aria-role="listitem"
+              >Male</b-dropdown-item
+            >
+            <b-dropdown-item value="Female" aria-role="listitem"
+              >Female</b-dropdown-item
+            >
+          </b-dropdown>
+        </div>
+        <div class="dropDown">
+          <div>Sex</div>
+          <b-dropdown aria-role="list" v-model="sexOptions">
+            <template #trigger="{ active }">
+              <b-button
+                size="is-medium"
+                type="is-secondary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
+              >
+                <p v-if="sexOptions.length == 0">Select</p>
+                <p v-else>{{ sexOptions }}</p>
+              </b-button>
+            </template>
+            <b-dropdown-item value="Male" aria-role="listitem"
+              >Male</b-dropdown-item
+            >
+            <b-dropdown-item value="Female" aria-role="listitem"
+              >Female</b-dropdown-item
+            >
+          </b-dropdown>
+        </div>
+        <div class="dropDown">
+          <div>Age</div>
+          <b-dropdown aria-role="list" v-model="ageOptions">
+            <template #trigger="{ active }">
+              <b-button
+                size="is-medium"
+                type="is-secondary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
+              >
+                <p v-if="ageOptions.length == 0">Select</p>
+                <p v-else>{{ ageOptions }}</p>
+              </b-button>
+            </template>
+            <b-dropdown-item aria-role="menu-item" :focusable="false" custom>
+              <form action="">
+                <div class="modal-card" style="width: 300px">
+                  <section class="modal-card-body">
+                    <b-switch v-model="toggleAgeLess">Age less than </b-switch>
+                    <b-button v-if="ageLess == 0" disabled size="is-small"
+                      >-</b-button
+                    >
+                    <b-button
+                      v-if="ageLess > 0"
+                      @click="ageLess--"
+                      size="is-small"
+                      >-</b-button
+                    >
+                    {{ ageLess }}
+                    <b-button
+                      v-if="toggleAgeLess"
+                      @click="ageLess++"
+                      size="is-small"
+                      >+</b-button
+                    >
+                    <b-button v-else @click="ageLess++" size="is-small" disabled
+                      >+</b-button
+                    >
+                  </section>
+                  <section class="modal-card-body">
+                    <b-switch>Age more than </b-switch>
+                    <b-button v-if="ageMore == 0" disabled size="is-small"
+                      >-</b-button
+                    >
+                    <b-button
+                      v-if="ageMore > 0"
+                      @click="ageMore--"
+                      size="is-small"
+                      >-</b-button
+                    >
+                    {{ ageMore }}
+                    <b-button @click="ageMore++" size="is-small">+</b-button>
+                  </section>
+                  <section class="modal-card-body">
+                    <div>
+                      <b-switch>Age between </b-switch>
+                      <div style="padding-top: 20px">
+                        <b-button v-if="ageFrom == 0" disabled size="is-small"
+                          >-</b-button
+                        >
+                        <b-button
+                          v-if="ageFrom > 0"
+                          @click="ageFrom--"
+                          size="is-small"
+                          >-</b-button
+                        >
+                        {{ ageFrom }}
+                        <b-button size="is-small" @click="ageFrom++"
+                          >+</b-button
+                        >
 
-      <span id="advancedSearch"
-        ><b-button
-          data-testid="advanced"
-          @click="changeFormToA()"
-          title="Switch to the advanced search form which has more options"
-          >Advanced Search</b-button
+                        to
+
+                        <b-button v-if="ageTo == 0" disabled size="is-small"
+                          >-</b-button
+                        >
+                        <b-button
+                          v-if="ageTo > 0"
+                          @click="ageTo--"
+                          size="is-small"
+                          >-</b-button
+                        >
+                        {{ ageTo }}
+                        <b-button @click="ageTo++" size="is-small">+</b-button>
+                      </div>
+                    </div>
+                  </section>
+                  <footer class="modal-card-foot">
+                    <b-button
+                      label="Clear"
+                      type="is-secondary"
+                      @click="clearAgeForm"
+                    />
+                    <b-button label="Save" type="is-primary" />
+                  </footer>
+                </div>
+              </form>
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+        <div class="dropDown">
+          <div>More filters</div>
+          <b-dropdown aria-role="list" v-model="ageOptions">
+            <template #trigger="{ active }">
+              <b-button
+                size="is-medium"
+                type="is-secondary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
+              >
+                <p v-if="ageOptions.length == 0">Select</p>
+                <p v-else>{{ ageOptions }}</p>
+              </b-button>
+            </template>
+            <b-dropdown-item value="Male" aria-role="listitem"
+              >Male</b-dropdown-item
+            >
+            <b-dropdown-item value="Female" aria-role="listitem"
+              >Female</b-dropdown-item
+            >
+          </b-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="searchButtonField">
+      <span>
+        <b-button
+          v-on:click="basicSearch()"
+          type="is-primary"
+          size="is-medium"
+          data-testid="searchButton"
+          >Search</b-button
         ></span
       >
+      <span class="searchBtn">
+        <b-button
+          v-on:click="basicSearch()"
+          type="is-primary"
+          size="is-medium"
+          data-testid="searchButton"
+          >Clear Fields
+        </b-button>
+      </span>
     </div>
   </div>
 </template>
@@ -88,21 +233,24 @@ export default {
       errorTooltip: false,
       regex:
         /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s?:\s?(\d+)\s?([ATCGN]+)\s?>\s?(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
-      variantTypes: [
-        "DEL:ME",
-        "INS:ME",
-        "DUP:TANDEM",
-        "DUP",
-        "DEL",
-        "INS",
-        "INV",
-        "CNV",
-        "SNP",
-        "MNP",
-      ],
+      sexOptions: [],
+      ageOptions: [],
+      ageLess: 0,
+      ageMore: 0,
+      ageFrom: 0,
+      ageTo: 0,
+      toggleAgeLess: false,
+      toggleAgeMore: false,
+      toggleAgeBetween: false,
     };
   },
   methods: {
+    clearAgeForm: function () {
+      this.ageFrom = 0;
+      this.ageLess = 0;
+      this.ageMore = 0;
+      this.ageTo = 0;
+    },
     changeFormToA: function () {
       this.$emit("changeFormToA");
     },
@@ -202,7 +350,7 @@ h2 {
   margin-top: 100px;
 } */
 .stretch {
-  width: 100%;
+  width: 158%;
 }
 .searchbar-footer {
   margin-top: 10px;
@@ -210,14 +358,15 @@ h2 {
   display: flex;
 }
 
-#searchButton {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+.dropDown {
+  display: inline-block;
+  padding-left: 42px;
 }
-
+.dropDown1 {
+  display: inline-block;
+}
 @media screen and (min-width: 1025px) {
   .searchbar-footer span#advancedSearch {
-    margin-left: auto;
   }
 }
 
@@ -233,11 +382,28 @@ h2 {
     order: 2;
   }
 }
-#searchBar {
+.searchBar {
+  display: flex;
   border-radius: 0;
+}
+.searchBarField {
+  display: flex;
 }
 /* fix safari bug https://github.com/jgthms/bulma/issues/2626 */
 select {
   text-rendering: auto !important;
+}
+.searchButtonField {
+  display: flex;
+  padding-top: 20px;
+}
+.searchBtn {
+  padding-left: 30px;
+}
+.dropDownButtonGroup {
+}
+.container {
+  top: 50%;
+  left: 18%;
 }
 </style>

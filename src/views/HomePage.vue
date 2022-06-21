@@ -1,27 +1,7 @@
 <template>
   <div class="home">
-    <p id="logo" v-if="$route.meta.hideSmallLogo">
-      <router-link to="/">
-        <img
-          class="bigLogo"
-          alt="ELIXIR Beacon Network logo"
-          src="@/assets/beacon-network-logo.png"
-        />
-      </router-link>
-    </p>
     <div class="container">
-      <component
-        data-testid="component"
-        v-bind:is="componentName"
-        @changeFormToA="setFormToA()"
-        @changeFormToB="setFormToB()"
-        @changeFormToListing="setFormToListing()"
-      ></component>
-      <b-switch v-model="toggleV2" id="v2Switch">
-        {{
-          toggleV2 ? "Beacon v2 search enabled" : "Beacon v2 search disabled"
-        }}
-      </b-switch>
+      <component data-testid="component" v-bind:is="componentName"></component>
     </div>
 
     <div v-if="$route.path === '/results'">
