@@ -77,115 +77,26 @@
           </b-dropdown>
         </div>
         <div class="dropDown">
-          <div>Age</div>
-          <b-dropdown aria-role="list" v-model="ageOptions">
-            <template #trigger="{ active }">
-              <b-button
-                size="is-medium"
-                type="is-secondary"
-                :icon-right="active ? 'menu-up' : 'menu-down'"
-              >
-                <p v-if="ageOptions.length == 0">Select</p>
-                <p v-else>{{ ageOptions }}</p>
-              </b-button>
-            </template>
-            <b-dropdown-item aria-role="menu-item" :focusable="false" custom>
-              <form action="">
-                <div class="modal-card" style="width: 300px">
-                  <section class="modal-card-body">
-                    <b-switch v-model="toggleAgeLess">Age less than </b-switch>
-                    <b-button v-if="ageLess == 0" disabled size="is-small"
-                      >-</b-button
-                    >
-                    <b-button
-                      v-if="ageLess > 0"
-                      @click="ageLess--"
-                      size="is-small"
-                      >-</b-button
-                    >
-                    {{ ageLess }}
-                    <b-button
-                      v-if="toggleAgeLess"
-                      @click="ageLess++"
-                      size="is-small"
-                      >+</b-button
-                    >
-                    <b-button v-else @click="ageLess++" size="is-small" disabled
-                      >+</b-button
-                    >
-                  </section>
-                  <section class="modal-card-body">
-                    <b-switch>Age more than </b-switch>
-                    <b-button v-if="ageMore == 0" disabled size="is-small"
-                      >-</b-button
-                    >
-                    <b-button
-                      v-if="ageMore > 0"
-                      @click="ageMore--"
-                      size="is-small"
-                      >-</b-button
-                    >
-                    {{ ageMore }}
-                    <b-button @click="ageMore++" size="is-small">+</b-button>
-                  </section>
-                  <section class="modal-card-body">
-                    <div>
-                      <b-switch>Age between </b-switch>
-                      <div style="padding-top: 20px">
-                        <b-button v-if="ageFrom == 0" disabled size="is-small"
-                          >-</b-button
-                        >
-                        <b-button
-                          v-if="ageFrom > 0"
-                          @click="ageFrom--"
-                          size="is-small"
-                          >-</b-button
-                        >
-                        {{ ageFrom }}
-                        <b-button size="is-small" @click="ageFrom++"
-                          >+</b-button
-                        >
+          <div>Age (years)</div>
 
-                        to
-
-                        <b-button v-if="ageTo == 0" disabled size="is-small"
-                          >-</b-button
-                        >
-                        <b-button
-                          v-if="ageTo > 0"
-                          @click="ageTo--"
-                          size="is-small"
-                          >-</b-button
-                        >
-                        {{ ageTo }}
-                        <b-button @click="ageTo++" size="is-small">+</b-button>
-                      </div>
-                    </div>
-                  </section>
-                  <footer class="modal-card-foot">
-                    <b-button
-                      label="Clear"
-                      type="is-secondary"
-                      @click="clearAgeForm"
-                    />
-                    <b-button label="Save" type="is-primary" />
-                  </footer>
-                </div>
-              </form>
-            </b-dropdown-item>
-          </b-dropdown>
+          <component
+            :is="ageSelector"
+            :ageOptions="ageOptions"
+            @updateAgeOptions="setAgeOptions"
+            ref="ageSelector"
+          ></component>
         </div>
         <div class="dropDown">
           <div>More filters</div>
-          <b-dropdown aria-role="list" v-model="ageOptions">
+          <b-dropdown aria-role="list" v-model="filterOptions">
             <template #trigger="{ active }">
               <b-button
                 size="is-medium"
                 type="is-secondary"
                 :icon-right="active ? 'menu-up' : 'menu-down'"
               >
-                <p v-if="ageOptions.length == 0">Select</p>
-                <p v-else>{{ ageOptions }}</p>
+                <p v-if="filterOptions.length == 0">Select</p>
+                <p v-else>{{ filterOptions }}</p>
               </b-button>
             </template>
             <b-dropdown-item value="Male" aria-role="listitem"
@@ -210,7 +121,7 @@
       >
       <span class="searchBtn">
         <b-button
-          v-on:click="basicSearch()"
+          v-on:click="clearFields()"
           type="is-primary"
           size="is-medium"
           data-testid="searchButton"
@@ -222,10 +133,15 @@
 </template>
 
 <script>
+import ageSelector from "./AgeSelector.vue";
 export default {
   name: "BasicSearch",
+  components: {
+    ageSelector,
+  },
   data() {
     return {
+      ageSelector: ageSelector,
       query: "",
       assembly: "GRCh38",
       validated: false,
@@ -235,21 +151,18 @@ export default {
         /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s?:\s?(\d+)\s?([ATCGN]+)\s?>\s?(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
       sexOptions: [],
       ageOptions: [],
-      ageLess: 0,
-      ageMore: 0,
-      ageFrom: 0,
-      ageTo: 0,
-      toggleAgeLess: false,
-      toggleAgeMore: false,
-      toggleAgeBetween: false,
+      filterOptions: [],
     };
   },
   methods: {
-    clearAgeForm: function () {
-      this.ageFrom = 0;
-      this.ageLess = 0;
-      this.ageMore = 0;
-      this.ageTo = 0;
+    clearFields: function () {
+      this.sexOptions = [];
+      this.ageOptions = [];
+      this.filterOptions = [];
+      this.$refs.ageSelector.clearAgeForm();
+    },
+    setAgeOptions: function (ageOptionsArray) {
+      this.ageOptions = ageOptionsArray;
     },
     changeFormToA: function () {
       this.$emit("changeFormToA");
