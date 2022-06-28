@@ -35,6 +35,27 @@
     <div class="searchbar-footer">
       <div class="dropDownButtonGroup">
         <div class="dropDown1">
+          <div>Biological species</div>
+          <b-dropdown aria-role="list" v-model="filterOptions">
+            <template #trigger="{ active }">
+              <b-button
+                size="is-medium"
+                type="is-secondary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
+              >
+                <p v-if="filterOptions.length == 0">Select</p>
+                <p v-else>{{ filterOptions }}</p>
+              </b-button>
+            </template>
+            <b-dropdown-item value="Male" aria-role="listitem"
+              >Male</b-dropdown-item
+            >
+            <b-dropdown-item value="Female" aria-role="listitem"
+              >Female</b-dropdown-item
+            >
+          </b-dropdown>
+        </div>
+        <div class="dropDown">
           <div>Anatomical</div>
           <b-dropdown aria-role="list" v-model="sexOptions">
             <template #trigger="{ active }">
@@ -85,27 +106,6 @@
             @updateAgeOptions="setAgeOptions"
             ref="ageSelector"
           ></component>
-        </div>
-        <div class="dropDown">
-          <div>More filters</div>
-          <b-dropdown aria-role="list" v-model="filterOptions">
-            <template #trigger="{ active }">
-              <b-button
-                size="is-medium"
-                type="is-secondary"
-                :icon-right="active ? 'menu-up' : 'menu-down'"
-              >
-                <p v-if="filterOptions.length == 0">Select</p>
-                <p v-else>{{ filterOptions }}</p>
-              </b-button>
-            </template>
-            <b-dropdown-item value="Male" aria-role="listitem"
-              >Male</b-dropdown-item
-            >
-            <b-dropdown-item value="Female" aria-role="listitem"
-              >Female</b-dropdown-item
-            >
-          </b-dropdown>
         </div>
       </div>
     </div>
@@ -317,6 +317,6 @@ select {
 }
 .container {
   top: 50%;
-  left: 18%;
+  left: 25%;
 }
 </style>
