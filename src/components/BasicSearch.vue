@@ -2,11 +2,7 @@
   <div class="container" style="margin-bottom: 24px">
     <section class="searchBarField">
       <form @submit.prevent="onSubmit">
-        <b-tooltip
-          class="stretch searchbar"
-          animated
-          label="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
-        >
+        <b-tooltip class="stretch searchbar" animated label="Search bar">
           <label for="searchBar">Search Terms</label>
           <b-input
             class="stretch searchbar"
@@ -14,7 +10,7 @@
             data-testid="testBar"
             size="is-medium"
             type="search"
-            placeholder="Chromosome : Position ReferenceBase > AlternateBase|VariantType"
+            placeholder="Type here"
             v-model="query"
             title="Variant search term"
           ></b-input>
