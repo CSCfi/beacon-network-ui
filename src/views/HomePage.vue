@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container">
+    <div class="searchContainer">
       <component data-testid="component" v-bind:is="componentName"></component>
     </div>
     <router-view />
@@ -108,6 +108,9 @@ export default {
 </script>
 
 <style scoped>
+.searchContainer {
+  background-color: rgb(0, 0, 163);
+}
 .home {
   flex: 1 0 auto;
 }

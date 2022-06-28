@@ -309,6 +309,7 @@ h2 {
 }
 .searchBarField {
   display: flex;
+  padding-top: 20px;
 }
 /* fix safari bug https://github.com/jgthms/bulma/issues/2626 */
 select {
@@ -317,9 +318,13 @@ select {
 .searchButtonField {
   display: flex;
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 .searchBtn {
   padding-left: 30px;
+}
+.button.is-primary {
+  background-color: crimson;
 }
 .dropDownButtonGroup {
 }
@@ -327,5 +332,6 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: aliceblue;
 }
 </style>
