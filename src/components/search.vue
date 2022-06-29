@@ -317,13 +317,18 @@ select {
 .searchButtonField {
   display: flex;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 .searchBtn {
   padding-left: 30px;
 }
 .button.is-primary {
   background-color: crimson;
+}
+.button.is-primary:hover {
+  background-color: rgb(171, 0, 0);
+  border-color: #000000;
+  border-width: 2px;
 }
 .dropDownButtonGroup {
 }
