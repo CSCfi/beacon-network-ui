@@ -53,15 +53,15 @@
         </div>
         <div class="dropDown">
           <div>Anatomical</div>
-          <b-dropdown aria-role="list" v-model="sexOptions">
+          <b-dropdown aria-role="list" v-model="anatomicalOptions">
             <template #trigger="{ active }">
               <b-button
                 size="is-medium"
                 type="is-secondary"
                 :icon-right="active ? 'menu-up' : 'menu-down'"
               >
-                <p v-if="sexOptions.length == 0">Select</p>
-                <p v-else>{{ sexOptions }}</p>
+                <p v-if="anatomicalOptions.length == 0">Select</p>
+                <p v-else>{{ anatomicalOptions }}</p>
               </b-button>
             </template>
             <b-dropdown-item value="Male" aria-role="listitem"
@@ -147,6 +147,7 @@ export default {
         /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s?:\s?(\d+)\s?([ATCGN]+)\s?>\s?(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
       sexOptions: [],
       ageOptions: [],
+      anatomicalOptions: [],
       filterOptions: [],
     };
   },
@@ -155,6 +156,7 @@ export default {
       this.sexOptions = [];
       this.ageOptions = [];
       this.filterOptions = [];
+      this.anatomicalOptions = [];
       this.$refs.ageSelector.clearAgeForm();
     },
     setAgeOptions: function (ageOptionsArray) {
