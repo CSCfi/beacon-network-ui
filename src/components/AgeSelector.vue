@@ -89,8 +89,18 @@
         </section>
 
         <footer class="modal-card-foot">
-          <b-button label="Clear" type="is-secondary" @click="clearAgeForm" />
-          <b-button label="Save" type="is-primary" @click="saveForm" />
+          <b-button
+            class="clearButton"
+            label="Clear"
+            type="is-secondary"
+            @click="clearAgeForm"
+          />
+          <b-button
+            class="saveButton"
+            label="Save"
+            type="is-primary"
+            @click="saveForm"
+          />
         </footer>
       </div>
     </b-dropdown-item>
@@ -176,5 +186,23 @@ export default {
 <style>
 .dropdownButton {
   min-width: 188px;
+}
+.saveButton {
+  color: white !important;
+  background-color: #1c007b !important;
+}
+.saveButton:hover {
+  color: #1c007b !important;
+  background-color: white !important;
+  border-color: #1c007b !important;
+}
+.clearButton {
+  color: #1c007b !important;
+  background-color: white !important;
+  border-color: #1c007b !important;
+}
+.clearButton:hover {
+  color: white !important;
+  background-color: #1c007b !important;
 }
 </style>

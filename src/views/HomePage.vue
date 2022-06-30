@@ -109,7 +109,7 @@ export default {
 
 <style scoped>
 .searchContainer {
-  background-color: rgb(0, 0, 163);
+  background-color: #1c007b;
 }
 .home {
   flex: 1 0 auto;
