@@ -323,12 +323,12 @@ select {
   padding-left: 30px;
 }
 .button.is-primary {
-  background-color: crimson;
+  background-color: #ff447c;
 }
 .button.is-primary:hover {
-  background-color: rgb(171, 0, 0);
+  background-color: #ff2567;
   border-color: #000000;
-  border-width: 2px;
+  border-width: 1px;
 }
 .dropDownButtonGroup {
 }
