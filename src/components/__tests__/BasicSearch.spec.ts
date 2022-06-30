@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
-import BasicSearch from "@/components/BasicSearch.vue";
+import BasicSearch from "@/components/search.vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
