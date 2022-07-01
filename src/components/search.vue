@@ -1,129 +1,131 @@
 <template>
   <div class="container" style="margin-bottom: 24px">
-    <section class="searchBarField">
-      <form @submit.prevent="onSubmit">
-        <b-tooltip class="stretch searchbar" animated label="Search bar">
-          <label for="searchBar">Search Terms</label>
-          <b-input
-            class="stretch searchbar"
-            id="searchBar"
-            data-testid="testBar"
-            size="is-medium"
-            type="search"
-            placeholder="Type here"
-            v-model="query"
-            title="Variant search term"
-          ></b-input>
-        </b-tooltip>
+    <div>
+      <section class="searchBarField">
+        <form @submit.prevent="onSubmit">
+          <b-tooltip class="stretch searchbar" animated label="Search bar">
+            <label for="searchBar">Search Terms</label>
+            <b-input
+              class="stretch searchbar"
+              id="searchBar"
+              data-testid="testBar"
+              size="is-medium"
+              type="search"
+              placeholder="Type here"
+              v-model="query"
+              title="Variant search term"
+            ></b-input>
+          </b-tooltip>
 
-        <b-message
-          v-if="errorTooltip"
-          type="is-danger"
-          aria-close-label="Close notification"
-          role="alert"
-          >{{ errorMessage }}
-          <router-link to="/guide" style="color: blue"
-            >How to make a query?</router-link
-          ></b-message
-        >
-      </form>
-    </section>
-    <div class="searchbar-footer">
-      <div class="dropDownButtonGroup">
-        <div class="dropDown1">
-          <div>Biological species</div>
-          <b-dropdown aria-role="list" v-model="filterOptions">
-            <template #trigger="{ active }">
-              <b-button
-                size="is-medium"
-                type="is-secondary"
-                :icon-right="active ? 'menu-up' : 'menu-down'"
+          <b-message
+            v-if="errorTooltip"
+            type="is-danger"
+            aria-close-label="Close notification"
+            role="alert"
+            >{{ errorMessage }}
+            <router-link to="/guide" style="color: blue"
+              >How to make a query?</router-link
+            ></b-message
+          >
+        </form>
+      </section>
+      <div class="searchbar-footer">
+        <div class="dropDownButtonGroup">
+          <div class="dropDown1">
+            <div>Biological species</div>
+            <b-dropdown aria-role="list" v-model="filterOptions">
+              <template #trigger="{ active }">
+                <b-button
+                  size="is-medium"
+                  type="is-secondary"
+                  :icon-right="active ? 'menu-up' : 'menu-down'"
+                >
+                  <p v-if="filterOptions.length == 0">Select</p>
+                  <p v-else>{{ filterOptions }}</p>
+                </b-button>
+              </template>
+              <b-dropdown-item value="Male" aria-role="listitem"
+                >Male</b-dropdown-item
               >
-                <p v-if="filterOptions.length == 0">Select</p>
-                <p v-else>{{ filterOptions }}</p>
-              </b-button>
-            </template>
-            <b-dropdown-item value="Male" aria-role="listitem"
-              >Male</b-dropdown-item
-            >
-            <b-dropdown-item value="Female" aria-role="listitem"
-              >Female</b-dropdown-item
-            >
-          </b-dropdown>
-        </div>
-        <div class="dropDown">
-          <div>Anatomical</div>
-          <b-dropdown aria-role="list" v-model="anatomicalOptions">
-            <template #trigger="{ active }">
-              <b-button
-                size="is-medium"
-                type="is-secondary"
-                :icon-right="active ? 'menu-up' : 'menu-down'"
+              <b-dropdown-item value="Female" aria-role="listitem"
+                >Female</b-dropdown-item
               >
-                <p v-if="anatomicalOptions.length == 0">Select</p>
-                <p v-else>{{ anatomicalOptions }}</p>
-              </b-button>
-            </template>
-            <b-dropdown-item value="Male" aria-role="listitem"
-              >Male</b-dropdown-item
-            >
-            <b-dropdown-item value="Female" aria-role="listitem"
-              >Female</b-dropdown-item
-            >
-          </b-dropdown>
-        </div>
-        <div class="dropDown">
-          <div>Sex</div>
-          <b-dropdown aria-role="list" v-model="sexOptions">
-            <template #trigger="{ active }">
-              <b-button
-                size="is-medium"
-                type="is-secondary"
-                :icon-right="active ? 'menu-up' : 'menu-down'"
+            </b-dropdown>
+          </div>
+          <div class="dropDown">
+            <div>Anatomical</div>
+            <b-dropdown aria-role="list" v-model="anatomicalOptions">
+              <template #trigger="{ active }">
+                <b-button
+                  size="is-medium"
+                  type="is-secondary"
+                  :icon-right="active ? 'menu-up' : 'menu-down'"
+                >
+                  <p v-if="anatomicalOptions.length == 0">Select</p>
+                  <p v-else>{{ anatomicalOptions }}</p>
+                </b-button>
+              </template>
+              <b-dropdown-item value="Male" aria-role="listitem"
+                >Male</b-dropdown-item
               >
-                <p v-if="sexOptions.length == 0">Select</p>
-                <p v-else>{{ sexOptions }}</p>
-              </b-button>
-            </template>
-            <b-dropdown-item value="Male" aria-role="listitem"
-              >Male</b-dropdown-item
-            >
-            <b-dropdown-item value="Female" aria-role="listitem"
-              >Female</b-dropdown-item
-            >
-          </b-dropdown>
-        </div>
-        <div class="dropDown">
-          <div>Age (years)</div>
+              <b-dropdown-item value="Female" aria-role="listitem"
+                >Female</b-dropdown-item
+              >
+            </b-dropdown>
+          </div>
+          <div class="dropDown">
+            <div>Sex</div>
+            <b-dropdown aria-role="list" v-model="sexOptions">
+              <template #trigger="{ active }">
+                <b-button
+                  size="is-medium"
+                  type="is-secondary"
+                  :icon-right="active ? 'menu-up' : 'menu-down'"
+                >
+                  <p v-if="sexOptions.length == 0">Select</p>
+                  <p v-else>{{ sexOptions }}</p>
+                </b-button>
+              </template>
+              <b-dropdown-item value="Male" aria-role="listitem"
+                >Male</b-dropdown-item
+              >
+              <b-dropdown-item value="Female" aria-role="listitem"
+                >Female</b-dropdown-item
+              >
+            </b-dropdown>
+          </div>
+          <div class="dropDown">
+            <div>Age (years)</div>
 
-          <component
-            :is="ageSelector"
-            :ageOptions="ageOptions"
-            @updateAgeOptions="setAgeOptions"
-            ref="ageSelector"
-          ></component>
+            <component
+              :is="ageSelector"
+              :ageOptions="ageOptions"
+              @updateAgeOptions="setAgeOptions"
+              ref="ageSelector"
+            ></component>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="searchButtonField">
-      <span>
-        <b-button
-          v-on:click="basicSearch()"
-          type="is-primary"
-          size="is-medium"
-          data-testid="searchButton"
-          >Search</b-button
-        ></span
-      >
-      <span class="searchBtn">
-        <b-button
-          v-on:click="clearFields()"
-          type="is-primary"
-          size="is-medium"
-          data-testid="searchButton"
-          >Clear Fields
-        </b-button>
-      </span>
+      <div class="searchButtonField">
+        <span>
+          <b-button
+            v-on:click="basicSearch()"
+            type="is-primary"
+            size="is-medium"
+            data-testid="searchButton"
+            >Search</b-button
+          ></span
+        >
+        <span class="searchBtn">
+          <b-button
+            v-on:click="clearFields()"
+            type="is-primary"
+            size="is-medium"
+            data-testid="searchButton"
+            >Clear Fields
+          </b-button>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -314,7 +316,8 @@ select {
 .dropDownButtonGroup {
 }
 .container {
-  top: 50%;
-  left: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
