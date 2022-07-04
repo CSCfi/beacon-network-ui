@@ -1,6 +1,6 @@
 <template>
   <div class="container" style="margin-bottom: 24px">
-    <div>
+    <div class="searchComponents">
       <section class="searchBarField">
         <form @submit.prevent="onSubmit">
           <b-tooltip class="stretch searchbar" animated label="Search bar">
@@ -36,6 +36,7 @@
             <b-dropdown aria-role="list" v-model="filterOptions">
               <template #trigger="{ active }">
                 <b-button
+                  class="dropdownButton"
                   size="is-medium"
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
@@ -57,6 +58,7 @@
             <b-dropdown aria-role="list" v-model="anatomicalOptions">
               <template #trigger="{ active }">
                 <b-button
+                  class="dropdownButton"
                   size="is-medium"
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
@@ -78,6 +80,7 @@
             <b-dropdown aria-role="list" v-model="sexOptions">
               <template #trigger="{ active }">
                 <b-button
+                  class="dropdownButton"
                   size="is-medium"
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
@@ -263,21 +266,28 @@ h2 {
   margin-top: 100px;
 } */
 .stretch {
-  width: 158%;
+  width: 182.426%;
 }
 .searchbar-footer {
   margin-top: 10px;
   font-size: 0.9em;
   display: flex;
 }
-
+.searchComponents {
+  display: flex;
+  flex-flow: column wrap;
+}
 .dropDown {
   display: inline-block;
-  padding-left: 42px;
+  padding-left: 20px;
 }
 .dropDown1 {
   display: inline-block;
 }
+.dropdownButton {
+  width: 188px;
+}
+
 @media screen and (min-width: 1025px) {
   .searchbar-footer span#advancedSearch {
   }

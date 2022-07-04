@@ -2,6 +2,7 @@
   <b-dropdown>
     <template #trigger="{ active }">
       <b-button
+        class="dropdownButton"
         size="is-medium"
         type="is-secondary"
         :icon-right="active ? 'menu-up' : 'menu-down'"
@@ -81,7 +82,7 @@
                 >+</b-button
               >
               <p v-if="ageFrom >= ageTo">
-                Starting age needs to be less than equal
+                Starting age needs to be less than max age
               </p>
             </div>
           </div>
@@ -178,4 +179,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.dropdownButton {
+  min-width: 188px;
+}
+</style>
