@@ -124,8 +124,17 @@
             v-on:click="clearFields()"
             type="is-primary"
             size="is-medium"
-            data-testid="searchButton"
+            data-testid="clearButton"
             >Clear Fields
+          </b-button>
+        </span>
+        <span class="searchBtn">
+          <b-button
+            v-on:click="exampleSearch()"
+            type="is-primary"
+            size="is-medium"
+            data-testid="exampleButton"
+            >Example search
           </b-button>
         </span>
       </div>
@@ -202,8 +211,14 @@ export default {
     },
     exampleSearch: function () {
       var vm = this;
-      vm.query = "MT : 10 T > C";
+      vm.query = "test";
+      this.sexOptions = "test";
+
+      this.biologicalOptions = "test";
+      this.anatomicalOptions = "test";
+      this.$refs.ageSelector.setAgeOpt();
       document.getElementById("searchBar").focus();
+      this.ageOptions = ["<", "3"];
     },
     buildQueryObj: function () {
       var vm = this;

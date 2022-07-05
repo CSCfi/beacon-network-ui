@@ -151,28 +151,22 @@ export default {
       if (toggle == "less") {
         this.toggleAgeMore = false;
         this.toggleAgeBetween = false;
-
-        this.ageLess = 0;
-        this.ageMore = 0;
-        this.ageTo = 0;
-        this.ageFrom = 0;
       } else if (toggle == "more") {
         this.toggleAgeLess = false;
         this.toggleAgeBetween = false;
-
-        this.ageLess = 0;
-        this.ageMore = 0;
-        this.ageTo = 0;
-        this.ageFrom = 0;
       } else if (toggle == "between") {
         this.toggleAgeLess = false;
         this.toggleAgeMore = false;
-
-        this.ageLess = 0;
-        this.ageMore = 0;
-        this.ageTo = 0;
-        this.ageFrom = 0;
       }
+      this.ageLess = 0;
+      this.ageMore = 0;
+      this.ageTo = 0;
+      this.ageFrom = 0;
+    },
+    setAgeOpt: function () {
+      this.ageOpt = [];
+      this.ageOpt.push("Less than 3");
+      this.$emit("updateAgeOptions", this.ageOpt);
     },
   },
   beforeMount() {},
