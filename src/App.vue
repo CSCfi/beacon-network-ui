@@ -9,12 +9,7 @@
       :spaced="true"
       ><template #brand>
         <div id="logo" v-if="!$route.meta.hideSmallLogo">
-          <router-link to="/"
-            ><img
-              class="logo"
-              alt="ELIXIR Beacon Network logo"
-              src="./assets/beacon-network-logo.png"
-          /></router-link>
+          <router-link to="/">logo here</router-link>
         </div>
       </template>
       <template #start> Logo here </template>

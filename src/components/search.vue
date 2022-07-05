@@ -33,7 +33,7 @@
         <div class="dropDownButtonGroup">
           <div class="dropDown1">
             <div>Biological species</div>
-            <b-dropdown aria-role="list" v-model="filterOptions">
+            <b-dropdown aria-role="list" v-model="biologicalOptions">
               <template #trigger="{ active }">
                 <b-button
                   class="dropdownButton"
@@ -41,8 +41,8 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="filterOptions.length == 0">Select</p>
-                  <p v-else>{{ filterOptions }}</p>
+                  <p v-if="biologicalOptions.length == 0">Select</p>
+                  <p v-else>{{ biologicalOptions }}</p>
                 </b-button>
               </template>
               <b-dropdown-item value="Male" aria-role="listitem"
@@ -144,23 +144,20 @@ export default {
     return {
       ageSelector: ageSelector,
       query: "",
-      assembly: "GRCh38",
       validated: false,
       errorMessage: "",
       errorTooltip: false,
-      regex:
-        /^(X|Y|MT|[1-9]|1[0-9]|2[0-2])\s?:\s?(\d+)\s?([ATCGN]+)\s?>\s?(DEL:ME|INS:ME|DUP:TANDEM|DUP|DEL|INS|INV|CNV|SNP|MNP|[ATCGN]+)$/i,
       sexOptions: [],
       ageOptions: [],
       anatomicalOptions: [],
-      filterOptions: [],
+      biologicalOptions: [],
     };
   },
   methods: {
     clearFields: function () {
       this.sexOptions = [];
       this.ageOptions = [];
-      this.filterOptions = [];
+      this.biologicalOptions = [];
       this.anatomicalOptions = [];
       this.$refs.ageSelector.clearAgeForm();
     },
@@ -186,10 +183,10 @@ export default {
         // Query string
         var queryObj = {};
         queryObj.searchType = "basic";
-        queryObj.includeDatasetResponses = "HIT";
         queryObj.assemblyId = vm.assembly;
         queryObj = Object.assign(queryObj, vm.buildQueryObj());
         // Change view to results and send GET query string
+        console.log(queryObj);
         this.$router.push(
           {
             path: "results",
@@ -199,7 +196,7 @@ export default {
           () => {}
         );
       } else {
-        vm.errorMessage = "Variant search term is malformed, please try again.";
+        vm.errorMessage = "Search term is malformed, please try again.";
         vm.errorTooltip = true;
       }
     },
@@ -210,36 +207,21 @@ export default {
     },
     buildQueryObj: function () {
       var vm = this;
-      var temp = vm.query.split(vm.regex).filter(Boolean);
-      var tempArray = [];
-      for (var i = 0; i < temp.length; i++) {
-        if (temp[i] != ":" && temp[i] != ">") {
-          tempArray.push(temp[i]);
-        }
-      }
+
       var queryObj = {
-        referenceName: tempArray[0],
-        start: tempArray[1] > 0 ? tempArray[1] - 1 : 0,
-        referenceBases: tempArray[2],
+        searchTerm: vm.query,
+        biologicalSpecies: vm.biologicalOptions,
+        anatomicalSite: vm.anatomicalOptions,
+        sex: vm.sexOptions,
+        age: vm.ageOptions,
       };
-      // Determine if last element is a base of a variant type
-      if (vm.variantTypes.includes(tempArray[3])) {
-        // tempArray[3] is a variantType
-        queryObj["variantType"] = tempArray[3];
-      } else {
-        // tempArray[3] is an alternateBases
-        queryObj["alternateBases"] = tempArray[3];
-      }
 
       return queryObj;
     },
     validateInput: function () {
       var vm = this;
-      if (vm.regex.test(vm.query)) {
-        vm.validated = true;
-      } else {
-        vm.validated = false;
-      }
+
+      vm.validated = true;
     },
   },
   beforeMount() {

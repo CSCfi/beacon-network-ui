@@ -120,20 +120,20 @@ export default {
       if (this.toggleAgeLess) {
         this.ageOpt = [];
         this.ageOpt.push("Less than " + this.ageLess);
-        this.$emit("updateageOpt", this.ageOpt);
+        this.$emit("updateAgeOptions", ["<", this.ageLess]);
       } else if (this.toggleAgeMore) {
         this.ageOpt = [];
         this.ageOpt.push("More than " + this.ageMore);
-        this.$emit("updateageOpt", this.ageOpt);
+        this.$emit("updateAgeOptions", [">", this.ageMore]);
       } else if (this.toggleAgeBetween) {
         if (this.ageFrom < this.ageTo) {
           this.ageOpt = [];
           this.ageOpt.push("Age between " + this.ageFrom + " - " + this.ageTo);
-          this.$emit("updateageOpt", this.ageOpt);
+          this.$emit("updateAgeOptions", [this.ageFrom, "-", this.ageTo]);
         }
       } else {
         this.ageOpt = [];
-        this.$emit("updateageOpt", this.ageOpt);
+        this.$emit("updateAgeOptions", this.ageOpt);
       }
     },
     clearAgeForm: function () {
