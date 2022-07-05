@@ -164,6 +164,7 @@ export default {
   },
   methods: {
     clearFields: function () {
+      this.query = "";
       this.sexOptions = [];
       this.ageOptions = [];
       this.biologicalOptions = [];
