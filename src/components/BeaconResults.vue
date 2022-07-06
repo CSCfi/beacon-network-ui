@@ -5,7 +5,7 @@
       <span v-for="(item, index) in this.$route.query" :key="index">
         <span v-if="typeof item == 'string'">{{ item }} </span>
         <span v-else>
-          <span v-for="i in item" :key="i"> {{ i }}</span>
+          Age <span v-for="i in item" :key="i"> {{ i }}</span>
         </span>
       </span>
     </div>

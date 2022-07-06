@@ -213,7 +213,7 @@ export default {
     exampleSearch: function () {
       var vm = this;
       vm.query = "test";
-      this.sexOptions = "test";
+      this.sexOptions = "Male";
 
       this.biologicalOptions = "test";
       this.anatomicalOptions = "test";
