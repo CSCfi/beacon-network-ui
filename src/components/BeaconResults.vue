@@ -1,13 +1,13 @@
 <template>
   <section class="container results-table">
     <div class="column">
-      Search results for:
+      <span class="resultHeader">Search results for:</span>
       <span v-for="(item, index) in this.$route.query" :key="index">
-        <span v-if="typeof item == 'string'">{{ item }} </span>
-        <span v-else-if="item !== undefined">
-          <span v-if="Object.keys(item).length > 0">
-            Age <span v-for="i in item" :key="i"> {{ i }}</span>
-          </span>
+        <span class="resultBox" v-if="typeof item == 'string'">
+          {{ item }}
+        </span>
+        <span class="resultBox" v-else>
+          Age <span v-for="i in item" :key="i"> {{ i }}</span>
         </span>
       </span>
     </div>
@@ -417,6 +417,15 @@ export default {
 </script>
 
 <style scoped>
+.resultHeader {
+  color: #000000;
+}
+.resultBox {
+  background-color: #f2f0f7;
+  color: #1c007b;
+  margin-left: 10px;
+  padding: 10px;
+}
 .results-table {
   margin: 0 auto;
   margin-top: 50px;
