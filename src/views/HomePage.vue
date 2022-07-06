@@ -3,19 +3,6 @@
     <div class="container">
       <component data-testid="component" v-bind:is="componentName"></component>
     </div>
-
-    <div v-if="$route.path === '/results'">
-      <hr id="divider" />
-      <p class="results-disclaimer">
-        Note that Beacon Network is using 1-based coordinates, while Beacons are
-        using 0-based coordinates.<br />
-        An automatic coordinate substraction is made upon a query.<br />
-        <router-link to="/guide"
-          >More information on how to make queries is available in the Beacon
-          Network guide</router-link
-        >.
-      </p>
-    </div>
     <router-view />
   </div>
 </template>
