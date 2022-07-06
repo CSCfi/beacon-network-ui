@@ -114,7 +114,9 @@ export default {
     },
     openProfilePage: function () {},
   },
-  beforeMount() {},
+  beforeMount() {
+    console.log(this.login_url);
+  },
 };
 </script>
 <style>

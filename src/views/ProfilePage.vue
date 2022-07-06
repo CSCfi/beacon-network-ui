@@ -14,19 +14,7 @@
         <td v-if="prof === 'sub'">Elixir ID</td>
         <td v-else>{{ prof }}</td>
 
-        <td v-if="prof === 'email'">
-          <span v-for="(ind, k) in index" :key="k">
-            <span v-if="typeof ind === 'string'">{{ ind }}</span>
-            <b-tag class="datasetAccess" v-else-if="ind" type="is-success"
-              >Verified</b-tag
-            >
-            <b-tag class="datasetAccess" v-else type="is-danger"
-              >Unverified</b-tag
-            >
-          </span>
-        </td>
-
-        <td v-else-if="typeof index === 'string' || typeof index === 'boolean'">
+        <td v-if="typeof index === 'string' || typeof index === 'boolean'">
           {{ index }}
         </td>
         <div class="datasetAccess" v-else v-for="(key, i) in index" :key="i">
@@ -120,11 +108,8 @@ export default {
           accessGrants.push(decoded.ga4gh_visa_v1.value);
         }
       });
-
-      response.email = [response.email, response.email_verified];
-      delete response.email_verified;
       delete response.ga4gh_passport_v1;
-      response.Dataset_acceess = accessGrants;
+      response.Dataset_access = accessGrants;
     },
     getProfile: function () {
       axios
