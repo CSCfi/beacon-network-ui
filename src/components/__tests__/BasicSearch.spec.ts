@@ -28,7 +28,7 @@ describe("Example search", () => {
     buttonSearch.trigger("click");
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.$route.fullPath).toBe(
-      "/results?searchType=basic&searchTerm=test&biologicalSpecies=test&anatomicalSite=test&sex=test&age=%3C&age=3"
+      "/results?searchType=basic&searchTerm=test&biologicalSpecies=test&anatomicalSite=test&sex=Male&age=%3C&age=3"
     );
   });
 });
