@@ -12,96 +12,211 @@
       </b-button>
     </template>
     <b-dropdown-item aria-role="list-item" :focusable="false" custom>
-      <div class="modal-card" style="width: 265px">
+      <div class="modal-card" style="width: 335px">
         <section class="modal-card-body">
           <b-switch v-model="toggleAgeLess" @input="toggleSwitch('less')"
             >Age less than
           </b-switch>
-          <b-button v-if="ageLess == 0" disabled size="is-small">-</b-button>
-          <b-button v-if="ageLess > 0" @click="ageLess--" size="is-small"
-            >-</b-button
+
+          <b-button
+            type="is-ghost"
+            class="buttonWithImage"
+            v-if="ageLess == 0"
+            rounded
+            size="is-small"
           >
+            <img class="image" src="../assets/minus.png" />
+          </b-button>
+          <b-button
+            type="is-ghost"
+            class="buttonWithImage"
+            v-if="ageLess > 0"
+            @click="ageLess--"
+            rounded
+            size="is-small"
+          >
+            <img class="image" src="../assets/minus.png" />
+          </b-button>
+
           {{ ageLess }}
-          <b-button v-if="toggleAgeLess" @click="ageLess++" size="is-small"
-            >+</b-button
+
+          <b-button
+            v-if="toggleAgeLess"
+            type="is-ghost"
+            class="buttonWithImage"
+            @click="ageLess++"
+            rounded
+            size="is-small"
           >
-          <b-button v-else @click="ageLess++" size="is-small" disabled
-            >+</b-button
+            <img class="image" src="../assets/plus.png" />
+          </b-button>
+          <b-button
+            v-else
+            type="is-ghost"
+            class="buttonWithImage"
+            rounded
+            size="is-small"
           >
+            <img class="image" src="../assets/plus.png" />
+          </b-button>
         </section>
         <section class="modal-card-body">
           <b-switch v-model="toggleAgeMore" @input="toggleSwitch('more')"
-            >Age more than
+            >Ages more than
           </b-switch>
-          <b-button v-if="ageMore == 0" disabled size="is-small">-</b-button>
-          <b-button v-if="ageMore > 0" @click="ageMore--" size="is-small"
-            >-</b-button
+          <b-button
+            type="is-ghost"
+            class="buttonWithImage"
+            v-if="ageMore == 0"
+            rounded
+            size="is-small"
           >
+            <img class="image" src="../assets/minus.png" />
+          </b-button>
+          <b-button
+            type="is-ghost"
+            class="buttonWithImage"
+            v-if="ageMore > 0"
+            @click="ageMore--"
+            rounded
+            size="is-small"
+          >
+            <img class="image" src="../assets/minus.png" />
+          </b-button>
           {{ ageMore }}
-          <b-button v-if="toggleAgeMore" @click="ageMore++" size="is-small"
-            >+</b-button
+          <b-button
+            v-if="toggleAgeMore"
+            type="is-ghost"
+            class="buttonWithImage"
+            @click="ageMore++"
+            rounded
+            size="is-small"
           >
-          <b-button v-else @click="ageMore++" size="is-small" disabled
-            >+</b-button
+            <img class="image" src="../assets/plus.png" />
+          </b-button>
+          <b-button
+            v-else
+            type="is-ghost"
+            class="buttonWithImage"
+            rounded
+            size="is-small"
           >
+            <img class="image" src="../assets/plus.png" />
+          </b-button>
         </section>
         <section class="modal-card-body">
           <div>
             <b-switch
               v-model="toggleAgeBetween"
               @input="toggleSwitch('between')"
-              >Age between
+              >Ages between
             </b-switch>
             <div style="padding-top: 20px">
-              <b-button v-if="ageFrom == 0" disabled size="is-small"
-                >-</b-button
+              <b-button
+                type="is-ghost"
+                class="buttonWithImage"
+                v-if="ageFrom == 0"
+                rounded
+                size="is-small"
               >
-              <b-button v-if="ageFrom > 0" @click="ageFrom--" size="is-small"
-                >-</b-button
+                <img class="image" src="../assets/minus.png" />
+              </b-button>
+              <b-button
+                type="is-ghost"
+                class="buttonWithImage"
+                v-if="ageFrom > 0"
+                @click="ageFrom--"
+                rounded
+                size="is-small"
               >
+                <img class="image" src="../assets/minus.png" />
+              </b-button>
               {{ ageFrom }}
+
               <b-button
                 v-if="toggleAgeBetween"
-                size="is-small"
+                type="is-ghost"
+                class="buttonWithImage"
                 @click="ageFrom++"
-                >+</b-button
+                rounded
+                size="is-small"
               >
-              <b-button v-else disabled size="is-small" @click="ageFrom++"
-                >+</b-button
+                <img class="image" src="../assets/plus.png" />
+              </b-button>
+              <b-button
+                v-else
+                type="is-ghost"
+                class="buttonWithImage"
+                rounded
+                size="is-small"
               >
+                <img class="image" src="../assets/plus.png" />
+              </b-button>
               to
-              <b-button v-if="ageTo == 0" disabled size="is-small">-</b-button>
-              <b-button v-if="ageTo > 0" @click="ageTo--" size="is-small"
-                >-</b-button
+
+              <b-button
+                type="is-ghost"
+                class="buttonWithImage"
+                v-if="ageTo == 0"
+                rounded
+                size="is-small"
               >
+                <img class="image" src="../assets/minus.png" />
+              </b-button>
+              <b-button
+                type="is-ghost"
+                class="buttonWithImage"
+                v-if="ageTo > 0"
+                @click="ageTo--"
+                rounded
+                size="is-small"
+              >
+                <img class="image" src="../assets/minus.png" />
+              </b-button>
               {{ ageTo }}
-              <b-button v-if="toggleAgeBetween" @click="ageTo++" size="is-small"
-                >+</b-button
+              <b-button
+                v-if="toggleAgeBetween"
+                type="is-ghost"
+                class="buttonWithImage"
+                @click="ageTo++"
+                rounded
+                size="is-small"
               >
-              <b-button v-else @click="ageTo++" size="is-small" disabled
-                >+</b-button
+                <img class="image" src="../assets/plus.png" />
+              </b-button>
+              <b-button
+                v-else
+                type="is-ghost"
+                class="buttonWithImage"
+                rounded
+                size="is-small"
               >
-              <p v-if="ageFrom >= ageTo">
+                <img class="image" src="../assets/plus.png" />
+              </b-button>
+              <p v-if="ageFrom >= ageTo && toggleAgeBetween">
                 Starting age needs to be less than max age
               </p>
             </div>
           </div>
         </section>
-
-        <footer class="modal-card-foot">
-          <b-button
-            class="clearButton"
-            label="Clear"
-            type="is-secondary"
-            @click="clearAgeForm"
-          />
-          <b-button
-            class="saveButton"
-            label="Save"
-            type="is-primary"
-            @click="saveForm"
-          />
-        </footer>
+        <b-dropdown-item class="modal-card-foot" custom>
+          <b-dropdown-item :focusable="false" custom>
+            <b-button
+              class="clearButton"
+              label="Clear"
+              type="is-secondary"
+              @click="clearAgeForm"
+            />
+          </b-dropdown-item>
+          <b-dropdown-item :focusable="false">
+            <b-button
+              class="saveButton"
+              label="Save"
+              type="is-primary"
+              @click="saveForm"
+            />
+          </b-dropdown-item>
+        </b-dropdown-item>
       </div>
     </b-dropdown-item>
   </b-dropdown>
@@ -122,7 +237,6 @@ export default {
       toggleAgeLess: false,
       toggleAgeMore: false,
       toggleAgeBetween: false,
-      open: false,
     };
   },
   methods: {
@@ -138,7 +252,7 @@ export default {
       } else if (this.toggleAgeBetween) {
         if (this.ageFrom < this.ageTo) {
           this.ageOpt = [];
-          this.ageOpt.push("Age between " + this.ageFrom + " - " + this.ageTo);
+          this.ageOpt.push("Ages between " + this.ageFrom + " - " + this.ageTo);
           this.$emit("updateAgeOptions", [this.ageFrom, "-", this.ageTo]);
         }
       } else {
@@ -147,7 +261,6 @@ export default {
       }
     },
     clearAgeForm: function () {
-      this.open = false;
       this.ageOpt = [];
       this.ageFrom = 0;
       this.ageLess = 0;
@@ -184,6 +297,10 @@ export default {
 </script>
 
 <style>
+.image {
+}
+.buttonWithImage {
+}
 .dropdownButton {
   min-width: 188px;
 }
