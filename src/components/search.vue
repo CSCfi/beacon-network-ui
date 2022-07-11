@@ -196,7 +196,6 @@ export default {
         queryObj.assemblyId = vm.assembly;
         queryObj = Object.assign(queryObj, vm.buildQueryObj());
         // Change view to results and send GET query string
-        console.log(queryObj);
         this.$router.push(
           {
             path: "results",

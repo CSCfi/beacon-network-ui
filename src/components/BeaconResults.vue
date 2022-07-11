@@ -4,8 +4,10 @@
       Search results for:
       <span v-for="(item, index) in this.$route.query" :key="index">
         <span v-if="typeof item == 'string'">{{ item }} </span>
-        <span v-else>
-          Age <span v-for="i in item" :key="i"> {{ i }}</span>
+        <span v-else-if="item !== undefined">
+          <span v-if="Object.keys(item).length > 0">
+            Age <span v-for="i in item" :key="i"> {{ i }}</span>
+          </span>
         </span>
       </span>
     </div>
