@@ -14,9 +14,9 @@
     "@babel/eslint-parser": "^7.18.2",
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.6",
-    "@vue/cli-plugin-typescript": "^5.0.6",
+    "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-plugin-unit-jest": "^5.0.6",
-    "@vue/cli-service": "^5.0.6",
+    "@vue/cli-service": "^5.0.8",
     "@vue/test-utils": "^1.3.0",
     "acorn": "^8.7.1",
     "axios": "^0.27.2",
@@ -33,8 +33,8 @@
     "prettier": "^2.7.1",
     "regenerator-runtime": "^0.13.9",
     "sass-loader": "^13.0.2",
-    "serve": "^13.0.2",
-    "vue": "^2.6.14",
+    "serve": "^14.0.0",
+    "vue": "^2.7.5",
     "vue-cookies": "^1.8.1",
     "vue-material-design-icons": "^5.1.1",
     "vue-matomo": "^4.1.0",
@@ -54,6 +54,6 @@
     "ts-jest": "^27.0.4",
     "typescript": "~4.7.4",
     "vue-jest": "^3.0.7",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.7.5"
   }
 }
