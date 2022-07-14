@@ -17,107 +17,115 @@
           <b-switch v-model="toggleAgeLess" @input="toggleSwitch('less')"
             >Age less than
           </b-switch>
+          <span class="ageSelector">
+            <b-button
+              type="is-ghost"
+              class="buttonWithImage"
+              v-if="ageLess == 0"
+              rounded
+              size="is-small"
+            >
+              <img class="image" src="../assets/minus.png" />
+            </b-button>
+            <b-button
+              type="is-ghost"
+              class="buttonWithImage"
+              v-if="ageLess > 0"
+              @click="ageLess--"
+              rounded
+              size="is-small"
+            >
+              <img class="image" src="../assets/minus.png" />
+            </b-button>
 
-          <b-button
-            type="is-ghost"
-            class="buttonWithImage"
-            v-if="ageLess == 0"
-            rounded
-            size="is-small"
-          >
-            <img class="image" src="../assets/minus.png" />
-          </b-button>
-          <b-button
-            type="is-ghost"
-            class="buttonWithImage"
-            v-if="ageLess > 0"
-            @click="ageLess--"
-            rounded
-            size="is-small"
-          >
-            <img class="image" src="../assets/minus.png" />
-          </b-button>
+            {{ ageLess }}
 
-          {{ ageLess }}
-
-          <b-button
-            v-if="toggleAgeLess"
-            type="is-ghost"
-            class="buttonWithImage"
-            @click="ageLess++"
-            rounded
-            size="is-small"
-          >
-            <img class="image" src="../assets/plus.png" />
-          </b-button>
-          <b-button
-            v-else
-            type="is-ghost"
-            class="buttonWithImage"
-            rounded
-            size="is-small"
-          >
-            <img class="image" src="../assets/plus.png" />
-          </b-button>
+            <b-button
+              v-if="toggleAgeLess"
+              type="is-ghost"
+              class="buttonWithImage"
+              @click="ageLess++"
+              rounded
+              size="is-small"
+            >
+              <img class="image" src="../assets/plus.png" />
+            </b-button>
+            <b-button
+              v-else
+              type="is-ghost"
+              class="buttonWithImage"
+              rounded
+              size="is-small"
+            >
+              <img class="image" src="../assets/plus.png" />
+            </b-button>
+          </span>
         </section>
         <section class="modal-card-body">
           <b-switch v-model="toggleAgeMore" @input="toggleSwitch('more')"
             >Ages more than
           </b-switch>
-          <b-button
-            type="is-ghost"
-            class="buttonWithImage"
-            v-if="ageMore == 0"
-            rounded
-            size="is-small"
-          >
-            <img class="image" src="../assets/minus.png" />
-          </b-button>
-          <b-button
-            type="is-ghost"
-            class="buttonWithImage"
-            v-if="ageMore > 0"
-            @click="ageMore--"
-            rounded
-            size="is-small"
-          >
-            <img class="image" src="../assets/minus.png" />
-          </b-button>
-          {{ ageMore }}
-          <b-button
-            v-if="toggleAgeMore"
-            type="is-ghost"
-            class="buttonWithImage"
-            @click="ageMore++"
-            rounded
-            size="is-small"
-          >
-            <img class="image" src="../assets/plus.png" />
-          </b-button>
-          <b-button
-            v-else
-            type="is-ghost"
-            class="buttonWithImage"
-            rounded
-            size="is-small"
-          >
-            <img class="image" src="../assets/plus.png" />
-          </b-button>
+          <span class="ageSelector">
+            <b-button
+              type="is-ghost"
+              class="buttonWithImage"
+              v-if="ageMore == 0"
+              rounded
+              size="is-small"
+            >
+              <img class="image" src="../assets/minus.png" />
+            </b-button>
+            <b-button
+              type="is-ghost"
+              class="buttonWithImage"
+              v-if="ageMore > 0"
+              @click="ageMore--"
+              rounded
+              size="is-small"
+            >
+              <img class="image" src="../assets/minus.png" />
+            </b-button>
+            {{ ageMore }}
+            <b-button
+              v-if="toggleAgeMore"
+              type="is-ghost"
+              class="buttonWithImage"
+              @click="ageMore++"
+              rounded
+              size="is-small"
+            >
+              <img class="image" src="../assets/plus.png" />
+            </b-button>
+            <b-button
+              v-else
+              type="is-ghost"
+              class="buttonWithImage"
+              rounded
+              size="is-small"
+            >
+              <img class="image" src="../assets/plus.png" />
+            </b-button>
+          </span>
         </section>
         <section class="modal-card-body">
-          <div>
+          <span>
             <b-switch
               v-model="toggleAgeBetween"
               @input="toggleSwitch('between')"
               >Ages between
             </b-switch>
-            <div style="padding-top: 20px">
+          </span>
+        </section>
+        <section class="modal-card-body">
+          <span>
+            <span class="ageSelector">
               <b-button
                 type="is-ghost"
                 class="buttonWithImage"
                 v-if="ageFrom == 0"
                 rounded
                 size="is-small"
+                style="padding-bottom: 10px"
               >
                 <img class="image" src="../assets/minus.png" />
               </b-button>
@@ -128,6 +136,7 @@
                 @click="ageFrom--"
                 rounded
                 size="is-small"
+                style="padding-bottom: 10px"
               >
                 <img class="image" src="../assets/minus.png" />
               </b-button>
@@ -140,6 +149,7 @@
                 @click="ageFrom++"
                 rounded
                 size="is-small"
+                style="padding-bottom: 10px"
               >
                 <img class="image" src="../assets/plus.png" />
               </b-button>
@@ -149,17 +159,20 @@
                 class="buttonWithImage"
                 rounded
                 size="is-small"
+                style="padding-bottom: 10px"
               >
                 <img class="image" src="../assets/plus.png" />
               </b-button>
-              to
-
+            </span>
+            to
+            <span class="ageSelector">
               <b-button
                 type="is-ghost"
                 class="buttonWithImage"
                 v-if="ageTo == 0"
                 rounded
                 size="is-small"
+                style="padding-bottom: 10px"
               >
                 <img class="image" src="../assets/minus.png" />
               </b-button>
@@ -170,6 +183,7 @@
                 @click="ageTo--"
                 rounded
                 size="is-small"
+                style="padding-bottom: 10px"
               >
                 <img class="image" src="../assets/minus.png" />
               </b-button>
@@ -181,6 +195,7 @@
                 @click="ageTo++"
                 rounded
                 size="is-small"
+                style="padding-bottom: 10px"
               >
                 <img class="image" src="../assets/plus.png" />
               </b-button>
@@ -190,14 +205,15 @@
                 class="buttonWithImage"
                 rounded
                 size="is-small"
+                style="padding-bottom: 10px"
               >
                 <img class="image" src="../assets/plus.png" />
               </b-button>
               <p v-if="ageFrom >= ageTo && toggleAgeBetween">
                 Starting age needs to be less than max age
               </p>
-            </div>
-          </div>
+            </span>
+          </span>
         </section>
         <b-dropdown-item class="modal-card-foot" custom>
           <b-dropdown-item :focusable="false" custom>
@@ -297,9 +313,13 @@ export default {
 </script>
 
 <style>
-.image {
-}
-.buttonWithImage {
+.ageSelector {
+  width: 100px;
+  height: 43px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #f2f0f7;
+  border-radius: 8px;
 }
 .dropdownButton {
   min-width: 188px;
