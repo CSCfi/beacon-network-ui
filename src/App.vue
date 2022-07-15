@@ -129,7 +129,6 @@ export default {
 }
 
 #nav ~ .home {
-  margin-top: 20px;
 }
 
 .login {
