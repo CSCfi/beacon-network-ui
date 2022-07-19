@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
-import Privacy from "@/views/Privacy.vue";
+import Privacy from "@/views/PrivacyPage.vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);

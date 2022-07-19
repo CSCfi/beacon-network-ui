@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
-import Tos from "@/views/Tos.vue";
+import Tos from "@/views/TosPage.vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);

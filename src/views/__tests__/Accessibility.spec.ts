@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
-import Accessibility from "@/views/Accessibility.vue";
+import Accessibility from "@/views/AccessibilityPage.vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
