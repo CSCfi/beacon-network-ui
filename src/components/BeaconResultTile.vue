@@ -1,21 +1,18 @@
 <template>
-  <div class="tile is-parent">
-    <div class="tile is-child box">
+  <span class="tile is-parent">
+    <span class="tile is-child box">
       <article class="media">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img
-              :src="data.organization.logoUrl"
-              :alt="data.organization.name + ' organization logo'"
-            />
-          </figure>
-        </div>
-        <div class="media-content">
-          <div class="content">
-            <p class="title is-size-6">{{ data.organization.name }}</p>
-            <p class="subtitle is-6">{{ data.name }}</p>
-          </div>
-          <small
+        <span class="media-left">
+          <p class="title is-size-6">{{ data.name }}</p>
+          <p class="subtitle is-6">{{ data.organization.name }}</p>
+        </span>
+
+        <span class="media-content">
+          beacon description testtesttesttesttesttesttesttesttestt
+          esttesttesttesttesttesttesttesttest</span
+        >
+        <span class="media-right">
+          <small class="contactInfoBar"
             ><a
               v-bind:href="data.organization.url"
               :title="
@@ -36,30 +33,10 @@
               >Contact Us</a
             >
           </small>
-        </div>
-        <div class="media-right">
-          <b-tag
-            v-if="exists"
-            class="accessibility-green-tag"
-            title="A variant was found"
-            ><b>Found</b></b-tag
-          >
-          <b-tag
-            v-if="exists === false"
-            class="accessibility-red-tag"
-            title="No variants were found"
-            ><b>Not Found</b></b-tag
-          >
-          <b-tag
-            v-if="exists === null"
-            class="accessibility-yellow-tag"
-            title="Error in connecting to beacon"
-            ><b>Unknown</b></b-tag
-          >
-        </div>
+        </span>
       </article>
-    </div>
-  </div>
+    </span>
+  </span>
 </template>
 
 <script>
@@ -111,6 +88,12 @@ export default {
 </script>
 
 <style scoped>
+a {
+  color: #1c007b;
+}
+.media-right {
+  margin-right: 20%;
+}
 .accessibility-green-tag {
   background-color: #29852a;
   color: #fff;

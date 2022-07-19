@@ -147,6 +147,7 @@ export default {
 }
 
 .loginButton {
+  color: #1c007b !important;
   background-color: #f2f0f7 !important;
   border-color: #1c007b !important;
   border-width: 1.5px !important;

@@ -5,7 +5,6 @@
         :data-testid="beaconId"
         @click="displayResults"
         class="show-more"
-        type="is-primary"
         :title="!display ? 'Show detailed response' : 'Hide detailed response'"
       >
         {{
@@ -154,8 +153,12 @@ export default {
   display: block;
   margin: 0 auto;
   margin-right: 30px;
-  margin-top: -60px;
+  margin-top: -75px;
   margin-bottom: 25px;
+  color: #1c007b;
+  background-color: #f2f0f7 !important;
+  border-color: #1c007b !important;
+  border-width: 1.5px !important;
   /* width: 95%; */
   /* border-top: none; */
   /* border-top-left-radius: 0; */
@@ -164,9 +167,12 @@ export default {
   background: linear-gradient(0deg, rgba(224,224,224,1) 0%, rgba(255,255,255,1) 10%);  */
   /* border-bottom: 5px solid #047eaa; */
 }
-/* .show-more:hover {
-  background-color: #e0e0e0;
-} */
+.show-more:hover {
+  color: white !important;
+  background-color: #1c007b !important;
+  border-color: #1c007b !important;
+  border-width: 1.5px !important;
+}
 .narrow-column {
   width: 15%;
 }
