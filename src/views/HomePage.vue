@@ -1,40 +1,7 @@
 <template>
   <div class="home">
-    <p id="logo" v-if="$route.meta.hideSmallLogo">
-      <router-link to="/">
-        <img
-          class="bigLogo"
-          alt="ELIXIR Beacon Network logo"
-          src="@/assets/beacon-network-logo.png"
-        />
-      </router-link>
-    </p>
-    <div class="container">
-      <component
-        data-testid="component"
-        v-bind:is="componentName"
-        @changeFormToA="setFormToA()"
-        @changeFormToB="setFormToB()"
-        @changeFormToListing="setFormToListing()"
-      ></component>
-      <b-switch v-model="toggleV2" id="v2Switch">
-        {{
-          toggleV2 ? "Beacon v2 search enabled" : "Beacon v2 search disabled"
-        }}
-      </b-switch>
-    </div>
-
-    <div v-if="$route.path === '/results'">
-      <hr id="divider" />
-      <p class="results-disclaimer">
-        Note that Beacon Network is using 1-based coordinates, while Beacons are
-        using 0-based coordinates.<br />
-        An automatic coordinate substraction is made upon a query.<br />
-        <router-link to="/guide"
-          >More information on how to make queries is available in the Beacon
-          Network guide</router-link
-        >.
-      </p>
+    <div class="searchContainer">
+      <component data-testid="component" v-bind:is="componentName"></component>
     </div>
     <router-view />
   </div>
@@ -42,20 +9,15 @@
 
 <script>
 // @ is an alias to /src
-import BasicSearch from "@/components/BasicSearch.vue";
-import AdvancedSearch from "@/components/AdvancedSearch.vue";
-import BasicSearchV2 from "@/components/BasicSearchV2.vue";
-import AdvancedSearchV2 from "@/components/AdvancedSearchV2.vue";
+import search from "@/components/ImagingSearch.vue";
+
 import ListingV2 from "@/components/ListingV2.vue";
 import VueCookies from "vue-cookies";
 
 export default {
   name: "homePage",
   components: {
-    BasicSearch,
-    AdvancedSearch,
-    BasicSearchV2,
-    AdvancedSearchV2,
+    search,
     ListingV2,
   },
   data() {
@@ -63,7 +25,7 @@ export default {
       queryParams: {},
       results: false,
       toggleV2: false,
-      componentName: BasicSearch,
+      componentName: search,
     };
   },
 
@@ -74,38 +36,6 @@ export default {
     },
   },
   methods: {
-    toggleForm: function () {
-      if (this.componentName == BasicSearch) {
-        this.componentName = BasicSearchV2;
-      } else if (this.componentName == BasicSearchV2) {
-        this.componentName = BasicSearch;
-      } else if (this.componentName == AdvancedSearchV2) {
-        this.componentName = AdvancedSearch;
-      } else if (this.componentName == AdvancedSearch) {
-        this.componentName = AdvancedSearchV2;
-      } else if (this.componentName == ListingV2 && !this.toggleV2) {
-        this.componentName = BasicSearch;
-      }
-    },
-    setFormToA: function () {
-      if (this.toggleV2) {
-        this.componentName = AdvancedSearchV2;
-      } else {
-        this.componentName = AdvancedSearch;
-      }
-    },
-    setFormToB: function () {
-      if (this.toggleV2) {
-        this.componentName = BasicSearchV2;
-      } else {
-        this.componentName = BasicSearch;
-      }
-    },
-    setFormToListing: function () {
-      if (this.toggleV2) {
-        this.componentName = ListingV2;
-      }
-    },
     cookieToast: function () {
       // Check if cookies have been accepted, if not, show toast regarding cookies
       if (
@@ -178,6 +108,9 @@ export default {
 </script>
 
 <style scoped>
+.searchContainer {
+  background-color: #1c007b;
+}
 .home {
   flex: 1 0 auto;
 }

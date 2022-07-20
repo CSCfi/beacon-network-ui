@@ -1,81 +1,15 @@
 <template>
-  <section class="container columns results-table">
-    <div class="column is-one-fifth">
-      <p class="subtitle">Filter results</p>
-
-      <b-field grouped group-multiline class="filtered">
-        <div class="field">
-          <b-switch
-            data-testid="hitsButton"
-            v-model="hits"
-            :disabled="response.length < 1"
-            title="Option to show only results and hide other responses"
-            >Hits Only</b-switch
-          >
-        </div>
-
-        <div class="field">
-          <b-switch
-            data-testid="unknownButton"
-            v-model="errors"
-            :disabled="response.length < 1"
-            title="Option to show only results and hide other responses"
-            >Show Unknown</b-switch
-          >
-        </div>
-      </b-field>
-      <p class="subtitle" v-if="beaconV2">Filter by</p>
-      <b-field v-if="beaconV2">
-        <div
-          class="block"
-          v-for="(filter, index) in filteringTerms"
-          :key="index"
-        >
-          <b-table
-            id="filterTable"
-            :data="filter"
-            :columns="columns"
-            detailed
-            hoverable
-            detail-key="label"
-            data-testid="filtersTest"
-            @details-open="
-              (row, index) => $buefy.toast.open(`Expanded ${row.label}`)
-            "
-            :show-detail-icon="showDetailIcon"
-          >
-            <template slot="detail" slot-scope="props">
-              <div v-for="(value, ind) in props.row" :key="ind">
-                <b-checkbox
-                  v-model="filterValue"
-                  :native-value="value"
-                  v-if="ind == 'id'"
-                >
-                  {{ "id: " + value }}
-                </b-checkbox>
-              </div>
-            </template>
-          </b-table>
-          <b-button
-            v-on:click="filterResults(filterValue)"
-            type="is-primary"
-            size="is-medium"
-            data-testid="filterButton"
-            >Apply Filter</b-button
-          >
-          <p class="content"></p>
-          <b-button
-            v-on:click="filterValue = []"
-            type="is-primary"
-            size="is-medium"
-            data-testid="filterResetButton"
-            @details-close="
-              (row, index) => $buefy.toast.close(`Expanded ${row.label}`)
-            "
-            >Reset filters</b-button
-          >
-        </div>
-      </b-field>
+  <section class="container results-table">
+    <div class="column">
+      <span class="resultHeader">Search results for:</span>
+      <span v-for="(item, index) in this.$route.query" :key="index">
+        <span class="resultBox" v-if="typeof item == 'string'">
+          {{ item }}
+        </span>
+        <span class="resultBox" v-else>
+          Age <span v-for="i in item" :key="i"> {{ i }}</span>
+        </span>
+      </span>
     </div>
 
     <div class="column">
@@ -483,6 +417,15 @@ export default {
 </script>
 
 <style scoped>
+.resultHeader {
+  color: #000000;
+}
+.resultBox {
+  background-color: #f2f0f7;
+  color: #1c007b;
+  margin-left: 10px;
+  padding: 10px;
+}
 .results-table {
   margin: 0 auto;
   margin-top: 50px;

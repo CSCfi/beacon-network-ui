@@ -5,6 +5,6 @@ describe("Error page", () => {
   });
   it("can return to homepage", () => {
     cy.get('[data-testid="homeButton"]').click();
-    cy.contains("Advanced Search");
+    cy.contains("Biological species");
   });
 });

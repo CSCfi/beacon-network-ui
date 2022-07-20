@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
-import BasicSearch from "@/components/BasicSearch.vue";
+import ImagingSearch from "@/components/ImagingSearch.vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
@@ -9,7 +9,7 @@ const elem = document.createElement("div");
 if (document.body) {
   document.body.appendChild(elem);
 }
-const wrapper = mount(BasicSearch, {
+const wrapper = mount(ImagingSearch, {
   localVue,
   router,
   attachTo: elem,
@@ -28,7 +28,7 @@ describe("Example search", () => {
     buttonSearch.trigger("click");
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.$route.fullPath).toBe(
-      "/results?searchType=basic&includeDatasetResponses=HIT&assemblyId=GRCh38&referenceName=MT&start=9&referenceBases=T&alternateBases=C"
+      "/results?searchType=basic&searchTerm=test&biologicalSpecies=test&anatomicalSite=test&sex=Male&age=%3C&age=3"
     );
   });
 });

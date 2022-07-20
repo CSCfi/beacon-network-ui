@@ -89,16 +89,6 @@
               </li>
             </ul>
           </div>
-          <div class="column is-one-fifth">
-            <a
-              class="login"
-              href="https://elixir-europe.org/"
-              title="Go to ELIXIR Europe"
-              ><img
-                src="@/assets/elixir-white-orange-logo.png"
-                alt="ELIXIR Europe Logo"
-            /></a>
-          </div>
         </div>
       </div>
     </div>

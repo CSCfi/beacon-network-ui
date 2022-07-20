@@ -29,6 +29,6 @@ describe("Datasets page", () => {
   it("can return to main page", () => {
     cy.get(".navbar-burger").click();
     cy.get('[data-testid="returnToHomeTab"]').click();
-    cy.contains("Advanced Search");
+    cy.contains("Biological species");
   });
 });
