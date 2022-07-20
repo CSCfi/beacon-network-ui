@@ -1,6 +1,6 @@
 import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import VueRouter from "vue-router";
-import BasicSearch from "@/components/search.vue";
+import ImagingSearch from "@/components/ImagingSearch.vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
@@ -9,7 +9,7 @@ const elem = document.createElement("div");
 if (document.body) {
   document.body.appendChild(elem);
 }
-const wrapper = mount(BasicSearch, {
+const wrapper = mount(ImagingSearch, {
   localVue,
   router,
   attachTo: elem,
