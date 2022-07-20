@@ -112,7 +112,7 @@
       <div class="searchButtonField">
         <span>
           <b-button
-            v-on:click="basicSearch()"
+            v-on:click="imagingSearch()"
             type="is-primary"
             size="is-medium"
             data-testid="searchButton"
@@ -145,7 +145,7 @@
 <script>
 import ageSelector from "./AgeSelector.vue";
 export default {
-  name: "BasicSearch",
+  name: "ImagingSearch",
   components: {
     ageSelector,
   },
@@ -179,12 +179,12 @@ export default {
     },
     onSubmit: function () {
       // onSubmit is called when user inputs ENTER on search bar
-      // proxy the event to the basicSearch function
+      // proxy the event to the imagingSearch function
       var vm = this;
-      vm.basicSearch();
+      vm.imagingSearch();
     },
-    basicSearch: function () {
-      // basicSearch is called when user clicks search button
+    imagingSearch: function () {
+      // imagingSearch is called when user clicks search button
       var vm = this;
       vm.errorTooltip = false;
       // Validate user input with regex
