@@ -7,14 +7,12 @@
         $route.path !== '/' && $route.path !== '/results' ? 'borderNav' : null,
       ]"
       :spaced="true"
-      ><template #brand>
-        <div id="logo" v-if="!$route.meta.hideSmallLogo">
-          <router-link to="/">logo here</router-link>
-        </div>
-      </template>
-      <template #start> Logo here </template>
+      transparent
+      ><template #brand> Logo here </template>
+      <template #start> Other spot for logo </template>
       <template #end>
         <b-navbar-item
+          class="navbarButton"
           href="/datasets"
           v-if="$route.path != '/datasets' && $route.path != '/history'"
           data-testid="datasetsButton"
@@ -22,11 +20,17 @@
           Datasets
         </b-navbar-item>
 
-        <b-navbar-item v-else href="/" data-testid="returnToHomeTab">
+        <b-navbar-item
+          class="navbarButton"
+          v-else
+          href="/"
+          data-testid="returnToHomeTab"
+        >
           Return to front page
         </b-navbar-item>
 
         <b-navbar-item
+          class="navbarButton"
           v-if="$route.path != '/history'"
           href="/history"
           data-testid="historyButton"
@@ -35,6 +39,7 @@
         </b-navbar-item>
 
         <b-navbar-item
+          class="navbarButton"
           v-else
           href="/datasets"
           data-testid="datasetsButtonFromHistory"
@@ -42,20 +47,19 @@
           Datasets
         </b-navbar-item>
         <b-navbar-item
-          :href="login_url"
           v-if="!getCookie('logged_in')"
           title="Authenticate at ELIXIR AAI"
+          transparent
         >
-          Login
+          <b-button class="loginButton" :href="login_url">Login</b-button>
         </b-navbar-item>
 
         <b-navbar-item
           v-else
           class="login"
-          :href="logout_url"
           title="Log out from ELIXIR Beacon Network"
         >
-          Log Out
+          <b-button class="loginButton" :href="logout_url">Log Out</b-button>
         </b-navbar-item>
       </template>
     </b-navbar>
@@ -125,7 +129,6 @@ export default {
 }
 
 #nav ~ .home {
-  margin-top: 20px;
 }
 
 .login {
@@ -141,6 +144,22 @@ export default {
 
 .logo {
   height: 80px;
+}
+
+.loginButton {
+  color: #1c007b !important;
+  background-color: #f2f0f7 !important;
+  border-color: #1c007b !important;
+  border-width: 1.5px !important;
+}
+.loginButton:hover {
+  color: white !important;
+  background-color: #1c007b !important;
+  border-color: #1c007b !important;
+  border-width: 1.5px !important;
+}
+.navbarButton {
+  color: #1c007b !important;
 }
 </style>
 
