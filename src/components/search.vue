@@ -330,8 +330,6 @@ select {
   border-color: #000000;
   border-width: 1px;
 }
-.dropDownButtonGroup {
-}
 .container {
   display: flex;
   align-items: center;

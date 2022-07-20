@@ -308,7 +308,6 @@ export default {
       this.$emit("updateAgeOptions", this.ageOpt);
     },
   },
-  beforeMount() {},
 };
 </script>
 

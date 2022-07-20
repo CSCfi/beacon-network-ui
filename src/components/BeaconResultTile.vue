@@ -7,10 +7,7 @@
           <p class="subtitle is-6">{{ data.organization.name }}</p>
         </span>
 
-        <span class="media-content">
-          beacon description testtesttesttesttesttesttesttesttestt
-          esttesttesttesttesttesttesttesttest</span
-        >
+        <span class="media-content"> beacon description</span>
         <span class="media-right">
           <small class="contactInfoBar"
             ><a
