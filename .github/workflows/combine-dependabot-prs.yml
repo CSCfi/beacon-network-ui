@@ -31,7 +31,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/github-script@v3
+      - uses: actions/github-script@v6
         id: fetch-branch-names
         name: Fetch branch names
         with:
@@ -52,16 +52,15 @@ jobs:
                 statusOK = true;
                 if(${{ github.event.inputs.mustBeGreen }}) {
                   console.log('Checking green status: ' + branch);
-                  const statuses = await github.paginate('GET /repos/{owner}/{repo}/commits/{ref}/status', {
+                  const checkRuns = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     ref: branch
                   });
-                  if(statuses.length > 0) {
-                    const latest_status = statuses[0]['state'];
-                    console.log('Validating status: ' + latest_status);
-                    if(latest_status != 'success') {
-                      console.log('Discarding ' + branch + ' with status ' + latest_status);
+                  for await (const cr of checkRuns.data.check_runs) {
+                    console.log('Validating check conclusion: ' + cr.conclusion);
+                    if(cr.conclusion != 'success') {
+                      console.log('Discarding ' + branch + ' with check conclusion ' + cr.conclusion);
                       statusOK = false;
                     }
                   }
@@ -95,7 +94,7 @@ jobs:
             console.log('Combined: ' + combined);
             return combined
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2.3.3
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       # Creates a branch with other PR branches merged together
@@ -121,7 +120,7 @@ jobs:
           git pull origin $sourcebranches --no-edit
           git push origin $COMBINE_BRANCH_NAME
       # Creates a PR with the new combined branch
-      - uses: actions/github-script@v3
+      - uses: actions/github-script@v6
         name: Create Combined Pull Request
         env:
           PRS_STRING: ${{ steps.fetch-branch-names.outputs.prs-string }}
@@ -130,7 +129,7 @@ jobs:
           script: |
             const prString = process.env.PRS_STRING;
             const body = 'This PR was created by the Combine PRs action by combining the following PRs:\n' + prString;
-            await github.pulls.create({
+            await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: 'Combined PR',
