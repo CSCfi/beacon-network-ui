@@ -22,7 +22,7 @@
     "axios": "^0.27.2",
     "buefy": "^0.9.21",
     "bulma": "^0.9.4",
-    "core-js": "^3.24.0",
+    "core-js": "^3.24.1",
     "cypress-localstorage-commands": "^2.2.0",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
