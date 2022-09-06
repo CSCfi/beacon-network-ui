@@ -37,11 +37,11 @@
     "vue": "^2.6.14",
     "vue-cookies": "^1.8.1",
     "vue-material-design-icons": "^5.1.2",
-    "vue-matomo": "^4.1.0",
+    "vue-matomo": "^4.2.0",
     "vue-router": "^3.5.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.9",
+    "@babel/core": "^7.19.0",
     "@cypress/code-coverage": "^3.10.0",
     "@types/jest": "^27.1.1",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
