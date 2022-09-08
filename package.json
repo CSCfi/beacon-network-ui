@@ -43,7 +43,7 @@
   "devDependencies": {
     "@babel/core": "^7.19.0",
     "@cypress/code-coverage": "^3.10.0",
-    "@types/jest": "^27.1.1",
+    "@types/jest": "^29.0.0",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "@vue/babel-preset-app": "^5.0.6",
