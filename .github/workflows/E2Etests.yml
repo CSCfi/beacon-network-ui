@@ -17,7 +17,7 @@ jobs:
           - 5000:5000
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -25,7 +25,7 @@ jobs:
           driver-opts: network=host
 
       - name: Clone backend
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: 'CSCfi/beacon-network'
           ref: 'dev'
@@ -42,7 +42,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Clone beacon 2
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: 'CSCfi/beacon-2.x'
           ref: 'test'
