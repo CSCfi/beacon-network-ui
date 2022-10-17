@@ -31,7 +31,7 @@
     "minimist": "^1.2.7",
     "node-sass": "^7.0.3",
     "prettier": "^2.7.1",
-    "regenerator-runtime": "^0.13.9",
+    "regenerator-runtime": "^0.13.10",
     "sass-loader": "^13.1.0",
     "serve": "^14.0.1",
     "vue": "^2.7.13",
