@@ -16,4 +16,5 @@ updates:
       day: "monday"
     labels:
       - "github actions"
+    target-branch: "dev"
     open-pull-requests-limit: 10
