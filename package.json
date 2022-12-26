@@ -45,7 +45,7 @@
     "@cypress/code-coverage": "^3.10.0",
     "@types/jest": "^27.1.1",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
-    "@typescript-eslint/parser": "^5.46.0",
+    "@typescript-eslint/parser": "^5.47.0",
     "@vue/babel-preset-app": "^5.0.6",
     "@vue/eslint-config-typescript": "^11.0.2",
     "@vue/vue2-jest": "^27.0.0",
