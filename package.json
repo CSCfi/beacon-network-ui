@@ -33,7 +33,7 @@
     "prettier": "^2.8.3",
     "regenerator-runtime": "^0.13.11",
     "sass-loader": "^13.2.0",
-    "serve": "^14.1.2",
+    "serve": "^14.2.0",
     "vue": "^2.7.13",
     "vue-cookies": "^1.8.2",
     "vue-material-design-icons": "^5.1.2",
