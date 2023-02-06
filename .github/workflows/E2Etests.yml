@@ -32,7 +32,7 @@ jobs:
           path: beacon-network
 
       - name: Build Backend
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: ./beacon-network
           push: true
@@ -73,7 +73,7 @@ jobs:
           ./tests/test_files/add_fixtures.sh
 
       - name: Build Frontend
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: .
           build-args: |
