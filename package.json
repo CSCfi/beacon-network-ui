@@ -41,7 +41,7 @@
     "vue-router": "^3.6.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
+    "@babel/core": "^7.21.0",
     "@cypress/code-coverage": "^3.10.0",
     "@types/jest": "^27.1.1",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
