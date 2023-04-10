@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
-    "@cypress/code-coverage": "^3.10.1",
+    "@cypress/code-coverage": "^3.10.3",
     "@types/jest": "^27.1.1",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.1",
