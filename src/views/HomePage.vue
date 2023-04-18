@@ -15,6 +15,7 @@
         v-bind:is="componentName"
         @changeFormToA="setFormToA()"
         @changeFormToB="setFormToB()"
+        @changeFormToGene="setFormToGene()"
         @changeFormToListing="setFormToListing()"
       ></component>
       <b-switch v-model="toggleV2" id="v2Switch">
@@ -46,6 +47,7 @@ import BasicSearch from "@/components/BasicSearch.vue";
 import AdvancedSearch from "@/components/AdvancedSearch.vue";
 import BasicSearchV2 from "@/components/BasicSearchV2.vue";
 import AdvancedSearchV2 from "@/components/AdvancedSearchV2.vue";
+import gene from "@/components/GeneSearch.vue";
 import ListingV2 from "@/components/ListingV2.vue";
 import VueCookies from "vue-cookies";
 
@@ -57,6 +59,7 @@ export default {
     BasicSearchV2,
     AdvancedSearchV2,
     ListingV2,
+    gene,
   },
   data() {
     return {
@@ -85,6 +88,8 @@ export default {
         this.componentName = AdvancedSearchV2;
       } else if (this.componentName == ListingV2 && !this.toggleV2) {
         this.componentName = BasicSearch;
+      } else if (this.componentName == gene) {
+        this.componentName = BasicSearch;
       }
     },
     setFormToA: function () {
@@ -100,6 +105,9 @@ export default {
       } else {
         this.componentName = BasicSearch;
       }
+    },
+    setFormToGene: function () {
+      this.componentName = gene;
     },
     setFormToListing: function () {
       if (this.toggleV2) {

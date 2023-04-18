@@ -52,6 +52,14 @@
       <span class="field has-addons" id="basicSearch">
         <p class="control">
           <b-button
+            data-testid="advanced"
+            @click="changeFormToGene()"
+            title="Switch to the gene search"
+            >Gene Search</b-button
+          >
+        </p>
+        <p class="control">
+          <b-button
             data-testid="basic"
             @click="changeSearchForm"
             title="Switch back to the basic search bar"
@@ -94,6 +102,9 @@ export default {
     },
     changeSearchForm: function () {
       this.$emit("changeFormToB");
+    },
+    changeFormToGene: function () {
+      this.$emit("changeFormToGene");
     },
     validateInput: function () {
       this.errorMessages = [];

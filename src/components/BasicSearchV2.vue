@@ -79,12 +79,19 @@
           >Example variant query</b-button
         ></span
       >
-
       <span class="field has-addons" id="advancedSearch">
         <p class="control">
           <b-button
             data-testid="advanced"
-            @click="changeFormToA()"
+            @click="changeFormToGene()"
+            title="Switch to the gene search"
+            >Gene Search</b-button
+          >
+        </p>
+        <p class="control">
+          <b-button
+            data-testid="advanced"
+            @click="changeFormToAdvanced()"
             title="Switch to the advanced search form which has more options"
             >Advanced Search</b-button
           >
@@ -142,7 +149,10 @@ export default {
     changeFormToListing: function () {
       this.$emit("changeFormToListing");
     },
-    changeFormToA: function () {
+    changeFormToGene: function () {
+      this.$emit("changeFormToGene");
+    },
+    changeFormToAdvanced: function () {
       this.$emit("changeFormToA");
     },
     onSubmit: function () {
