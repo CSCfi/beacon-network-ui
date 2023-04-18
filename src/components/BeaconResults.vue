@@ -122,39 +122,46 @@
           ></BeaconResultTile>
         </section>
         <!-- beaconV2 tile -->
-        <section v-if="checkIfV2(resp) && resp.response.exists">
+        <section v-if="checkIfV2(resp) && resp.responseSummary.exists">
           <BeaconResultTile
             :title="'Response from Beacon ' + resp.meta.beaconId"
             :key="resp.meta.beaconId"
-            :exists="resp.response.exists"
+            :exists="resp.responseSummary.exists"
             v-bind:beaconId="resp.meta.beaconId"
           ></BeaconResultTile>
           <div
-            v-if="resp.response.results && resp.response.numTotalResults > 0"
+            v-if="
+              resp.responseSummary.results &&
+              resp.responseSummary.numTotalResults > 0
+            "
           >
             <BeaconResultTileDetailsV2
               :key="resp.meta.beaconId"
-              v-bind:results="resp.response.results"
+              v-bind:results="resp.responseSummary.results"
               :beaconId="resp.meta.beaconId"
               :beaconVersion="2"
             ></BeaconResultTileDetailsV2>
           </div>
         </section>
         <section
-          v-if="checkIfV2(resp) && resp.response.exists == false && !hits"
+          v-if="
+            checkIfV2(resp) && resp.responseSummary.exists == false && !hits
+          "
         >
           <BeaconResultTile
             :key="resp.meta.beaconId"
-            :exists="resp.response.exists"
+            :exists="resp.responseSummary.exists"
             v-bind:beaconId="resp.meta.beaconId"
           ></BeaconResultTile>
         </section>
         <section
-          v-if="checkIfV2(resp) && resp.response.exists == null && errors"
+          v-if="
+            checkIfV2(resp) && resp.responseSummary.exists == null && errors
+          "
         >
           <BeaconResultTile
             :key="resp.meta.beaconId"
-            :exists="resp.response.exists"
+            :exists="resp.responseSummary.exists"
             v-bind:beaconId="resp.meta.beaconId"
           ></BeaconResultTile>
         </section>
@@ -250,15 +257,6 @@ export default {
         return true;
       }
 
-      return false;
-    },
-    checkIfV2Inresponse: function () {
-      this.response.forEach((response) => {
-        if (response.meta != undefined) {
-          console.log("here");
-          return true;
-        }
-      });
       return false;
     },
     getErrorBeaconId: function (response) {
@@ -392,7 +390,9 @@ export default {
         return true;
       } else if (
         this.response.find(
-          (resp) => resp.response !== undefined && resp.response.exists === true
+          (resp) =>
+            resp.responseSummary !== undefined &&
+            resp.responseSummary.exists === true
         )
       ) {
         this.notFound = false;
@@ -478,6 +478,7 @@ export default {
   beforeMount() {
     this.queryAPI();
     this.setSearchToLocaStorage();
+    console.log(this.response);
   },
 };
 </script>
