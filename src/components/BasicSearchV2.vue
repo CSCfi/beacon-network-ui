@@ -82,7 +82,7 @@
       <span class="field has-addons" id="advancedSearch">
         <p class="control">
           <b-button
-            data-testid="advanced"
+            data-testid="gene"
             @click="changeFormToGene()"
             title="Switch to the gene search"
             >Gene Search</b-button
