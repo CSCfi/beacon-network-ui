@@ -258,7 +258,6 @@ export default {
       axios
         .get(url)
         .then((resp) => {
-          console.log(resp);
           vm.beacon = resp.data;
         })
         .catch((err) => {
