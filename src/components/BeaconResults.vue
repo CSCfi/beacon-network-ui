@@ -311,7 +311,7 @@ export default {
         queryParamsString +=
           key + "=" + encodeURIComponent(queryParamsObj[key]);
       }
-      queryParamsString += "&filters=filter";
+
       // Create websocket
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
       websocket.onopen = function () {
