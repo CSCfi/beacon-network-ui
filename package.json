@@ -34,7 +34,7 @@
     "regenerator-runtime": "^0.13.11",
     "sass-loader": "^13.3.2",
     "serve": "^14.2.0",
-    "vue": "^2.7.13",
+    "vue": "^3.3.4",
     "vue-cookies": "^1.8.3",
     "vue-material-design-icons": "^5.2.0",
     "vue-matomo": "^4.2.0",
